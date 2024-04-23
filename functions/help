@@ -1,0 +1,83 @@
+#!/usr/bin/env dash
+#
+# Copyright (C) 2024 Maria Lisina
+# Copyright (C) 2024 Danil Lisin
+
+help_text="$(echo "<b>Sekoohaka Bot</b>" \
+    "\n\n<b>Fields descriptions:</b>" \
+    "\n[command] - Inline command" \
+    "\n[b] - Image board" \
+    "\n[page] - Search page number" \
+    "\n[options] - Search options" \
+    "\n[tags] - Search tags" \
+    "\n[name] - Search pool or tag name" \
+    "\n[id] - Post ID" \
+    "\n[query] - Inline query" \
+    "\n[login] - Image board login" \
+    "\n[key] - Image board API key or password" \
+    "\n\n<b>Inline commands:</b>" \
+    "\nhelp - Send this message" \
+    "\nl [b] [page] [options] [name] - Pool search" \
+    "\np [b] [page] [options] [tags] - Post search" \
+    "\nt [b] [page] [options] [name] - Tag search" \
+    "\noriginal [b] [id] - Get original file of post" \
+    "\npost [b] [id] - Get infromation of post" \
+    "\nshort [query] - Create inline shortcut" \
+    "\nshorts - List saved inline shortcuts" \
+    "\n\n<b>Search options:</b>" \
+    "\na - Enable autopaging (lpt)" \
+    "\nm - Show more metadata (p)" \
+    "\np - Show gif/video as preview only (p)" \
+    "\nq - Add quick buttons (lpt)" \
+    "\n\n<b>Commands:</b>" \
+    "\n/help - Send this message" \
+    "\n/authorize [b] [login] [key] - Authorize to image board" \
+    "\n/original [b] [id] - Get original file of post" \
+    "\n/post [b] [id] - Get infromation of post" \
+    "\n/short [query] - Create inline shortcut" \
+    "\n/shorts - Manage saved shortcuts" \
+    "\n/stop - Remove all your data" \
+    "\n\n<b>Inline examples:</b>" \
+    "\np d -mq sakurada_shiro" \
+    "\nt d *genshin*" \
+    "\noriginal d 5080413" \
+    "\nshort p d 1 -amq rating:g blue_archive" \
+    "\n\n<b>Supported image boards:</b>")"
+
+for ib_board in ${ascii_table}
+do
+    unset ib_name ib_config ib_features
+    . "${functions}/ib_config"
+    . "${functions}/ib_authconfig"
+
+    if [ -n "${ib_name}" ]
+    then
+        help_text="$(printf "%s\n%c - %s" "${help_text}" "${ib_board}" "${ib_name}")"
+
+        for ib_mode in ${ascii_table}
+        do
+            . "${functions}/ib_config"
+
+            if [ -z "${output_text}" ]
+            then
+                ib_features="${ib_features}${ib_mode}"
+            fi
+
+            unset output_text
+        done
+
+        if [ -n "${ib_config}" ]
+        then
+            help_text="$(printf "%s (authorize)" "${help_text}")"
+        fi
+
+        if [ -n "${ib_features}" ]
+        then
+            help_text="$(printf "%s (%s)" "${help_text}" "${ib_features}")"
+        fi
+    fi
+
+    unset output_text
+done
+
+output_text="${help_text}"

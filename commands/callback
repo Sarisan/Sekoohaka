@@ -1,0 +1,149 @@
+#!/usr/bin/env dash
+#
+# Copyright (C) 2024 Maria Lisina
+# Copyright (C) 2024 Danil Lisin
+
+set -- $(jq -r '.callback_query.data' "${update}")
+
+if [ -n "${1}" ]
+then
+    case "${1}" in
+        ("short")
+            command_short=0
+        ;;
+        ("reset")
+            command_reset=0
+        ;;
+        ("stop")
+            command_stop=0
+        ;;
+        (*)
+            exit 0
+        ;;
+    esac
+
+    shift
+else
+    exit 0
+fi
+
+query_id="$(jq -r '.callback_query.id' "${update}")"
+
+if [ -n "${command_short}" ]
+then
+    user_id="$(jq -r '.callback_query.from.id' "${update}")"
+    short_config="${config}/${user_id}/short"
+
+    if [ -n "${1}" ]
+    then
+        short_query="${@}"
+        shift ${#}
+    else
+        notification_text="You must specify the query"
+    fi
+
+    until mkdir "${config}/${user_id}_short.lock" > /dev/null 2>&1
+    do
+        sleep 1
+    done
+
+    if [ -z "${notification_text}" ] && ! mkdir -p "${short_config}"
+    then
+        notification_text="Failed to create user config"
+    fi
+
+    if [ -z "${notification_text}" ]
+    then
+        if short="$(grep -lrx "${short_query}" "${short_config}")"
+        then
+            rm -f "${short}"
+            notification_text="Removed shortcut"
+        else
+            set -- $(ls -x "${short_config}")
+
+            if [ ${#} -le 50 ]
+            then
+                printf "%s" "${short_query}" > "${short_config}/$(date +%s)${query_id}"
+                notification_text="Saved shortcut"
+            else
+                notification_text="Too many shortcuts"
+            fi
+        fi
+    fi
+
+    rm -fr "${config}/${user_id}_short.lock"
+fi
+
+if [ -n "${command_reset}" ]
+then
+    user_id="$(jq -r '.callback_query.from.id' "${update}")"
+
+    if mkdir "${config}/${user_id}_reset.lock" > /dev/null 2>&1
+    then
+        notification_text="Click again to confirm shortcuts removing"
+    fi
+
+    if [ -z "${notification_text}" ]
+    then
+        short_config="${config}/${user_id}/short"
+
+        until mkdir "${config}/${user_id}_short.lock" > /dev/null 2>&1
+        do
+            sleep 1
+        done
+
+        if rm -fr "${short_config}"
+        then
+            notification_text="Removed all shortcuts"
+        else
+            notification_text="Something went wrong, try again later"
+        fi
+
+        rm -fr "${config}/${user_id}_short.lock"
+        rm -fr "${config}/${user_id}_reset.lock"
+    fi
+fi
+
+if [ -n "${command_stop}" ]
+then
+    user_id="$(jq -r '.callback_query.from.id' "${update}")"
+
+    if mkdir "${config}/${user_id}_stop.lock" > /dev/null 2>&1
+    then
+        notification_text="Click again to confirm data removing"
+    fi
+
+    if [ -z "${notification_text}" ]
+    then
+        locks="auth short"
+
+        for lock in ${locks}
+        do
+            until mkdir "${config}/${user_id}_${lock}.lock" > /dev/null 2>&1
+            do
+                sleep 1
+            done
+        done
+
+        if rm -fr "${config}/${user_id}"
+        then
+            notification_text="Removed all your data"
+        else
+            notification_text="Something went wrong, try again later"
+        fi
+
+        for lock in ${locks}
+        do
+            rm -fr "${config}/${user_id}_${lock}.lock"
+        done
+
+        rm -fr "${config}/${user_id}_stop.lock"
+    fi
+fi
+
+curl --data-urlencode "callback_query_id=${query_id}" \
+    --data-urlencode "text=${notification_text}" \
+    --data-urlencode "cache_time=0" \
+    --get \
+    --silent \
+    "${address}/bot${token}/answerCallbackQuery" > /dev/null

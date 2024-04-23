@@ -1,0 +1,7 @@
+#!/usr/bin/env dash
+#
+# Copyright (C) 2024 Maria Lisina
+# Copyright (C) 2024 Danil Lisin
+
+find "${cache}" -type f -mmin +5 -delete > /dev/null 2>&1
+find "${config}" -name "*.lock" -type d -mmin +1 -delete > /dev/null 2>&1

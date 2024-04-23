@@ -1,0 +1,345 @@
+#!/usr/bin/env dash
+#
+# Copyright (C) 2024 Maria Lisina
+# Copyright (C) 2024 Danil Lisin
+
+set -- $(jq -r '.inline_query.query' "${update}")
+
+if [ -n "${1}" ]
+then
+    case "${1}" in
+        ("help")
+            inline_help=0
+        ;;
+        ("original")
+            inline_original=0
+        ;;
+        ("post")
+            inline_post=0
+        ;;
+        ("short")
+            inline_short=0
+        ;;
+        ("shorts")
+            inline_shorts=0
+        ;;
+        (*)
+            exit 0
+        ;;
+    esac
+
+    shift
+else
+    user_id="$(jq -r '.inline_query.from.id' "${update}")"
+    short_config="${config}/${user_id}/short"
+
+    until mkdir "${config}/${user_id}_short.lock" > /dev/null 2>&1
+    do
+        sleep 1
+    done
+
+    if [ -d "${short_config}" ]
+    then
+        shorts="$(ls -x "${short_config}")"
+    fi
+
+    if [ -n "${shorts}" ]
+    then
+        inline_shorts=0
+    else
+        inline_help=0
+    fi
+
+    rm -fr "${config}/${user_id}_short.lock"
+fi
+
+query_id="$(jq -r '.inline_query.id' "${update}")"
+
+if [ -n "${inline_help}" ]
+then
+    . "${functions}/help"
+
+    results="$(jq --null-input --compact-output \
+        --arg id "${query_id}" \
+        --arg title "Sekoohaka Bot" \
+        --arg text "${output_text}" \
+        --arg description "Click to send help message" \
+        '[{"type": "article", "id": $id, "title": $title, "input_message_content": {"message_text": $text, "parse_mode": "HTML"}, "description": $description}]')"
+fi
+
+if [ -n "${inline_original}" ] || [ -n "${inline_post}" ]
+then
+    if [ -n "${1}" ]
+    then
+        user_id="$(jq -r '.inline_query.from.id' "${update}")"
+
+        ib_board="${1}"
+        ib_mode="p"
+        . "${functions}/ib_config"
+        . "${functions}/ib_authconfig"
+
+        shift
+    else
+        output_text="You must specify the image board"
+    fi
+
+    if [ -n "${1}" ]
+    then
+        ib_post_id="${1}"
+        shift
+    elif [ -z "${output_text}" ]
+    then
+        output_text="You must specify the post ID"
+    fi
+
+    if [ -n "${output_text}" ]
+    then
+        output_title="An error occurred"
+    fi
+
+    if [ -z "${output_text}" ] && [ -n "${ib_config}" ]
+    then
+        ib_lock=0
+        . "${functions}/ib_token"
+
+        if [ -n "${output_text}" ]
+        then
+            output_title="${output_text}"
+            output_text="Try again in a few seconds"
+        fi
+    fi
+
+    if [ -z "${output_text}" ]
+    then
+        if [ -n "${ib_exception_idol}" ]
+        then
+            ib_query="id_range:${ib_post_id}"
+        else
+            ib_query="id:${ib_post_id}"
+        fi
+
+        ib_file="${cache}/${update_id}_data.json"
+
+        if ! curl --data-urlencode "${ib_dfield1}" \
+            --data-urlencode "${ib_dfield2}" \
+            --data-urlencode "${ib_dfield3}" \
+            --data-urlencode "${ib_dfield4}" \
+            --data-urlencode "${ib_dfield5}" \
+            --data-urlencode "${ib_dfield6}" \
+            --data-urlencode "${ib_dlimit}=1" \
+            --data-urlencode "${ib_dquery}=${ib_query}" \
+            --get \
+            --header "${ib_header}" \
+            --max-time 5 \
+            --output "${ib_file}" \
+            --proxy "${proxy}" \
+            --silent \
+            --user-agent "Sekoohaka" \
+            "${ib_data_url}"
+        then
+            output_text="Failed to access ${ib_name} API"
+        fi
+
+        if [ -z "${output_text}" ] && ! [ -f "${ib_file}" ]
+        then
+            output_text="Failed to access ${ib_name} API"
+        fi
+
+        if [ -z "${output_text}" ] && ! jq -e '.' "${ib_file}" > /dev/null 2>&1
+        then
+            output_text="An unknown error occurred"
+        fi
+
+        if [ -n "${output_text}" ]
+        then
+            output_title="An error occurred"
+        fi
+
+        if [ -z "${output_text}" ] && ! jq -e ".${ib_iarray}[0]|has(\"${ib_iid}\")" "${ib_file}" > /dev/null 2>&1
+        then
+            output_title="No results found"
+            output_text="Try different post ID"
+        fi
+    fi
+
+    if [ -z "${output_text}" ]
+    then
+        if [ -n "${inline_original}" ]
+        then
+            . "${functions}/ib_original"
+
+            if [ -n "${output_text}" ]
+            then
+                results="$(jq --null-input --compact-output \
+                    --arg id "${query_id}" \
+                    --arg title "An error occurred" \
+                    --arg text "${output_text}" \
+                    --arg description "${output_text}" \
+                    '[{"type": "article", "id": $id, "title": $title, "input_message_content": {"message_text": $text}, "description": $description}]')"
+            else
+                results="$(jq --null-input --compact-output \
+                    --arg id "${query_id}" \
+                    --arg title "Original file of post ${ib_post_id}" \
+                    --arg document_url "${ib_file_url}" \
+                    --arg description "Click to send the original file" \
+                    --arg thumbnail_url "${ib_preview_url}" \
+                    '[{"type": "document", "id": $id, "title": $title, "document_url": $document_url, "mime_type": "application/zip", "description": $description, "thumbnail_url", $thumbnail_url}]')"
+            fi
+
+            if [ -n "${ib_file_url}" ] && [ "${ib_file_url}" != "null" ]
+            then
+                results="$(printf "%s" "${results}" | jq --compact-output \
+                    --arg text1 "Original file link" \
+                    --arg url1 "${ib_file_url}" \
+                    '.[0] += {"reply_markup": {"inline_keyboard": [[{"text": $text1, "url": $url1}]]}}')"
+            fi
+        elif [ -n "${inline_post}" ]
+        then
+            . "${functions}/ib_post"
+
+            results="$(jq --null-input --compact-output \
+                --arg id "${query_id}" \
+                --arg title "Information of post ${ib_post_id}" \
+                --arg text "${output_text}" \
+                --arg url "${ib_sample_url}" \
+                --arg text1 "Post link" \
+                --arg url1 "${ib_page_url}$(printf "%s" "${ib_post_id}" | urlencode)" \
+                --arg description "Click to send the post information" \
+                --arg thumbnail_url "${ib_preview_url}" \
+                '[{"type": "article", "id": $id, "title": $title, "input_message_content": {"message_text": $text, "parse_mode": "HTML", "link_preview_options": {"url": $url, "prefer_small_media": true, "show_above_text": true}}, "reply_markup": {"inline_keyboard": [[{"text": $text1, "url": $url1}]]}, "description": $description, "thumbnail_url": $thumbnail_url}]')"
+
+            if [ ${ib_tags_count} -gt 0 ]
+            then
+                results="$(printf "%s" "${results}" | jq --compact-output \
+                    --arg text1 "Tags (${ib_tags_count})" \
+                    --arg data1 "tags ${ib_board} ${ib_post_id}" \
+                    '.[0].reply_markup.inline_keyboard[0] += [{"text": $text1, "callback_data": $data1}]')"
+            fi
+        fi
+    else
+        results="$(jq --null-input --compact-output \
+            --arg id "${query_id}" \
+            --arg title "${output_title}" \
+            --arg text "${output_text}" \
+            --arg description "${output_text}" \
+            '[{"type": "article", "id": $id, "title": $title, "input_message_content": {"message_text": $text}, "description": $description}]')"
+
+        if [ -n "${inline_post}" ]
+        then
+            results="$(printf "%s" "${results}" | jq --compact-output \
+                --arg text1 "Retry" \
+                --arg data1 "post ${ib_board} ${ib_post_id}" \
+                '.[0] += {"reply_markup": {"inline_keyboard": [[{"text": $text1, "callback_data": $data1}]]}}')"
+        fi
+    fi
+fi
+
+if [ -n "${inline_short}" ]
+then
+    if [ -n "${1}" ]
+    then
+        short_query="${@}"
+        shift ${#}
+    else
+        output_title="An error occurred"
+        output_text="You must specify the query"
+    fi
+
+    if [ ${#short_query} -gt 1024 ]
+    then
+        output_title="An error occurred"
+        output_text="Query is too long"
+    fi
+
+    if [ -z "${output_text}" ]
+    then
+        results="$(jq --null-input --compact-output \
+            --arg id "${query_id}" \
+            --arg title "Shortcut" \
+            --arg text "<b>Shortcut:</b> <code>$(printf "%s" "${short_query}" | htmlescape)</code>" \
+            --arg text1 "Open inline" \
+            --arg query1 "${short_query}" \
+            --arg description "${short_query}" \
+            '[{"type": "article", "id": $id, "title": $title, "input_message_content": {"message_text": $text, "parse_mode": "HTML"}, "reply_markup": {"inline_keyboard": [[{"text": $text1, "switch_inline_query_current_chat": $query1}]]}, "description": $description}]')"
+
+        short_query="short ${short_query}"
+
+        if [ ${#short_query} -le 64 ]
+        then
+            results="$(printf "%s" "${results}" | jq --compact-output \
+                --arg text1 "Manage" \
+                --arg data1 "${short_query}" \
+                '.[0].reply_markup.inline_keyboard[0] += [{"text": $text1, "callback_data": $data1}]')"
+        fi
+    else
+        results="$(jq --null-input --compact-output \
+            --arg id "${query_id}" \
+            --arg title "${output_title}" \
+            --arg text "${output_text}" \
+            --arg description "${output_text}" \
+            '[{"type": "article", "id": $id, "title": $title, "input_message_content": {"message_text": $text}, "description": $description}]')"
+    fi
+fi
+
+if [ -n "${inline_shorts}" ]
+then
+    user_id="$(jq -r '.inline_query.from.id' "${update}")"
+    short_config="${config}/${user_id}/short"
+
+    until mkdir "${config}/${user_id}_short.lock" > /dev/null 2>&1
+    do
+        sleep 1
+    done
+
+    if [ -d "${short_config}" ]
+    then
+        shorts="$(ls -xt "${short_config}")"
+    fi
+
+    if [ -z "${shorts}" ]
+    then
+        output_title="An error occurred"
+        output_text="No shortcuts found"
+    fi
+
+    if [ -z "${output_text}" ]
+    then
+        results=[]
+        array_count=0
+
+        for short in ${shorts}
+        do
+            short_query="$(cat "${short_config}/${short}")"
+
+            result="$(jq --null-input --compact-output \
+                --arg id "${array_count}" \
+                --arg title "Shortcut" \
+                --arg text "<b>Shortcut:</b> <code>$(printf "%s" "${short_query}" | htmlescape)</code>" \
+                --arg text1 "Open inline" \
+                --arg query1 "${short_query}" \
+                --arg text2 "Manage" \
+                --arg data2 "short ${short_query}" \
+                --arg description "${short_query}" \
+                '{"type": "article", "id": $id, "title": $title, "input_message_content": {"message_text": $text, "parse_mode": "HTML"}, "reply_markup": {"inline_keyboard": [[{"text": $text1, "switch_inline_query_current_chat": $query1}, {"text": $text2, "callback_data": $data2}]]}, "description": $description}')"
+
+            results="$(printf "%s" "${results}" | jq -c ".[${array_count}] += ${result}")"
+            array_count=$((array_count + 1))
+        done
+    else
+        results="$(jq --null-input --compact-output \
+            --arg id "${query_id}" \
+            --arg title "${output_title}" \
+            --arg text "${output_text}" \
+            --arg description "${output_text}" \
+            '[{"type": "article", "id": $id, "title": $title, "input_message_content": {"message_text": $text}, "description": $description}]')"
+    fi
+
+    rm -fr "${config}/${user_id}_short.lock"
+fi
+
+curl --data-urlencode "inline_query_id=${query_id}" \
+    --data-urlencode "results=${results}" \
+    --data-urlencode "cache_time=0" \
+    --get \
+    --silent \
+    "${address}/bot${token}/answerInlineQuery" > /dev/null

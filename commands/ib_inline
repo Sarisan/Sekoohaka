@@ -1,0 +1,443 @@
+#!/usr/bin/env dash
+#
+# Copyright (C) 2024 Maria Lisina
+# Copyright (C) 2024 Danil Lisin
+
+set -- $(jq -r '.inline_query.query' "${update}")
+
+if [ -n "${1}" ]
+then
+    ib_mode="${1}"
+
+    case "${ib_mode}" in
+        (l)
+            ib_opts="aq"
+        ;;
+        (p)
+            ib_opts="ampq"
+        ;;
+        (t)
+            ib_opts="aq"
+        ;;
+        (*)
+            exit 0
+        ;;
+    esac
+
+    shift
+else
+    exit 0
+fi
+
+query_id="$(jq -r '.inline_query.id' "${update}")"
+
+if [ -n "${1}" ]
+then
+    user_id="$(jq -r '.inline_query.from.id' "${update}")"
+
+    ib_board="${1}"
+    . "${functions}/ib_config"
+    . "${functions}/ib_authconfig"
+
+    shift
+else
+    output_text="You must specify the image board"
+fi
+
+if test "${1}" -gt 0 > /dev/null 2>&1
+then
+    ib_page="${1}"
+    shift
+else
+    ib_page="1"
+    set -- -a ${@}
+fi
+
+if [ -z "${output_text}" ] && [ -n "${1}" ]
+then
+    ib_options="${@}"
+
+    while getopts ${ib_opts} ib_getopts > /dev/null 2>&1
+    do
+        case "${ib_getopts}" in
+            (a)
+                ib_autopaging=0
+            ;;
+            (m)
+                ib_metadata=0
+            ;;
+            (p)
+                ib_preview=0
+            ;;
+            (q)
+                ib_quick=0
+            ;;
+            (*)
+                output_text="Illegal option use"
+            ;;
+        esac
+    done
+
+    shift $((OPTIND - 1))
+fi
+
+if [ -n "${1}" ]
+then
+    ib_query="${@}"
+    shift ${#}
+fi
+
+if [ -n "${output_text}" ]
+then
+    output_title="An error occurred"
+fi
+
+if [ -z "${output_text}" ] && [ -n "${ib_config}" ]
+then
+    ib_lock=0
+    . "${functions}/ib_token"
+
+    if [ -n "${output_text}" ]
+    then
+        output_title="${output_text}"
+        output_text="Try again in a few seconds"
+    fi
+fi
+
+if [ -z "${output_text}" ]
+then
+    ib_offset="$(jq -r '.inline_query.offset' "${update}")"
+
+    if [ -n "${ib_offset}" ] && [ "${ib_offset}" != "null" ]
+    then
+        ib_page="${ib_offset}"
+    fi
+
+    if [ -n "${ib_query}" ]
+    then
+        if [ -n "${ib_iwildcard}" ]
+        then
+            ib_query="$(printf "%s" "${ib_query}" | sed "s/${ib_iwildcard}/\\\\${ib_iwildcard}/g" | tr '*' "${ib_iwildcard}")"
+        fi
+
+        ib_query="${ib_dquery}=${ib_query}"
+    fi
+
+    ib_file="${cache}/${update_id}_data.json"
+
+    if ! curl --data-urlencode "${ib_dfield1}" \
+        --data-urlencode "${ib_dfield2}" \
+        --data-urlencode "${ib_dfield3}" \
+        --data-urlencode "${ib_dfield4}" \
+        --data-urlencode "${ib_dfield5}" \
+        --data-urlencode "${ib_dfield6}" \
+        --data-urlencode "${ib_dlimit}=10" \
+        --data-urlencode "${ib_dpage}=$((ib_page + ib_ioffset))" \
+        --data-urlencode "${ib_query}" \
+        --get \
+        --header "${ib_header}" \
+        --max-time 5 \
+        --output "${ib_file}" \
+        --proxy "${proxy}" \
+        --silent \
+        --user-agent "Sekoohaka" \
+        "${ib_data_url}"
+    then
+        output_text="Failed to access ${ib_name} API"
+    fi
+
+    if [ -z "${output_text}" ] && ! [ -f "${ib_file}" ]
+    then
+        output_text="Failed to access ${ib_name} API"
+    fi
+
+    if [ -n "${output_text}" ]
+    then
+        next_offset="${ib_page}"
+    fi
+
+    if [ -z "${output_text}" ] && ! jq -e '.' "${ib_file}" > /dev/null 2>&1
+    then
+        output_text="An unknown error occurred"
+    fi
+
+    if [ -n "${output_text}" ]
+    then
+        output_title="An error occurred"
+    fi
+
+    if [ -z "${output_text}" ] && ! jq -e ".${ib_iarray}[0]|has(\"${ib_iid}\")" "${ib_file}" > /dev/null 2>&1
+    then
+        if [ -n "${ib_offset}" ] && [ "${ib_offset}" != "null" ]
+        then
+            output_title="End of results"
+        else
+            output_title="No results found"
+        fi
+
+        case "${ib_mode}" in
+            (l)
+                output_text="Try different page or pool name"
+            ;;
+            (p)
+                output_text="Try different page or tags"
+            ;;
+            (t)
+                output_text="Try different page or tag name"
+            ;;
+        esac
+    fi
+fi
+
+if [ -z "${output_text}" ]
+then
+    results="[]"
+    array_count=0
+
+    while [ -n "${array_count}" ]
+    do
+        ib_id="$(jq -r ".${ib_iarray}[${array_count}].${ib_iid}" "${ib_file}")"
+
+        if [ "${ib_id}" = "null" ]
+        then
+            break
+        fi
+
+        case "${ib_mode}" in
+            (l)
+                ib_created_at="$(jq -r ".${ib_iarray}[${array_count}].${ib_icreated}" "${ib_file}")"
+                ib_pool="$(jq -r ".${ib_iarray}[${array_count}].${ib_ipool}" "${ib_file}")"
+                ib_count="$(jq -r ".${ib_iarray}[${array_count}].${ib_icount}" "${ib_file}")"
+
+                unset ib_date_text
+                . "${functions}/ib_date"
+
+                if [ -n "${ib_ispace}" ]
+                then
+                    ib_pool="$(printf "%s" "${ib_pool}" | tr "${ib_ispace}" ' ')"
+                fi
+
+                ib_result_id="${ib_page}${array_count}"
+                ib_text="$(printf "<b>%s</b>\n<b>ID:</b> <code>%s</code>" "${ib_name}" "${ib_id}")"
+
+                if [ -n "${ib_date_text}" ]
+                then
+                    ib_text="$(printf "%s\n<b>Date:</b> <code>%s</code>" "${ib_text}" "${ib_date_text}")"
+                fi
+
+                ib_text="$(printf "%s\n<b>Name:</b> %s" "${ib_text}" "$(printf "%s" "${ib_pool}" | htmlescape)")"
+                ib_text="$(printf "%s\n<b>Post count:</b> %s" "${ib_text}" "${ib_count}")"
+                ib_button1_text="Pool link"
+                ib_button1_url="${ib_page_url}$(printf "%s" "${ib_id}" | urlencode)"
+                ib_button2_text="Resume"
+                ib_button2_query="l ${ib_board} ${ib_page}"
+
+                if [ -n "${ib_options}" ]
+                then
+                    ib_button2_query="${ib_button2_query} ${ib_options}"
+                fi
+
+                result="$(jq --null-input --compact-output \
+                    --arg id "${ib_result_id}" \
+                    --arg title "${ib_pool:- }" \
+                    --arg text "${ib_text}" \
+                    --arg description "Click to send the pool information" \
+                    --arg text1 "${ib_button1_text}" \
+                    --arg url1 "${ib_button1_url}" \
+                    --arg text2 "${ib_button2_text}" \
+                    --arg query2 "${ib_button2_query}" \
+                    '{"type": "article", "id": $id, "title": $title, "input_message_content": {"message_text": $text, "parse_mode": "HTML"}, "description": $description, "reply_markup": {"inline_keyboard": [[{"text": $text1, "url": $url1}, {"text": $text2, "switch_inline_query_current_chat": $query2}]]}}')"
+
+                if [ -n "${ib_quick}" ]
+                then
+                    if [ -n "${ib_iorder}" ]
+                    then
+                        ib_id="${ib_id} ${ib_iorder}"
+                    fi
+
+                    result="$(printf "%s" "${result}" | jq --compact-output \
+                        --arg text1 "Search posts" \
+                        --arg query1 "p ${ib_board} pool:${ib_id}" \
+                        '.reply_markup.inline_keyboard += [[{"text": $text1, "switch_inline_query_current_chat": $query1}]]')"
+                fi
+            ;;
+            (p)
+                ib_created_at="$(jq -r ".${ib_iarray}[${array_count}].${ib_icreated}" "${ib_file}")"
+                ib_file_url="$(jq -r ".${ib_iarray}[${array_count}].${ib_ifile}" "${ib_file}")"
+                ib_file_size="$(jq -r ".${ib_iarray}[${array_count}].${ib_isize}" "${ib_file}")"
+
+                unset ib_date_text ib_resolution_text ib_type_text ib_size_text
+                . "${functions}/ib_date"
+                . "${functions}/ib_meta"
+
+                if [ -n "${ib_preview}" ]
+                then
+                    case "${ib_type}" in
+                        (gif | video)
+                            ib_sample_url="${ib_preview_url}"
+                            ib_type="photo"
+                        ;;
+                    esac
+                fi
+
+                ib_result_id="${ib_page}${array_count}"
+                ib_caption="$(printf "<b>%s</b>\n<b>ID:</b> <code>%s</code>" "${ib_name}" "${ib_id}")"
+                ib_button1_text="Post link"
+                ib_button1_url="${ib_page_url}$(printf "%s" "${ib_id}" | urlencode)"
+                ib_button2_text="Resume"
+                ib_button2_query="p ${ib_board} ${ib_page}"
+
+                if [ -n "${ib_date_text}" ]
+                then
+                    ib_caption="$(printf "%s\n<b>Date:</b> <code>%s</code>" "${ib_caption}" "${ib_date_text}")"
+                fi
+
+                if [ -n "${ib_metadata}" ]
+                then
+                    if [ -n "${ib_resolution_text}" ]
+                    then
+                        ib_caption="$(printf "%s\n<b>Resolution:</b> %s" "${ib_caption}" "${ib_resolution_text}")"
+                    fi
+
+                    if [ -n "${ib_size_text}" ]
+                    then
+                        ib_caption="$(printf "%s\n<b>Size:</b> %s" "${ib_caption}" "${ib_size_text}")"
+                    fi
+
+                    if [ -n "${ib_type_text}" ]
+                    then
+                        ib_caption="$(printf "%s\n<b>Type:</b> %s" "${ib_caption}" "${ib_type_text}")"
+                    fi
+                fi
+
+                if [ -n "${ib_options}" ]
+                then
+                    ib_button2_query="${ib_button2_query} ${ib_options}"
+                fi
+
+                case "${ib_type}" in
+                    (photo)
+                        result="$(jq --null-input --compact-output \
+                            --arg id "${ib_result_id}" \
+                            --arg photo_url "${ib_sample_url}" \
+                            --arg thumbnail_url "${ib_preview_url}" \
+                            --arg photo_width "${ib_width}" \
+                            --arg photo_height "${ib_height}" \
+                            --arg caption "${ib_caption}" \
+                            --arg text1 "${ib_button1_text}" \
+                            --arg url1 "${ib_button1_url}" \
+                            --arg text2 "${ib_button2_text}" \
+                            --arg query2 "${ib_button2_query}" \
+                            '{"type": "photo", "id": $id, "photo_url": $photo_url, "thumbnail_url": $thumbnail_url, "photo_width": $photo_width, "photo_height": $photo_height, "caption": $caption, "parse_mode": "HTML", "reply_markup": {"inline_keyboard": [[{"text": $text1, "url": $url1}, {"text": $text2, "switch_inline_query_current_chat": $query2}]]}}')"
+                    ;;
+                    (gif)
+                        result="$(jq --null-input --compact-output \
+                            --arg id "${ib_result_id}" \
+                            --arg gif_url "${ib_file_url}" \
+                            --arg thumbnail_url "${ib_preview_url}" \
+                            --arg gif_width "${ib_width}" \
+                            --arg gif_height "${ib_height}" \
+                            --arg caption "${ib_caption}" \
+                            --arg text1 "${ib_button1_text}" \
+                            --arg url1 "${ib_button1_url}" \
+                            --arg text2 "${ib_button2_text}" \
+                            --arg query2 "${ib_button2_query}" \
+                            '{"type": "gif", "id": $id, "gif_url": $gif_url, "thumbnail_url": $thumbnail_url, "gif_width": $gif_width, "gif_height": $gif_height, "caption": $caption, "parse_mode": "HTML", "reply_markup": {"inline_keyboard": [[{"text": $text1, "url": $url1}, {"text": $text2, "switch_inline_query_current_chat": $query2}]]}}')"
+                    ;;
+                    (video)
+                        result="$(jq --null-input --compact-output \
+                            --arg id "${ib_result_id}" \
+                            --arg mpeg4_url "${ib_file_url}" \
+                            --arg thumbnail_url "${ib_preview_url}" \
+                            --arg mpeg4_width "${ib_width}" \
+                            --arg mpeg4_height "${ib_height}" \
+                            --arg caption "${ib_caption}" \
+                            --arg text1 "${ib_button1_text}" \
+                            --arg url1 "${ib_button1_url}" \
+                            --arg text2 "${ib_button2_text}" \
+                            --arg query2 "${ib_button2_query}" \
+                            '{"type": "mpeg4_gif", "id": $id, "mpeg4_url": $mpeg4_url, "thumbnail_url": $thumbnail_url, "mpeg4_width": $mpeg4_width, "mpeg4_height": $mpeg4_height, "caption": $caption, "parse_mode": "HTML", "reply_markup": {"inline_keyboard": [[{"text": $text1, "url": $url1}, {"text": $text2, "switch_inline_query_current_chat": $query2}]]}}')"
+                    ;;
+                esac
+
+                if [ -n "${ib_quick}" ]
+                then
+                    result="$(printf "%s" "${result}" | jq --compact-output \
+                        --arg text1 "Original" \
+                        --arg query1 "original ${ib_board} ${ib_id}" \
+                        --arg text2 "Post" \
+                        --arg query2 "post ${ib_board} ${ib_id}" \
+                        '.reply_markup.inline_keyboard += [[{"text": $text1, "switch_inline_query_current_chat": $query1}, {"text": $text2, "switch_inline_query_current_chat": $query2}]]')"
+                fi
+            ;;
+            (t)
+                ib_tag="$(jq -r ".${ib_iarray}[${array_count}].${ib_itag}" "${ib_file}")"
+                ib_count="$(jq -r ".${ib_iarray}[${array_count}].${ib_icount}" "${ib_file}")"
+
+                if [ -n "${ib_irecode}" ]
+                then
+                    if ib_tag_recode="$(printf "%s" "${ib_tag}" | recode ${ib_irecode}..ASCII 2>&1)"
+                    then
+                        ib_tag="${ib_tag_recode}"
+                    fi
+                fi
+
+                ib_result_id="${ib_page}${array_count}"
+                ib_text="$(printf "<b>%s</b>\n<b>ID:</b> <code>%s</code>" "${ib_name}" "${ib_id}")"
+                ib_text="$(printf "%s\n<b>Name:</b> <code>%s</code>" "${ib_text}" "$(printf "%s" "${ib_tag}" | htmlescape)")"
+                ib_text="$(printf "%s\n<b>Post count:</b> %s" "${ib_text}" "${ib_count}")"
+                ib_button1_text="Wiki link"
+                ib_button1_url="${ib_page_url}$(printf "%s" "${ib_tag}" | urlencode)"
+                ib_button2_text="Resume"
+                ib_button2_query="t ${ib_board} ${ib_page}"
+
+                if [ -n "${ib_options}" ]
+                then
+                    ib_button2_query="${ib_button2_query} ${ib_options}"
+                fi
+
+                result="$(jq --null-input --compact-output \
+                    --arg id "${ib_result_id}" \
+                    --arg title "${ib_tag:- }" \
+                    --arg text "${ib_text}" \
+                    --arg description "Click to send the tag information" \
+                    --arg text1 "${ib_button1_text}" \
+                    --arg url1 "${ib_button1_url}" \
+                    --arg text2 "${ib_button2_text}" \
+                    --arg query2 "${ib_button2_query}" \
+                    '{"type": "article", "id": $id, "title": $title, "input_message_content": {"message_text": $text, "parse_mode": "HTML"}, "description": $description, "reply_markup": {"inline_keyboard": [[{"text": $text1, "url": $url1}, {"text": $text2, "switch_inline_query_current_chat": $query2}]]}}')"
+
+                if [ -n "${ib_quick}" ]
+                then
+                    result="$(printf "%s" "${result}" | jq --compact-output \
+                        --arg text1 "Search posts" \
+                        --arg query1 "p ${ib_board} ${ib_tag}" \
+                        '.reply_markup.inline_keyboard += [[{"text": $text1, "switch_inline_query_current_chat": $query1}]]')"
+                fi
+            ;;
+        esac
+
+        results="$(printf "%s" "${results}" | jq -c ".[${array_count}] += ${result}")"
+        array_count=$((array_count + 1))
+    done
+
+    if [ -n "${ib_autopaging}" ]
+    then
+        next_offset="$((ib_page + 1))"
+    fi
+else
+    results="$(jq --null-input --compact-output \
+        --arg id "${query_id}" \
+        --arg title "${output_title}" \
+        --arg text "${output_text}" \
+        --arg description "${output_text}" \
+        '[{"type": "article", "id": $id, "title": $title, "input_message_content": {"message_text": $text}, "description": $description}]')"
+fi
+
+curl --data-urlencode "inline_query_id=${query_id}" \
+    --data-urlencode "results=${results}" \
+    --data-urlencode "cache_time=0" \
+    --data-urlencode "next_offset=${next_offset}" \
+    --get \
+    --silent \
+    "${address}/bot${token}/answerInlineQuery" > /dev/null

@@ -1,0 +1,38 @@
+#!/usr/bin/env dash
+#
+# Copyright (C) 2024 Maria Lisina
+# Copyright (C) 2024 Danil Lisin
+
+until mkdir "${config}/${user_id}_auth.lock" > /dev/null 2>&1
+do
+    sleep 1
+done
+
+if [ -f "${ib_config}/legacy" ]
+then
+    . "${ib_config}/legacy"
+fi
+
+if [ -f "${ib_config}/time" ]
+then
+    current_date=$(date +%s)
+    previous_date=$(cat "${ib_config}/time")
+
+    if [ $((current_date - previous_date)) -ge ${ib_time} ]
+    then
+        if [ -n "${ib_lock}" ]
+        then
+            . "${functions}/ib_lock" &
+            output_text="Refreshing access token..."
+        else
+            . "${functions}/ib_auth"
+        fi
+    fi
+fi
+
+if [ -f "${ib_config}/token" ]
+then
+    ib_header="${ib_authorization} $(cat "${ib_config}/token")"
+fi
+
+rm -fr "${config}/${user_id}_auth.lock"

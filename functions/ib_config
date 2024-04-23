@@ -1,0 +1,339 @@
+#!/usr/bin/env dash
+#
+# Copyright (C) 2024 Maria Lisina
+# Copyright (C) 2024 Danil Lisin
+
+ib_error_url="https://cdn.donmai.us/original/fb/b6/fbb6c45cac3194754dd1feb997cb8ad6.jpg"
+ib_error_width=536
+ib_error_height=516
+
+case "${ib_board}" in
+    (d)
+        ib_name="Danbooru"
+        ib_api="https://danbooru.donmai.us"
+
+        ib_ratings="
+            g general
+            s sensitive
+            q questionable
+            e explicit"
+
+        case "${ib_mode}" in
+            (l)
+                ib_data_url="${ib_api}/pools.json"
+                ib_dlimit="limit"
+                ib_dpage="page"
+                ib_dquery="search[name_matches]"
+                ib_iid="id"
+                ib_icreated="created_at"
+                ib_ipool="name"
+                ib_icount="post_count"
+                ib_idate="%Y-%m-%dT%X"
+                ib_ispace="_"
+                ib_iorder="order:created_at_asc"
+                ib_page_url="${ib_api}/pools/"
+            ;;
+            (p)
+                ib_data_url="${ib_api}/posts.json"
+                ib_dlimit="limit"
+                ib_dpage="page"
+                ib_dquery="tags"
+                ib_iid="id"
+                ib_icreated="created_at"
+                ib_ifile="file_url"
+                ib_isize="file_size"
+                ib_isample="large_file_url"
+                ib_ipreview="preview_file_url"
+                ib_iwidth="image_width"
+                ib_iheight="image_height"
+                ib_irating="rating"
+                ib_iparent="parent_id"
+                ib_ichildren="has_children"
+                ib_imd5="md5"
+                ib_isource="source"
+                ib_itags="tag_string"
+                ib_idate="%Y-%m-%dT%X"
+                ib_ifilename="cut -d '/' -f 7"
+                ib_page_url="${ib_api}/posts/"
+            ;;
+            (t)
+                ib_data_url="${ib_api}/tags.json"
+                ib_dlimit="limit"
+                ib_dpage="page"
+                ib_dquery="search[name_matches]"
+                ib_iid="id"
+                ib_itag="name"
+                ib_icount="post_count"
+                ib_irecode="HTML"
+                ib_page_url="${ib_api}/wiki_pages/"
+            ;;
+            (*)
+                output_text="Unsupported image board"
+            ;;
+        esac
+    ;;
+    (g)
+        ib_name="Gelbooru"
+        ib_api="https://gelbooru.com"
+
+        ib_ratings="
+            safe safe
+            general general
+            sensitive sensitive
+            questionable questionable
+            explicit explicit"
+
+        case "${ib_mode}" in
+            (p)
+                ib_data_url="${ib_api}/index.php"
+                ib_dfield1="page=dapi"
+                ib_dfield2="s=post"
+                ib_dfield3="q=index"
+                ib_dfield4="json=1"
+                ib_dlimit="limit"
+                ib_dpage="pid"
+                ib_dquery="tags"
+                ib_ioffset="-1"
+                ib_iarray="post"
+                ib_iid="id"
+                ib_icreated="created_at"
+                ib_ifile="file_url"
+                ib_isize="deprecated"
+                ib_isample="sample_url"
+                ib_ipreview="preview_url"
+                ib_iwidth="width"
+                ib_iheight="height"
+                ib_irating="rating"
+                ib_iparent="parent_id"
+                ib_ichildren="has_children"
+                ib_imd5="md5"
+                ib_isource="source"
+                ib_itags="tags"
+                ib_itzfield=5
+                ib_idate="%a %b %d %X %Y"
+                ib_ifilename="cut -d '/' -f 7"
+                ib_page_url="${ib_api}/index.php?page=post&s=view&id="
+            ;;
+            (t)
+                ib_data_url="${ib_api}/index.php"
+                ib_dfield1="page=dapi"
+                ib_dfield2="s=tag"
+                ib_dfield3="q=index"
+                ib_dfield4="json=1"
+                ib_dlimit="limit"
+                ib_dpage="pid"
+                ib_dquery="name_pattern"
+                ib_iwildcard="%"
+                ib_ioffset="-1"
+                ib_iarray="tag"
+                ib_iid="id"
+                ib_itag="name"
+                ib_icount="count"
+                ib_irecode="HTML"
+                ib_page_url="${ib_api}/index.php?page=wiki&s=list&search="
+            ;;
+            (*)
+                output_text="Unsupported image board"
+            ;;
+        esac
+    ;;
+    (i)
+        ib_name="Idol Complex"
+        ib_api="https://iapi.sankakucomplex.com"
+
+        ib_ratings="
+            s safe
+            q questionable
+            e explicit"
+
+        case "${ib_mode}" in
+            (l)
+                ib_exception_idol=0
+
+                ib_data_url="${ib_api}/pools.json"
+                ib_dlimit="limit"
+                ib_dpage="page"
+                ib_dquery="name"
+                ib_iid="id"
+                ib_icreated="created_at"
+                ib_ipool="name"
+                ib_icount="post_count"
+                ib_idate="%Y-%m-%d %H:%M"
+                ib_ispace="_"
+                ib_page_url="https://idol.sankakucomplex.com/pools/"
+            ;;
+            (p)
+                ib_exception_idol=0
+
+                ib_data_url="${ib_api}/posts.json"
+                ib_dlimit="limit"
+                ib_dpage="page"
+                ib_dquery="tags"
+                ib_iid="id"
+                ib_icreated="created_at"
+                ib_ifile="file_url"
+                ib_isize="file_size"
+                ib_isample="sample_url"
+                ib_ipreview="preview_url"
+                ib_iwidth="width"
+                ib_iheight="height"
+                ib_irating="rating"
+                ib_iparent="parent_id"
+                ib_ichildren="has_children"
+                ib_imd5="md5"
+                ib_isource="deprecated"
+                ib_itags="tags[].name"
+                ib_idate="%Y-%m-%dT%X"
+                ib_ifilename="cut -d '?' -f 1 | cut -d '/' -f 7"
+                ib_page_url="https://idol.sankakucomplex.com/posts/"
+            ;;
+            (t)
+                ib_exception_idol=0
+
+                ib_data_url="${ib_api}/tags.json"
+                ib_dlimit="limit"
+                ib_dpage="page"
+                ib_dquery="name"
+                ib_iid="id"
+                ib_itag="name"
+                ib_icount="count"
+                ib_irecode="UTF-8"
+                ib_page_url="https://idol.sankakucomplex.com/wiki/"
+            ;;
+            (*)
+                output_text="Unsupported image board"
+            ;;
+        esac
+    ;;
+    (s)
+        ib_name="Sankaku Channel"
+        ib_api="https://capi-v2.sankakucomplex.com"
+
+        ib_ratings="
+            s safe
+            q questionable
+            e explicit"
+
+        case "${ib_mode}" in
+            (l)
+                ib_data_url="${ib_api}/pools"
+                ib_dlimit="limit"
+                ib_dpage="page"
+                ib_dquery="name"
+                ib_iid="id"
+                ib_icreated="created_at"
+                ib_ipool="name"
+                ib_icount="post_count"
+                ib_idate="%Y-%m-%d %H:%M"
+                ib_page_url="https://chan.sankakucomplex.com/pools/"
+            ;;
+            (p)
+                ib_data_url="${ib_api}/posts"
+                ib_dlimit="limit"
+                ib_dpage="page"
+                ib_dquery="tags"
+                ib_iid="id"
+                ib_icreated="created_at.s"
+                ib_ifile="file_url"
+                ib_isize="file_size"
+                ib_isample="sample_url"
+                ib_ipreview="preview_url"
+                ib_iwidth="width"
+                ib_iheight="height"
+                ib_irating="rating"
+                ib_iparent="parent_id"
+                ib_ichildren="has_children"
+                ib_imd5="md5"
+                ib_isource="deprecated"
+                ib_itags="tags[].name"
+                ib_ifilename="cut -d '?' -f 1 | cut -d '/' -f 7"
+                ib_page_url="https://chan.sankakucomplex.com/posts/"
+            ;;
+            (t)
+                ib_data_url="${ib_api}/tags"
+                ib_dlimit="limit"
+                ib_dpage="page"
+                ib_dquery="name"
+                ib_iid="id"
+                ib_itag="name"
+                ib_icount="post_count"
+                ib_page_url="https://chan.sankakucomplex.com/wiki/"
+            ;;
+            (*)
+                output_text="Unsupported image board"
+            ;;
+        esac
+    ;;
+    (k | y)
+        case "${ib_board}" in
+            (k)
+                ib_name="Konachan.com"
+                ib_api="https://konachan.com"
+            ;;
+            (y)
+                ib_name="yande.re"
+                ib_api="https://yande.re"
+            ;;
+        esac
+
+        ib_ratings="
+            s safe
+            q questionable
+            e explicit"
+
+        case "${ib_mode}" in
+            (l)
+                ib_data_url="${ib_api}/pool.json"
+                ib_dlimit="limit"
+                ib_dpage="page"
+                ib_dquery="query"
+                ib_iid="id"
+                ib_icreated="created_at"
+                ib_ipool="name"
+                ib_icount="post_count"
+                ib_idate="%Y-%m-%dT%X"
+                ib_ispace="_"
+                ib_page_url="${ib_api}/pool/show/"
+            ;;
+            (p)
+                ib_data_url="${ib_api}/post.json"
+                ib_dlimit="limit"
+                ib_dpage="page"
+                ib_dquery="tags"
+                ib_iid="id"
+                ib_icreated="created_at"
+                ib_ifile="file_url"
+                ib_isize="file_size"
+                ib_isample="sample_url"
+                ib_ipreview="preview_url"
+                ib_iwidth="width"
+                ib_iheight="height"
+                ib_irating="rating"
+                ib_iparent="parent_id"
+                ib_ichildren="has_children"
+                ib_imd5="md5"
+                ib_isource="source"
+                ib_itags="tags"
+                ib_ifilename="sed 's/\/${ib_name}.*\./\./' | cut -d '/' -f 5"
+                ib_page_url="${ib_api}/post/show/"
+            ;;
+            (t)
+                ib_data_url="${ib_api}/tag.json"
+                ib_dlimit="limit"
+                ib_dpage="page"
+                ib_dquery="name"
+                ib_iid="id"
+                ib_itag="name"
+                ib_icount="count"
+                ib_irecode="UTF-8"
+                ib_page_url="${ib_api}/wiki/show?title="
+            ;;
+            (*)
+                output_text="Unsupported image board"
+            ;;
+        esac
+    ;;
+    (*)
+        output_text="Unsupported image board"
+    ;;
+esac

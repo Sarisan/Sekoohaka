@@ -1,0 +1,21 @@
+#!/usr/bin/env dash
+#
+# Copyright (C) 2024 Maria Lisina
+# Copyright (C) 2024 Danil Lisin
+
+if [ -n "${ib_file_size}" ] && [ "${ib_file_size}" != "null" ]
+then
+    return 0
+fi
+
+if [ -z "${ib_file_url}" ] || [ "${ib_file_url}" = "null" ]
+then
+    return 0
+fi
+
+ib_file_size="$(curl --head \
+    --max-time 2 \
+    --proxy "${ib_proxy}" \
+    --silent \
+    --user-agent "Sekoohaka" \
+    "${ib_file_url}" | grep -i "content-length" | awk '{print $2}')"

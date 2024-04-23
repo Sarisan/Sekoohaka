@@ -1,0 +1,33 @@
+#!/usr/bin/env dash
+#
+# Copyright (C) 2024 Maria Lisina
+# Copyright (C) 2024 Danil Lisin
+
+if [ -n "${ib_created_at}" ] && [ "${ib_created_at}" != "null" ]
+then
+    if [ -n "${ib_itzfield}" ]
+    then
+        shift ${#}
+
+        field_count=0
+
+        for field in ${ib_created_at}
+        do
+            field_count=$((field_count + 1))
+
+            if ! [ ${field_count} -eq ${ib_itzfield} ]
+            then
+                set -- ${@} ${field}
+            fi
+        done
+
+        ib_created_at="${@}"
+    fi
+
+    if [ -n "${ib_idate}" ]
+    then
+        ib_date_text="$(date -ud "${ib_created_at}" -D "${ib_idate}" +"%Y-%m-%d %H:%M")"
+    else
+        ib_date_text="$(date -ud "@${ib_created_at}" +"%Y-%m-%d %H:%M")"
+    fi
+fi
