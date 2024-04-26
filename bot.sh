@@ -91,10 +91,18 @@ if [ -n "${1}" ]
 then
     token="${1}"
     shift
-else
-    echo "No access token specified"
+fi
+
+if [ -n "${1}" ]
+then
+    echo "Unrecognized action ${1}. See '${0} -h'"
     exit 1
 fi
+
+until [ -n "${token}" ]
+do
+    read -p "Telegram Bot API Token: " -r token
+done
 
 for function in $(busybox --list)
 do
