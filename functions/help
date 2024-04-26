@@ -2,6 +2,7 @@
 #
 # Copyright (C) 2024 Maria Lisina
 # Copyright (C) 2024 Danil Lisin
+# SPDX-License-Identifier: Apache-2.0
 
 help_text="$(echo "<b>Sekoohaka Bot</b>" \
     "\n\n<b>Fields descriptions:</b>" \

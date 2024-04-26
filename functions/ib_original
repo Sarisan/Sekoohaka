@@ -2,6 +2,7 @@
 #
 # Copyright (C) 2024 Maria Lisina
 # Copyright (C) 2024 Danil Lisin
+# SPDX-License-Identifier: Apache-2.0
 
 ib_file_url="$(jq -r ".${ib_iarray}[0].${ib_ifile}" "${ib_file}")"
 ib_file_size="$(jq -r ".${ib_iarray}[0].${ib_isize}" "${ib_file}")"

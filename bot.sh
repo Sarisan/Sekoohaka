@@ -2,6 +2,7 @@
 #
 # Copyright (C) 2024 Maria Lisina
 # Copyright (C) 2024 Danil Lisin
+# SPDX-License-Identifier: Apache-2.0
 #
 # Run this software with `env -i` to avoid variable conflict
 
