@@ -124,8 +124,8 @@ then
 
         if [ "${reply_text}" != "null" ]
         then
-            ib_reply_name="$(printf "%s" "${reply_text}" | awk 'NR==1')"
-            ib_post_id="$(printf "%s" "${reply_text}" | awk '/ID:/ {print $2}')"
+            ib_reply_name="$(printf "%s" "${reply_text}" | sed '1!d')"
+            ib_post_id="$(printf "%s" "${reply_text}" | grep 'ID' | cut -d ' ' -f 2)"
 
             for ib_board in ${ascii_table}
             do
