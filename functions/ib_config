@@ -12,6 +12,7 @@ case "${ib_board}" in
     (d)
         ib_name="Danbooru"
         ib_api="https://danbooru.donmai.us"
+        ib_url="https://danbooru.donmai.us"
 
         ib_ratings="
             g general
@@ -32,7 +33,7 @@ case "${ib_board}" in
                 ib_idate="%Y-%m-%dT%X"
                 ib_ispace="_"
                 ib_iorder="order:created_at_asc"
-                ib_page_url="${ib_api}/pools/"
+                ib_url="${ib_url}/pools/"
             ;;
             (p)
                 ib_data_url="${ib_api}/posts.json"
@@ -55,7 +56,7 @@ case "${ib_board}" in
                 ib_itags="tag_string"
                 ib_idate="%Y-%m-%dT%X"
                 ib_ifilename="cut -d '/' -f 7"
-                ib_page_url="${ib_api}/posts/"
+                ib_url="${ib_url}/posts/"
             ;;
             (t)
                 ib_data_url="${ib_api}/tags.json"
@@ -66,7 +67,7 @@ case "${ib_board}" in
                 ib_itag="name"
                 ib_icount="post_count"
                 ib_irecode="HTML"
-                ib_page_url="${ib_api}/wiki_pages/"
+                ib_url="${ib_url}/wiki_pages/"
             ;;
             (*)
                 output_text="Unsupported image board"
@@ -76,6 +77,7 @@ case "${ib_board}" in
     (g)
         ib_name="Gelbooru"
         ib_api="https://gelbooru.com"
+        ib_url="https://gelbooru.com"
 
         ib_ratings="
             safe safe
@@ -113,7 +115,7 @@ case "${ib_board}" in
                 ib_itzfield="-4,6-"
                 ib_idate="%a %b %d %X %Y"
                 ib_ifilename="cut -d '/' -f 7"
-                ib_page_url="${ib_api}/index.php?page=post&s=view&id="
+                ib_url="${ib_url}/index.php?page=post&s=view&id="
             ;;
             (t)
                 ib_data_url="${ib_api}/index.php"
@@ -131,7 +133,7 @@ case "${ib_board}" in
                 ib_itag="name"
                 ib_icount="count"
                 ib_irecode="HTML"
-                ib_page_url="${ib_api}/index.php?page=wiki&s=list&search="
+                ib_url="${ib_url}/index.php?page=wiki&s=list&search="
             ;;
             (*)
                 output_text="Unsupported image board"
@@ -141,6 +143,7 @@ case "${ib_board}" in
     (i)
         ib_name="Idol Complex"
         ib_api="https://iapi.sankakucomplex.com"
+        ib_url="https://idol.sankakucomplex.com"
 
         ib_ratings="
             s safe
@@ -161,7 +164,7 @@ case "${ib_board}" in
                 ib_icount="post_count"
                 ib_idate="%Y-%m-%d %H:%M"
                 ib_ispace="_"
-                ib_page_url="https://idol.sankakucomplex.com/pools/"
+                ib_url="${ib_url}/pools/"
             ;;
             (p)
                 ib_exception_idol=0
@@ -186,7 +189,7 @@ case "${ib_board}" in
                 ib_itags="tags[].name"
                 ib_idate="%Y-%m-%dT%X"
                 ib_ifilename="cut -d '?' -f 1 | cut -d '/' -f 7"
-                ib_page_url="https://idol.sankakucomplex.com/posts/"
+                ib_url="${ib_url}/posts/"
             ;;
             (t)
                 ib_exception_idol=0
@@ -199,7 +202,7 @@ case "${ib_board}" in
                 ib_itag="name"
                 ib_icount="count"
                 ib_irecode="UTF-8"
-                ib_page_url="https://idol.sankakucomplex.com/wiki/"
+                ib_url="${ib_url}/wiki/"
             ;;
             (*)
                 output_text="Unsupported image board"
@@ -209,6 +212,7 @@ case "${ib_board}" in
     (s)
         ib_name="Sankaku Channel"
         ib_api="https://capi-v2.sankakucomplex.com"
+        ib_url="https://chan.sankakucomplex.com"
 
         ib_ratings="
             s safe
@@ -226,7 +230,7 @@ case "${ib_board}" in
                 ib_ipool="name"
                 ib_icount="post_count"
                 ib_idate="%Y-%m-%d %H:%M"
-                ib_page_url="https://chan.sankakucomplex.com/pools/"
+                ib_url="${ib_url}/pools/"
             ;;
             (p)
                 ib_data_url="${ib_api}/posts"
@@ -248,7 +252,7 @@ case "${ib_board}" in
                 ib_isource="deprecated"
                 ib_itags="tags[].name"
                 ib_ifilename="cut -d '?' -f 1 | cut -d '/' -f 7"
-                ib_page_url="https://chan.sankakucomplex.com/posts/"
+                ib_url="${ib_url}/posts/"
             ;;
             (t)
                 ib_data_url="${ib_api}/tags"
@@ -258,7 +262,7 @@ case "${ib_board}" in
                 ib_iid="id"
                 ib_itag="name"
                 ib_icount="post_count"
-                ib_page_url="https://chan.sankakucomplex.com/wiki/"
+                ib_url="${ib_url}/wiki/"
             ;;
             (*)
                 output_text="Unsupported image board"
@@ -270,10 +274,12 @@ case "${ib_board}" in
             (k)
                 ib_name="Konachan.com"
                 ib_api="https://konachan.com"
+                ib_url="https://konachan.com"
             ;;
             (y)
                 ib_name="yande.re"
                 ib_api="https://yande.re"
+                ib_url="https://yande.re"
             ;;
         esac
 
@@ -294,7 +300,7 @@ case "${ib_board}" in
                 ib_icount="post_count"
                 ib_idate="%Y-%m-%dT%X"
                 ib_ispace="_"
-                ib_page_url="${ib_api}/pool/show/"
+                ib_url="${ib_url}/pool/show/"
             ;;
             (p)
                 ib_data_url="${ib_api}/post.json"
@@ -316,7 +322,7 @@ case "${ib_board}" in
                 ib_isource="source"
                 ib_itags="tags"
                 ib_ifilename="sed 's/\/${ib_name}.*\./\./' | cut -d '/' -f 5"
-                ib_page_url="${ib_api}/post/show/"
+                ib_url="${ib_url}/post/show/"
             ;;
             (t)
                 ib_data_url="${ib_api}/tag.json"
@@ -327,7 +333,7 @@ case "${ib_board}" in
                 ib_itag="name"
                 ib_icount="count"
                 ib_irecode="UTF-8"
-                ib_page_url="${ib_api}/wiki/show?title="
+                ib_url="${ib_url}/wiki/show?title="
             ;;
             (*)
                 output_text="Unsupported image board"

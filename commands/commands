@@ -279,7 +279,7 @@ then
 
             reply_markup="$(jq --null-input --compact-output \
                 --arg text1 "Post link" \
-                --arg url1 "${ib_page_url}$(printf "%s" "${ib_post_id}" | urlencode)" \
+                --arg url1 "${ib_url}$(printf "%s" "${ib_post_id}" | urlencode)" \
                 '{"inline_keyboard": [[{"text": $text1, "url": $url1}]]}')"
 
             if [ ${ib_tags_count} -gt 0 ]
