@@ -69,7 +69,7 @@ do
 
         if [ -n "${ib_config}" ]
         then
-            help_text="$(printf "%s (authorize)" "${help_text}")"
+            help_text="$(printf "%s (auth)" "${help_text}")"
         fi
 
         if [ -n "${ib_features}" ]
