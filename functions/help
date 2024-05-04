@@ -53,7 +53,7 @@ do
 
     if [ -n "${ib_name}" ]
     then
-        help_text="$(printf "%s\n%c - %s" "${help_text}" "${ib_board}" "${ib_name}")"
+        help_text="$(printf '%s\n%c - <a href="%s">%s</a>' "${help_text}" "${ib_board}" "${ib_url}" "${ib_name}")"
 
         for ib_mode in ${ascii_table}
         do
