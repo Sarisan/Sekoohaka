@@ -117,7 +117,10 @@ alias stop="wait && exit"
 alias htmlescape="sed -e 's/</\&#60;/g' -e 's/>/\&#62;/g'"
 alias urlencode="jq -Rr @uri"
 
-ascii_table="$(awk 'BEGIN{for(c=33;c<127;c++)printf"%c ",c}')"
+for ascii in $(seq 33 126)
+do
+    ascii_table="${ascii_table} $(printf "%b" "\0$(printf "%o" ${ascii})")"
+done
 
 rm -fr "${cache}"
 mkdir -p "${cache}"
