@@ -164,7 +164,7 @@ then
         then
             ib_tags_count=0
 
-            while [ -n "${1}" ]
+            while [ ${#} -gt 0 ]
             do
                 ib_tag="<code>${1}</code>"
                 ib_tags_length=${#output_text}
@@ -197,7 +197,7 @@ then
                     '.inline_keyboard.[0] += [{"text": $text1, "callback_data": $data1}]')"
             fi
 
-            if [ -n "${1}" ]
+            if [ ${#} -gt 0 ]
             then
                 reply_markup="$(printf "%s" "${reply_markup}" | jq --compact-output \
                     --arg text1 "Next" \

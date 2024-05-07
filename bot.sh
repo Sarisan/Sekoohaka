@@ -29,7 +29,7 @@ cache="${dir}/cache"
 config="${dir}/config"
 commands="${dir}/commands"
 functions="${dir}/functions"
-offset="-1"
+offset=-1
 
 if [ -n "${1}" ]
 then
@@ -179,6 +179,6 @@ do
             . "${command}" &
         done
 
-        offset="$((update_id + 1))"
+        offset=$((update_id + 1))
     fi
 done

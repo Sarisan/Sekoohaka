@@ -300,13 +300,10 @@ then
 
     set -- ${shorts}
 
-    if [ -n "${short_offset}" ] && [ "${short_offset}" != "null" ]
+    if [ ${#} -ge $((short_offset + 1)) ]
     then
-        shift ${short_offset}
-    fi
-
-    if [ ${#} -eq 0 ]
-    then
+        shift ${short_offset:-0}
+    else
         output_title="An error occurred"
         output_text="No shortcuts found"
     fi
@@ -316,7 +313,7 @@ then
         results=[]
         array_count=0
 
-        while [ -n "${1}" ]
+        while [ ${#} -gt 0 ]
         do
             short_query="$(cat "${short_config}/${1}")"
 
@@ -333,13 +330,12 @@ then
 
             results="$(printf "%s" "${results}" | jq -c ".[${array_count}] += ${result}")"
             array_count=$((array_count + 1))
+            shift
 
             if [ ${array_count} -eq 10 ]
             then
                 break
             fi
-
-            shift
         done
 
         if [ ${#} -gt 0 ]

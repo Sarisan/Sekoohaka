@@ -47,10 +47,10 @@ fi
 
 if test "${1}" -gt 0 > /dev/null 2>&1
 then
-    ib_page="${1}"
+    ib_page=${1}
     shift
 else
-    ib_page="1"
+    ib_page=1
     set -- -a ${@}
 fi
 
@@ -109,9 +109,9 @@ if [ -z "${output_text}" ]
 then
     ib_offset="$(jq -r '.inline_query.offset' "${update}")"
 
-    if [ -n "${ib_offset}" ] && [ "${ib_offset}" != "null" ]
+    if [ -n "${ib_offset}" ]
     then
-        ib_page="${ib_offset}"
+        ib_page=${ib_offset}
     fi
 
     if [ -n "${ib_query}" ]
@@ -154,7 +154,7 @@ then
 
     if [ -n "${output_text}" ]
     then
-        next_offset="${ib_page}"
+        next_offset=${ib_page}
     fi
 
     if [ -z "${output_text}" ] && ! jq -e '.' "${ib_file}" > /dev/null 2>&1
@@ -169,7 +169,7 @@ then
 
     if [ -z "${output_text}" ] && ! jq -e ".${ib_iarray}[0]|has(\"${ib_iid}\")" "${ib_file}" > /dev/null 2>&1
     then
-        if [ -n "${ib_offset}" ] && [ "${ib_offset}" != "null" ]
+        if [ -n "${ib_offset}" ]
         then
             output_title="End of results"
         else
@@ -424,7 +424,7 @@ then
 
     if [ -n "${ib_autopaging}" ]
     then
-        next_offset="$((ib_page + 1))"
+        next_offset=$((ib_page + 1))
     fi
 else
     results="$(jq --null-input --compact-output \
