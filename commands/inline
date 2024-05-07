@@ -285,6 +285,7 @@ fi
 if [ -n "${inline_shorts}" ]
 then
     user_id="$(jq -r '.inline_query.from.id' "${update}")"
+    short_offset="$(jq -r '.inline_query.offset' "${update}")"
     short_config="${config}/${user_id}/short"
 
     until mkdir "${config}/${user_id}_short.lock" > /dev/null 2>&1
@@ -297,7 +298,14 @@ then
         shorts="$(ls -xt "${short_config}")"
     fi
 
-    if [ -z "${shorts}" ]
+    set -- ${shorts}
+
+    if [ -n "${short_offset}" ] && [ "${short_offset}" != "null" ]
+    then
+        shift ${short_offset}
+    fi
+
+    if [ ${#} -eq 0 ]
     then
         output_title="An error occurred"
         output_text="No shortcuts found"
@@ -308,12 +316,12 @@ then
         results=[]
         array_count=0
 
-        for short in ${shorts}
+        while [ -n "${1}" ]
         do
-            short_query="$(cat "${short_config}/${short}")"
+            short_query="$(cat "${short_config}/${1}")"
 
             result="$(jq --null-input --compact-output \
-                --arg id "${array_count}" \
+                --arg id "${1}" \
                 --arg title "Shortcut" \
                 --arg text "<b>Shortcut:</b> <code>$(printf "%s" "${short_query}" | htmlescape)</code>" \
                 --arg text1 "Open inline" \
@@ -325,7 +333,19 @@ then
 
             results="$(printf "%s" "${results}" | jq -c ".[${array_count}] += ${result}")"
             array_count=$((array_count + 1))
+
+            if [ ${array_count} -eq 10 ]
+            then
+                break
+            fi
+
+            shift
         done
+
+        if [ ${#} -gt 0 ]
+        then
+            next_offset=$((short_offset + array_count))
+        fi
     else
         results="$(jq --null-input --compact-output \
             --arg id "${query_id}" \
@@ -341,6 +361,7 @@ fi
 curl --data-urlencode "inline_query_id=${query_id}" \
     --data-urlencode "results=${results}" \
     --data-urlencode "cache_time=0" \
+    --data-urlencode "next_offset=${next_offset}" \
     --get \
     --silent \
     "${address}/bot${token}/answerInlineQuery" > /dev/null
