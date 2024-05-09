@@ -25,7 +25,7 @@ then
 fi
 
 dir="${0%/*}"
-cache="${dir}/cache"
+cache="${dir}/cache/${$}"
 config="${dir}/config"
 commands="${dir}/commands"
 functions="${dir}/functions"
