@@ -20,7 +20,9 @@ Telegram Image Board Bot written in POSIX Shell (dash)
 
 ## Requirements
 
-BusyBox is a hard-coded dependency and should not be replaced with alternatives!
+### Commands
+
+BusyBox is a hard-coded dependency and cannot be replaced with alternatives!
 
 * dash
 * busybox
@@ -29,6 +31,23 @@ BusyBox is a hard-coded dependency and should not be replaced with alternatives!
 * recode
 
 For distribution specific installation commands follow [command-not-found](https://command-not-found.com/).
+
+### BusyBox functions
+
+* base64
+* cat
+* cut
+* date
+* find
+* grep
+* ls
+* mkdir
+* rm
+* sed
+* seq
+* sha1sum
+* sleep
+* tr
 
 ## Deployment
 
