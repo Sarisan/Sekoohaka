@@ -26,8 +26,20 @@ fi
 
 for function in base64 cat cut date find grep ls mkdir rm sed seq sha1sum sleep tr
 do
-    alias ${function}="busybox ${function}"
+    if busybox ${function} --help > /dev/null 2>&1
+    then
+        alias ${function}="busybox ${function}"
+    else
+        missing="${missing} ${function}"
+    fi
 done
+
+if [ -n "${missing}" ]
+then
+    echo "Missing BusyBox functions:${missing}\n" \
+        "Update your BusyBox or get a version with all the required functions"
+    exit 1
+fi
 
 alias stop="wait && exit"
 alias htmlescape="sed -e 's/</\&#60;/g' -e 's/>/\&#62;/g'"
