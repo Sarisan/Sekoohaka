@@ -24,12 +24,26 @@ then
     exit 1
 fi
 
+for function in base64 cat cut date find grep ls mkdir rm sed seq sha1sum sleep tr
+do
+    alias ${function}="busybox ${function}"
+done
+
+alias stop="wait && exit"
+alias htmlescape="sed -e 's/</\&#60;/g' -e 's/>/\&#62;/g'"
+alias urlencode="jq -Rr @uri"
+
 dir="${0%/*}"
 cache="${dir}/cache/${$}"
 config="${dir}/config"
 commands="${dir}/commands"
 functions="${dir}/functions"
 offset=-1
+
+for ascii in $(seq 33 126)
+do
+    ascii_table="${ascii_table} $(printf "%b" "\0$(printf "%o" ${ascii})")"
+done
 
 if [ -n "${1}" ]
 then
@@ -103,23 +117,6 @@ fi
 until [ -n "${token}" ]
 do
     read -p "Telegram Bot API Token: " -r token
-done
-
-for function in $(busybox --list)
-do
-    if ! type ${function} | busybox grep -q "shell builtin"
-    then
-        alias ${function}="busybox ${function}"
-    fi
-done
-
-alias stop="wait && exit"
-alias htmlescape="sed -e 's/</\&#60;/g' -e 's/>/\&#62;/g'"
-alias urlencode="jq -Rr @uri"
-
-for ascii in $(seq 33 126)
-do
-    ascii_table="${ascii_table} $(printf "%b" "\0$(printf "%o" ${ascii})")"
 done
 
 rm -fr "${cache}"
