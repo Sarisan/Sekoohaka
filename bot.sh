@@ -9,53 +9,12 @@
 set -e
 umask 77
 
-for required in busybox curl jq recode
-do
-    if ! command -v ${required} > /dev/null
-    then
-        missing="${missing} ${required}"
-    fi
-done
-
-if [ -n "${missing}" ]
-then
-    echo "Missing dependencies:${missing}\n" \
-        "For more information follow: https://command-not-found.com/"
-    exit 1
-fi
-
-for function in base64 cat cut date find grep ls mkdir rm sed seq sha1sum sleep tr
-do
-    if busybox ${function} --help > /dev/null 2>&1
-    then
-        alias ${function}="busybox ${function}"
-    else
-        missing="${missing} ${function}"
-    fi
-done
-
-if [ -n "${missing}" ]
-then
-    echo "Missing BusyBox functions:${missing}\n" \
-        "Update your BusyBox or get a version with all the required functions"
-    exit 1
-fi
-
-alias stop="wait && exit"
-alias htmlescape="sed -e 's/</\&#60;/g' -e 's/>/\&#62;/g'"
-alias urlencode="jq -Rr @uri"
-
 dir="${0%/*}"
 cache="${dir}/cache/${$}"
 config="${dir}/config"
 commands="${dir}/commands"
 functions="${dir}/functions"
 offset=-1
-
-for ascii in $(seq 33 126)
-do
-    ascii_table="${ascii_table} $(printf "%b" "\0$(printf "%o" ${ascii})")"
-done
 
 if [ -n "${1}" ]
 then
@@ -97,6 +56,47 @@ then
         "\n  -p <addr>\tProxy address for external requests"
     exit 0
 fi
+
+for required in busybox curl jq recode
+do
+    if ! command -v ${required} > /dev/null
+    then
+        missing="${missing} ${required}"
+    fi
+done
+
+if [ -n "${missing}" ]
+then
+    echo "Missing dependencies:${missing}\n" \
+        "For more information follow: https://command-not-found.com/"
+    exit 1
+fi
+
+for function in base64 cat cut date find grep ls mkdir rm sed seq sha1sum sleep tr
+do
+    if busybox ${function} --help > /dev/null 2>&1
+    then
+        alias ${function}="busybox ${function}"
+    else
+        missing="${missing} ${function}"
+    fi
+done
+
+if [ -n "${missing}" ]
+then
+    echo "Missing BusyBox functions:${missing}\n" \
+        "Update your BusyBox or get a version with all the required functions"
+    exit 1
+fi
+
+alias stop="wait && exit"
+alias htmlescape="sed -e 's/</\&#60;/g' -e 's/>/\&#62;/g'"
+alias urlencode="jq -Rr @uri"
+
+for ascii in $(seq 33 126)
+do
+    ascii_table="${ascii_table} $(printf "%b" "\0$(printf "%o" ${ascii})")"
+done
 
 if [ -z "${address}" ]
 then
