@@ -89,15 +89,6 @@ then
     exit 1
 fi
 
-alias stop="wait && exit"
-alias htmlescape="sed -e 's/</\&#60;/g' -e 's/>/\&#62;/g'"
-alias urlencode="jq -Rr @uri"
-
-for ascii in $(seq 33 126)
-do
-    ascii_table="${ascii_table} $(printf "%b" "\0$(printf "%o" ${ascii})")"
-done
-
 if [ -z "${address}" ]
 then
     address="https://api.telegram.org"
@@ -129,6 +120,15 @@ fi
 until [ -n "${token}" ]
 do
     read -p "Telegram Bot API Token: " -r token
+done
+
+alias stop="wait && exit"
+alias htmlescape="sed -e 's/</\&#60;/g' -e 's/>/\&#62;/g'"
+alias urlencode="jq -Rr @uri"
+
+for ascii in $(seq 33 126)
+do
+    ascii_table="${ascii_table} $(printf "%b" "\0$(printf "%o" ${ascii})")"
 done
 
 rm -fr "${cache}"
