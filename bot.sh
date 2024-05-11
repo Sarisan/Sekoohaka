@@ -67,8 +67,8 @@ done
 
 if [ -n "${missing}" ]
 then
-    echo "Missing dependencies:${missing}\n" \
-        "For more information follow: https://command-not-found.com/"
+    echo "Missing dependencies:${missing}" \
+        "\nFor more information follow: https://command-not-found.com/"
     exit 1
 fi
 
@@ -84,8 +84,8 @@ done
 
 if [ -n "${missing}" ]
 then
-    echo "Missing BusyBox functions:${missing}\n" \
-        "Update your BusyBox or get a version with all the required functions"
+    echo "Missing BusyBox functions:${missing}" \
+        "\nUpdate your BusyBox or get a version with all the required functions"
     exit 1
 fi
 
