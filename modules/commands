@@ -61,7 +61,7 @@ fi
 
 if [ -n "${command_help}" ]
 then
-    . "${functions}/help"
+    . "${submodules}/help"
 
     link_preview_options="$(jq --null-input --compact-output \
         '{"is_disabled": true}')"
@@ -74,7 +74,7 @@ then
         user_id="$(jq -r '.message.from.id' "${update}")"
 
         ib_board="${1}"
-        . "${functions}/ib_authconfig"
+        . "${submodules}/ib_authconfig"
 
         if [ -z "${ib_config}" ]
         then
@@ -100,7 +100,7 @@ then
             shift
         fi
 
-        . "${functions}/ib_lock"
+        . "${submodules}/ib_lock"
     fi
 
     if [ -z "${output_text}" ]
@@ -132,7 +132,7 @@ then
 
             for ib_board in ${ascii_table}
             do
-                . "${functions}/ib_config"
+                . "${submodules}/ib_config"
                 unset output_text
 
                 if [ "${ib_reply_name}" = "${ib_name}" ]
@@ -151,8 +151,8 @@ then
 
         ib_board="${1}"
         ib_mode="p"
-        . "${functions}/ib_config"
-        . "${functions}/ib_authconfig"
+        . "${submodules}/ib_config"
+        . "${submodules}/ib_authconfig"
 
         shift
     else
@@ -170,7 +170,7 @@ then
 
     if [ -z "${output_text}" ] && [ -n "${ib_config}" ]
     then
-        . "${functions}/ib_token"
+        . "${submodules}/ib_token"
     fi
 
     if [ -z "${output_text}" ]
@@ -224,7 +224,7 @@ then
     then
         if [ -n "${command_original}" ]
         then
-            . "${functions}/ib_original"
+            . "${submodules}/ib_original"
 
             if [ -n "${ib_file_url}" ] && [ "${ib_file_url}" != "null" ]
             then
@@ -274,7 +274,7 @@ then
             fi
         elif [ -n "${command_post}" ]
         then
-            . "${functions}/ib_post"
+            . "${submodules}/ib_post"
 
             link_preview_options="$(jq --null-input --compact-output \
                 --arg url1 "${ib_sample_url}" \

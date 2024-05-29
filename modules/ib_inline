@@ -37,8 +37,8 @@ then
     user_id="$(jq -r '.inline_query.from.id' "${update}")"
 
     ib_board="${1}"
-    . "${functions}/ib_config"
-    . "${functions}/ib_authconfig"
+    . "${submodules}/ib_config"
+    . "${submodules}/ib_authconfig"
 
     shift
 else
@@ -96,7 +96,7 @@ fi
 if [ -z "${output_text}" ] && [ -n "${ib_config}" ]
 then
     ib_lock=0
-    . "${functions}/ib_token"
+    . "${submodules}/ib_token"
 
     if [ -n "${output_text}" ]
     then
@@ -211,7 +211,7 @@ then
                 ib_count="$(jq -r ".${ib_iarray}[${array_count}].${ib_icount}" "${ib_file}")"
 
                 unset ib_date_text
-                . "${functions}/ib_date"
+                . "${submodules}/ib_date"
 
                 if [ -n "${ib_ispace}" ]
                 then
@@ -268,8 +268,8 @@ then
                 ib_file_size="$(jq -r ".${ib_iarray}[${array_count}].${ib_isize}" "${ib_file}")"
 
                 unset ib_date_text ib_resolution_text ib_type_text ib_size_text
-                . "${functions}/ib_date"
-                . "${functions}/ib_meta"
+                . "${submodules}/ib_date"
+                . "${submodules}/ib_meta"
 
                 if [ -n "${ib_preview}" ]
                 then

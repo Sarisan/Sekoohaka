@@ -58,7 +58,7 @@ query_id="$(jq -r '.inline_query.id' "${update}")"
 
 if [ -n "${inline_help}" ]
 then
-    . "${functions}/help"
+    . "${submodules}/help"
 
     results="$(jq --null-input --compact-output \
         --arg id "${query_id}" \
@@ -76,8 +76,8 @@ then
 
         ib_board="${1}"
         ib_mode="p"
-        . "${functions}/ib_config"
-        . "${functions}/ib_authconfig"
+        . "${submodules}/ib_config"
+        . "${submodules}/ib_authconfig"
 
         shift
     else
@@ -101,7 +101,7 @@ then
     if [ -z "${output_text}" ] && [ -n "${ib_config}" ]
     then
         ib_lock=0
-        . "${functions}/ib_token"
+        . "${submodules}/ib_token"
 
         if [ -n "${output_text}" ]
         then
@@ -167,7 +167,7 @@ then
     then
         if [ -n "${inline_original}" ]
         then
-            . "${functions}/ib_original"
+            . "${submodules}/ib_original"
 
             if [ -n "${output_text}" ]
             then
@@ -196,7 +196,7 @@ then
             fi
         elif [ -n "${inline_post}" ]
         then
-            . "${functions}/ib_post"
+            . "${submodules}/ib_post"
 
             results="$(jq --null-input --compact-output \
                 --arg id "${query_id}" \

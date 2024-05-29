@@ -33,8 +33,8 @@ then
 
     ib_board="${1}"
     ib_mode="p"
-    . "${functions}/ib_config"
-    . "${functions}/ib_authconfig"
+    . "${submodules}/ib_config"
+    . "${submodules}/ib_authconfig"
 
     notification_text="${output_text}"
     shift
@@ -54,7 +54,7 @@ fi
 if [ -z "${notification_text}" ] && [ -n "${ib_config}" ]
 then
     ib_lock=0
-    . "${functions}/ib_token"
+    . "${submodules}/ib_token"
 
     if [ -n "${output_text}" ]
     then
@@ -117,7 +117,7 @@ then
 
     if [ -n "${ib_post}" ]
     then
-        . "${functions}/ib_post"
+        . "${submodules}/ib_post"
 
         link_preview_options="$(jq --null-input --compact-output \
             --arg url1 "${ib_sample_url}" \
@@ -143,8 +143,8 @@ then
         ib_tags="$(jq -r ".${ib_iarray}[0].${ib_itags}" "${ib_file}" | htmlescape)"
         ib_tags_offset=${1:-0}
 
-        . "${functions}/ib_size"
-        . "${functions}/ib_meta"
+        . "${submodules}/ib_size"
+        . "${submodules}/ib_meta"
 
         if [ -n "${ib_tags}" ] && [ "${ib_tags}" != "null" ]
         then

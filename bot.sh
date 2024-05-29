@@ -12,8 +12,8 @@ umask 77
 dir="${0%/*}"
 cache="${dir}/cache/${$}"
 config="${dir}/config"
-commands="${dir}/commands"
-functions="${dir}/functions"
+modules="${dir}/modules"
+submodules="${dir}/submodules"
 offset=-1
 
 if [ -n "${1}" ]
@@ -182,9 +182,9 @@ do
             continue
         fi
 
-        for command in "${commands}"/*
+        for module in "${modules}"/*
         do
-            . "${command}" &
+            . "${module}" &
         done
 
         offset=$((update_id + 1))

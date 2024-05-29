@@ -16,9 +16,9 @@ ib_source="$(jq -r ".${ib_iarray}[0].${ib_isource}" "${ib_file}" | htmlescape)"
 ib_tags="$(jq -r ".${ib_iarray}[0].${ib_itags}" "${ib_file}")"
 ib_tags_count=0
 
-. "${functions}/ib_date"
-. "${functions}/ib_size"
-. "${functions}/ib_meta"
+. "${submodules}/ib_date"
+. "${submodules}/ib_size"
+. "${submodules}/ib_meta"
 
 output_text="$(printf "<b>%s</b>\n<b>ID:</b> <code>%s</code>" "${ib_name}" "${ib_id}")"
 
