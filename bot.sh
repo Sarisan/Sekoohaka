@@ -122,7 +122,6 @@ do
     read -p "Telegram Bot API Token: " -r token
 done
 
-alias stop="wait && exit"
 alias htmlescape="sed -e 's/</\&#60;/g' -e 's/>/\&#62;/g'"
 alias urlencode="jq -Rr @uri"
 
@@ -158,7 +157,7 @@ fi
 
 echo "Bot: ${username}"
 
-while trap 'stop 0' INT TERM
+while trap 'wait && exit 0' INT TERM
 do
     if ! curl --data "offset=${offset}" \
         --get \
