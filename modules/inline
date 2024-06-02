@@ -95,7 +95,7 @@ then
 
     if [ -n "${output_text}" ]
     then
-        output_title="An error occurred"
+        output_title="Invalid arguments"
     fi
 
     if [ -z "${output_text}" ] && [ -n "${ib_config}" ]
@@ -242,13 +242,11 @@ then
         short_query="${@}"
         shift ${#}
     else
-        output_title="An error occurred"
         output_text="You must specify the query"
     fi
 
     if [ ${#short_query} -gt 1024 ]
     then
-        output_title="An error occurred"
         output_text="Query is too long"
     fi
 
@@ -273,6 +271,8 @@ then
                 '.[0].reply_markup.inline_keyboard[0] += [{"text": $text1, "callback_data": $data1}]')"
         fi
     else
+        output_title="Invalid arguments"
+
         results="$(jq --null-input --compact-output \
             --arg id "${query_id}" \
             --arg title "${output_title}" \
@@ -304,8 +304,8 @@ then
     then
         shift ${short_offset:-0}
     else
-        output_title="An error occurred"
-        output_text="No shortcuts found"
+        output_title="No shortcuts found"
+        output_text="You have no saved shortcuts yet"
     fi
 
     if [ -z "${output_text}" ]

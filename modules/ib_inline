@@ -90,7 +90,7 @@ fi
 
 if [ -n "${output_text}" ]
 then
-    output_title="An error occurred"
+    output_title="Invalid arguments"
 fi
 
 if [ -z "${output_text}" ] && [ -n "${ib_config}" ]
