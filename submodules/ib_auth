@@ -32,9 +32,6 @@ then
     return 0
 fi
 
-printf "%s" "${ib_login}" > "${ib_config}/${ib_login_file}"
-printf "%s" "${ib_api_key}" > "${ib_config}/${ib_api_key_file}"
-
 case "${ib_board}" in
     (d)
         ib_file="${cache}/${update_id}_profile.json"
@@ -169,3 +166,6 @@ case "${ib_board}" in
             "ib_dfield6" "api_key=${ib_api_key}" > "${ib_config}/legacy"
     ;;
 esac
+
+printf "%s" "${ib_login}" > "${ib_config}/${ib_login_file}"
+printf "%s" "${ib_api_key}" > "${ib_config}/${ib_api_key_file}"
