@@ -4,37 +4,36 @@
 # Copyright (C) 2024 Danil Lisin
 # SPDX-License-Identifier: Apache-2.0
 
+if [ -z "${ib_login}" ]
+then
+    if [ -f "${ib_config}/${ib_login_file}" ]
+    then
+        ib_login="$(cat "${ib_config}/${ib_login_file}")"
+    else
+        output_text="You must specify the ${ib_login_word}"
+        return 0
+    fi
+fi
+
+if [ -z "${ib_api_key}" ]
+then
+    if [ -f "${ib_config}/${ib_api_key_file}" ]
+    then
+        ib_api_key="$(cat "${ib_config}/${ib_api_key_file}")"
+    else
+        output_text="You must specify the ${ib_api_key_word}"
+        return 0
+    fi
+fi
+
 if ! mkdir -p "${ib_config}"
 then
     output_text="Failed to create user config"
     return 0
 fi
 
-if [ -n "${ib_login}" ]
-then
-    printf "%s" "${ib_login}" > "${ib_config}/${ib_login_file}"
-fi
-
-if [ -n "${ib_api_key}" ]
-then
-    printf "%s" "${ib_api_key}" > "${ib_config}/${ib_api_key_file}"
-fi
-
-if [ -f "${ib_config}/${ib_login_file}" ]
-then
-    ib_login="$(cat "${ib_config}/${ib_login_file}")"
-else
-    output_text="You must specify the ${ib_login_word}"
-    return 0
-fi
-
-if [ -f "${ib_config}/${ib_api_key_file}" ]
-then
-    ib_api_key="$(cat "${ib_config}/${ib_api_key_file}")"
-else
-    output_text="You must specify the ${ib_api_key_word}"
-    return 0
-fi
+printf "%s" "${ib_login}" > "${ib_config}/${ib_login_file}"
+printf "%s" "${ib_api_key}" > "${ib_config}/${ib_api_key_file}"
 
 case "${ib_board}" in
     (d)
