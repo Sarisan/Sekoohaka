@@ -146,6 +146,11 @@ then
             output_text="Failed to access ${ib_name} API"
         fi
 
+        if [ -n "${output_text}" ]
+        then
+            next_offset="${query_id}"
+        fi
+
         if [ -z "${output_text}" ] && ! jq -e '.' "${ib_file}" > /dev/null 2>&1
         then
             output_text="An unknown error occurred"
