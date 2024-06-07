@@ -31,7 +31,7 @@ then
                 address="${OPTARG}"
             ;;
             (s)
-                max_size=${OPTARG}
+                size=${OPTARG}
             ;;
             (p)
                 proxy="${OPTARG}"
@@ -96,7 +96,7 @@ fi
 if [ -n "${local}" ]
 then
     address="${address:-localhost:8081}"
-    max_size=${max_size:-20971520}
+    size=${size:-20971520}
 fi
 
 if [ -z "${address}" ]
@@ -104,15 +104,15 @@ then
     address="https://api.telegram.org"
 fi
 
-if [ -n "${max_size}" ]
+if [ -n "${size}" ]
 then
-    if ! test ${max_size} -gt 0 > /dev/null 2>&1
+    if ! test ${size} -gt 0 > /dev/null 2>&1
     then
         echo "Illegal file size"
         exit 1
     fi
 else
-    max_size=10485760
+    size=10485760
 fi
 
 if [ -n "${1}" ]

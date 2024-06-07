@@ -78,7 +78,7 @@ fi
 
 if [ -n "${ib_file_size}" ] && [ "${ib_file_size}" != "null" ] && [ ${ib_file_size} -gt 0 ]
 then
-    if [ ${ib_file_size} -gt ${max_size} ]
+    if [ ${ib_file_size} -gt ${size} ]
     then
         if [ "${ib_sample_url}" = "${ib_file_url}" ]
         then
