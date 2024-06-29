@@ -35,8 +35,8 @@ query_id="$(jq -r '.inline_query.id' "${update}")"
 if [ -n "${1}" ]
 then
     user_id="$(jq -r '.inline_query.from.id' "${update}")"
-
     ib_board="${1}"
+
     . "${submodules}/ib_config"
     . "${submodules}/ib_authconfig"
 

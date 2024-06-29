@@ -30,9 +30,9 @@ query_id="$(jq -r '.callback_query.id' "${update}")"
 if [ -n "${1}" ]
 then
     user_id="$(jq -r '.callback_query.from.id' "${update}")"
-
     ib_board="${1}"
     ib_mode="p"
+
     . "${submodules}/ib_config"
     . "${submodules}/ib_authconfig"
 
