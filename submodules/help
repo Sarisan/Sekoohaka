@@ -47,7 +47,6 @@ help_text="$(echo "<b>Sekoohaka Bot</b>" \
 
 for ib_board in ${ascii_table}
 do
-    unset ib_name ib_config ib_features
     . "${submodules}/ib_config"
     . "${submodules}/ib_authconfig"
 
@@ -59,12 +58,12 @@ do
         do
             . "${submodules}/ib_config"
 
-            if [ -z "${output_text}" ]
+            if [ -n "${ib_data_url}" ]
             then
                 ib_features="${ib_features}${ib_mode}"
             fi
 
-            unset output_text
+            unset ib_data_url
         done
 
         if [ -n "${ib_config}" ]
@@ -78,7 +77,7 @@ do
         fi
     fi
 
-    unset output_text
+    unset ib_name ib_config ib_features
 done
 
 output_text="${help_text}"
