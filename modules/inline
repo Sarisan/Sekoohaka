@@ -166,6 +166,11 @@ then
             output_title="No results found"
             output_text="Try different post ID"
         fi
+
+        if [ -n "${output_text}" ] && [ -n "${inline_post}" ]
+        then
+            inline_post_retry=0
+        fi
     fi
 
     if [ -z "${output_text}" ]
@@ -230,7 +235,7 @@ then
             --arg description "${output_text}" \
             '[{"type": "article", "id": $id, "title": $title, "input_message_content": {"message_text": $text}, "description": $description}]')"
 
-        if [ -n "${inline_post}" ]
+        if [ -n "${inline_post_retry}" ]
         then
             results="$(printf "%s" "${results}" | jq --compact-output \
                 --arg text1 "Retry" \

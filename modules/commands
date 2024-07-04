@@ -218,6 +218,14 @@ then
         then
             output_text="No results found. Try different post ID"
         fi
+
+        if [ -n "${output_text}" ] && [ -n "${command_post}" ]
+        then
+            reply_markup="$(jq --null-input --compact-output \
+                --arg text1 "Retry" \
+                --arg data1 "post ${ib_board} ${ib_post_id}" \
+                '{"inline_keyboard": [[{"text": $text1, "callback_data": $data1}]]}')"
+        fi
     fi
 
     if [ -z "${output_text}" ]
@@ -293,12 +301,6 @@ then
                     '.inline_keyboard.[0] += [{"text": $text1, "callback_data": $data1}]')"
             fi
         fi
-    elif [ -n "${command_post}" ]
-    then
-        reply_markup="$(jq --null-input --compact-output \
-            --arg text1 "Retry" \
-            --arg data1 "post ${ib_board} ${ib_post_id}" \
-            '{"inline_keyboard": [[{"text": $text1, "callback_data": $data1}]]}')"
     fi
 fi
 
