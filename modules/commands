@@ -209,14 +209,6 @@ then
             output_text="Failed to access ${ib_name} API"
         fi
 
-        if [ -n "${output_text}" ] && [ -n "${command_post}" ]
-        then
-            reply_markup="$(jq --null-input --compact-output \
-                --arg text1 "Retry" \
-                --arg data1 "post ${ib_board} ${ib_post_id}" \
-                '{"inline_keyboard": [[{"text": $text1, "callback_data": $data1}]]}')"
-        fi
-
         if [ -z "${output_text}" ] && ! jq -e '.' "${ib_file}" > /dev/null 2>&1
         then
             output_text="An unknown error occurred"
