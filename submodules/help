@@ -27,6 +27,7 @@ help_text="$(echo "<b>Sekoohaka Bot</b>" \
     "\nshorts - List saved inline shortcuts" \
     "\n\n<b>Search options:</b>" \
     "\na - Enable autopaging (lpt)" \
+    "\nc - Cache query results for 15 seconds (lpt)" \
     "\nm - Show more metadata (p)" \
     "\np - Show gif/video as preview only (p)" \
     "\nq - Add quick buttons (lpt)" \

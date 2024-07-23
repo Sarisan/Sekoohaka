@@ -12,13 +12,13 @@ then
 
     case "${ib_mode}" in
         (l)
-            ib_opts="aq"
+            ib_opts="acq"
         ;;
         (p)
-            ib_opts="ampq"
+            ib_opts="acmpq"
         ;;
         (t)
-            ib_opts="aq"
+            ib_opts="acq"
         ;;
         (*)
             exit 0
@@ -31,6 +31,7 @@ else
 fi
 
 query_id="$(jq -r '.inline_query.id' "${update}")"
+cache_time=0
 
 if [ -n "${1}" ]
 then
@@ -63,6 +64,9 @@ then
         case "${ib_getopts}" in
             (a)
                 ib_autopaging=0
+            ;;
+            (c)
+                ib_cache=0
             ;;
             (m)
                 ib_metadata=0
@@ -422,6 +426,11 @@ then
         array_count=$((array_count + 1))
     done
 
+    if [ -n "${ib_cache}" ]
+    then
+        cache_time=15
+    fi
+
     if [ -n "${ib_autopaging}" ]
     then
         next_offset=$((ib_page + 1))
@@ -437,7 +446,8 @@ fi
 
 curl --data-urlencode "inline_query_id=${query_id}" \
     --data-urlencode "results=${results}" \
-    --data-urlencode "cache_time=0" \
+    --data-urlencode "cache_time=${cache_time}" \
+    --data-urlencode "is_personal=true" \
     --data-urlencode "next_offset=${next_offset}" \
     --get \
     --silent \

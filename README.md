@@ -94,6 +94,7 @@ For better performance, it is recommended to use a locally deployed [Telegram Bo
 ### Search options
 
 * `a` - Enable autopaging (lpt)
+* `c` - Cache query results for 15 seconds (lpt)
 * `m` - Show more metadata (p)
 * `p` - Show gif/video as preview only (p)
 * `q` - Add quick buttons (lpt)
