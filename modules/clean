@@ -4,5 +4,5 @@
 # Copyright (C) 2024 Danil Lisin
 # SPDX-License-Identifier: Apache-2.0
 
-find "${cache}" -type f -mmin +5 -delete > /dev/null 2>&1
-find "${config}" -name "*.lock" -type d -mmin +1 -delete > /dev/null 2>&1
+find "${cache}" -type f -mmin +5 -exec rm -f {} + > /dev/null 2>&1
+find "${config}" -name "*.lock" -type d -mmin +1 -exec rm -fr {} + > /dev/null 2>&1
