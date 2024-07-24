@@ -162,7 +162,7 @@ then
 
             set -- ${ib_groups}
 
-            while [ -n "${2}" ]
+            while [ ${#} -ge 2 ]
             do
                 ib_tags="$(jq -r ".${ib_iarray}[0].${1}" "${ib_file}" | htmlescape)"
                 ib_group="${2}"

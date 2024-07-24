@@ -46,7 +46,7 @@ if [ -n "${ib_rating}" ] && [ "${ib_rating}" != "null" ]
 then
     set -- ${ib_ratings}
 
-    while [ -n "${2}" ]
+    while [ ${#} -ge 2 ]
     do
         if [ "${ib_rating}" = "${1}" ]
         then
