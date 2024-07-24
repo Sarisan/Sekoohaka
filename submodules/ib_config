@@ -20,6 +20,13 @@ case "${ib_board}" in
             q questionable
             e explicit"
 
+        ib_groups="
+            tag_string_artist Artist
+            tag_string_copyright Copyright
+            tag_string_character Character
+            tag_string_general General
+            tag_string_meta Meta"
+
         case "${ib_mode}" in
             (l)
                 ib_data_url="${ib_api}/pools.json"
@@ -86,6 +93,9 @@ case "${ib_board}" in
             questionable questionable
             explicit explicit"
 
+        ib_groups="
+            tags Tags"
+
         case "${ib_mode}" in
             (p)
                 ib_data_url="${ib_api}/index.php"
@@ -149,6 +159,17 @@ case "${ib_board}" in
             s safe
             q questionable
             e explicit"
+
+        ib_groups="
+            tags[]|select(.type==1)|.name Idol
+            tags[]|select(.type==2)|.name Studio
+            tags[]|select(.type==3)|.name Copyright
+            tags[]|select(.type==4)|.name Character
+            tags[]|select(.type==6)|.name Genre
+            tags[]|select(.type==5)|.name Set
+            tags[]|select(.type==0)|.name General
+            tags[]|select(.type==8)|.name Medium
+            tags[]|select(.type==9)|.name Meta"
 
         case "${ib_mode}" in
             (l)
@@ -219,6 +240,16 @@ case "${ib_board}" in
             q questionable
             e explicit"
 
+        ib_groups="
+            tags[]|select(.type==1)|.tagName Artist
+            tags[]|select(.type==2)|.tagName Studio
+            tags[]|select(.type==3)|.tagName Copyright
+            tags[]|select(.type==4)|.tagName Character
+            tags[]|select(.type==5)|.tagName Genre
+            tags[]|select(.type==0)|.tagName General
+            tags[]|select(.type==8)|.tagName Medium
+            tags[]|select(.type==9)|.tagName Meta"
+
         case "${ib_mode}" in
             (l)
                 ib_data_url="${ib_api}/pools"
@@ -287,6 +318,9 @@ case "${ib_board}" in
             s safe
             q questionable
             e explicit"
+
+        ib_groups="
+            tags Tags"
 
         case "${ib_mode}" in
             (l)
