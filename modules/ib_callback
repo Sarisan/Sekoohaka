@@ -164,13 +164,13 @@ then
 
             while [ ${#} -ge 2 ]
             do
-                ib_tags="$(jq -r ".${ib_iarray}[0].${1}" "${ib_file}" | htmlescape)"
-                ib_group="${2}"
-                ib_reserve="${@}"
+                ib_group_tags="$(jq -r ".${ib_iarray}[0].${1}" "${ib_file}" | htmlescape)"
+                ib_group_name="${2}"
+                ib_groups_saved="${@}"
 
-                if [ -n "${ib_tags}" ] && [ "${ib_tags}" != "null" ]
+                if [ -n "${ib_group_tags}" ] && [ "${ib_group_tags}" != "null" ]
                 then
-                    set -- ${ib_tags}
+                    set -- ${ib_group_tags}
                     ib_group_count=${#}
 
                     if [ ${ib_group_count} -gt ${ib_group_offset} ]
@@ -179,13 +179,13 @@ then
                     else
                         ib_group_offset=$((ib_group_offset - ib_group_count))
 
-                        set -- ${ib_reserve}
+                        set -- ${ib_groups_saved}
                         shift 2
 
                         continue
                     fi
 
-                    ib_group_text="$(printf "%s\n<b>%s:</b>" "${output_text}" "${ib_group}")"
+                    ib_group_text="$(printf "%s\n<b>%s:</b>" "${output_text}" "${ib_group_name}")"
 
                     while [ ${#} -gt 0 ]
                     do
@@ -207,7 +207,7 @@ then
                     done
                 fi
 
-                set -- ${ib_reserve}
+                set -- ${ib_groups_saved}
                 shift 2
             done
 
