@@ -62,7 +62,7 @@ then
         else
             set -- $(ls -x "${short_config}")
 
-            if [ ${#} -le 100 ]
+            if [ ${#} -le 200 ]
             then
                 printf "%s" "${short_query}" > "${short_config}/$(date +%s)${query_id}"
                 notification_text="Saved shortcut"
