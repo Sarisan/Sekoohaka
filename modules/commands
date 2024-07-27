@@ -351,12 +351,7 @@ then
 
     if [ ${#} -gt 0 ]
     then
-        if [ ${#} -eq 1 ]
-        then
-            output_text="You have 1 saved shortcut"
-        else
-            output_text="You have ${#} saved shortcuts"
-        fi
+        output_text="You have ${#} out of 100 saved shortcuts"
 
         reply_markup="$(jq --null-input --compact-output \
             --arg text1 "Open inline" \
