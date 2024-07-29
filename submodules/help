@@ -10,8 +10,8 @@ help_text="$(echo "<b>Sekoohaka Bot</b>" \
     "\n[b] - Image board" \
     "\n[page] - Search page number" \
     "\n[options] - Search options" \
-    "\n[tags] - Search tags" \
     "\n[name] - Search pool or tag name" \
+    "\n[tags] - Search tags" \
     "\n[id] - Post ID" \
     "\n[query] - Inline query" \
     "\n[login] - Image board login" \

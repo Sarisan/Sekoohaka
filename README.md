@@ -73,8 +73,8 @@ For better performance, it is recommended to use a locally deployed [Telegram Bo
 * `[b]` - Image board
 * `[page]` - Search page number
 * `[options]` - Search options
-* `[tags]` - Search tags
 * `[name]` - Search pool or tag name
+* `[tags]` - Search tags
 * `[id]` - Post ID
 * `[query]` - Inline query
 * `[login]` - Image board login
