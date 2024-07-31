@@ -160,6 +160,12 @@ then
     if [ -n "${1}" ]
     then
         ib_post_id="${1}"
+
+        if ! test "${ib_post_id}" -gt 0 > /dev/null 2>&1
+        then
+            output_text="Illegal post ID"
+        fi
+
         shift
     elif [ -z "${output_text}" ]
     then

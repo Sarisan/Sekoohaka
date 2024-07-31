@@ -45,6 +45,12 @@ fi
 if [ -n "${1}" ]
 then
     ib_post_id="${1}"
+
+    if ! test "${ib_post_id}" -gt 0 > /dev/null 2>&1
+    then
+        notification_text="Illegal post ID"
+    fi
+
     shift
 elif [ -z "${notification_text}" ]
 then
