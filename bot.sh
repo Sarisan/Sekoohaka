@@ -76,7 +76,7 @@ then
     exit 1
 fi
 
-for function in base64 bc cat cut date find grep ls mkdir rm sed seq sha1sum sleep tr
+for function in base64 bc cat cut date find grep ls mkdir rm sed seq sha1sum sleep stat tr
 do
     if busybox ${function} --help > /dev/null 2>&1
     then

@@ -46,6 +46,7 @@ else
     exit 0
 fi
 
+user_id="$(jq -r '.message.from.id' "${update}")"
 chat_id="$(jq -r '.message.chat.id' "${update}")"
 message_thread_id="$(jq -r '.message.message_thread_id' "${update}")"
 message_id="$(jq -r '.message.message_id' "${update}")"
@@ -71,9 +72,7 @@ if [ -n "${command_authorize}" ]
 then
     if [ -n "${1}" ]
     then
-        user_id="$(jq -r '.message.from.id' "${update}")"
         ib_board="${1}"
-
         . "${submodules}/ib_authconfig"
 
         if [ -z "${ib_config}" ]
@@ -147,7 +146,6 @@ then
 
     if [ -n "${1}" ]
     then
-        user_id="$(jq -r '.message.from.id' "${update}")"
         ib_board="${1}"
         ib_mode="p"
 
@@ -175,49 +173,7 @@ then
 
     if [ -z "${output_text}" ]
     then
-        if [ -n "${ib_exception_idol}" ]
-        then
-            ib_query="id_range:${ib_post_id}"
-        else
-            ib_query="id:${ib_post_id}"
-        fi
-
-        ib_file="${cache}/${update_id}_data.json"
-
-        if ! curl --data-urlencode "${ib_dfield1}" \
-            --data-urlencode "${ib_dfield2}" \
-            --data-urlencode "${ib_dfield3}" \
-            --data-urlencode "${ib_dfield4}" \
-            --data-urlencode "${ib_dfield5}" \
-            --data-urlencode "${ib_dfield6}" \
-            --data-urlencode "${ib_dlimit}=1" \
-            --data-urlencode "${ib_dquery}=${ib_query}" \
-            --get \
-            --header "${ib_header}" \
-            --max-time 5 \
-            --output "${ib_file}" \
-            --proxy "${proxy}" \
-            --silent \
-            --user-agent "Sekoohaka" \
-            "${ib_data_url}"
-        then
-            output_text="Failed to access ${ib_name} API"
-        fi
-
-        if [ -z "${output_text}" ] && ! [ -f "${ib_file}" ]
-        then
-            output_text="Failed to access ${ib_name} API"
-        fi
-
-        if [ -z "${output_text}" ] && ! jq -e '.' "${ib_file}" > /dev/null 2>&1
-        then
-            output_text="An unknown error occurred"
-        fi
-
-        if [ -z "${output_text}" ] && ! jq -e ".${ib_iarray}[0]|has(\"${ib_iid}\")" "${ib_file}" > /dev/null 2>&1
-        then
-            output_text="No results found. Try different post ID"
-        fi
+        . "${submodules}/ib_file"
     fi
 
     if [ -z "${output_text}" ]
@@ -334,13 +290,12 @@ fi
 
 if [ -n "${command_shorts}" ]
 then
-    user_id="$(jq -r '.message.from.id' "${update}")"
-    short_config="${config}/${user_id}/short"
-
     until mkdir "${config}/${user_id}_short.lock" > /dev/null 2>&1
     do
         sleep 1
     done
+
+    short_config="${config}/${user_id}/short"
 
     if [ -d "${short_config}" ]
     then

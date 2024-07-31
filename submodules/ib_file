@@ -1,0 +1,81 @@
+#!/usr/bin/env dash
+#
+# Copyright (C) 2024 Maria Lisina
+# Copyright (C) 2024 Danil Lisin
+# SPDX-License-Identifier: Apache-2.0
+
+until mkdir "${config}/${user_id}_${ib_board}_${ib_post_id}.lock" > /dev/null 2>&1
+do
+    sleep 1
+done
+
+ib_file="${cache}/${user_id}_${ib_board}_${ib_post_id}_data.json"
+
+if [ -f "${ib_file}" ]
+then
+    ib_mtime=$(stat -c %Y "${ib_file}")
+    ib_ctime=$(date +%s)
+
+    if [ $((ib_ctime - ib_mtime)) -gt 300 ]
+    then
+        rm -f "${ib_file}"
+    fi
+fi
+
+if ! [ -f "${ib_file}" ]
+then
+    if [ -n "${ib_exception_idol}" ]
+    then
+        ib_query="id_range:${ib_post_id}"
+    else
+        ib_query="id:${ib_post_id}"
+    fi
+
+    if ! curl --data-urlencode "${ib_dfield1}" \
+        --data-urlencode "${ib_dfield2}" \
+        --data-urlencode "${ib_dfield3}" \
+        --data-urlencode "${ib_dfield4}" \
+        --data-urlencode "${ib_dfield5}" \
+        --data-urlencode "${ib_dfield6}" \
+        --data-urlencode "${ib_dlimit}=1" \
+        --data-urlencode "${ib_dquery}=${ib_query}" \
+        --get \
+        --header "${ib_header}" \
+        --max-time 5 \
+        --output "${ib_file}" \
+        --proxy "${proxy}" \
+        --silent \
+        --user-agent "Sekoohaka" \
+        "${ib_data_url}"
+    then
+        output_text="Failed to access ${ib_name} API"
+    fi
+
+    if [ -z "${output_text}" ] && ! [ -f "${ib_file}" ]
+    then
+        output_text="Failed to access ${ib_name} API"
+    fi
+
+    if [ -z "${output_text}" ] && ! jq -e '.' "${ib_file}" > /dev/null 2>&1
+    then
+        output_text="An unknown error occurred"
+    fi
+
+    if [ -n "${output_text}" ]
+    then
+        output_title="An error occurred"
+    fi
+
+    if [ -z "${output_text}" ] && ! jq -e ".${ib_iarray}[0]|has(\"${ib_iid}\")" "${ib_file}" > /dev/null 2>&1
+    then
+        output_title="No results found"
+        output_text="Try different post ID"
+    fi
+
+    if [ -n "${output_text}" ]
+    then
+        rm -f "${ib_file}"
+    fi
+fi
+
+rm -fr "${config}/${user_id}_${ib_board}_${ib_post_id}.lock"

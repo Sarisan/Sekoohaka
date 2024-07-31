@@ -30,12 +30,12 @@ else
     exit 0
 fi
 
+user_id="$(jq -r '.inline_query.from.id' "${update}")"
 query_id="$(jq -r '.inline_query.id' "${update}")"
 cache_time=0
 
 if [ -n "${1}" ]
 then
-    user_id="$(jq -r '.inline_query.from.id' "${update}")"
     ib_board="${1}"
 
     . "${submodules}/ib_config"
@@ -101,12 +101,6 @@ if [ -z "${output_text}" ] && [ -n "${ib_config}" ]
 then
     ib_lock=0
     . "${submodules}/ib_token"
-
-    if [ -n "${output_text}" ]
-    then
-        output_title="${output_text}"
-        output_text="Try again in a few seconds"
-    fi
 fi
 
 if [ -z "${output_text}" ]

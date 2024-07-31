@@ -66,9 +66,8 @@ then
         ;;
     esac
 else
-    ib_file_url="${ib_error_url}"
     ib_file_size=0
-
+    ib_file_url="${ib_error_url}"
     ib_sample_url="${ib_error_url}"
     ib_preview_url="${ib_error_url}"
     ib_width="${ib_error_width}"

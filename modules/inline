@@ -31,20 +31,29 @@ then
 
     shift
 else
-    user_id="$(jq -r '.inline_query.from.id' "${update}")"
-    short_config="${config}/${user_id}/short"
+    inline_none=0
+fi
 
+user_id="$(jq -r '.inline_query.from.id' "${update}")"
+query_id="$(jq -r '.inline_query.id' "${update}")"
+
+if [ -n "${inline_none}" ]
+then
     until mkdir "${config}/${user_id}_short.lock" > /dev/null 2>&1
     do
         sleep 1
     done
+
+    short_config="${config}/${user_id}/short"
 
     if [ -d "${short_config}" ]
     then
         shorts="$(ls -x "${short_config}")"
     fi
 
-    if [ -n "${shorts}" ]
+    set -- ${shorts}
+
+    if [ ${#} -gt 0 ]
     then
         inline_shorts=0
     else
@@ -53,8 +62,6 @@ else
 
     rm -fr "${config}/${user_id}_short.lock"
 fi
-
-query_id="$(jq -r '.inline_query.id' "${update}")"
 
 if [ -n "${inline_help}" ]
 then
@@ -72,7 +79,6 @@ if [ -n "${inline_original}" ] || [ -n "${inline_post}" ]
 then
     if [ -n "${1}" ]
     then
-        user_id="$(jq -r '.inline_query.from.id' "${update}")"
         ib_board="${1}"
         ib_mode="p"
 
@@ -102,70 +108,11 @@ then
     then
         ib_lock=0
         . "${submodules}/ib_token"
-
-        if [ -n "${output_text}" ]
-        then
-            output_title="${output_text}"
-            output_text="Try again in a few seconds"
-        fi
     fi
 
     if [ -z "${output_text}" ]
     then
-        if [ -n "${ib_exception_idol}" ]
-        then
-            ib_query="id_range:${ib_post_id}"
-        else
-            ib_query="id:${ib_post_id}"
-        fi
-
-        ib_file="${cache}/${update_id}_data.json"
-
-        if ! curl --data-urlencode "${ib_dfield1}" \
-            --data-urlencode "${ib_dfield2}" \
-            --data-urlencode "${ib_dfield3}" \
-            --data-urlencode "${ib_dfield4}" \
-            --data-urlencode "${ib_dfield5}" \
-            --data-urlencode "${ib_dfield6}" \
-            --data-urlencode "${ib_dlimit}=1" \
-            --data-urlencode "${ib_dquery}=${ib_query}" \
-            --get \
-            --header "${ib_header}" \
-            --max-time 5 \
-            --output "${ib_file}" \
-            --proxy "${proxy}" \
-            --silent \
-            --user-agent "Sekoohaka" \
-            "${ib_data_url}"
-        then
-            output_text="Failed to access ${ib_name} API"
-        fi
-
-        if [ -z "${output_text}" ] && ! [ -f "${ib_file}" ]
-        then
-            output_text="Failed to access ${ib_name} API"
-        fi
-
-        if [ -n "${output_text}" ]
-        then
-            next_offset="${query_id}"
-        fi
-
-        if [ -z "${output_text}" ] && ! jq -e '.' "${ib_file}" > /dev/null 2>&1
-        then
-            output_text="An unknown error occurred"
-        fi
-
-        if [ -n "${output_text}" ]
-        then
-            output_title="An error occurred"
-        fi
-
-        if [ -z "${output_text}" ] && ! jq -e ".${ib_iarray}[0]|has(\"${ib_iid}\")" "${ib_file}" > /dev/null 2>&1
-        then
-            output_title="No results found"
-            output_text="Try different post ID"
-        fi
+        . "${submodules}/ib_file"
     fi
 
     if [ -z "${output_text}" ]
@@ -281,14 +228,13 @@ fi
 
 if [ -n "${inline_shorts}" ]
 then
-    user_id="$(jq -r '.inline_query.from.id' "${update}")"
-    short_offset="$(jq -r '.inline_query.offset' "${update}")"
-    short_config="${config}/${user_id}/short"
-
     until mkdir "${config}/${user_id}_short.lock" > /dev/null 2>&1
     do
         sleep 1
     done
+
+    short_offset="$(jq -r '.inline_query.offset' "${update}")"
+    short_config="${config}/${user_id}/short"
 
     if [ -d "${short_config}" ]
     then
