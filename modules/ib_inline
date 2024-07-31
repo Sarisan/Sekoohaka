@@ -12,13 +12,13 @@ then
 
     case "${ib_mode}" in
         (l)
-            ib_opts="acq"
+            ib_opts="aq"
         ;;
         (p)
-            ib_opts="acmpq"
+            ib_opts="ampq"
         ;;
         (t)
-            ib_opts="acq"
+            ib_opts="aq"
         ;;
         (*)
             exit 0
@@ -32,7 +32,6 @@ fi
 
 user_id="$(jq -r '.inline_query.from.id' "${update}")"
 query_id="$(jq -r '.inline_query.id' "${update}")"
-cache_time=0
 
 if [ -n "${1}" ]
 then
@@ -64,9 +63,6 @@ then
         case "${ib_getopts}" in
             (a)
                 ib_autopaging=0
-            ;;
-            (c)
-                ib_cache=0
             ;;
             (m)
                 ib_metadata=0
@@ -105,6 +101,10 @@ fi
 
 if [ -z "${output_text}" ]
 then
+    ib_cache=90
+    ib_search=0
+    ib_limit=10
+
     ib_offset="$(jq -r '.inline_query.offset' "${update}")"
 
     if [ -n "${ib_offset}" ]
@@ -122,70 +122,8 @@ then
         ib_query="${ib_dquery}=${ib_query}"
     fi
 
-    ib_file="${cache}/${update_id}_data.json"
-
-    if ! curl --data-urlencode "${ib_dfield1}" \
-        --data-urlencode "${ib_dfield2}" \
-        --data-urlencode "${ib_dfield3}" \
-        --data-urlencode "${ib_dfield4}" \
-        --data-urlencode "${ib_dfield5}" \
-        --data-urlencode "${ib_dfield6}" \
-        --data-urlencode "${ib_dlimit}=10" \
-        --data-urlencode "${ib_dpage}=$((ib_page + ib_ioffset))" \
-        --data-urlencode "${ib_query}" \
-        --get \
-        --header "${ib_header}" \
-        --max-time 5 \
-        --output "${ib_file}" \
-        --proxy "${proxy}" \
-        --silent \
-        --user-agent "Sekoohaka" \
-        "${ib_data_url}"
-    then
-        output_text="Failed to access ${ib_name} API"
-    fi
-
-    if [ -z "${output_text}" ] && ! [ -f "${ib_file}" ]
-    then
-        output_text="Failed to access ${ib_name} API"
-    fi
-
-    if [ -n "${output_text}" ]
-    then
-        next_offset=${ib_page}
-    fi
-
-    if [ -z "${output_text}" ] && ! jq -e '.' "${ib_file}" > /dev/null 2>&1
-    then
-        output_text="An unknown error occurred"
-    fi
-
-    if [ -n "${output_text}" ]
-    then
-        output_title="An error occurred"
-    fi
-
-    if [ -z "${output_text}" ] && ! jq -e ".${ib_iarray}[0]|has(\"${ib_iid}\")" "${ib_file}" > /dev/null 2>&1
-    then
-        if [ -n "${ib_offset}" ]
-        then
-            output_title="End of results"
-        else
-            output_title="No results found"
-        fi
-
-        case "${ib_mode}" in
-            (l)
-                output_text="Try different page or pool name"
-            ;;
-            (p)
-                output_text="Try different page or tags"
-            ;;
-            (t)
-                output_text="Try different page or tag name"
-            ;;
-        esac
-    fi
+    ib_hash="$(printf "%s_%s_%s_%s" "${user_id}" "${ib_board}" "${ib_page}" "${ib_query}" | sha1sum | cut -d ' ' -f 1)"
+    . "${submodules}/ib_file"
 fi
 
 if [ -z "${output_text}" ]
@@ -420,11 +358,6 @@ then
         array_count=$((array_count + 1))
     done
 
-    if [ -n "${ib_cache}" ]
-    then
-        cache_time=15
-    fi
-
     if [ -n "${ib_autopaging}" ]
     then
         next_offset=$((ib_page + 1))
@@ -440,8 +373,7 @@ fi
 
 curl --data-urlencode "inline_query_id=${query_id}" \
     --data-urlencode "results=${results}" \
-    --data-urlencode "cache_time=${cache_time}" \
-    --data-urlencode "is_personal=true" \
+    --data-urlencode "cache_time=0" \
     --data-urlencode "next_offset=${next_offset}" \
     --get \
     --silent \

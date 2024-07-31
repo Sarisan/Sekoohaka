@@ -4,19 +4,19 @@
 # Copyright (C) 2024 Danil Lisin
 # SPDX-License-Identifier: Apache-2.0
 
-until mkdir "${config}/${ib_post_hash}.lock" > /dev/null 2>&1
+until mkdir "${config}/${ib_hash}.lock" > /dev/null 2>&1
 do
     sleep 1
 done
 
-ib_file="${cache}/${ib_post_hash}_data.json"
+ib_file="${cache}/${ib_hash}_data.json"
 
 if [ -f "${ib_file}" ]
 then
     ib_mtime=$(stat -c %Y "${ib_file}")
     ib_ctime=$(date +%s)
 
-    if [ $((ib_ctime - ib_mtime)) -gt 300 ]
+    if [ $((ib_ctime - ib_mtime)) -gt ${ib_cache:-300} ]
     then
         rm -f "${ib_file}"
     fi
@@ -24,21 +24,15 @@ fi
 
 if ! [ -f "${ib_file}" ]
 then
-    if [ -n "${ib_exception_idol}" ]
-    then
-        ib_query="id_range:${ib_post_id}"
-    else
-        ib_query="id:${ib_post_id}"
-    fi
-
     if ! curl --data-urlencode "${ib_dfield1}" \
         --data-urlencode "${ib_dfield2}" \
         --data-urlencode "${ib_dfield3}" \
         --data-urlencode "${ib_dfield4}" \
         --data-urlencode "${ib_dfield5}" \
         --data-urlencode "${ib_dfield6}" \
-        --data-urlencode "${ib_dlimit}=1" \
-        --data-urlencode "${ib_dquery}=${ib_query}" \
+        --data-urlencode "${ib_dlimit}=${ib_limit}" \
+        --data-urlencode "${ib_dpage}=$((ib_page + ib_ioffset))" \
+        --data-urlencode "${ib_query}" \
         --get \
         --header "${ib_header}" \
         --max-time 5 \
@@ -56,6 +50,11 @@ then
         output_text="Failed to access ${ib_name} API"
     fi
 
+    if [ -n "${output_text}" ]
+    then
+        next_offset=${ib_page}
+    fi
+
     if [ -z "${output_text}" ] && ! jq -e '.' "${ib_file}" > /dev/null 2>&1
     then
         output_text="An unknown error occurred"
@@ -68,8 +67,29 @@ then
 
     if [ -z "${output_text}" ] && ! jq -e ".${ib_iarray}[0]|has(\"${ib_iid}\")" "${ib_file}" > /dev/null 2>&1
     then
-        output_title="No results found"
-        output_text="Try different post ID"
+        if [ -n "${ib_search}" ] && [ -n "${ib_offset}" ]
+        then
+            output_title="End of results"
+        else
+            output_title="No results found"
+        fi
+
+        if [ -n "${ib_search}" ]
+        then
+            case "${ib_mode}" in
+                (l)
+                    output_text="Try different page or pool name"
+                ;;
+                (p)
+                    output_text="Try different page or tags"
+                ;;
+                (t)
+                    output_text="Try different page or tag name"
+                ;;
+            esac
+        else
+            output_text="Try different post ID"
+        fi
     fi
 
     if [ -n "${output_text}" ]
@@ -78,4 +98,4 @@ then
     fi
 fi
 
-rm -fr "${config}/${ib_post_hash}.lock"
+rm -fr "${config}/${ib_hash}.lock"

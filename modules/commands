@@ -173,7 +173,17 @@ then
 
     if [ -z "${output_text}" ]
     then
-        ib_post_hash="$(printf "%s_%s_%s" "${user_id}" "${ib_board}" "${ib_post_id}" | sha1sum | cut -d ' ' -f 1)"
+        ib_limit=1
+        ib_page=1
+
+        if [ -n "${ib_exception_idol}" ]
+        then
+            ib_query="${ib_dquery}=id_range:${ib_post_id}"
+        else
+            ib_query="${ib_dquery}=id:${ib_post_id}"
+        fi
+
+        ib_hash="$(printf "%s_%s_%s" "${user_id}" "${ib_board}" "${ib_post_id}" | sha1sum | cut -d ' ' -f 1)"
         . "${submodules}/ib_file"
     fi
 
