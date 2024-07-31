@@ -4,12 +4,12 @@
 # Copyright (C) 2024 Danil Lisin
 # SPDX-License-Identifier: Apache-2.0
 
-until mkdir "${config}/${user_id}_${ib_board}_${ib_post_id}.lock" > /dev/null 2>&1
+until mkdir "${config}/${ib_post_hash}.lock" > /dev/null 2>&1
 do
     sleep 1
 done
 
-ib_file="${cache}/${user_id}_${ib_board}_${ib_post_id}_data.json"
+ib_file="${cache}/${ib_post_hash}_data.json"
 
 if [ -f "${ib_file}" ]
 then
@@ -78,4 +78,4 @@ then
     fi
 fi
 
-rm -fr "${config}/${user_id}_${ib_board}_${ib_post_id}.lock"
+rm -fr "${config}/${ib_post_hash}.lock"
