@@ -101,7 +101,6 @@ fi
 
 if [ -z "${output_text}" ]
 then
-    ib_cache=90
     ib_search=0
     ib_limit=10
 

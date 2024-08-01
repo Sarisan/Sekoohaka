@@ -16,7 +16,7 @@ then
     ib_mtime=$(stat -c %Y "${ib_file}")
     ib_ctime=$(date +%s)
 
-    if [ $((ib_ctime - ib_mtime)) -gt ${ib_cache:-300} ]
+    if [ $((ib_ctime - ib_mtime)) -gt 250 ]
     then
         rm -f "${ib_file}"
     fi
