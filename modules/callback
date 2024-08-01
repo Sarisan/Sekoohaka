@@ -55,20 +55,21 @@ then
 
     if [ -z "${notification_text}" ]
     then
-        if short="$(grep -lrx "${short_query}" "${short_config}")"
+        short_hash="$(printf "%s" "${short_query}" | sha1sum | cut -d ' ' -f 1)"
+        short="${short_config}/${short_hash}"
+
+        set -- $(ls -x "${short_config}")
+
+        if [ -f "${short}" ]
         then
             rm -f "${short}"
             notification_text="Removed shortcut"
+        elif [ ${#} -le 200 ]
+        then
+            printf "%s" "${short_query}" > "${short}"
+            notification_text="Saved shortcut"
         else
-            set -- $(ls -x "${short_config}")
-
-            if [ ${#} -le 200 ]
-            then
-                printf "%s" "${short_query}" > "${short_config}/$(date +%s)${query_id}"
-                notification_text="Saved shortcut"
-            else
-                notification_text="Too many shortcuts"
-            fi
+            notification_text="Too many shortcuts"
         fi
     fi
 

@@ -244,7 +244,7 @@ then
         sleep 1
     done
 
-    short_offset="$(jq -r '.inline_query.offset' "${update}")"
+    short_offset=$(jq -r '.inline_query.offset' "${update}")
     short_config="${config}/${user_id}/short"
 
     if [ -d "${short_config}" ]
