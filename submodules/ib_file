@@ -9,7 +9,7 @@ do
     sleep 1
 done
 
-ib_file="${cache}/${ib_hash}_data.json"
+ib_file="${cache}/${ib_hash}.json"
 
 if [ -f "${ib_file}" ]
 then
