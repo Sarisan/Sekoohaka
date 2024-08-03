@@ -95,7 +95,7 @@ then
 
         if [ -n "${1}" ]
         then
-            ib_api_key="${1}"
+            ib_key="${1}"
             shift
         fi
 

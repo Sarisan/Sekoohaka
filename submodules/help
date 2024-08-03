@@ -14,7 +14,7 @@ help_text="$(echo "<b>Sekoohaka Bot</b>" \
     "\n[tags] - Search tags" \
     "\n[id] - Post ID" \
     "\n[query] - Inline query" \
-    "\n[login] - Image board login" \
+    "\n[login] - Image board login or username" \
     "\n[key] - Image board API key or password" \
     "\n\n<b>Inline commands:</b>" \
     "\nhelp - Send this message" \

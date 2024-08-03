@@ -78,7 +78,7 @@ For better performance, it is recommended to use a locally deployed [Telegram Bo
 * `[tags]` - Search tags
 * `[id]` - Post ID
 * `[query]` - Inline query
-* `[login]` - Image board login
+* `[login]` - Image board login or username
 * `[key]` - Image board API key or password
 
 ### Inline commands

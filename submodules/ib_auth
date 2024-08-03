@@ -15,13 +15,13 @@ then
     fi
 fi
 
-if [ -z "${ib_api_key}" ]
+if [ -z "${ib_key}" ]
 then
-    if [ -f "${ib_config}/${ib_api_key_file}" ]
+    if [ -f "${ib_config}/${ib_key_file}" ]
     then
-        ib_api_key="$(cat "${ib_config}/${ib_api_key_file}")"
+        ib_key="$(cat "${ib_config}/${ib_key_file}")"
     else
-        output_text="You must specify the ${ib_api_key_word}"
+        output_text="You must specify the ${ib_key_word}"
         return 0
     fi
 fi
@@ -41,7 +41,7 @@ case "${ib_board}" in
             --proxy "${proxy}" \
             --request GET \
             --silent \
-            --user "${ib_login}:${ib_api_key}" \
+            --user "${ib_login}:${ib_key}" \
             --user-agent "Sekoohaka" \
             "https://danbooru.donmai.us/profile.json"
         then
@@ -73,16 +73,16 @@ case "${ib_board}" in
             return 0
         fi
 
-        printf "%s" "${ib_login}:${ib_api_key}" | base64 > "${ib_config}/token"
+        printf "%s" "${ib_login}:${ib_key}" | base64 > "${ib_config}/token"
     ;;
     (g)
         printf '%s="%s"\n%s="%s"' \
             "ib_dfield5" "user_id=${ib_login}" \
-            "ib_dfield6" "api_key=${ib_api_key}" > "${ib_config}/legacy"
+            "ib_dfield6" "api_key=${ib_key}" > "${ib_config}/legacy"
     ;;
     (i)
         ib_login_lower="$(printf "%s" "${ib_login}" | tr '[:upper:]' '[:lower:]')"
-        ib_password_hash="$(printf "choujin-steiner--%s--" "${ib_api_key}" | sha1sum | cut -d ' ' -f 1)"
+        ib_password_hash="$(printf "choujin-steiner--%s--" "${ib_key}" | sha1sum | cut -d ' ' -f 1)"
         ib_appkey="$(printf "sankakuapp_%s_Z5NE9YASej" "${ib_login_lower}" | sha1sum | cut -d ' ' -f 1)"
 
         printf '%s="%s"\n%s="%s"\n%s="%s"' \
@@ -93,7 +93,7 @@ case "${ib_board}" in
     (s)
         ib_login_data="$(jq --null-input --compact-output \
             --arg login "${ib_login}" \
-            --arg password "${ib_api_key}" \
+            --arg password "${ib_key}" \
             '{"login": $login, "password": $password}')"
 
         ib_file="${cache}/${update_id}_token.json"
@@ -137,13 +137,13 @@ case "${ib_board}" in
         ib_file="${cache}/${update_id}_user.json"
 
         if ! curl --data-urlencode "username=${ib_login}" \
-            --data-urlencode "api_key=${ib_api_key}" \
+            --data-urlencode "api_key=${ib_key}" \
             --max-time 5 \
             --output "${ib_file}" \
             --proxy "${proxy}" \
             --silent \
             --user-agent "Sekoohaka" \
-            "${ib_api}/user.json"
+            "${ib_auth}/user.json"
         then
             output_text="Temporary error"
             return 0
@@ -163,9 +163,9 @@ case "${ib_board}" in
 
         printf '%s="%s"\n%s="%s"' \
             "ib_dfield5" "username=${ib_login}" \
-            "ib_dfield6" "api_key=${ib_api_key}" > "${ib_config}/legacy"
+            "ib_dfield6" "api_key=${ib_key}" > "${ib_config}/legacy"
     ;;
 esac
 
 printf "%s" "${ib_login}" > "${ib_config}/${ib_login_file}"
-printf "%s" "${ib_api_key}" > "${ib_config}/${ib_api_key_file}"
+printf "%s" "${ib_key}" > "${ib_config}/${ib_key_file}"
