@@ -12,13 +12,13 @@ then
 
     case "${ib_mode}" in
         (l)
-            ib_opts="aq"
+            inline_options="aq"
         ;;
         (p)
-            ib_opts="ampq"
+            inline_options="ampq"
         ;;
         (t)
-            ib_opts="aq"
+            inline_options="aq"
         ;;
         (*)
             exit 0
@@ -56,11 +56,11 @@ fi
 
 if [ -z "${output_text}" ] && [ -n "${1}" ]
 then
-    ib_options="${@}"
+    inline_query="${@}"
 
-    while getopts ${ib_opts} ib_getopts > /dev/null 2>&1
+    while getopts ${inline_options} inline_getopts > /dev/null 2>&1
     do
-        case "${ib_getopts}" in
+        case "${inline_getopts}" in
             (a)
                 ib_autopaging=0
             ;;
@@ -168,9 +168,9 @@ then
                 ib_button2_text="Resume"
                 ib_button2_query="l ${ib_board} ${ib_page}"
 
-                if [ -n "${ib_options}" ]
+                if [ -n "${inline_query}" ]
                 then
-                    ib_button2_query="${ib_button2_query} ${ib_options}"
+                    ib_button2_query="${ib_button2_query} ${inline_query}"
                 fi
 
                 result="$(jq --null-input --compact-output \
@@ -246,9 +246,9 @@ then
                     fi
                 fi
 
-                if [ -n "${ib_options}" ]
+                if [ -n "${inline_query}" ]
                 then
-                    ib_button2_query="${ib_button2_query} ${ib_options}"
+                    ib_button2_query="${ib_button2_query} ${inline_query}"
                 fi
 
                 case "${ib_type}" in
@@ -327,9 +327,9 @@ then
                 ib_button2_text="Resume"
                 ib_button2_query="t ${ib_board} ${ib_page}"
 
-                if [ -n "${ib_options}" ]
+                if [ -n "${inline_query}" ]
                 then
-                    ib_button2_query="${ib_button2_query} ${ib_options}"
+                    ib_button2_query="${ib_button2_query} ${inline_query}"
                 fi
 
                 result="$(jq --null-input --compact-output \
