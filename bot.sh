@@ -9,6 +9,7 @@
 set -e
 umask 77
 
+version="1.0"
 dir="${0%/*}"
 cache="${dir}/cache/${$}"
 config="${dir}/config"
@@ -50,7 +51,7 @@ fi
 
 if [ -n "${help}" ]
 then
-    echo "Sekoohaka Bot" \
+    echo "Sekoohaka Bot v${version}" \
         "\n\nUsage: ${0} [options] [token]" \
         "\n\nOptions:" \
         "\n  -h\t\tShow help information" \
