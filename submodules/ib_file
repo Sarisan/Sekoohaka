@@ -67,14 +67,14 @@ then
 
     if [ -z "${output_text}" ] && ! jq -e ".${ib_iarray}[0]|has(\"${ib_iid}\")" "${ib_file}" > /dev/null 2>&1
     then
-        if [ -n "${ib_search}" ] && [ -n "${ib_offset}" ]
+        if [ -n "${inline_options}" ] && [ -n "${ib_offset}" ]
         then
             output_title="End of results"
         else
             output_title="No results found"
         fi
 
-        if [ -n "${ib_search}" ]
+        if [ -n "${inline_options}" ]
         then
             case "${ib_mode}" in
                 (l)
