@@ -151,7 +151,7 @@ then
                     ib_pool="$(printf "%s" "${ib_pool}" | tr "${ib_ispace}" ' ')"
                 fi
 
-                ib_result_id="${ib_page}${array_count}"
+                ib_result_id="${ib_id}"
                 ib_text="$(printf "<b>%s</b>\n<b>ID:</b> <code>%s</code>" "${ib_name}" "${ib_id}")"
 
                 if [ -n "${ib_date_text}" ]
@@ -214,7 +214,7 @@ then
                     esac
                 fi
 
-                ib_result_id="${ib_page}${array_count}"
+                ib_result_id="${ib_id}"
                 ib_caption="$(printf "<b>%s</b>\n<b>ID:</b> <code>%s</code>" "${ib_name}" "${ib_id}")"
                 ib_button1_text="Post link"
                 ib_button1_url="${ib_url}$(printf "%s" "${ib_id}" | urlencode)"
@@ -316,7 +316,7 @@ then
                     fi
                 fi
 
-                ib_result_id="${ib_page}${array_count}"
+                ib_result_id="${ib_id}"
                 ib_text="$(printf "<b>%s</b>\n<b>ID:</b> <code>%s</code>" "${ib_name}" "${ib_id}")"
                 ib_text="$(printf "%s\n<b>Name:</b> <code>%s</code>" "${ib_text}" "$(printf "%s" "${ib_tag}" | htmlescape)")"
                 ib_text="$(printf "%s\n<b>Post count:</b> %s" "${ib_text}" "${ib_count}")"
