@@ -39,10 +39,10 @@ help_text="$(echo "<b>Sekoohaka Bot v${version}</b>" \
     "\n/shorts - Manage saved shortcuts" \
     "\n/stop - Remove all your data" \
     "\n\n<b>Inline examples:</b>" \
-    "\np d -mq sakurada_shiro" \
+    "\nshort p d -mq sakurada_shiro_(hy_plus)" \
+    "\noriginal d 4507929" \
+    "\np d 1 -a ringouulu" \
     "\nt d *genshin*" \
-    "\noriginal d 5080413" \
-    "\nshort p d 1 -amq rating:g blue_archive" \
     "\n\n<b>Supported image boards:</b>")"
 
 for ib_board in ${ascii_table}

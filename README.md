@@ -111,10 +111,10 @@ For better performance, it is recommended to use a locally deployed [Telegram Bo
 
 ### Inline examples
 
-* `p d -mq sakurada_shiro`
+* `short p d -mq sakurada_shiro_(hy_plus)`
+* `original d 4507929`
+* `p d 1 -a ringouulu`
 * `t d *genshin*`
-* `original d 5080413`
-* `short p d 1 -amq rating:g blue_archive`
 
 ### Supported image boards
 
