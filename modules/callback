@@ -82,7 +82,7 @@ then
 
     if mkdir "${config}/${user_id}_reset.lock" > /dev/null 2>&1
     then
-        notification_text="Click again to confirm shortcuts removing"
+        notification_text="Click again to confirm shortcuts removal"
     fi
 
     if [ -z "${notification_text}" ]
@@ -112,7 +112,7 @@ then
 
     if mkdir "${config}/${user_id}_stop.lock" > /dev/null 2>&1
     then
-        notification_text="Click again to confirm data removing"
+        notification_text="Click again to confirm data removal"
     fi
 
     if [ -z "${notification_text}" ]
