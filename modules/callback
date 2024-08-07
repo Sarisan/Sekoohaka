@@ -28,13 +28,11 @@ else
     exit 0
 fi
 
+user_id="$(jq -r '.callback_query.from.id' "${update}")"
 query_id="$(jq -r '.callback_query.id' "${update}")"
 
 if [ -n "${command_short}" ]
 then
-    user_id="$(jq -r '.callback_query.from.id' "${update}")"
-    short_config="${config}/${user_id}/short"
-
     if [ -n "${1}" ]
     then
         short_query="${@}"
@@ -47,6 +45,8 @@ then
     do
         sleep 1
     done
+
+    short_config="${config}/${user_id}/short"
 
     if [ -z "${notification_text}" ] && ! mkdir -p "${short_config}"
     then
@@ -78,8 +78,6 @@ fi
 
 if [ -n "${command_reset}" ]
 then
-    user_id="$(jq -r '.callback_query.from.id' "${update}")"
-
     if mkdir "${config}/${user_id}_reset.lock" > /dev/null 2>&1
     then
         notification_text="Click again to confirm shortcuts removal"
@@ -87,14 +85,12 @@ then
 
     if [ -z "${notification_text}" ]
     then
-        short_config="${config}/${user_id}/short"
-
         until mkdir "${config}/${user_id}_short.lock" > /dev/null 2>&1
         do
             sleep 1
         done
 
-        if rm -fr "${short_config}"
+        if rm -fr "${config}/${user_id}/short"
         then
             notification_text="Removed all shortcuts"
         else
@@ -108,8 +104,6 @@ fi
 
 if [ -n "${command_stop}" ]
 then
-    user_id="$(jq -r '.callback_query.from.id' "${update}")"
-
     if mkdir "${config}/${user_id}_stop.lock" > /dev/null 2>&1
     then
         notification_text="Click again to confirm data removal"
