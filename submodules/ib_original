@@ -12,7 +12,7 @@ ib_preview_url="$(jq -r ".${ib_iarray}[0].${ib_ipreview}" "${ib_file}")"
 
 if [ -n "${ib_file_url}" ] && [ "${ib_file_url}" != "null" ]
 then
-    if [ -n "${ib_exception_idol}" ]
+    if [ "${ib_name}" = "Idol Complex" ]
     then
         ib_file_url="https:${ib_file_url}"
     fi
@@ -20,7 +20,7 @@ then
     if [ -z "${ib_preview_url}" ] || [ "${ib_preview_url}" = "null" ]
     then
         ib_preview_url=${ib_error_url}
-    elif [ -n "${ib_exception_idol}" ]
+    elif [ "${ib_name}" = "Idol Complex" ]
     then
         ib_preview_url="https:${ib_preview_url}"
     fi

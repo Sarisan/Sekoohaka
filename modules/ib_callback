@@ -71,7 +71,7 @@ then
     ib_limit=1
     ib_page=1
 
-    if [ -n "${ib_exception_idol}" ]
+    if [ "${ib_name}" = "Idol Complex" ]
     then
         ib_query="${ib_dquery}=id_range:${ib_post_id}"
     else

@@ -167,8 +167,6 @@ case "${ib_board}" in
 
         case "${ib_mode}" in
             (l)
-                ib_exception_idol=0
-
                 ib_data_url="${ib_api}/pools.json"
                 ib_dlimit="limit"
                 ib_dpage="page"
@@ -182,8 +180,6 @@ case "${ib_board}" in
                 ib_url="${ib_url}/pools/"
             ;;
             (p)
-                ib_exception_idol=0
-
                 ib_data_url="${ib_api}/posts.json"
                 ib_dlimit="limit"
                 ib_dpage="page"
@@ -207,8 +203,6 @@ case "${ib_board}" in
                 ib_url="${ib_url}/posts/"
             ;;
             (t)
-                ib_exception_idol=0
-
                 ib_data_url="${ib_api}/tags.json"
                 ib_dlimit="limit"
                 ib_dpage="page"
