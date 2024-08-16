@@ -76,9 +76,6 @@ case "${ib_board}" in
                 ib_irecode="HTML"
                 ib_url="${ib_url}/wiki_pages/"
             ;;
-            (*)
-                output_text="Unsupported image board"
-            ;;
         esac
     ;;
     (g)
@@ -144,9 +141,6 @@ case "${ib_board}" in
                 ib_icount="count"
                 ib_irecode="HTML"
                 ib_url="${ib_url}/index.php?page=wiki&s=list&search="
-            ;;
-            (*)
-                output_text="Unsupported image board"
             ;;
         esac
     ;;
@@ -225,9 +219,6 @@ case "${ib_board}" in
                 ib_irecode="UTF-8"
                 ib_url="${ib_url}/wiki/"
             ;;
-            (*)
-                output_text="Unsupported image board"
-            ;;
         esac
     ;;
     (s)
@@ -294,9 +285,6 @@ case "${ib_board}" in
                 ib_itag="tagName"
                 ib_icount="post_count"
                 ib_url="${ib_url}/wiki/"
-            ;;
-            (*)
-                output_text="Unsupported image board"
             ;;
         esac
     ;;
@@ -369,12 +357,6 @@ case "${ib_board}" in
                 ib_irecode="UTF-8"
                 ib_url="${ib_url}/wiki/show?title="
             ;;
-            (*)
-                output_text="Unsupported image board"
-            ;;
         esac
-    ;;
-    (*)
-        output_text="Unsupported image board"
     ;;
 esac

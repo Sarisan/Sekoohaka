@@ -132,7 +132,6 @@ then
             for ib_board in ${ascii_table}
             do
                 . "${submodules}/ib_config"
-                unset output_text
 
                 if [ "${ib_reply_name}" = "${ib_name}" ]
                 then
@@ -151,6 +150,11 @@ then
 
         . "${submodules}/ib_config"
         . "${submodules}/ib_authconfig"
+
+        if [ -z "${ib_data_url}" ]
+        then
+            output_text="Unsupported image board"
+        fi
 
         shift
     else

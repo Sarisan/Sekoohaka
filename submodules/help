@@ -4,7 +4,7 @@
 # Copyright (C) 2024 Danil Lisin
 # SPDX-License-Identifier: Apache-2.0
 
-help_text="$(echo "<b>Sekoohaka Bot v${version}</b>" \
+output_text="$(echo "<b>Sekoohaka Bot v${version}</b>" \
     "\n\n<b>Fields descriptions:</b>" \
     "\n[command] - Inline command" \
     "\n[b] - Image board" \
@@ -52,7 +52,7 @@ do
 
     if [ -n "${ib_name}" ]
     then
-        help_text="$(printf '%s\n%c - <a href="%s">%s</a>' "${help_text}" "${ib_board}" "${ib_url}" "${ib_name}")"
+        output_text="$(printf '%s\n%c - <a href="%s">%s</a>' "${output_text}" "${ib_board}" "${ib_url}" "${ib_name}")"
 
         for ib_mode in ${ascii_table}
         do
@@ -68,16 +68,14 @@ do
 
         if [ -n "${ib_config}" ]
         then
-            help_text="$(printf "%s (auth)" "${help_text}")"
+            output_text="$(printf "%s (auth)" "${output_text}")"
         fi
 
         if [ -n "${ib_features}" ]
         then
-            help_text="$(printf "%s (%s)" "${help_text}" "${ib_features}")"
+            output_text="$(printf "%s (%s)" "${output_text}" "${ib_features}")"
         fi
     fi
 
     unset ib_name ib_config ib_features
 done
-
-output_text="${help_text}"

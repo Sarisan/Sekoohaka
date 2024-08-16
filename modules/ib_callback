@@ -36,7 +36,11 @@ then
     . "${submodules}/ib_config"
     . "${submodules}/ib_authconfig"
 
-    notification_text="${output_text}"
+    if [ -z "${ib_data_url}" ]
+    then
+        notification_text="Unsupported image board"
+    fi
+
     shift
 else
     notification_text="No image board specified"

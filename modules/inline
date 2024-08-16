@@ -85,6 +85,11 @@ then
         . "${submodules}/ib_config"
         . "${submodules}/ib_authconfig"
 
+        if [ -z "${ib_data_url}" ]
+        then
+            output_text="Unsupported image board"
+        fi
+
         shift
     else
         output_text="You must specify the image board"
