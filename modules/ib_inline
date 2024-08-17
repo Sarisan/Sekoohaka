@@ -120,7 +120,7 @@ then
         ib_query="$(printf "%s" "${ib_query}" | sed "s/${ib_iwildcard}/\\\\${ib_iwildcard}/g" | tr '*' "${ib_iwildcard}")"
     fi
 
-    ib_hash="$(printf "%s_%s_%s_%s" "${user_id}" "${ib_board}" "${inline_page}" "${ib_query}" | sha1sum | cut -d ' ' -f 1)"
+    ib_hash="$(printf "%s_%s_%s_%s_%s" "${user_id}" "${ib_mode}" "${ib_board}" "${ib_page}" "${ib_query}" | sha1sum | cut -d ' ' -f 1)"
     . "${submodules}/ib_file"
 fi
 
