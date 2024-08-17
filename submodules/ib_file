@@ -13,8 +13,8 @@ ib_file="${cache}/${ib_hash}.json"
 
 if [ -f "${ib_file}" ]
 then
-    ib_mtime=$(stat -c %Y "${ib_file}")
     ib_ctime=$(date +%s)
+    ib_mtime=$(stat -c %Y "${ib_file}")
 
     if [ $((ib_ctime - ib_mtime)) -gt 240 ]
     then
