@@ -34,6 +34,11 @@ then
         ib_page="${ib_dpage}=$((ib_page + ib_ioffset))"
     fi
 
+    if [ -n "${ib_query}" ]
+    then
+        ib_query="${ib_dquery}=${ib_query}"
+    fi
+
     if ! curl --data-urlencode "${ib_dfield1}" \
         --data-urlencode "${ib_dfield2}" \
         --data-urlencode "${ib_dfield3}" \

@@ -119,9 +119,9 @@ then
     then
         if [ "${ib_name}" = "Idol Complex" ]
         then
-            ib_query="${ib_dquery}=id_range:${ib_post_id}"
+            ib_query="id_range:${ib_post_id}"
         else
-            ib_query="${ib_dquery}=id:${ib_post_id}"
+            ib_query="id:${ib_post_id}"
         fi
 
         ib_hash="$(printf "%s_%s_%s" "${user_id}" "${ib_board}" "${ib_post_id}" | sha1sum | cut -d ' ' -f 1)"

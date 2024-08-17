@@ -115,14 +115,9 @@ then
     ib_limit=10
     ib_page=${inline_page}
 
-    if [ -n "${ib_query}" ]
+    if [ -n "${ib_iwildcard}" ]
     then
-        if [ -n "${ib_iwildcard}" ]
-        then
-            ib_query="$(printf "%s" "${ib_query}" | sed "s/${ib_iwildcard}/\\\\${ib_iwildcard}/g" | tr '*' "${ib_iwildcard}")"
-        fi
-
-        ib_query="${ib_dquery}=${ib_query}"
+        ib_query="$(printf "%s" "${ib_query}" | sed "s/${ib_iwildcard}/\\\\${ib_iwildcard}/g" | tr '*' "${ib_iwildcard}")"
     fi
 
     ib_hash="$(printf "%s_%s_%s_%s" "${user_id}" "${ib_board}" "${inline_page}" "${ib_query}" | sha1sum | cut -d ' ' -f 1)"
