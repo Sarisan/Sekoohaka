@@ -32,7 +32,7 @@ case "${ib_board}" in
     (s)
         ib_config="${config}/${user_id}/sankaku"
         ib_authorization="Authorization: Bearer"
-        ib_time=36000
+        ib_expire=36000
         ib_login_file="login"
         ib_key_file="password"
         ib_login_word="login"

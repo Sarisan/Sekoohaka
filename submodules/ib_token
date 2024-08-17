@@ -14,12 +14,12 @@ then
     . "${ib_config}/legacy"
 fi
 
-if [ -f "${ib_config}/time" ]
+if [ -f "${ib_config}/timestamp" ]
 then
-    current_date=$(date +%s)
-    previous_date=$(cat "${ib_config}/time")
+    ib_ctime=$(date +%s)
+    ib_mtime=$(cat "${ib_config}/timestamp")
 
-    if [ $((current_date - previous_date)) -ge ${ib_time} ]
+    if [ $((ib_ctime - ib_mtime)) -gt ${ib_expire} ]
     then
         if [ -n "${ib_lock}" ]
         then

@@ -131,7 +131,7 @@ case "${ib_board}" in
         fi
 
         jq -r '.access_token' "${ib_file}" > "${ib_config}/token"
-        date +%s > "${ib_config}/time"
+        date +%s > "${ib_config}/timestamp"
     ;;
     (k | y)
         ib_file="${cache}/${update_id}_user.json"
