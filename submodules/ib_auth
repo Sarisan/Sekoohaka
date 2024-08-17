@@ -82,8 +82,8 @@ case "${ib_board}" in
     ;;
     (i)
         ib_login_lower="$(printf "%s" "${ib_login}" | tr '[:upper:]' '[:lower:]')"
-        ib_password_hash="$(printf "choujin-steiner--%s--" "${ib_key}" | sha1sum | cut -d ' ' -f 1)"
-        ib_appkey="$(printf "sankakuapp_%s_Z5NE9YASej" "${ib_login_lower}" | sha1sum | cut -d ' ' -f 1)"
+        ib_password_hash="$(printf "choujin-steiner--%s--" "${ib_key}" | enhash)"
+        ib_appkey="$(printf "sankakuapp_%s_Z5NE9YASej" "${ib_login_lower}" | enhash)"
 
         printf '%s="%s"\n%s="%s"\n%s="%s"' \
             "ib_dfield4" "login=${ib_login}" \

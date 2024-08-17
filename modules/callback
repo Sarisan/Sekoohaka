@@ -55,7 +55,7 @@ then
 
     if [ -z "${notification_text}" ]
     then
-        short_hash="$(printf "%s" "${short_query}" | sha1sum | cut -d ' ' -f 1)"
+        short_hash="$(printf "%s" "${short_query}" | enhash)"
         short="${short_config}/${short_hash}"
 
         set -- $(ls -x "${short_config}")
