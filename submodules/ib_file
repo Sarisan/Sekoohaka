@@ -24,14 +24,24 @@ fi
 
 if ! [ -f "${ib_file}" ]
 then
+    if [ -n "${ib_limit}" ]
+    then
+        ib_limit="${ib_dlimit}=${ib_limit}"
+    fi
+
+    if [ -n "${ib_page}" ]
+    then
+        ib_page="${ib_dpage}=$((ib_page + ib_ioffset))"
+    fi
+
     if ! curl --data-urlencode "${ib_dfield1}" \
         --data-urlencode "${ib_dfield2}" \
         --data-urlencode "${ib_dfield3}" \
         --data-urlencode "${ib_dfield4}" \
         --data-urlencode "${ib_dfield5}" \
         --data-urlencode "${ib_dfield6}" \
-        --data-urlencode "${ib_dlimit}=${ib_limit}" \
-        --data-urlencode "${ib_dpage}=$((ib_page + ib_ioffset))" \
+        --data-urlencode "${ib_limit}" \
+        --data-urlencode "${ib_page}" \
         --data-urlencode "${ib_query}" \
         --get \
         --header "${ib_header}" \

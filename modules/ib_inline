@@ -32,6 +32,7 @@ fi
 
 user_id="$(jq -r '.inline_query.from.id' "${update}")"
 query_id="$(jq -r '.inline_query.id' "${update}")"
+offset="$(jq -r '.inline_query.offset' "${update}")"
 
 if [ -n "${1}" ]
 then
@@ -52,11 +53,16 @@ fi
 
 if test "${1}" -gt 0 > /dev/null 2>&1
 then
-    ib_page=${1}
+    inline_page=${1}
     shift
 else
-    ib_page=1
+    inline_page=1
     set -- -a ${@}
+fi
+
+if [ -n "${offset}" ]
+then
+    inline_page=${offset}
 fi
 
 if [ -z "${output_text}" ] && [ -n "${1}" ]
@@ -106,13 +112,8 @@ fi
 
 if [ -z "${output_text}" ]
 then
-    ib_offset="$(jq -r '.inline_query.offset' "${update}")"
     ib_limit=10
-
-    if [ -n "${ib_offset}" ]
-    then
-        ib_page=${ib_offset}
-    fi
+    ib_page=${inline_page}
 
     if [ -n "${ib_query}" ]
     then
@@ -124,7 +125,7 @@ then
         ib_query="${ib_dquery}=${ib_query}"
     fi
 
-    ib_hash="$(printf "%s_%s_%s_%s" "${user_id}" "${ib_board}" "${ib_page}" "${ib_query}" | sha1sum | cut -d ' ' -f 1)"
+    ib_hash="$(printf "%s_%s_%s_%s" "${user_id}" "${ib_board}" "${inline_page}" "${ib_query}" | sha1sum | cut -d ' ' -f 1)"
     . "${submodules}/ib_file"
 fi
 
@@ -169,7 +170,7 @@ then
                 ib_button1_text="Pool link"
                 ib_button1_url="${ib_url}$(printf "%s" "${ib_id}" | urlencode)"
                 ib_button2_text="Resume"
-                ib_button2_query="l ${ib_board} ${ib_page}"
+                ib_button2_query="l ${ib_board} ${inline_page}"
 
                 if [ -n "${inline_query}" ]
                 then
@@ -224,7 +225,7 @@ then
                 ib_button1_text="Post link"
                 ib_button1_url="${ib_url}$(printf "%s" "${ib_id}" | urlencode)"
                 ib_button2_text="Resume"
-                ib_button2_query="p ${ib_board} ${ib_page}"
+                ib_button2_query="p ${ib_board} ${inline_page}"
 
                 if [ -n "${ib_date_text}" ]
                 then
@@ -328,7 +329,7 @@ then
                 ib_button1_text="Wiki link"
                 ib_button1_url="${ib_url}$(printf "%s" "${ib_tag}" | urlencode)"
                 ib_button2_text="Resume"
-                ib_button2_query="t ${ib_board} ${ib_page}"
+                ib_button2_query="t ${ib_board} ${inline_page}"
 
                 if [ -n "${inline_query}" ]
                 then
@@ -362,7 +363,7 @@ then
 
     if [ -n "${ib_autopaging}" ]
     then
-        next_offset=$((ib_page + 1))
+        next_offset=$((inline_page + 1))
     fi
 else
     results="$(jq --null-input --compact-output \
