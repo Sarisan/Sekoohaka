@@ -168,16 +168,18 @@ then
                     while [ ${#} -gt 0 ]
                     do
                         ib_tag="<code>${1}</code>"
-                        ib_tag_length=${#ib_tag}
-                        ib_tags_length=${#ib_group_text}
 
-                        if [ $((ib_tag_length + ib_tags_length + 1)) -gt 2048 ]
+                        ib_tags_length=${#ib_group_text}
+                        ib_tag_length=${#ib_tag}
+
+                        if [ $((ib_tags_length + ib_tag_length + 1)) -gt 2048 ]
                         then
                             break 2
                         fi
 
-                        ib_tags_count=$((ib_tags_count + 1))
                         ib_group_text="${ib_group_text} ${ib_tag}"
+                        ib_tags_count=$((ib_tags_count + 1))
+
                         output_text="${ib_group_text}"
                         shift
                     done
