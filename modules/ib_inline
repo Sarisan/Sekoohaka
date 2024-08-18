@@ -162,6 +162,7 @@ then
 
                 ib_text="$(printf "%s\n<b>Name:</b> %s" "${ib_text}" "$(printf "%s" "${ib_pool}" | htmlescape)")"
                 ib_text="$(printf "%s\n<b>Post count:</b> %s" "${ib_text}" "${ib_count}")"
+
                 ib_button1_text="Pool link"
                 ib_button1_url="${ib_url}$(printf "%s" "${ib_id}" | urlencode)"
                 ib_button2_text="Resume"
@@ -217,10 +218,6 @@ then
 
                 ib_result_id="${ib_id}"
                 ib_caption="$(printf "<b>%s</b>\n<b>ID:</b> <code>%s</code>" "${ib_name}" "${ib_id}")"
-                ib_button1_text="Post link"
-                ib_button1_url="${ib_url}$(printf "%s" "${ib_id}" | urlencode)"
-                ib_button2_text="Resume"
-                ib_button2_query="p ${ib_board} ${inline_page}"
 
                 if [ -n "${ib_date_text}" ]
                 then
@@ -244,6 +241,11 @@ then
                         ib_caption="$(printf "%s\n<b>Type:</b> %s" "${ib_caption}" "${ib_type_text}")"
                     fi
                 fi
+
+                ib_button1_text="Post link"
+                ib_button1_url="${ib_url}$(printf "%s" "${ib_id}" | urlencode)"
+                ib_button2_text="Resume"
+                ib_button2_query="p ${ib_board} ${inline_page}"
 
                 if [ -n "${inline_query}" ]
                 then
@@ -318,6 +320,7 @@ then
                 ib_text="$(printf "<b>%s</b>\n<b>ID:</b> <code>%s</code>" "${ib_name}" "${ib_id}")"
                 ib_text="$(printf "%s\n<b>Name:</b> <code>%s</code>" "${ib_text}" "$(printf "%s" "${ib_tag}" | htmlescape)")"
                 ib_text="$(printf "%s\n<b>Post count:</b> %s" "${ib_text}" "${ib_count}")"
+
                 ib_button1_text="Wiki link"
                 ib_button1_url="${ib_url}$(printf "%s" "${ib_tag}" | urlencode)"
                 ib_button2_text="Resume"
