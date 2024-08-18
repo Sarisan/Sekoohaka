@@ -146,6 +146,8 @@ rm -fr "${cache}"
 mkdir -p "${cache}"
 mkdir -p "${config}"
 
+echo "PID: ${$}"
+
 curl --get \
     --max-time 10 \
     --output "${cache}/getMe.json" \
