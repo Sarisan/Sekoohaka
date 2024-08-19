@@ -52,7 +52,7 @@ then
         --header "${ib_header}" \
         --max-time 5 \
         --output "${ib_file}" \
-        --proxy "${proxy}" \
+        --proxy "${external_proxy}" \
         --silent \
         --user-agent "Sekoohaka" \
         "${ib_data_url}"

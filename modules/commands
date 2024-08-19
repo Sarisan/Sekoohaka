@@ -208,6 +208,7 @@ then
                     --data-urlencode "message_thread_id=${message_thread_id}" \
                     --data-urlencode "action=upload_document" \
                     --get \
+                    --proxy "${internal_proxy}" \
                     --silent \
                     "${address}/bot${token}/sendChatAction" > /dev/null
 
@@ -222,6 +223,7 @@ then
                     --get \
                     --max-time 5 \
                     --output "${output_file}" \
+                    --proxy "${internal_proxy}" \
                     --silent \
                     "${address}/bot${token}/sendDocument"
 
@@ -356,5 +358,6 @@ curl --data-urlencode "chat_id=${chat_id}" \
     --data-urlencode "reply_parameters=${reply_parameters}" \
     --data-urlencode "reply_markup=${reply_markup}" \
     --get \
+    --proxy "${internal_proxy}" \
     --silent \
     "${address}/bot${token}/sendMessage" > /dev/null

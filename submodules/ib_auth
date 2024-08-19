@@ -38,7 +38,7 @@ case "${ib_board}" in
 
         if ! curl --max-time 5 \
             --output "${ib_file}" \
-            --proxy "${proxy}" \
+            --proxy "${external_proxy}" \
             --request GET \
             --silent \
             --user "${ib_login}:${ib_key}" \
@@ -102,7 +102,7 @@ case "${ib_board}" in
             --header "Content-Type: application/json" \
             --max-time 5 \
             --output "${ib_file}" \
-            --proxy "${proxy}" \
+            --proxy "${external_proxy}" \
             --request POST \
             --silent \
             --user-agent "Sekoohaka" \
@@ -141,7 +141,7 @@ case "${ib_board}" in
             --get \
             --max-time 5 \
             --output "${ib_file}" \
-            --proxy "${proxy}" \
+            --proxy "${external_proxy}" \
             --silent \
             --user-agent "Sekoohaka" \
             "${ib_auth}/user.json"

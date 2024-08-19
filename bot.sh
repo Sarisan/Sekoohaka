@@ -19,7 +19,7 @@ offset=-1
 
 if [ -n "${1}" ]
 then
-    while getopts hla:s:p: options
+    while getopts hla:s:i:e: options
     do
         case "${options}" in
             (h)
@@ -34,8 +34,11 @@ then
             (s)
                 size=${OPTARG}
             ;;
-            (p)
-                proxy="${OPTARG}"
+            (i)
+                internal_proxy="${OPTARG}"
+            ;;
+            (e)
+                external_proxy="${OPTARG}"
             ;;
             (*)
                 echo "See '${0} -h'"
@@ -58,7 +61,8 @@ then
         "\n  -l\t\tSame as -a localhost:8081 -s 20971520" \
         "\n  -a <addr>\tTelegram Bot API address, default: api.telegram.org" \
         "\n  -s <size>\tMax file size allowed to send with URL, default: 10485760" \
-        "\n  -p <addr>\tProxy address for external requests"
+        "\n  -i <addr>\tInternal proxy address to interact with Telegram Bot API" \
+        "\n  -e <addr>\tExternal proxy address to interact with anything else"
     exit 0
 fi
 
@@ -151,6 +155,7 @@ echo "PID: ${$}"
 curl --get \
     --max-time 10 \
     --output "${cache}/getMe.json" \
+    --proxy "${internal_proxy}" \
     --show-error \
     --silent \
     "${address}/bot${token}/getMe"
@@ -176,6 +181,7 @@ do
     if ! curl --data "offset=${offset}" \
         --get \
         --output "${cache}/getUpdates.json" \
+        --proxy "${internal_proxy}" \
         --silent \
         "${address}/bot${token}/getUpdates"
     then

@@ -240,6 +240,7 @@ then
             --data-urlencode "reply_markup=${reply_markup}" \
             --get \
             --output "${output_file}" \
+            --proxy "${internal_proxy}" \
             --silent \
             "${address}/bot${token}/editMessageText"
 
@@ -259,5 +260,6 @@ curl --data-urlencode "callback_query_id=${query_id}" \
     --data-urlencode "text=${notification_text}" \
     --data-urlencode "cache_time=0" \
     --get \
+    --proxy "${internal_proxy}" \
     --silent \
     "${address}/bot${token}/answerCallbackQuery" > /dev/null

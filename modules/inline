@@ -315,5 +315,6 @@ curl --data-urlencode "inline_query_id=${query_id}" \
     --data-urlencode "cache_time=0" \
     --data-urlencode "next_offset=${next_offset}" \
     --get \
+    --proxy "${internal_proxy}" \
     --silent \
     "${address}/bot${token}/answerInlineQuery" > /dev/null
