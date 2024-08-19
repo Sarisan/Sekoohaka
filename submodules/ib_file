@@ -67,7 +67,7 @@ then
 
     if [ -n "${output_text}" ]
     then
-        next_offset=${ib_page}
+        next_offset=${inline_page:-0}
     fi
 
     if [ -z "${output_text}" ] && ! jq -e '.' "${ib_file}" > /dev/null 2>&1
