@@ -137,7 +137,8 @@ do
     read -p "Telegram Bot API Token: " -r token
 done
 
-alias enhash="sha1sum | cut -d ' ' -f 1"
+alias parameter="cut -d ' ' -f"
+alias enhash="sha1sum | parameter 1"
 alias htmlescape="sed -e 's/</\&#60;/g' -e 's/>/\&#62;/g'"
 alias urlencode="jq -Rr @uri"
 
