@@ -141,6 +141,6 @@ curl --data-urlencode "callback_query_id=${query_id}" \
     --data-urlencode "text=${notification_text}" \
     --data-urlencode "cache_time=0" \
     --get \
-    --proxy "${internal_proxy}" \
+    --proxy "${internal}" \
     --silent \
     "${address}/bot${token}/answerCallbackQuery" > /dev/null

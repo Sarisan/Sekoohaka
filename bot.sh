@@ -35,10 +35,10 @@ then
                 size=${OPTARG}
             ;;
             (i)
-                internal_proxy="${OPTARG}"
+                internal="${OPTARG}"
             ;;
             (e)
-                external_proxy="${OPTARG}"
+                external="${OPTARG}"
             ;;
             (*)
                 echo "See '${0} -h'"
@@ -156,7 +156,7 @@ echo "PID: ${$}"
 curl --get \
     --max-time 10 \
     --output "${cache}/getMe.json" \
-    --proxy "${internal_proxy}" \
+    --proxy "${internal}" \
     --show-error \
     --silent \
     "${address}/bot${token}/getMe"
@@ -182,7 +182,7 @@ do
     if ! curl --data "offset=${offset}" \
         --get \
         --output "${cache}/getUpdates.json" \
-        --proxy "${internal_proxy}" \
+        --proxy "${internal}" \
         --silent \
         "${address}/bot${token}/getUpdates"
     then
