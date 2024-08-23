@@ -100,7 +100,7 @@ fi
 
 if [ -n "${local}" ]
 then
-    address="${address:-localhost:8081}"
+    address="${address:-127.0.0.1:8081}"
     size=${size:-20971520}
 fi
 
