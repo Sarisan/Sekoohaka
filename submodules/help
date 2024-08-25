@@ -39,10 +39,10 @@ output_text="$(echo "<b>Sekoohaka Bot v${version}</b>" \
     "\n/shorts - Manage saved shortcuts" \
     "\n/stop - Remove all your data" \
     "\n\n<b>Inline examples:</b>" \
-    "\n<code>short p d -mq sakurada_shiro_(hy_plus)</code>" \
-    "\n<code>original d 4507929</code>" \
-    "\n<code>p d 1 -a ringouulu</code>" \
+    "\n<code>p d 1 -a rating:g</code>" \
     "\n<code>t d *genshin*</code>" \
+    "\n<code>original d 4507929</code>" \
+    "\n<code>short p d -mq ringouulu</code>" \
     "\n\n<b>Supported image boards:</b>")"
 
 for ib_board in ${ascii_table}
