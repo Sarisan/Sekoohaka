@@ -82,7 +82,7 @@ then
 
     if [ -z "${output_text}" ] && ! jq -e ".${ib_iarray}[0]|has(\"${ib_iid}\")" "${ib_file}" > /dev/null 2>&1
     then
-        if [ -n "${inline_options}" ] && [ -n "${ib_offset}" ]
+        if [ -n "${inline_options}" ] && [ -n "${offset}" ]
         then
             output_title="End of results"
         else
