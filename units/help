@@ -16,11 +16,12 @@ output_text="$(echo "<b>Sekoohaka Bot v${version}</b>" \
     "\n[query] - Inline query" \
     "\n[login] - Image board login or username" \
     "\n[key] - Image board API key or password" \
+    "\n\n<b>Inline search:</b>" \
+    "\n<code>pools</code> [b] [page] [options] [name] - Pool search" \
+    "\n<code>posts</code> [b] [page] [options] [tags] - Post search" \
+    "\n<code>tags</code> [b] [page] [options] [name] - Tag search" \
     "\n\n<b>Inline commands:</b>" \
     "\n<code>help</code> - Send this message" \
-    "\n<code>l</code> [b] [page] [options] [name] - Pool search" \
-    "\n<code>p</code> [b] [page] [options] [tags] - Post search" \
-    "\n<code>t</code> [b] [page] [options] [name] - Tag search" \
     "\n<code>original</code> [b] [id] - Get original file of post" \
     "\n<code>post</code> [b] [id] - Get infromation of post" \
     "\n<code>short</code> [query] - Create inline shortcut" \
@@ -47,8 +48,8 @@ output_text="$(echo "<b>Sekoohaka Bot v${version}</b>" \
 
 for ib_board in ${ascii_table}
 do
-    . "${submodules}/ib_config"
-    . "${submodules}/ib_authconfig"
+    . "${units}/ib_config"
+    . "${units}/ib_authconfig"
 
     if [ -n "${ib_name}" ]
     then
@@ -56,7 +57,7 @@ do
 
         for ib_mode in ${ascii_table}
         do
-            . "${submodules}/ib_config"
+            . "${units}/ib_config"
 
             if [ -n "${ib_data_url}" ]
             then

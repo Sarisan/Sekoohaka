@@ -1,0 +1,35 @@
+#!/usr/bin/env dash
+#
+# Copyright (C) 2024 Maria Lisina
+# Copyright (C) 2024 Danil Lisin
+# SPDX-License-Identifier: Apache-2.0
+
+until mkdir "${config}/${user_id}_short.lock" > /dev/null 2>&1
+do
+    sleep 1
+done
+
+short_config="${config}/${user_id}/short"
+
+if [ -d "${short_config}" ]
+then
+    shorts="$(ls -x "${short_config}")"
+fi
+
+set -- ${shorts}
+
+if [ ${#} -gt 0 ]
+then
+    output_text="<b>Saved shortcuts:</b> ${#} / 200"
+
+    reply_markup="$(jq --null-input --compact-output \
+        --arg text1 "Open inline" \
+        --arg query1 "shorts" \
+        --arg text2 "Remove all" \
+        --arg data2 "reset" \
+        '{"inline_keyboard": [[{"text": $text1, "switch_inline_query_current_chat": $query1}, {"text": $text2, "callback_data": $data2}]]}')"
+else
+    output_text="You have no saved shortcuts yet"
+fi
+
+rm -fr "${config}/${user_id}_short.lock"

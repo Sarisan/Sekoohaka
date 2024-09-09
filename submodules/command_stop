@@ -1,0 +1,12 @@
+#!/usr/bin/env dash
+#
+# Copyright (C) 2024 Maria Lisina
+# Copyright (C) 2024 Danil Lisin
+# SPDX-License-Identifier: Apache-2.0
+
+output_text="Remove all your data including login data and saved shortcuts"
+
+reply_markup="$(jq --null-input --compact-output \
+        --arg text1 "Remove my data" \
+        --arg data1 "stop" \
+        '{"inline_keyboard": [[{"text": $text1, "callback_data": $data1}]]}')"

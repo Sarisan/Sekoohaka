@@ -8,39 +8,7 @@ set -- $(jq -r '.message.text' "${update}")
 
 if [ -n "${1}" ]
 then
-    case "${1}" in
-        ("/start" | "/start@${username}")
-            command_help=0
-        ;;
-        ("/help" | "/help@${username}")
-            command_help=0
-        ;;
-        ("/authorize" | "/authorize@${username}")
-            command_authorize=0
-        ;;
-        ("/original" | "/original@${username}")
-            command_original=0
-        ;;
-        ("/post" | "/post@${username}")
-            command_post=0
-        ;;
-        ("/short" | "/short@${username}")
-            command_short=0
-        ;;
-        ("/shorts" | "/shorts@${username}")
-            command_shorts=0
-        ;;
-        ("/stop" | "/stop@${username}")
-            command_stop=0
-        ;;
-        ("/prpr" | "/prpr@${username}")
-            command_prpr=0
-        ;;
-        (*)
-            exit 0
-        ;;
-    esac
-
+    command="${1}"
     shift
 else
     exit 0
@@ -60,295 +28,38 @@ then
     unset message_thread_id
 fi
 
-if [ -n "${command_help}" ]
-then
-    . "${submodules}/help"
-
-    link_preview_options="$(jq --null-input --compact-output \
-        '{"is_disabled": true}')"
-fi
-
-if [ -n "${command_authorize}" ]
-then
-    if [ -n "${1}" ]
-    then
-        ib_board="${1}"
-        . "${submodules}/ib_authconfig"
-
-        if [ -z "${ib_config}" ]
-        then
-            output_text="Unsupported image board"
-        fi
-
-        shift
-    else
-        output_text="You must specify the image board"
-    fi
-
-    if [ -z "${output_text}" ]
-    then
-        if [ -n "${1}" ]
-        then
-            ib_login="${1}"
-            shift
-        fi
-
-        if [ -n "${1}" ]
-        then
-            ib_key="${1}"
-            shift
-        fi
-
-        . "${submodules}/ib_lock"
-    fi
-
-    if [ -z "${output_text}" ]
-    then
-        if [ -n "${ib_noverify}" ]
-        then
-            output_text="Authorization cannot be verified, make sure you provided the correct credentials"
-        else
-            output_text="Authorized successfully"
-        fi
-    fi
-fi
-
-if [ -n "${command_original}" ] || [ -n "${command_post}" ]
-then
-    if [ -z "${1}" ]
-    then
-        reply_text="$(jq -r '.message.reply_to_message.text' "${update}")"
-
-        if [ "${reply_text}" = "null" ]
-        then
-            reply_text="$(jq -r '.message.reply_to_message.caption' "${update}")"
-        fi
-
-        if [ "${reply_text}" != "null" ]
-        then
-            ib_reply_name="$(printf "%s" "${reply_text}" | sed '1!d')"
-            ib_post_id="$(printf "%s" "${reply_text}" | grep 'ID' | parameter 2)"
-
-            for ib_board in ${ascii_table}
-            do
-                . "${submodules}/ib_config"
-
-                if [ "${ib_reply_name}" = "${ib_name}" ]
-                then
-                    break
-                fi
-            done
-
-            set -- ${ib_board} ${ib_post_id}
-        fi
-    fi
-
-    if [ -n "${1}" ]
-    then
-        ib_board="${1}"
-        ib_mode="p"
-
-        . "${submodules}/ib_config"
-        . "${submodules}/ib_authconfig"
-
-        if [ -z "${ib_data_url}" ]
-        then
-            output_text="Unsupported image board"
-        fi
-
-        shift
-    else
-        output_text="You must specify the image board"
-    fi
-
-    if [ -n "${1}" ]
-    then
-        ib_post_id="${1}"
-        shift
-    elif [ -z "${output_text}" ]
-    then
-        output_text="You must specify the post ID"
-    fi
-
-    if [ -z "${output_text}" ] && [ -n "${ib_config}" ]
-    then
-        . "${submodules}/ib_token"
-    fi
-
-    if [ -z "${output_text}" ]
-    then
-        if [ "${ib_name}" = "Idol Complex" ]
-        then
-            ib_query="id_range:${ib_post_id}"
-        else
-            ib_query="id:${ib_post_id}"
-        fi
-
-        ib_hash="$(printf "%s%s%s" "${user_id}" "${ib_board}" "${ib_post_id}" | enhash)"
-        . "${submodules}/ib_file"
-    fi
-
-    if [ -z "${output_text}" ]
-    then
-        if [ -n "${command_original}" ]
-        then
-            . "${submodules}/ib_original"
-
-            if [ -n "${ib_file_url}" ] && [ "${ib_file_url}" != "null" ]
-            then
-                reply_markup="$(jq --null-input --compact-output \
-                    --arg text1 "Original file link" \
-                    --arg url1 "${ib_file_url}" \
-                    '{"inline_keyboard": [[{"text": $text1, "url": $url1}]]}')"
-            fi
-
-            if [ -z "${output_text}" ]
-            then
-                curl --data-urlencode "chat_id=${chat_id}" \
-                    --data-urlencode "message_thread_id=${message_thread_id}" \
-                    --data-urlencode "action=upload_document" \
-                    --get \
-                    --proxy "${internal}" \
-                    --silent \
-                    "${address}/bot${token}/sendChatAction" > /dev/null
-
-                output_file="${cache}/${update_id}_sendDocument.json"
-
-                curl --data-urlencode "chat_id=${chat_id}" \
-                    --data-urlencode "message_thread_id=${message_thread_id}" \
-                    --data-urlencode "document=${ib_file_url}" \
-                    --data-urlencode "thumbnail=${ib_preview_url}" \
-                    --data-urlencode "reply_parameters=${reply_parameters}" \
-                    --data-urlencode "reply_markup=${reply_markup}" \
-                    --get \
-                    --max-time 5 \
-                    --output "${output_file}" \
-                    --proxy "${internal}" \
-                    --silent \
-                    "${address}/bot${token}/sendDocument"
-
-                if [ -z "${output_text}" ] && ! jq -e '.' "${output_file}" > /dev/null 2>&1
-                then
-                    output_text="An unknown error occurred"
-                fi
-
-                if [ -z "${output_text}" ] && [ "$(jq -r '.ok' "${output_file}")" != "true" ]
-                then
-                    output_text="Failed to send the original file"
-                fi
-
-                if [ -z "${output_text}" ]
-                then
-                    exit 0
-                fi
-            fi
-        elif [ -n "${command_post}" ]
-        then
-            . "${submodules}/ib_post"
-
-            link_preview_options="$(jq --null-input --compact-output \
-                --arg url1 "${ib_sample_url}" \
-                '{"url": $url1, "prefer_small_media": true, "show_above_text": true}')"
-
-            reply_markup="$(jq --null-input --compact-output \
-                --arg text1 "Post link" \
-                --arg url1 "${ib_url}$(printf "%s" "${ib_post_id}" | urlencode)" \
-                '{"inline_keyboard": [[{"text": $text1, "url": $url1}]]}')"
-
-            if [ ${ib_tags_count} -gt 0 ]
-            then
-                reply_markup="$(printf "%s" "${reply_markup}" | jq --compact-output \
-                    --arg text1 "Tags (${ib_tags_count})" \
-                    --arg data1 "tags ${ib_board} ${ib_post_id}" \
-                    '.inline_keyboard.[0] += [{"text": $text1, "callback_data": $data1}]')"
-            fi
-        fi
-    fi
-fi
-
-if [ -n "${command_short}" ]
-then
-    if [ -n "${1}" ]
-    then
-        short_query="${@}"
-        shift ${#}
-    else
-        output_text="You must specify the query"
-    fi
-
-    if [ ${#short_query} -gt 1024 ]
-    then
-        output_text="Query is too long"
-    fi
-
-    if [ -z "${output_text}" ]
-    then
-        output_text="<b>Shortcut:</b> <code>$(printf "%s" "${short_query}" | htmlescape)</code>"
-
-        reply_markup="$(jq --null-input --compact-output \
-            --arg text1 "Open inline" \
-            --arg query1 "${short_query}" \
-            '{"inline_keyboard": [[{"text": $text1, "switch_inline_query_current_chat": $query1}]]}')"
-
-        short_query="short ${short_query}"
-
-        if [ ${#short_query} -le 64 ]
-        then
-            reply_markup="$(printf "%s" "${reply_markup}" | jq --compact-output \
-                --arg text1 "Manage" \
-                --arg data1 "${short_query}" \
-                '.inline_keyboard.[0] += [{"text": $text1, "callback_data": $data1}]')"
-        fi
-    fi
-fi
-
-if [ -n "${command_shorts}" ]
-then
-    until mkdir "${config}/${user_id}_short.lock" > /dev/null 2>&1
-    do
-        sleep 1
-    done
-
-    short_config="${config}/${user_id}/short"
-
-    if [ -d "${short_config}" ]
-    then
-        shorts="$(ls -x "${short_config}")"
-    fi
-
-    set -- ${shorts}
-
-    if [ ${#} -gt 0 ]
-    then
-        output_text="<b>Saved shortcuts:</b> ${#} / 200"
-
-        reply_markup="$(jq --null-input --compact-output \
-            --arg text1 "Open inline" \
-            --arg query1 "shorts" \
-            --arg text2 "Remove all" \
-            --arg data2 "reset" \
-            '{"inline_keyboard": [[{"text": $text1, "switch_inline_query_current_chat": $query1}, {"text": $text2, "callback_data": $data2}]]}')"
-    else
-        output_text="You have no saved shortcuts yet"
-    fi
-
-    rm -fr "${config}/${user_id}_short.lock"
-fi
-
-if [ -n "${command_stop}" ]
-then
-    output_text="Remove all your data including login data and saved shortcuts"
-
-    reply_markup="$(jq --null-input --compact-output \
-            --arg text1 "Remove my data" \
-            --arg data1 "stop" \
-            '{"inline_keyboard": [[{"text": $text1, "callback_data": $data1}]]}')"
-fi
-
-if [ -n "${command_prpr}" ]
-then
-    output_text="ฅ^•ﻌ•^ฅ"
-fi
+case "${command}" in
+    ("/authorize" | "/authorize@${username}")
+        . "${submodules}/command_authorize"
+    ;;
+    ("/help" | "/help@${username}")
+        . "${submodules}/command_help"
+    ;;
+    ("/original" | "/original@${username}")
+        . "${submodules}/command_original"
+    ;;
+    ("/post" | "/post@${username}")
+        . "${submodules}/command_post"
+    ;;
+    ("/prpr" | "/prpr@${username}")
+        . "${submodules}/command_prpr"
+    ;;
+    ("/short" | "/short@${username}")
+        . "${submodules}/command_short"
+    ;;
+    ("/shorts" | "/shorts@${username}")
+        . "${submodules}/command_shorts"
+    ;;
+    ("/start" | "/start@${username}")
+        . "${submodules}/command_help"
+    ;;
+    ("/stop" | "/stop@${username}")
+        . "${submodules}/command_stop"
+    ;;
+    (*)
+        exit 0
+    ;;
+esac
 
 curl --data-urlencode "chat_id=${chat_id}" \
     --data-urlencode "message_thread_id=${message_thread_id}" \

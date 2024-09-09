@@ -9,12 +9,13 @@
 set -e
 umask 77
 
-version="1.9"
+version="2.0-inadev"
 dir="${0%/*}"
 cache="${dir}/cache/${$}"
 config="${dir}/config"
 modules="${dir}/modules"
 submodules="${dir}/submodules"
+units="${dir}/units"
 offset=-1
 
 if [ -n "${1}" ]

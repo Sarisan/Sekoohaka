@@ -23,12 +23,12 @@ then
     then
         if [ -n "${ib_lock}" ]
         then
-            . "${submodules}/ib_lock" &
+            . "${units}/ib_lock" &
 
             output_title="Refreshing access token..."
             output_text="Try again in a few seconds"
         else
-            . "${submodules}/ib_auth"
+            . "${units}/ib_auth"
         fi
     fi
 fi

@@ -38,7 +38,7 @@ case "${ib_board}" in
         ib_login_word="login"
         ib_key_word="password"
     ;;
-    (k | y)
+    (k|y)
         case "${ib_board}" in
             (k)
                 ib_auth="https://konachan.com"

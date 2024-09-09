@@ -282,7 +282,7 @@ case "${ib_board}" in
             ;;
         esac
     ;;
-    (k | y)
+    (k|y)
         case "${ib_board}" in
             (k)
                 ib_name="Konachan.com"

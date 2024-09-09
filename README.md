@@ -82,12 +82,15 @@ For better performance, it is recommended to use a locally deployed [Telegram Bo
 * `[login]` - Image board login or username
 * `[key]` - Image board API key or password
 
+### Inline search
+
+* `pools [b] [page] [options] [name]` - Pool search
+* `posts [b] [page] [options] [tags]` - Post search
+* `tags [b] [page] [options] [name]` - Tag search
+
 ### Inline commands
 
 * `help` - Send help message
-* `l [b] [page] [options] [name]` - Pool search
-* `p [b] [page] [options] [tags]` - Post search
-* `t [b] [page] [options] [name]` - Tag search
 * `original [b] [id]` - Get original file of post
 * `post [b] [id]` - Get infromation of post
 * `short [query]` - Create inline shortcut

@@ -9,6 +9,6 @@ do
     sleep 1
 done
 
-. "${submodules}/ib_auth"
+. "${units}/ib_auth"
 
 rm -fr "${config}/${user_id}_auth.lock"

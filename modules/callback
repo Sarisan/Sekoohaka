@@ -8,21 +8,7 @@ set -- $(jq -r '.callback_query.data' "${update}")
 
 if [ -n "${1}" ]
 then
-    case "${1}" in
-        ("short")
-            command_short=0
-        ;;
-        ("reset")
-            command_reset=0
-        ;;
-        ("stop")
-            command_stop=0
-        ;;
-        (*)
-            exit 0
-        ;;
-    esac
-
+    command="${1}"
     shift
 else
     exit 0
@@ -31,109 +17,62 @@ fi
 user_id="$(jq -r '.callback_query.from.id' "${update}")"
 query_id="$(jq -r '.callback_query.id' "${update}")"
 
-if [ -n "${command_short}" ]
+case "${command}" in
+    ("post")
+        . "${submodules}/callback_post"
+    ;;
+    ("short")
+        . "${submodules}/callback_short"
+    ;;
+    ("reset")
+        . "${submodules}/callback_reset"
+    ;;
+    ("stop")
+        . "${submodules}/callback_stop"
+    ;;
+    ("tags")
+        . "${submodules}/callback_tags"
+    ;;
+    (*)
+        exit 0
+    ;;
+esac
+
+if [ -z "${notification_text}" ] && [ -n "${output_text}" ]
 then
-    if [ -n "${1}" ]
+    chat_id="$(jq -r '.callback_query.message.chat.id' "${update}")"
+    message_id="$(jq -r '.callback_query.message.message_id' "${update}")"
+    inline_message_id="$(jq -r '.callback_query.inline_message_id' "${update}")"
+
+    if [ "${chat_id}" = "null" ]
     then
-        short_query="${@}"
-        shift ${#}
-    else
-        notification_text="You must specify the query"
+        unset chat_id
+        unset message_id
     fi
 
-    until mkdir "${config}/${user_id}_short.lock" > /dev/null 2>&1
-    do
-        sleep 1
-    done
+    output_file="${cache}/${update_id}_editMessageText.json"
 
-    short_config="${config}/${user_id}/short"
+    curl --data-urlencode "chat_id=${chat_id}" \
+        --data-urlencode "message_id=${message_id}" \
+        --data-urlencode "inline_message_id=${inline_message_id}" \
+        --data-urlencode "text=${output_text}" \
+        --data-urlencode "parse_mode=HTML" \
+        --data-urlencode "link_preview_options=${link_preview_options}" \
+        --data-urlencode "reply_markup=${reply_markup}" \
+        --get \
+        --output "${output_file}" \
+        --proxy "${internal}" \
+        --silent \
+        "${address}/bot${token}/editMessageText"
 
-    if [ -z "${notification_text}" ] && ! mkdir -p "${short_config}"
+    if [ -z "${notification_text}" ] && ! jq -e '.' "${output_file}" > /dev/null 2>&1
     then
-        notification_text="Failed to create user config"
+        notification_text="An unknown error occurred"
     fi
 
-    if [ -z "${notification_text}" ]
+    if [ -z "${notification_text}" ] && [ "$(jq -r '.ok' "${output_file}")" != "true" ]
     then
-        short_hash="$(printf "%s" "${short_query}" | enhash)"
-        short="${short_config}/${short_hash}"
-
-        set -- $(ls -x "${short_config}")
-
-        if [ -f "${short}" ]
-        then
-            rm -f "${short}"
-            notification_text="Removed shortcut"
-        elif [ ${#} -le 200 ]
-        then
-            printf "%s" "${short_query}" > "${short}"
-            notification_text="Saved shortcut"
-        else
-            notification_text="Too many shortcuts"
-        fi
-    fi
-
-    rm -fr "${config}/${user_id}_short.lock"
-fi
-
-if [ -n "${command_reset}" ]
-then
-    if mkdir "${config}/${user_id}_reset.lock" > /dev/null 2>&1
-    then
-        notification_text="Click again to confirm shortcuts removal"
-    fi
-
-    if [ -z "${notification_text}" ]
-    then
-        until mkdir "${config}/${user_id}_short.lock" > /dev/null 2>&1
-        do
-            sleep 1
-        done
-
-        if rm -fr "${config}/${user_id}/short"
-        then
-            notification_text="Removed all shortcuts"
-        else
-            notification_text="Something went wrong, try again later"
-        fi
-
-        rm -fr "${config}/${user_id}_short.lock"
-        rm -fr "${config}/${user_id}_reset.lock"
-    fi
-fi
-
-if [ -n "${command_stop}" ]
-then
-    if mkdir "${config}/${user_id}_stop.lock" > /dev/null 2>&1
-    then
-        notification_text="Click again to confirm data removal"
-    fi
-
-    if [ -z "${notification_text}" ]
-    then
-        locks="auth short"
-
-        for lock in ${locks}
-        do
-            until mkdir "${config}/${user_id}_${lock}.lock" > /dev/null 2>&1
-            do
-                sleep 1
-            done
-        done
-
-        if rm -fr "${config}/${user_id}"
-        then
-            notification_text="Removed all your data"
-        else
-            notification_text="Something went wrong, try again later"
-        fi
-
-        for lock in ${locks}
-        do
-            rm -fr "${config}/${user_id}_${lock}.lock"
-        done
-
-        rm -fr "${config}/${user_id}_stop.lock"
+        notification_text="Failed to update message"
     fi
 fi
 
