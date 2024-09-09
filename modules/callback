@@ -6,13 +6,13 @@
 
 set -- $(jq -r '.callback_query.data' "${update}")
 
-if [ -n "${1}" ]
+if [ "${1}" = "null" ]
 then
-    command="${1}"
-    shift
-else
     exit 0
 fi
+
+command="${1}"
+shift
 
 user_id="$(jq -r '.callback_query.from.id' "${update}")"
 query_id="$(jq -r '.callback_query.id' "${update}")"

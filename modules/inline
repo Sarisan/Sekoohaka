@@ -6,11 +6,12 @@
 
 set -- $(jq -r '.inline_query.query' "${update}")
 
-if [ -n "${1}" ]
+if [ "${1}" = "null" ]
 then
-    command="${1}"
-    shift
+    exit 0
 fi
+
+command="${1}"
 
 user_id="$(jq -r '.inline_query.from.id' "${update}")"
 query_id="$(jq -r '.inline_query.id' "${update}")"
@@ -19,6 +20,8 @@ offset="$(jq -r '.inline_query.offset' "${update}")"
 if [ -z "${command}" ]
 then
     . "${submodules}/inline_none"
+else
+    shift
 fi
 
 case "${command}" in
