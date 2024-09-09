@@ -39,7 +39,7 @@ if [ -f "${short}" ]
 then
     rm -f "${short}"
     notification_text="Removed shortcut"
-elif [ ${#} -le 200 ]
+elif [ ${#} -le 500 ]
 then
     printf "%s" "${short_query}" > "${short}"
     notification_text="Saved shortcut"

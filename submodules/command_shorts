@@ -20,7 +20,7 @@ set -- ${shorts}
 
 if [ ${#} -gt 0 ]
 then
-    output_text="<b>Saved shortcuts:</b> ${#} / 200"
+    output_text="<b>Saved shortcuts:</b> ${#} / 500"
 
     reply_markup="$(jq --null-input --compact-output \
         --arg text1 "Open inline" \
