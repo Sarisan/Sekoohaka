@@ -37,7 +37,7 @@ case "${command}" in
     ("short")
         . "${submodules}/inline_short"
     ;;
-    ("shorts")
+    ("shorts" | s)
         . "${submodules}/inline_shorts"
     ;;
     (*)
