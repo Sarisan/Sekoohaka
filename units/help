@@ -12,25 +12,27 @@ output_text="$(echo "<b>Sekoohaka Bot v${version}</b>" \
     "\n[options] - Search options" \
     "\n[name] - Search pool or tag name" \
     "\n[tags] - Search tags" \
+    "\n[query] - Search query" \
     "\n[id] - Post ID" \
-    "\n[query] - Inline query" \
     "\n[login] - Image board login or username" \
     "\n[key] - Image board API key or password" \
     "\n\n<b>Inline search:</b>" \
-    "\n<code>pools</code> [b] [page] [options] [name] - Pool search" \
-    "\n<code>posts</code> [b] [page] [options] [tags] - Post search" \
-    "\n<code>tags</code> [b] [page] [options] [name] - Tag search" \
+    "\n<code>pools</code> [b] [page] [options] [name] - Pools search" \
+    "\n<code>posts</code> [b] [page] [options] [tags] - Posts search" \
+    "\n<code>tags</code> [b] [page] [options] [name] - Tags search" \
+    "\n<code>shorts</code> [page] [options] [query] - Shortcuts search" \
     "\n\n<b>Search options:</b>" \
-    "\na - Enable autopaging (lpt)" \
+    "\na - Enable autopaging (lpts)" \
     "\nm - Show more metadata (p)" \
     "\np - Show gif/video as preview only (p)" \
     "\nq - Add quick buttons (lpt)" \
+    "\nr - Reverse search order (s)" \
+    "\nw - Match full words only (s)" \
     "\n\n<b>Inline commands:</b>" \
     "\n<code>help</code> - Send this message" \
     "\n<code>original</code> [b] [id] - Get original file of post" \
     "\n<code>post</code> [b] [id] - Get infromation of post" \
     "\n<code>short</code> [query] - Create inline shortcut" \
-    "\n<code>shorts</code> [page] - List saved inline shortcuts" \
     "\n\n<b>Commands:</b>" \
     "\n/help - Send this message" \
     "\n/authorize [b] [login] [key] - Authorize to image board" \

@@ -9,46 +9,11 @@ do
     sleep 1
 done
 
-if [ -n "${1}" ]
-then
-    inline_page="${1}"
-
-    if ! test "${inline_page}" -gt 0 > /dev/null 2>&1
-    then
-        output_title="Invalid arguments"
-        output_text="Illegal page number"
-
-        results="$(jq --null-input --compact-output \
-            --arg id "${query_id}" \
-            --arg title "${output_title}" \
-            --arg text "${output_text}" \
-            --arg description "${output_text}" \
-            '[{"type": "article", "id": $id, "title": $title, "input_message_content": {"message_text": $text}, "description": $description}]')"
-
-        rm -fr "${config}/${user_id}_short.lock"
-        return 0
-    fi
-
-    offset=$((inline_page - 1))
-    shift
-fi
-
 short_config="${config}/${user_id}/short"
+. "${units}/shorts_search"
 
-if [ -d "${short_config}" ]
+if [ -n "${output_text}" ]
 then
-    shorts="$(ls -xt "${short_config}")"
-fi
-
-set -- ${shorts}
-
-if [ ${#} -ge $((offset * 10 + 1)) ]
-then
-    shift $((offset * 10))
-else
-    output_title="No shortcuts found"
-    output_text="You have no saved shortcuts yet"
-
     results="$(jq --null-input --compact-output \
         --arg id "${query_id}" \
         --arg title "${output_title}" \
@@ -97,9 +62,9 @@ do
     fi
 done
 
-if [ -z "${inline_page}" ] && [ ${#} -gt 0 ]
+if [ -n "${shorts_autopaging}" ]
 then
-    next_offset=$((offset + 1))
+    next_offset=$((inline_page + 1))
 fi
 
 rm -fr "${config}/${user_id}_short.lock"

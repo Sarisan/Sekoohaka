@@ -17,6 +17,7 @@ Telegram Image Board Bot written in POSIX Shell (dash)
 * Post tags view
 * Inline shortcuts
 * Inline shortcuts saving
+* Inline shortcuts search
 
 ## Requirements
 
@@ -77,23 +78,26 @@ For better performance, it is recommended to use a locally deployed [Telegram Bo
 * `[options]` - Search options
 * `[name]` - Search pool or tag name
 * `[tags]` - Search tags
+* `[query]` - Search query
 * `[id]` - Post ID
-* `[query]` - Inline query
 * `[login]` - Image board login or username
 * `[key]` - Image board API key or password
 
 ### Inline search
 
-* `pools [b] [page] [options] [name]` - Pool search
-* `posts [b] [page] [options] [tags]` - Post search
-* `tags [b] [page] [options] [name]` - Tag search
+* `pools [b] [page] [options] [name]` - Pools search
+* `posts [b] [page] [options] [tags]` - Posts search
+* `tags [b] [page] [options] [name]` - Tags search
+* `shorts [page] [options] [query]` - Shortcuts search
 
 ### Search options
 
-* `a` - Enable autopaging (lpt)
+* `a` - Enable autopaging (lpts)
 * `m` - Show more metadata (p)
 * `p` - Show gif/video as preview only (p)
 * `q` - Add quick buttons (lpt)
+* `r` - Reverse search order (s)
+* `w` - Match full words only (s)
 
 ### Inline commands
 
@@ -101,7 +105,6 @@ For better performance, it is recommended to use a locally deployed [Telegram Bo
 * `original [b] [id]` - Get original file of post
 * `post [b] [id]` - Get infromation of post
 * `short [query]` - Create inline shortcut
-* `shorts [page]` - List saved inline shortcuts
 
 ### Commands
 
