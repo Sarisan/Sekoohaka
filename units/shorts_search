@@ -54,10 +54,12 @@ if [ -d "${short_config}" ]
 then
     if [ -n "${shorts_reverse}" ]
     then
-        shorts="$(ls -xtr "${short_config}")"
+        shorts_ls="-xtr"
     else
-        shorts="$(ls -xt "${short_config}")"
+        shorts_ls="-xt"
     fi
+
+    shorts="$(ls ${shorts_ls} "${short_config}")"
 fi
 
 set -- ${shorts}

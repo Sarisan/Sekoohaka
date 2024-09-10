@@ -15,8 +15,8 @@ fi
 . "${units}/ib_post"
 
 link_preview_options="$(jq --null-input --compact-output \
-    --arg url1 "${ib_sample_url}" \
-    '{"url": $url1, "prefer_small_media": true, "show_above_text": true}')"
+    --arg url "${ib_sample_url}" \
+    '{"url": $url, "prefer_small_media": true, "show_above_text": true}')"
 
 keyboard_text1="Post link"
 keyboard_url1="${ib_url}$(printf "%s" "${ib_post_id}" | urlencode)"

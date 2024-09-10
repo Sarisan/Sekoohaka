@@ -44,7 +44,7 @@ then
     message_id="$(jq -r '.callback_query.message.message_id' "${update}")"
     inline_message_id="$(jq -r '.callback_query.inline_message_id' "${update}")"
 
-    if [ "${chat_id}" = "null" ]
+    if [ "${inline_message_id}" != "null" ]
     then
         unset chat_id
         unset message_id
