@@ -39,6 +39,11 @@ output_text="$(echo "<b>Sekoohaka Bot v${version}</b>" \
     "\n/short [query] - Create inline shortcut" \
     "\n/shorts - Manage saved shortcuts" \
     "\n/stop - Remove all your data" \
+    "\n\n<b>Inline aliases:</b>" \
+    "\n<code>l</code> - <code>pools</code>" \
+    "\n<code>p</code> - <code>posts</code>" \
+    "\n<code>t</code> - <code>tags</code>" \
+    "\n<code>s</code> - <code>shorts</code>" \
     "\n\n<b>Inline examples:</b>" \
     "\n<code>p d 1 -a rating:g</code>" \
     "\n<code>t d *genshin*</code>" \

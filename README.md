@@ -113,6 +113,13 @@ For better performance, it is recommended to use a locally deployed [Telegram Bo
 * `/shorts` - Manage saved shortcuts
 * `/stop` - Remove all user data
 
+### Inline aliases
+
+* `l` - `pools`
+* `p` - `posts`
+* `t` - `tags`
+* `s` - `shorts`
+
 ### Inline examples
 
 * `p d 1 -a rating:g`
