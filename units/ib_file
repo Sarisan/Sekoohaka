@@ -100,9 +100,6 @@ then
     else
         output_text="Try different post ID"
     fi
-
-    rm -fr "${ib_file}" "${cache}/${ib_hash}.lock"
-    return 0
 fi
 
 rm -fr "${cache}/${ib_hash}.lock"

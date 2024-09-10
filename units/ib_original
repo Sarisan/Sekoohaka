@@ -34,9 +34,7 @@ then
     if [ ${ib_file_size} -gt ${size} ]
     then
         output_text="File size is too large"
-        return 0
     fi
 else
     output_text="Failed to get file size"
-    return 0
 fi

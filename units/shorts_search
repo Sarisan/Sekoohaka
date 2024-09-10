@@ -104,6 +104,4 @@ else
     fi
 
     output_text="Try different page or query"
-
-    return 0
 fi
