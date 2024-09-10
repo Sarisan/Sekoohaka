@@ -20,17 +20,17 @@ output_text="$(echo "<b>Sekoohaka Bot v${version}</b>" \
     "\n<code>pools</code> [b] [page] [options] [name] - Pool search" \
     "\n<code>posts</code> [b] [page] [options] [tags] - Post search" \
     "\n<code>tags</code> [b] [page] [options] [name] - Tag search" \
+    "\n\n<b>Search options:</b>" \
+    "\na - Enable autopaging (lpt)" \
+    "\nm - Show more metadata (p)" \
+    "\np - Show gif/video as preview only (p)" \
+    "\nq - Add quick buttons (lpt)" \
     "\n\n<b>Inline commands:</b>" \
     "\n<code>help</code> - Send this message" \
     "\n<code>original</code> [b] [id] - Get original file of post" \
     "\n<code>post</code> [b] [id] - Get infromation of post" \
     "\n<code>short</code> [query] - Create inline shortcut" \
     "\n<code>shorts</code> [page] - List saved inline shortcuts" \
-    "\n\n<b>Search options:</b>" \
-    "\na - Enable autopaging (lpt)" \
-    "\nm - Show more metadata (p)" \
-    "\np - Show gif/video as preview only (p)" \
-    "\nq - Add quick buttons (lpt)" \
     "\n\n<b>Commands:</b>" \
     "\n/help - Send this message" \
     "\n/authorize [b] [login] [key] - Authorize to image board" \

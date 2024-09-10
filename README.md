@@ -88,6 +88,13 @@ For better performance, it is recommended to use a locally deployed [Telegram Bo
 * `posts [b] [page] [options] [tags]` - Post search
 * `tags [b] [page] [options] [name]` - Tag search
 
+### Search options
+
+* `a` - Enable autopaging (lpt)
+* `m` - Show more metadata (p)
+* `p` - Show gif/video as preview only (p)
+* `q` - Add quick buttons (lpt)
+
 ### Inline commands
 
 * `help` - Send help message
@@ -95,13 +102,6 @@ For better performance, it is recommended to use a locally deployed [Telegram Bo
 * `post [b] [id]` - Get infromation of post
 * `short [query]` - Create inline shortcut
 * `shorts [page]` - List saved inline shortcuts
-
-### Search options
-
-* `a` - Enable autopaging (lpt)
-* `m` - Show more metadata (p)
-* `p` - Show gif/video as preview only (p)
-* `q` - Add quick buttons (lpt)
 
 ### Commands
 
