@@ -69,8 +69,10 @@ do
 
     output_title="Shortcut"
     output_text="<b>Shortcut:</b> <code>$(printf "%s" "${short_query}" | htmlescape)</code>"
+    output_description="${short_query}"
 
     keyboard_text1="Open inline"
+    keyboard_query1="${short_query}"
     keyboard_text2="Manage"
     keyboard_data2="short ${short_query}"
 
@@ -79,10 +81,10 @@ do
         --arg title "${output_title}" \
         --arg text "${output_text}" \
         --arg text1 "${keyboard_text1}" \
-        --arg query1 "${short_query}" \
+        --arg query1 "${keyboard_query1}" \
         --arg text2 "${keyboard_text2}" \
         --arg data2 "${keyboard_data2}" \
-        --arg description "${short_query}" \
+        --arg description "${output_description}" \
         '{"type": "article", "id": $id, "title": $title, "input_message_content": {"message_text": $text, "parse_mode": "HTML"}, "reply_markup": {"inline_keyboard": [[{"text": $text1, "switch_inline_query_current_chat": $query1}, {"text": $text2, "callback_data": $data2}]]}, "description": $description}')"
 
     results="$(printf "%s" "${results}" | jq -c ".[${array_count}] += ${result}")"

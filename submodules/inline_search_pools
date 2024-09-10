@@ -16,6 +16,7 @@ then
     ib_pool="$(printf "%s" "${ib_pool}" | tr "${ib_ispace}" ' ')"
 fi
 
+output_title="${ib_pool:- }"
 output_text="$(printf "<b>%s</b>\n<b>ID:</b> <code>%s</code>" "${ib_name}" "${ib_id}")"
 
 if [ -n "${ib_date_text}" ]
@@ -39,7 +40,7 @@ fi
 
 result="$(jq --null-input --compact-output \
     --arg id "${ib_id}" \
-    --arg title "${ib_pool:- }" \
+    --arg title "${output_title}" \
     --arg text "${output_text}" \
     --arg description "${output_description}" \
     --arg text1 "${keyboard_text1}" \
@@ -51,15 +52,15 @@ result="$(jq --null-input --compact-output \
 if [ -n "${ib_quick}" ]
 then
     keyboard_text1="Search posts"
-    keyboard_url1="p ${ib_board} pool:${ib_id}"
+    keyboard_query1="p ${ib_board} pool:${ib_id}"
 
     if [ -n "${ib_iorder}" ]
     then
-        keyboard_url1="${keyboard_url1} ${ib_iorder}"
+        keyboard_query1="${keyboard_query1} ${ib_iorder}"
     fi
 
     result="$(printf "%s" "${result}" | jq --compact-output \
         --arg text1 "${keyboard_text1}" \
-        --arg query1 "${keyboard_url1}" \
+        --arg query1 "${keyboard_query1}" \
         '.reply_markup.inline_keyboard += [[{"text": $text1, "switch_inline_query_current_chat": $query1}]]')"
 fi

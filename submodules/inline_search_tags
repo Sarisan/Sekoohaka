@@ -12,6 +12,7 @@ then
     ib_tag="${ib_tag_recode}"
 fi
 
+output_title="${ib_tag:- }"
 output_text="$(printf "<b>%s</b>\n<b>ID:</b> <code>%s</code>" "${ib_name}" "${ib_id}")"
 output_text="$(printf "%s\n<b>Name:</b> <code>%s</code>" "${output_text}" "$(printf "%s" "${ib_tag}" | htmlescape)")"
 output_text="$(printf "%s\n<b>Post count:</b> %s" "${output_text}" "${ib_count}")"
@@ -29,7 +30,7 @@ fi
 
 result="$(jq --null-input --compact-output \
     --arg id "${ib_id}" \
-    --arg title "${ib_tag:- }" \
+    --arg title "${output_title}" \
     --arg text "${output_text}" \
     --arg description "${output_description}" \
     --arg text1 "${keyboard_text1}" \

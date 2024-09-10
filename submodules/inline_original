@@ -47,9 +47,10 @@ fi
 if [ -n "${ib_file_url}" ] && [ "${ib_file_url}" != "null" ]
 then
     keyboard_text1="Original file link"
+    keyboard_url1="${ib_file_url}"
 
     results="$(printf "%s" "${results}" | jq --compact-output \
         --arg text1 "${keyboard_text1}" \
-        --arg url1 "${ib_file_url}" \
+        --arg url1 "${keyboard_url1}" \
         '.[0] += {"reply_markup": {"inline_keyboard": [[{"text": $text1, "url": $url1}]]}}')"
 fi
