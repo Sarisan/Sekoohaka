@@ -61,7 +61,9 @@ then
                 ib_quick=0
             ;;
             (*)
+                output_title="Invalid arguments"
                 output_text="Unsupported options"
+
                 return 0
             ;;
         esac
