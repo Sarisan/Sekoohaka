@@ -25,4 +25,6 @@ else
     command="help"
 fi
 
+shift ${#}
+
 rm -fr "${config}/${user_id}_short.lock"

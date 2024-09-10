@@ -9,6 +9,30 @@ do
     sleep 1
 done
 
+if [ -n "${1}" ]
+then
+    inline_page="${1}"
+
+    if ! test "${inline_page}" -gt 0 > /dev/null 2>&1
+    then
+        output_title="Invalid arguments"
+        output_text="Illegal page number"
+
+        results="$(jq --null-input --compact-output \
+            --arg id "${query_id}" \
+            --arg title "${output_title}" \
+            --arg text "${output_text}" \
+            --arg description "${output_text}" \
+            '[{"type": "article", "id": $id, "title": $title, "input_message_content": {"message_text": $text}, "description": $description}]')"
+
+        rm -fr "${config}/${user_id}_short.lock"
+        return 0
+    fi
+
+    offset=$((inline_page - 1))
+    shift
+fi
+
 short_config="${config}/${user_id}/short"
 
 if [ -d "${short_config}" ]
@@ -18,9 +42,9 @@ fi
 
 set -- ${shorts}
 
-if [ ${#} -ge $((offset + 1)) ]
+if [ ${#} -ge $((offset * 10 + 1)) ]
 then
-    shift ${offset:-0}
+    shift $((offset * 10))
 else
     output_title="No shortcuts found"
     output_text="You have no saved shortcuts yet"
@@ -71,9 +95,9 @@ do
     fi
 done
 
-if [ ${#} -gt 0 ]
+if [ -z "${inline_page}" ] && [ ${#} -gt 0 ]
 then
-    next_offset=$((offset + array_count))
+    next_offset=$((offset + 1))
 fi
 
 rm -fr "${config}/${user_id}_short.lock"

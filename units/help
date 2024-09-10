@@ -25,7 +25,7 @@ output_text="$(echo "<b>Sekoohaka Bot v${version}</b>" \
     "\n<code>original</code> [b] [id] - Get original file of post" \
     "\n<code>post</code> [b] [id] - Get infromation of post" \
     "\n<code>short</code> [query] - Create inline shortcut" \
-    "\n<code>shorts</code> - List saved inline shortcuts" \
+    "\n<code>shorts</code> [page] - List saved inline shortcuts" \
     "\n\n<b>Search options:</b>" \
     "\na - Enable autopaging (lpt)" \
     "\nm - Show more metadata (p)" \

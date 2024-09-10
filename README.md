@@ -94,7 +94,7 @@ For better performance, it is recommended to use a locally deployed [Telegram Bo
 * `original [b] [id]` - Get original file of post
 * `post [b] [id]` - Get infromation of post
 * `short [query]` - Create inline shortcut
-* `shorts` - List saved inline shortcuts
+* `shorts [page]` - List saved inline shortcuts
 
 ### Search options
 
