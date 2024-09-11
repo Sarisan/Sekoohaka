@@ -27,6 +27,7 @@ then
 
             output_title="Refreshing access token..."
             output_text="Try again in a few seconds"
+            notification_text="${output_title} ${output_text}"
         else
             . "${units}/ib_auth"
         fi

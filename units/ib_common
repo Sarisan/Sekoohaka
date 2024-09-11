@@ -70,17 +70,6 @@ else
     return 0
 fi
 
-if [ -n "${ib_config}" ]
-then
-    . "${units}/ib_token"
-
-    if [ -n "${output_text}" ]
-    then
-        notification_text="${output_title} ${output_text}"
-        return 0
-    fi
-fi
-
 if [ "${ib_name}" = "Idol Complex" ]
 then
     ib_query="id_range:${ib_post_id}"
@@ -90,8 +79,3 @@ fi
 
 ib_hash="$(printf "%s%s%s" "${user_id}" "${ib_board}" "${ib_post_id}" | enhash)"
 . "${units}/ib_file"
-
-if [ -n "${output_text}" ]
-then
-    notification_text="${output_text}"
-fi

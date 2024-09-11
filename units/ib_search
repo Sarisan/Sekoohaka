@@ -78,17 +78,6 @@ then
     shift ${#}
 fi
 
-if [ -n "${ib_config}" ]
-then
-    ib_lock=0
-    . "${units}/ib_token"
-
-    if [ -n "${output_text}" ]
-    then
-        return 0
-    fi
-fi
-
 ib_limit=10
 ib_page=${inline_page}
 

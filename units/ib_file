@@ -25,6 +25,17 @@ then
     rm -f "${ib_file}"
 fi
 
+if [ -n "${ib_config}" ]
+then
+    . "${units}/ib_token"
+
+    if [ -n "${output_text}" ]
+    then
+        rm -fr "${cache}/${ib_hash}.lock"
+        return 0
+    fi
+fi
+
 if [ -n "${ib_limit}" ]
 then
     ib_limit="${ib_dlimit}=${ib_limit}"
@@ -60,6 +71,8 @@ if ! curl --data-urlencode "${ib_dfield1}" \
 then
     output_title="An error occurred"
     output_text="Failed to access ${ib_name} API"
+    notification_text="${output_text}"
+
     next_offset=${inline_page:-0}
 
     rm -fr "${ib_file}" "${cache}/${ib_hash}.lock"
@@ -70,6 +83,7 @@ if ! jq -e '.' "${ib_file}" > /dev/null 2>&1
 then
     output_title="An error occurred"
     output_text="An unknown error occurred"
+    notification_text="${output_text}"
 
     rm -fr "${ib_file}" "${cache}/${ib_hash}.lock"
     return 0
@@ -100,6 +114,8 @@ then
     else
         output_text="Try different post ID"
     fi
+
+    notification_text="${output_text}"
 fi
 
 rm -fr "${cache}/${ib_hash}.lock"

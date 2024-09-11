@@ -22,6 +22,7 @@ case "${command}" in
     ;;
 esac
 
+ib_lock=0
 . "${units}/ib_search"
 
 if [ -n "${output_text}" ]
