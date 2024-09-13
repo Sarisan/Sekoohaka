@@ -76,9 +76,9 @@ if [ -n "${shorts_query}" ]
 then
     if [ -n "${shorts_word}" ]
     then
-        shorts_grep="-lqwF"
+        shorts_grep="-lqwFe"
     else
-        shorts_grep="-lqiF"
+        shorts_grep="-lqiFe"
     fi
 
     for short in ${@}
