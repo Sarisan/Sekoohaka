@@ -89,10 +89,8 @@ then
         fi
     done
 
-    shorts="${query_shorts}"
+    set -- ${query_shorts}
 fi
-
-set -- ${shorts}
 
 if [ ${#} -ge $(((inline_page - 1) * 10 + 1)) ]
 then
