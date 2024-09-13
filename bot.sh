@@ -164,7 +164,7 @@ curl --get \
 
 if ! jq -e '.' "${cache}/getMe.json" > /dev/null
 then
-    cat "${cache}/getMe.json"
+    echo "Failed to get the bot information"
     exit 1
 fi
 
