@@ -9,7 +9,7 @@
 set -e
 umask 77
 
-version="2.1.3"
+version="2.1.4"
 dir="${0%/*}"
 cache="${dir}/cache/${$}"
 config="${dir}/config"
