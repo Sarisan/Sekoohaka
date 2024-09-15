@@ -17,11 +17,11 @@ user_id="$(jq -r '.inline_query.from.id' "${update}")"
 query_id="$(jq -r '.inline_query.id' "${update}")"
 offset="$(jq -r '.inline_query.offset' "${update}")"
 
-if [ -z "${command}" ]
+if [ -n "${command}" ]
 then
-    . "${submodules}/inline_none"
-else
     shift
+else
+    . "${submodules}/inline_none"
 fi
 
 case "${command}" in
