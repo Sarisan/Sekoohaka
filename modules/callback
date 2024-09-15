@@ -21,11 +21,11 @@ case "${command}" in
     ("post")
         . "${submodules}/callback_post"
     ;;
-    ("short")
-        . "${submodules}/callback_short"
-    ;;
     ("reset")
         . "${submodules}/callback_reset"
+    ;;
+    ("short")
+        . "${submodules}/callback_short"
     ;;
     ("stop")
         . "${submodules}/callback_stop"
