@@ -39,11 +39,6 @@ fi
 
 . "${units}/ib_original.sh"
 
-if [ -n "${output_text}" ]
-then
-    return 0
-fi
-
 if [ -n "${ib_file_url}" ] && [ "${ib_file_url}" != "null" ]
 then
     keyboard_text1="Original file link"
@@ -53,6 +48,11 @@ then
         --arg text1 "${keyboard_text1}" \
         --arg url1 "${keyboard_url1}" \
         '{"inline_keyboard": [[{"text": $text1, "url": $url1}]]}')"
+fi
+
+if [ -n "${output_text}" ]
+then
+    return 0
 fi
 
 curl --data-urlencode "chat_id=${chat_id}" \
