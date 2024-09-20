@@ -19,8 +19,17 @@ fi
 
 . "${units}/ib_original.sh"
 
-if [ -z "${output_text}" ]
+if [ -n "${output_text}" ]
 then
+    output_title="An error occurred"
+
+    results="$(jq --null-input --compact-output \
+        --arg id "${query_id}" \
+        --arg title "${output_title}" \
+        --arg text "${output_text}" \
+        --arg description "${output_text}" \
+        '[{"type": "article", "id": $id, "title": $title, "input_message_content": {"message_text": $text}, "description": $description}]')"
+else
     output_title="Original file of post ${ib_post_id}"
     output_description="Click to send the original file"
 
@@ -31,15 +40,6 @@ then
         --arg description "${output_description}" \
         --arg thumbnail_url "${ib_preview_url}" \
         '[{"type": "document", "id": $id, "title": $title, "document_url": $document_url, "mime_type": "application/zip", "description": $description, "thumbnail_url", $thumbnail_url}]')"
-else
-    output_title="An error occurred"
-
-    results="$(jq --null-input --compact-output \
-        --arg id "${query_id}" \
-        --arg title "${output_title}" \
-        --arg text "${output_text}" \
-        --arg description "${output_text}" \
-        '[{"type": "article", "id": $id, "title": $title, "input_message_content": {"message_text": $text}, "description": $description}]')"
 fi
 
 if [ -n "${ib_file_url}" ] && [ "${ib_file_url}" != "null" ]
