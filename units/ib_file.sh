@@ -114,6 +114,8 @@ then
     fi
 
     notification_text="${output_text}"
+
+    rm -f "${ib_file}"
 fi
 
 rm -fr "${cache}/${ib_hash}.lock"
