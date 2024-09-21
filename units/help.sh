@@ -23,7 +23,7 @@ output_text="$(echo "<b>Sekoohaka Bot v${version}</b>" \
     "\na - Enable autopaging (lpts)" \
     "\nm - Show more metadata (p)" \
     "\np - Show gif/video as preview only (p)" \
-    "\nq - Add quick buttons (lpt)" \
+    "\nq - Add quick buttons (lpts)" \
     "\nr - Reverse search order (s)" \
     "\nw - Match full words only (s)" \
     "\n\n<b>Inline commands:</b>" \

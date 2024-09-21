@@ -20,11 +20,14 @@ if [ -n "${1}" ]
 then
     inline_query="${@}"
 
-    while getopts "arw" inline_getopts > /dev/null 2>&1
+    while getopts "aqrw" inline_getopts > /dev/null 2>&1
     do
         case "${inline_getopts}" in
             (a)
                 shorts_autopaging=0
+            ;;
+            (q)
+                shorts_quick=0
             ;;
             (r)
                 shorts_reverse=0

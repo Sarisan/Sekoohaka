@@ -95,7 +95,7 @@ For better performance, it is recommended to use a locally deployed [Telegram Bo
 * `a` - Enable autopaging (lpts)
 * `m` - Show more metadata (p)
 * `p` - Show gif/video as preview only (p)
-* `q` - Add quick buttons (lpt)
+* `q` - Add quick buttons (lpts)
 * `r` - Reverse search order (s)
 * `w` - Match full words only (s)
 
