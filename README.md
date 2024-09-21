@@ -10,7 +10,7 @@ Telegram Image Board Bot written in POSIX Shell (dash)
 * Inline tag search
 * Inline paging
 * Inline autopaging
-* Inline resume
+* Inline resuming
 * Inline quick buttons
 * Original file download
 * Post information view
