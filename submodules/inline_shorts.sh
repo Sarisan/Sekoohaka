@@ -50,6 +50,22 @@ do
         --arg description "${output_description}" \
         '{"type": "article", "id": $id, "title": $title, "input_message_content": {"message_text": $text, "parse_mode": "HTML"}, "reply_markup": {"inline_keyboard": [[{"text": $text1, "switch_inline_query_current_chat": $query1}, {"text": $text2, "callback_data": $data2}]]}, "description": $description}')"
 
+    if [ "${chat_type}" = "sender" ]
+    then
+        keyboard_text1="Resume"
+        keyboard_query1="${command} ${inline_page}"
+
+        if [ -n "${inline_query}" ]
+        then
+            keyboard_query1="${keyboard_query1} ${inline_query}"
+        fi
+
+        result="$(printf "%s" "${result}" | jq --compact-output \
+            --arg text1 "${keyboard_text1}" \
+            --arg query1 "${keyboard_query1}" \
+            '.reply_markup.inline_keyboard.[0] += [{"text": $text1, "switch_inline_query_current_chat": $query1}]')"
+    fi
+
     results="$(printf "%s" "${results}" | jq -c ".[${array_count}] += ${result}")"
     array_count=$((array_count + 1))
     shift

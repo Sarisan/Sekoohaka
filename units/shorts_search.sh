@@ -18,6 +18,8 @@ fi
 
 if [ -n "${1}" ]
 then
+    inline_query="${@}"
+
     while getopts "arw" inline_getopts > /dev/null 2>&1
     do
         case "${inline_getopts}" in
