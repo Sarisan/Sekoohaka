@@ -199,7 +199,7 @@ do
     then
         update="${cache}/${update_id}.json"
 
-        if ! jq '.result.[0]' "${cache}/getUpdates.json" > "${update}"
+        if ! jq -c '.result.[0]' "${cache}/getUpdates.json" > "${update}"
         then
             continue
         fi
