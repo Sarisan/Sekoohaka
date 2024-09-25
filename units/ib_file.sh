@@ -9,18 +9,16 @@ done
 
 ib_file="${cache}/${ib_hash}.json"
 
-if [ -f "${ib_file}" ]
+if [ -f "${ib_file}" ] && [ "${caching_mode}" != "none" ]
 then
     ib_ctime=$(date +%s)
     ib_mtime=$(stat -c %Y "${ib_file}")
 
-    if [ $((ib_ctime - ib_mtime)) -le 240 ]
+    if [ $((ib_ctime - ib_mtime)) -le ${caching_time} ]
     then
         rm -fr "${cache}/${ib_hash}.lock"
         return 0
     fi
-
-    rm -f "${ib_file}"
 fi
 
 if [ -n "${ib_config}" ]
@@ -48,6 +46,8 @@ if [ -n "${ib_query}" ]
 then
     ib_query="${ib_dquery}=${ib_query}"
 fi
+
+rm -f "${ib_file}"
 
 if ! curl --data-urlencode "${ib_dfield1}" \
     --data-urlencode "${ib_dfield2}" \

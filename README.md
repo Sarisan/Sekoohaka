@@ -64,8 +64,15 @@ For better performance, it is recommended to use a locally deployed [Telegram Bo
   -l            Same as -a localhost:8081 -s 20971520
   -a <addr>     Telegram Bot API address, default: api.telegram.org
   -s <size>     Max file size allowed to send with URL, default: 10485760
+  -n <mode>     Caching mode, default: normal
+  -t <secs>     Caching time, default: 300
   -i <addr>     Internal proxy address to interact with Telegram Bot API
   -e <addr>     External proxy address to interact with image boards
+
+Caching modes:
+  none          No caching
+  normal        Cache inline results and posts
+  advanced      Extract posts cache from inline results
 ```
 
 ## Usage

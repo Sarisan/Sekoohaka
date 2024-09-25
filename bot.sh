@@ -20,7 +20,7 @@ offset=-1
 
 if [ -n "${1}" ]
 then
-    while getopts hla:s:i:e: options
+    while getopts hla:s:n:t:i:e: options
     do
         case "${options}" in
             (h)
@@ -34,6 +34,12 @@ then
             ;;
             (s)
                 size=${OPTARG}
+            ;;
+            (n)
+                caching_mode=${OPTARG}
+            ;;
+            (t)
+                caching_time=${OPTARG}
             ;;
             (i)
                 internal="${OPTARG}"
@@ -62,8 +68,14 @@ then
         "\n  -l\t\tSame as -a localhost:8081 -s 20971520" \
         "\n  -a <addr>\tTelegram Bot API address, default: api.telegram.org" \
         "\n  -s <size>\tMax file size allowed to send with URL, default: 10485760" \
+        "\n  -n <mode>\tCaching mode, default: normal" \
+        "\n  -t <secs>\tCaching time, default: 300" \
         "\n  -i <addr>\tInternal proxy address to interact with Telegram Bot API" \
-        "\n  -e <addr>\tExternal proxy address to interact with image boards"
+        "\n  -e <addr>\tExternal proxy address to interact with image boards" \
+        "\n\nCaching modes:" \
+        "\n  none\t\tNo caching" \
+        "\n  normal\tCache inline results and posts" \
+        "\n  advanced\tExtract posts cache from inline results"
     exit 0
 fi
 
@@ -119,6 +131,31 @@ then
     fi
 else
     size=10485760
+fi
+
+if [ -n "${caching_mode}" ]
+then
+    case "${caching_mode}" in
+        (none | normal | advanced)
+        ;;
+        (*)
+            echo "Unrecognized caching mode ${caching_mode}. See '${0} -h'"
+            exit 1
+        ;;
+    esac
+else
+    caching_mode=normal
+fi
+
+if [ -n "${caching_time}" ]
+then
+    if ! test ${caching_time} -gt 0 > /dev/null 2>&1
+    then
+        echo "Illegal caching time"
+        exit 1
+    fi
+else
+    caching_time=300
 fi
 
 if [ -n "${1}" ]
