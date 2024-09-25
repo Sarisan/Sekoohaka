@@ -65,7 +65,7 @@ For better performance, it is recommended to use a locally deployed [Telegram Bo
   -a <addr>     Telegram Bot API address, default: api.telegram.org
   -s <size>     Max file size allowed to send with URL, default: 10485760
   -i <addr>     Internal proxy address to interact with Telegram Bot API
-  -e <addr>     External proxy address to interact with anything else
+  -e <addr>     External proxy address to interact with image boards
 ```
 
 ## Usage

@@ -63,7 +63,7 @@ then
         "\n  -a <addr>\tTelegram Bot API address, default: api.telegram.org" \
         "\n  -s <size>\tMax file size allowed to send with URL, default: 10485760" \
         "\n  -i <addr>\tInternal proxy address to interact with Telegram Bot API" \
-        "\n  -e <addr>\tExternal proxy address to interact with anything else"
+        "\n  -e <addr>\tExternal proxy address to interact with image boards"
     exit 0
 fi
 
