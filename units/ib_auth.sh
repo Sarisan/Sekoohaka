@@ -32,10 +32,10 @@ fi
 
 case "${ib_board}" in
     (d)
-        ib_file="${cache}/${update_id}_profile.json"
+        ib_auth_file="${cache}/${update_id}_profile.json"
 
         if ! curl --max-time 5 \
-            --output "${ib_file}" \
+            --output "${ib_auth_file}" \
             --proxy "${external}" \
             --request GET \
             --silent \
@@ -47,25 +47,25 @@ case "${ib_board}" in
             return 0
         fi
 
-        if ! [ -f "${ib_file}" ]
+        if ! [ -f "${ib_auth_file}" ]
         then
             output_text="Failed to process request"
             return 0
         fi
 
-        if ! jq -e '.' "${ib_file}" > /dev/null 2>&1
+        if ! jq -e '.' "${ib_auth_file}" > /dev/null 2>&1
         then
             output_text="An unknown error occurred"
             return 0
         fi
 
-        if [ "$(jq -r '.success' "${ib_file}")" = "false" ]
+        if [ "$(jq -r '.success' "${ib_auth_file}")" = "false" ]
         then
-            output_text="Error: <code>$(jq -r '.message' "${ib_file}" | htmlescape)</code>"
+            output_text="Error: <code>$(jq -r '.message' "${ib_auth_file}" | htmlescape)</code>"
             return 0
         fi
 
-        if [ "$(jq -r '.name' "${ib_file}")" != "${ib_login}" ]
+        if [ "$(jq -r '.name' "${ib_auth_file}")" != "${ib_login}" ]
         then
             output_text="An unexpected error occurred"
             return 0
@@ -94,12 +94,12 @@ case "${ib_board}" in
             --arg password "${ib_key}" \
             '{"login": $login, "password": $password}')"
 
-        ib_file="${cache}/${update_id}_token.json"
+        ib_auth_file="${cache}/${update_id}_token.json"
 
         if ! curl --data "${ib_login_data}" \
             --header "Content-Type: application/json" \
             --max-time 5 \
-            --output "${ib_file}" \
+            --output "${ib_auth_file}" \
             --proxy "${external}" \
             --request POST \
             --silent \
@@ -110,35 +110,35 @@ case "${ib_board}" in
             return 0
         fi
 
-        if ! [ -f "${ib_file}" ]
+        if ! [ -f "${ib_auth_file}" ]
         then
             output_text="Failed to process request"
             return 0
         fi
 
-        if ! jq -e '.' "${ib_file}" > /dev/null 2>&1
+        if ! jq -e '.' "${ib_auth_file}" > /dev/null 2>&1
         then
             output_text="An unknown error occurred"
             return 0
         fi
 
-        if [ "$(jq -r '.success' "${ib_file}")" != "true" ]
+        if [ "$(jq -r '.success' "${ib_auth_file}")" != "true" ]
         then
-            output_text="Error: <code>$(jq -r '.error' "${ib_file}" | htmlescape)</code>"
+            output_text="Error: <code>$(jq -r '.error' "${ib_auth_file}" | htmlescape)</code>"
             return 0
         fi
 
-        jq -r '.access_token' "${ib_file}" > "${ib_config}/token"
+        jq -r '.access_token' "${ib_auth_file}" > "${ib_config}/token"
         date +%s > "${ib_config}/timestamp"
     ;;
     (k|y)
-        ib_file="${cache}/${update_id}_user.json"
+        ib_auth_file="${cache}/${update_id}_user.json"
 
         if ! curl --data-urlencode "username=${ib_login}" \
             --data-urlencode "api_key=${ib_key}" \
             --get \
             --max-time 5 \
-            --output "${ib_file}" \
+            --output "${ib_auth_file}" \
             --proxy "${external}" \
             --silent \
             --user-agent "Sekoohaka" \
@@ -148,13 +148,13 @@ case "${ib_board}" in
             return 0
         fi
 
-        if ! [ -f "${ib_file}" ]
+        if ! [ -f "${ib_auth_file}" ]
         then
             output_text="Failed to process request"
             return 0
         fi
 
-        if ! jq -e '.' "${ib_file}" > /dev/null 2>&1
+        if ! jq -e '.' "${ib_auth_file}" > /dev/null 2>&1
         then
             output_text="Invalid username or API key"
             return 0
