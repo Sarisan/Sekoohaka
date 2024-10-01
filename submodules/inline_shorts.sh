@@ -77,7 +77,7 @@ do
     array_count=$((array_count + 1))
     shift
 
-    if [ ${array_count} -eq 10 ]
+    if [ ${array_count} -eq ${inline_limit} ]
     then
         break
     fi

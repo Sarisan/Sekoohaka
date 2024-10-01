@@ -59,9 +59,10 @@ curl --data-urlencode "chat_id=${chat_id}" \
     --data-urlencode "message_thread_id=${message_thread_id}" \
     --data-urlencode "action=upload_document" \
     --get \
-    --proxy "${internal}" \
+    --max-time ${internal_timeout} \
+    --proxy "${internal_proxy}" \
     --silent \
-    "${address}/bot${token}/sendChatAction" > /dev/null
+    "${api_address}/bot${api_token}/sendChatAction" > /dev/null
 
 output_file="${cache}/${update_id}_sendDocument.json"
 
@@ -72,10 +73,11 @@ curl --data-urlencode "chat_id=${chat_id}" \
     --data-urlencode "reply_parameters=${reply_parameters}" \
     --data-urlencode "reply_markup=${reply_markup}" \
     --get \
+    --max-time ${internal_timeout} \
     --output "${output_file}" \
-    --proxy "${internal}" \
+    --proxy "${internal_proxy}" \
     --silent \
-    "${address}/bot${token}/sendDocument"
+    "${api_address}/bot${api_token}/sendDocument"
 
 if ! jq -e '.' "${output_file}" > /dev/null 2>&1
 then

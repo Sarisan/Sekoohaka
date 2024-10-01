@@ -13,8 +13,8 @@ then
 fi
 
 ib_file_size="$(curl --head \
-    --max-time 2 \
-    --proxy "${external}" \
+    --max-time ${head_timeout} \
+    --proxy "${external_proxy}" \
     --silent \
     --user-agent "Sekoohaka" \
     "${ib_file_url}" | grep -i "content-length" | parameter 2)"

@@ -58,10 +58,11 @@ then
         --data-urlencode "link_preview_options=${link_preview_options}" \
         --data-urlencode "reply_markup=${reply_markup}" \
         --get \
+        --max-time ${internal_timeout} \
         --output "${output_file}" \
-        --proxy "${internal}" \
+        --proxy "${internal_proxy}" \
         --silent \
-        "${address}/bot${token}/editMessageText"
+        "${api_address}/bot${api_token}/editMessageText"
 
     if [ -z "${notification_text}" ] && ! jq -e '.' "${output_file}" > /dev/null 2>&1
     then
@@ -78,6 +79,7 @@ curl --data-urlencode "callback_query_id=${query_id}" \
     --data-urlencode "text=${notification_text}" \
     --data-urlencode "cache_time=0" \
     --get \
-    --proxy "${internal}" \
+    --max-time ${internal_timeout} \
+    --proxy "${internal_proxy}" \
     --silent \
-    "${address}/bot${token}/answerCallbackQuery" > /dev/null
+    "${api_address}/bot${api_token}/answerCallbackQuery" > /dev/null

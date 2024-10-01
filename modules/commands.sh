@@ -67,6 +67,7 @@ curl --data-urlencode "chat_id=${chat_id}" \
     --data-urlencode "reply_parameters=${reply_parameters}" \
     --data-urlencode "reply_markup=${reply_markup}" \
     --get \
-    --proxy "${internal}" \
+    --max-time ${internal_timeout} \
+    --proxy "${internal_proxy}" \
     --silent \
-    "${address}/bot${token}/sendMessage" > /dev/null
+    "${api_address}/bot${api_token}/sendMessage" > /dev/null

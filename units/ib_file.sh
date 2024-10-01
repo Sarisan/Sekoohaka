@@ -60,9 +60,9 @@ if ! curl --data-urlencode "${ib_dfield1}" \
     --data-urlencode "${ib_query}" \
     --get \
     --header "${ib_header}" \
-    --max-time 5 \
+    --max-time ${external_timeout} \
     --output "${ib_file}" \
-    --proxy "${external}" \
+    --proxy "${external_proxy}" \
     --silent \
     --user-agent "Sekoohaka" \
     "${ib_data_url}"

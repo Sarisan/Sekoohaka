@@ -5,15 +5,15 @@
 output_text="$(echo "<b>Sekoohaka Bot v${version}</b>" \
     "\n\n<b>Fields descriptions:</b>" \
     "\n[command] - Inline command" \
-    "\n[b] - Image board" \
+    "\n[b] - Image Board" \
     "\n[page] - Search page number" \
     "\n[options] - Search options" \
     "\n[name] - Search pool or tag name" \
     "\n[tags] - Search tags" \
     "\n[query] - Search query" \
     "\n[id] - Post ID" \
-    "\n[login] - Image board login or username" \
-    "\n[key] - Image board API key or password" \
+    "\n[login] - Image Board login or username" \
+    "\n[key] - Image Board API key or password" \
     "\n\n<b>Inline search:</b>" \
     "\n<code>pools</code> [b] [page] [options] [name] - Pools search" \
     "\n<code>posts</code> [b] [page] [options] [tags] - Posts search" \
@@ -33,7 +33,7 @@ output_text="$(echo "<b>Sekoohaka Bot v${version}</b>" \
     "\n<code>short</code> [query] - Create inline shortcut" \
     "\n\n<b>Commands:</b>" \
     "\n/help - Send this message" \
-    "\n/authorize [b] [login] [key] - Authorize to image board" \
+    "\n/authorize [b] [login] [key] - Authorize to Image Board" \
     "\n/original [b] [id] - Get original file of post" \
     "\n/post [b] [id] - Get infromation of post" \
     "\n/short [query] - Create inline shortcut" \
@@ -49,7 +49,7 @@ output_text="$(echo "<b>Sekoohaka Bot v${version}</b>" \
     "\n<code>t d *genshin*</code>" \
     "\n<code>original d 4507929</code>" \
     "\n<code>short p d -mq ringouulu</code>" \
-    "\n\n<b>Supported image boards:</b>")"
+    "\n\n<b>Supported Image Boards:</b>")"
 
 for ib_board in ${ascii_table}
 do

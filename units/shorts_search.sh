@@ -95,9 +95,9 @@ then
     set -- ${query_shorts}
 fi
 
-if [ ${#} -ge $(((inline_page - 1) * 10 + 1)) ]
+if [ ${#} -ge $(((inline_page - 1) * inline_limit + 1)) ]
 then
-    shift $(((inline_page - 1) * 10))
+    shift $(((inline_page - 1) * inline_limit))
 else
     if [ -n "${offset}" ]
     then

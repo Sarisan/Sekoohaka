@@ -49,6 +49,7 @@ curl --data-urlencode "inline_query_id=${query_id}" \
     --data-urlencode "cache_time=0" \
     --data-urlencode "next_offset=${next_offset}" \
     --get \
-    --proxy "${internal}" \
+    --max-time ${internal_timeout} \
+    --proxy "${internal_proxy}" \
     --silent \
-    "${address}/bot${token}/answerInlineQuery" > /dev/null
+    "${api_address}/bot${api_token}/answerInlineQuery" > /dev/null

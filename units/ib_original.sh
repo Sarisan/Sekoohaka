@@ -29,7 +29,7 @@ fi
 
 if [ -n "${ib_file_size}" ] && [ "${ib_file_size}" != "null" ] && [ ${ib_file_size} -gt 0 ]
 then
-    if [ ${ib_file_size} -gt ${size} ]
+    if [ ${ib_file_size} -gt ${size_limit} ]
     then
         output_text="File size is too large"
     fi

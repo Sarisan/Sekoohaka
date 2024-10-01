@@ -18,7 +18,7 @@ set -- ${shorts}
 
 if [ ${#} -gt 0 ]
 then
-    output_text="<b>Saved shortcuts:</b> ${#} / 500"
+    output_text="<b>Saved shortcuts:</b> ${#} / ${shorts_limit}"
 
     keyboard_text1="Open inline"
     keyboard_query1="shorts"

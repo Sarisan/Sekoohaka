@@ -20,32 +20,47 @@ offset=-1
 
 if [ -n "${1}" ]
 then
-    while getopts hla:s:n:t:i:e: options
+    while getopts hla:s:g:r:m:t:i:e:d:n:x: options
     do
         case "${options}" in
             (h)
                 help=0
             ;;
             (l)
-                local=0
+                api_local=0
             ;;
             (a)
-                address="${OPTARG}"
+                api_address="${OPTARG}"
             ;;
             (s)
-                size=${OPTARG}
+                size_limit=${OPTARG}
             ;;
-            (n)
+            (g)
+                shorts_limit=${OPTARG}
+            ;;
+            (r)
+                inline_limit=${OPTARG}
+            ;;
+            (m)
                 caching_mode=${OPTARG}
             ;;
             (t)
                 caching_time=${OPTARG}
             ;;
             (i)
-                internal="${OPTARG}"
+                internal_timeout=${OPTARG}
             ;;
             (e)
-                external="${OPTARG}"
+                external_timeout=${OPTARG}
+            ;;
+            (d)
+                head_timeout=${OPTARG}
+            ;;
+            (n)
+                internal_proxy="${OPTARG}"
+            ;;
+            (x)
+                external_proxy="${OPTARG}"
             ;;
             (*)
                 echo "See '${0} -h'"
@@ -65,13 +80,18 @@ then
         "\n\nUsage: ${0} [options] [token]" \
         "\n\nOptions:" \
         "\n  -h\t\tShow help information" \
-        "\n  -l\t\tSame as -a localhost:8081 -s 20971520" \
+        "\n  -l\t\tSame as -a 127.0.0.1:8081 -s 20971520" \
         "\n  -a <addr>\tTelegram Bot API address, default: api.telegram.org" \
         "\n  -s <size>\tMax file size allowed to send with URL, default: 10485760" \
-        "\n  -n <mode>\tCaching mode, default: normal" \
+        "\n  -g <num>\tShortcuts storage limit, default: 100" \
+        "\n  -r <num>\tInline results limit, default: 10" \
+        "\n  -m <mode>\tCaching mode, default: normal" \
         "\n  -t <secs>\tCaching time, default: 300" \
-        "\n  -i <addr>\tInternal proxy address to interact with Telegram Bot API" \
-        "\n  -e <addr>\tExternal proxy address to interact with image boards" \
+        "\n  -i <secs>\tTelegram Bot API connetion timeout, default: 10 secs" \
+        "\n  -e <secs>\tImage Boards API connetion timeout, default: 5 secs" \
+        "\n  -d <secs>\tHead request connetion timeout, default: 2 secs" \
+        "\n  -n <addr>\tInternal proxy address to interact with Telegram Bot API" \
+        "\n  -x <addr>\tExternal proxy address to interact with Image Boards API" \
         "\n\nCaching modes:" \
         "\n  none\t\tNo caching" \
         "\n  normal\tCache inline results and posts" \
@@ -111,26 +131,48 @@ then
     exit 1
 fi
 
-if [ -n "${local}" ]
+if [ -n "${api_local}" ]
 then
-    address="${address:-127.0.0.1:8081}"
-    size=${size:-20971520}
+    api_address="${api_address:-127.0.0.1:8081}"
+    size_limit=${size_limit:-20971520}
 fi
 
-if [ -z "${address}" ]
+if [ -z "${api_address}" ]
 then
-    address="https://api.telegram.org"
+    api_address="https://api.telegram.org"
 fi
 
-if [ -n "${size}" ]
+if [ -n "${size_limit}" ]
 then
-    if ! test ${size} -gt 0 > /dev/null 2>&1
+    if ! test ${size_limit} -gt 0 > /dev/null 2>&1
     then
         echo "Illegal file size"
         exit 1
     fi
 else
-    size=10485760
+    size_limit=10485760
+fi
+
+if [ -n "${shorts_limit}" ]
+then
+    if ! test ${shorts_limit} -gt 0 > /dev/null 2>&1
+    then
+        echo "Illegal shortcuts limit number"
+        exit 1
+    fi
+else
+    shorts_limit=100
+fi
+
+if [ -n "${inline_limit}" ]
+then
+    if ! test ${inline_limit} -gt 0 > /dev/null 2>&1
+    then
+        echo "Illegal inline results limit number"
+        exit 1
+    fi
+else
+    inline_limit=10
 fi
 
 if [ -n "${caching_mode}" ]
@@ -158,9 +200,42 @@ else
     caching_time=300
 fi
 
+if [ -n "${internal_timeout}" ]
+then
+    if ! test ${internal_timeout} -gt 0 > /dev/null 2>&1
+    then
+        echo "Illegal Telegram Bot API timeout"
+        exit 1
+    fi
+else
+    internal_timeout=10
+fi
+
+if [ -n "${external_timeout}" ]
+then
+    if ! test ${external_timeout} -gt 0 > /dev/null 2>&1
+    then
+        echo "Illegal Image Boards API timeout"
+        exit 1
+    fi
+else
+    external_timeout=5
+fi
+
+if [ -n "${head_timeout}" ]
+then
+    if ! test ${head_timeout} -gt 0 > /dev/null 2>&1
+    then
+        echo "Illegal head request timeout"
+        exit 1
+    fi
+else
+    head_timeout=2
+fi
+
 if [ -n "${1}" ]
 then
-    token="${1}"
+    api_token="${1}"
     shift
 fi
 
@@ -170,9 +245,9 @@ then
     exit 1
 fi
 
-until [ -n "${token}" ]
+until [ -n "${api_token}" ]
 do
-    read -p "Telegram Bot API Token: " -r token
+    read -p "Telegram Bot API Token: " -r api_token
 done
 
 alias parameter="cut -d ' ' -f"
@@ -192,12 +267,12 @@ mkdir -p "${config}"
 echo "PID: ${$}"
 
 curl --get \
-    --max-time 10 \
+    --max-time ${internal_timeout} \
     --output "${cache}/getMe.json" \
-    --proxy "${internal}" \
+    --proxy "${internal_proxy}" \
     --show-error \
     --silent \
-    "${address}/bot${token}/getMe"
+    "${api_address}/bot${api_token}/getMe"
 
 if ! jq -e '.' "${cache}/getMe.json" > /dev/null
 then
@@ -220,9 +295,9 @@ do
     if ! curl --data "offset=${offset}" \
         --get \
         --output "${cache}/getUpdates.json" \
-        --proxy "${internal}" \
+        --proxy "${internal_proxy}" \
         --silent \
-        "${address}/bot${token}/getUpdates"
+        "${api_address}/bot${api_token}/getUpdates"
     then
         continue
     fi

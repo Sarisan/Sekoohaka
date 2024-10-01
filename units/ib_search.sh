@@ -76,7 +76,7 @@ then
     shift ${#}
 fi
 
-ib_limit=10
+ib_limit=${inline_limit}
 ib_page=${inline_page}
 
 if [ -n "${ib_iwildcard}" ]

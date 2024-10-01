@@ -34,9 +34,9 @@ case "${ib_board}" in
     (d)
         ib_auth_file="${cache}/${update_id}_profile.json"
 
-        if ! curl --max-time 5 \
+        if ! curl --max-time ${external_timeout} \
             --output "${ib_auth_file}" \
-            --proxy "${external}" \
+            --proxy "${external_proxy}" \
             --request GET \
             --silent \
             --user "${ib_login}:${ib_key}" \
@@ -98,9 +98,9 @@ case "${ib_board}" in
 
         if ! curl --data "${ib_login_data}" \
             --header "Content-Type: application/json" \
-            --max-time 5 \
+            --max-time ${external_timeout} \
             --output "${ib_auth_file}" \
-            --proxy "${external}" \
+            --proxy "${external_proxy}" \
             --request POST \
             --silent \
             --user-agent "Sekoohaka" \
@@ -137,9 +137,9 @@ case "${ib_board}" in
         if ! curl --data-urlencode "username=${ib_login}" \
             --data-urlencode "api_key=${ib_key}" \
             --get \
-            --max-time 5 \
+            --max-time ${external_timeout} \
             --output "${ib_auth_file}" \
-            --proxy "${external}" \
+            --proxy "${external_proxy}" \
             --silent \
             --user-agent "Sekoohaka" \
             "${ib_auth}/user.json"
