@@ -64,16 +64,16 @@ Options:
   -h            Show help information
   -l            Same as -a 127.0.0.1:8081 -s 20971520
   -a <addr>     Telegram Bot API address, default: api.telegram.org
-  -s <size>     Max file size allowed to send with URL, default: 10485760
+  -s <size>     Max file size allowed to send with URL, default: 10 MiB
   -g <num>      Shortcuts storage limit, default: 100
   -r <num>      Inline results limit, default: 10
   -m <mode>     Caching mode, default: normal
-  -t <secs>     Caching time, default: 300
+  -t <secs>     Caching time, default: 300 secs
   -i <secs>     Telegram Bot API connetion timeout, default: 10 secs
   -e <secs>     Image Boards API connetion timeout, default: 5 secs
   -d <secs>     Head request connetion timeout, default: 2 secs
-  -n <addr>     Internal proxy address to interact with Telegram Bot API
-  -x <addr>     External proxy address to interact with Image Boards API
+  -n <addr>     Proxy server for Telegram Bot API
+  -x <addr>     Proxy server for Image Boards API
 
 Caching modes:
   none          No caching

@@ -82,16 +82,16 @@ then
         "\n  -h\t\tShow help information" \
         "\n  -l\t\tSame as -a 127.0.0.1:8081 -s 20971520" \
         "\n  -a <addr>\tTelegram Bot API address, default: api.telegram.org" \
-        "\n  -s <size>\tMax file size allowed to send with URL, default: 10485760" \
+        "\n  -s <size>\tMax file size allowed to send with URL, default: 10 MiB" \
         "\n  -g <num>\tShortcuts storage limit, default: 100" \
         "\n  -r <num>\tInline results limit, default: 10" \
         "\n  -m <mode>\tCaching mode, default: normal" \
-        "\n  -t <secs>\tCaching time, default: 300" \
+        "\n  -t <secs>\tCaching time, default: 300 secs" \
         "\n  -i <secs>\tTelegram Bot API connetion timeout, default: 10 secs" \
         "\n  -e <secs>\tImage Boards API connetion timeout, default: 5 secs" \
         "\n  -d <secs>\tHead request connetion timeout, default: 2 secs" \
-        "\n  -n <addr>\tInternal proxy address to interact with Telegram Bot API" \
-        "\n  -x <addr>\tExternal proxy address to interact with Image Boards API" \
+        "\n  -n <addr>\tProxy server for Telegram Bot API" \
+        "\n  -x <addr>\tProxy server for Image Boards API" \
         "\n\nCaching modes:" \
         "\n  none\t\tNo caching" \
         "\n  normal\tCache inline results and posts" \
