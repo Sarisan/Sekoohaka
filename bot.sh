@@ -83,8 +83,8 @@ then
         "\n  -l\t\tSame as -a 127.0.0.1:8081 -s 20971520" \
         "\n  -a <addr>\tTelegram Bot API address, default: api.telegram.org" \
         "\n  -s <size>\tMax file size allowed to send with URL, default: 10 MiB" \
+        "\n  -r <num>\tInline results limit, max: 50, default: 10" \
         "\n  -g <num>\tShortcuts storage limit, default: 100" \
-        "\n  -r <num>\tInline results limit, default: 10" \
         "\n  -m <mode>\tCaching mode, default: normal" \
         "\n  -t <secs>\tCaching time, default: 300 secs" \
         "\n  -i <secs>\tTelegram Bot API connetion timeout, default: 10 secs" \
@@ -170,6 +170,11 @@ then
     then
         echo "Illegal inline results limit number"
         exit 1
+    fi
+
+    if [ ${inline_limit} -gt 50 ]
+    then
+        inline_limit=50
     fi
 else
     inline_limit=10
