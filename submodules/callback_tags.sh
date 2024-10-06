@@ -30,8 +30,8 @@ else
     return 0
 fi
 
-ib_group_offset=${ib_tags_offset}
 set -- ${ib_groups}
+ib_groups_offset=${ib_tags_offset}
 
 while [ ${#} -ge 2 ]
 do
@@ -44,12 +44,12 @@ do
         set -- ${ib_group_tags}
         ib_group_count=${#}
 
-        if [ ${ib_group_count} -gt ${ib_group_offset} ]
+        if [ ${ib_group_count} -gt ${ib_groups_offset} ]
         then
-            shift ${ib_group_offset}
-            ib_group_offset=0
+            shift ${ib_groups_offset}
+            ib_groups_offset=0
         else
-            ib_group_offset=$((ib_group_offset - ib_group_count))
+            ib_groups_offset=$((ib_groups_offset - ib_group_count))
 
             set -- ${ib_groups_saved}
             shift 2
