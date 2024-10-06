@@ -73,7 +73,7 @@ fi
 
 if [ -n "${ib_source}" ] && [ "${ib_source}" != "null" ]
 then
-    if echo "${ib_source}" | grep -q "pximg"
+    if echo "${ib_source}" | grep -q -e "pixiv" -e "pximg"
     then
         ib_source="https://www.pixiv.net/artworks/$(printf "%s" "${ib_source##*/}" | cut -d '_' -f 1)"
     fi
