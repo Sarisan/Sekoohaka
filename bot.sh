@@ -20,7 +20,7 @@ offset=-1
 
 if [ -n "${1}" ]
 then
-    while getopts hla:s:g:r:m:t:i:e:d:n:x: options
+    while getopts hla:s:g:r:m:t:vi:e:d:n:x: options
     do
         case "${options}" in
             (h)
@@ -46,6 +46,9 @@ then
             ;;
             (t)
                 caching_time=${OPTARG}
+            ;;
+            (v)
+                cache_removal=0
             ;;
             (i)
                 internal_timeout=${OPTARG}
@@ -87,6 +90,7 @@ then
         "\n  -g <num>\tShortcuts storage limit, default: 100" \
         "\n  -m <mode>\tCaching mode, default: normal" \
         "\n  -t <secs>\tCaching time, default: 300 secs" \
+        "\n  -v\t\tDo not remove cache automatically" \
         "\n  -i <secs>\tTelegram Bot API connetion timeout, default: 10 secs" \
         "\n  -e <secs>\tImage Boards API connetion timeout, default: 5 secs" \
         "\n  -d <secs>\tHead request connetion timeout, default: 2 secs" \

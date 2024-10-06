@@ -69,6 +69,7 @@ Options:
   -g <num>      Shortcuts storage limit, default: 100
   -m <mode>     Caching mode, default: normal
   -t <secs>     Caching time, default: 300 secs
+  -v            Do not remove cache automatically
   -i <secs>     Telegram Bot API connetion timeout, default: 10 secs
   -e <secs>     Image Boards API connetion timeout, default: 5 secs
   -d <secs>     Head request connetion timeout, default: 2 secs

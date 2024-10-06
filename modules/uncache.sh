@@ -2,6 +2,11 @@
 # Copyright (C) 2024 Danil Lisin
 # SPDX-License-Identifier: Apache-2.0
 
+if [ -n "${cache_removal}" ]
+then
+    exit 0
+fi
+
 set -- $(ls -x "${cache}")
 
 while [ ${#} -ge 1 ]
