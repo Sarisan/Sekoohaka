@@ -62,9 +62,8 @@ For better performance, it is recommended to use a locally deployed [Telegram Bo
 ```
 Options:
   -h            Show help information
-  -l            Same as -a 127.0.0.1:8081 -s 20971520
   -a <addr>     Telegram Bot API address, default: api.telegram.org
-  -s <size>     Max file size allowed to send with URL, default: 10 MiB
+  -l            Use local Telegram Bot API, address: 127.0.0.1:8081
   -r <num>      Inline results limit, max: 50, default: 10
   -g <num>      Shortcuts storage limit, default: 100
   -m <mode>     Caching mode, default: normal

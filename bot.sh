@@ -20,20 +20,17 @@ offset=-1
 
 if [ -n "${1}" ]
 then
-    while getopts hla:s:g:r:m:t:vi:e:d:n:x: options
+    while getopts ha:lg:r:m:t:vi:e:d:n:x: options
     do
         case "${options}" in
             (h)
                 help=0
             ;;
-            (l)
-                api_local=0
-            ;;
             (a)
                 api_address="${OPTARG}"
             ;;
-            (s)
-                size_limit=${OPTARG}
+            (l)
+                api_address="127.0.0.1:8081"
             ;;
             (g)
                 shorts_limit=${OPTARG}
@@ -83,9 +80,8 @@ then
         "\n\nUsage: ${0} [options] [token]" \
         "\n\nOptions:" \
         "\n  -h\t\tShow help information" \
-        "\n  -l\t\tSame as -a 127.0.0.1:8081 -s 20971520" \
         "\n  -a <addr>\tTelegram Bot API address, default: api.telegram.org" \
-        "\n  -s <size>\tMax file size allowed to send with URL, default: 10 MiB" \
+        "\n  -l\t\tUse local Telegram Bot API, address: 127.0.0.1:8081" \
         "\n  -r <num>\tInline results limit, max: 50, default: 10" \
         "\n  -g <num>\tShortcuts storage limit, default: 100" \
         "\n  -m <mode>\tCaching mode, default: normal" \
@@ -135,26 +131,9 @@ then
     exit 1
 fi
 
-if [ -n "${api_local}" ]
-then
-    api_address="${api_address:-127.0.0.1:8081}"
-    size_limit=${size_limit:-20971520}
-fi
-
 if [ -z "${api_address}" ]
 then
     api_address="https://api.telegram.org"
-fi
-
-if [ -n "${size_limit}" ]
-then
-    if ! test ${size_limit} -gt 0 > /dev/null 2>&1
-    then
-        echo "Illegal file size"
-        exit 1
-    fi
-else
-    size_limit=10485760
 fi
 
 if [ -n "${shorts_limit}" ]
