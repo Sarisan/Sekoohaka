@@ -83,13 +83,13 @@ then
         "\n  -a <addr>\tTelegram Bot API address, default: api.telegram.org" \
         "\n  -l\t\tUse local Telegram Bot API, address: 127.0.0.1:8081" \
         "\n  -r <num>\tInline results limit, max: 50, default: 10" \
-        "\n  -g <num>\tShortcuts storage limit, default: 100" \
+        "\n  -g <num>\tShortcuts storage limit, max: 10000, default: 100" \
         "\n  -m <mode>\tCaching mode, default: normal" \
-        "\n  -t <secs>\tCaching time, default: 300 secs" \
+        "\n  -t <secs>\tCaching time, max: 1000, default: 300 secs" \
         "\n  -v\t\tDo not remove cache automatically" \
-        "\n  -i <secs>\tTelegram Bot API connetion timeout, default: 10 secs" \
-        "\n  -e <secs>\tImage Boards API connetion timeout, default: 5 secs" \
-        "\n  -d <secs>\tHead request connetion timeout, default: 2 secs" \
+        "\n  -i <secs>\tTelegram Bot API connetion timeout, max: 10, default: 10 secs" \
+        "\n  -e <secs>\tImage Boards API connetion timeout, max: 10, default: 5 secs" \
+        "\n  -d <secs>\tHead request connetion timeout, max: 10, default: 2 secs" \
         "\n  -n <addr>\tProxy server for Telegram Bot API" \
         "\n  -x <addr>\tProxy server for Image Boards API" \
         "\n\nCaching modes:" \
@@ -143,6 +143,11 @@ then
         echo "Illegal shortcuts limit number"
         exit 1
     fi
+
+    if [ ${shorts_limit} -gt 10000 ]
+    then
+        shorts_limit=10000
+    fi
 else
     shorts_limit=100
 fi
@@ -184,6 +189,11 @@ then
         echo "Illegal caching time"
         exit 1
     fi
+
+    if [ ${caching_time} -gt 1000 ]
+    then
+        caching_time=1000
+    fi
 else
     caching_time=300
 fi
@@ -194,6 +204,11 @@ then
     then
         echo "Illegal Telegram Bot API timeout"
         exit 1
+    fi
+
+    if [ ${internal_timeout} -gt 10 ]
+    then
+        internal_timeout=10
     fi
 else
     internal_timeout=10
@@ -206,6 +221,11 @@ then
         echo "Illegal Image Boards API timeout"
         exit 1
     fi
+
+    if [ ${external_timeout} -gt 10 ]
+    then
+        external_timeout=10
+    fi
 else
     external_timeout=5
 fi
@@ -216,6 +236,11 @@ then
     then
         echo "Illegal head request timeout"
         exit 1
+    fi
+
+    if [ ${head_timeout} -gt 10 ]
+    then
+        head_timeout=10
     fi
 else
     head_timeout=2
