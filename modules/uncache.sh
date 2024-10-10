@@ -7,6 +7,11 @@ then
     exit 0
 fi
 
+until mkdir "${cache}.lock" > /dev/null 2>&1
+do
+    sleep 1
+done
+
 set -- $(ls -x "${cache}")
 
 while [ ${#} -ge 1 ]
@@ -27,3 +32,5 @@ do
     rm -fr "${cache}/${1%.*}.lock"
     shift
 done
+
+rm -fr "${cache}.lock"
