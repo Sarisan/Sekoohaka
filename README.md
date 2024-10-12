@@ -65,13 +65,13 @@ Options:
   -a <addr>     Telegram Bot API address, default: api.telegram.org
   -l            Use local Telegram Bot API, address: 127.0.0.1:8081
   -r <num>      Inline results limit, max: 50, default: 10
-  -g <num>      Shortcuts storage limit, default: 100
+  -g <num>      Shortcuts storage limit, max: 10000, default: 100
   -m <mode>     Caching mode, default: normal
-  -t <secs>     Caching time, default: 300 secs
-  -v            Do not remove cache automatically
-  -i <secs>     Telegram Bot API connetion timeout, default: 10 secs
-  -e <secs>     Image Boards API connetion timeout, default: 5 secs
-  -d <secs>     Head request connetion timeout, default: 2 secs
+  -t <secs>     Caching time, max: 1000, default: 300 secs
+  -c            Clear cache automatically
+  -i <secs>     Telegram Bot API connetion timeout, max: 10, default: 10 secs
+  -e <secs>     Image Boards API connetion timeout, max: 10, default: 5 secs
+  -d <secs>     Head request connetion timeout, max: 10, default: 2 secs
   -n <addr>     Proxy server for Telegram Bot API
   -x <addr>     Proxy server for Image Boards API
 
