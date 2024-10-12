@@ -7,10 +7,10 @@ then
     exit 0
 fi
 
-until mkdir "${cache}.lock" > /dev/null 2>&1
-do
-    sleep 1
-done
+if ! mkdir "${cache}.lock" > /dev/null 2>&1
+then
+    exit 0
+fi
 
 set -- $(ls -x "${cache}")
 
