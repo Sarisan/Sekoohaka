@@ -5,9 +5,9 @@ Telegram Image Board Bot written in POSIX Shell (dash)
 ## Features
 
 * Authorization
-* Inline pool search
-* Inline post search
-* Inline tag search
+* Inline pools search
+* Inline posts search
+* Inline tags search
 * Inline paging
 * Inline autopaging
 * Inline resuming
