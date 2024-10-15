@@ -43,12 +43,6 @@ case "${ib_board}" in
             --user-agent "Sekoohaka" \
             "https://danbooru.donmai.us/profile.json"
         then
-            output_text="Temporary error"
-            return 0
-        fi
-
-        if ! [ -f "${ib_auth_file}" ]
-        then
             output_text="Failed to process request"
             return 0
         fi
@@ -106,12 +100,6 @@ case "${ib_board}" in
             --user-agent "Sekoohaka" \
             "https://capi-v2.sankakucomplex.com/auth/token"
         then
-            output_text="Temporary error"
-            return 0
-        fi
-
-        if ! [ -f "${ib_auth_file}" ]
-        then
             output_text="Failed to process request"
             return 0
         fi
@@ -143,12 +131,6 @@ case "${ib_board}" in
             --silent \
             --user-agent "Sekoohaka" \
             "${ib_auth}/user.json"
-        then
-            output_text="Temporary error"
-            return 0
-        fi
-
-        if ! [ -f "${ib_auth_file}" ]
         then
             output_text="Failed to process request"
             return 0
