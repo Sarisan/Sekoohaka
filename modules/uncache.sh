@@ -12,25 +12,22 @@ then
     exit 0
 fi
 
-set -- $(ls -x "${cache}")
-
-while [ ${#} -ge 1 ]
+for file in $(ls -x "${cache}")
 do
-    until mkdir "${cache}/${1%.*}.lock" > /dev/null 2>&1
+    until mkdir "${cache}/${file%.*}.lock" > /dev/null 2>&1
     do
         sleep 1
     done
 
     cache_ctime=$(date +%s)
-    cache_mtime=$(stat -c %Y "${cache}/${1}")
+    cache_mtime=$(stat -c %Y "${cache}/${file}")
 
     if [ $((cache_ctime - cache_mtime)) -gt $((caching_time + 10)) ]
     then
-        rm -f "${cache}/${1}"
+        rm -f "${cache}/${file}"
     fi
 
-    rm -fr "${cache}/${1%.*}.lock"
-    shift
+    rm -fr "${cache}/${file%.*}.lock"
 done
 
 rm -fr "${cache}.lock"
