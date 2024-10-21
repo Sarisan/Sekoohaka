@@ -320,20 +320,22 @@ do
         continue
     fi
 
-    if [ "${update_id}" != "null" ]
+    if [ "${update_id}" = "null" ]
     then
-        update="${cache}/${update_id}.json"
-
-        if ! jq -c '.result.[0]' "${cache}/getUpdates.json" > "${update}"
-        then
-            continue
-        fi
-
-        for module in "${modules}"/*
-        do
-            . "${module}" &
-        done
-
-        offset=$((update_id + 1))
+        continue
     fi
+
+    update="${cache}/${update_id}.json"
+
+    if ! jq -c '.result.[0]' "${cache}/getUpdates.json" > "${update}"
+    then
+        continue
+    fi
+
+    for module in "${modules}"/*
+    do
+        . "${module}" &
+    done
+
+    offset=$((update_id + 1))
 done
