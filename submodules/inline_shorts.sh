@@ -26,9 +26,9 @@ fi
 results=[]
 array_count=0
 
-while [ ${#} -gt 0 ]
+for short in ${@}
 do
-    short_query="$(cat "${short_config}/${1}")"
+    short_query="$(cat "${short_config}/${short}")"
 
     output_title="Shortcut"
     output_text="<b>Shortcut:</b> <code>$(printf "%s" "${short_query}" | htmlescape)</code>"
@@ -38,7 +38,7 @@ do
     keyboard_query1="${short_query}"
 
     result="$(jq --null-input --compact-output \
-        --arg id "${1}" \
+        --arg id "${short}" \
         --arg title "${output_title}" \
         --arg text "${output_text}" \
         --arg text1 "${keyboard_text1}" \
@@ -75,7 +75,6 @@ do
 
     results="$(printf "%s" "${results}" | jq -c ".[${array_count}] += ${result}")"
     array_count=$((array_count + 1))
-    shift
 
     if [ ${array_count} -eq ${inline_limit} ]
     then
