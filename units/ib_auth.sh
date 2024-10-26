@@ -68,7 +68,7 @@ case "${ib_board}" in
         printf "%s" "${ib_login}:${ib_key}" | base64 > "${ib_config}/token"
     ;;
     (g)
-        printf '%s="%s"\n%s="%s"' \
+        printf '%s="%s"\n%s="%s"\n' \
             "ib_dfield5" "user_id=${ib_login}" \
             "ib_dfield6" "api_key=${ib_key}" > "${ib_config}/legacy"
     ;;
@@ -77,7 +77,7 @@ case "${ib_board}" in
         ib_password_hash="$(printf "choujin-steiner--%s--" "${ib_key}" | enhash)"
         ib_appkey="$(printf "sankakuapp_%s_Z5NE9YASej" "${ib_login_lower}" | enhash)"
 
-        printf '%s="%s"\n%s="%s"\n%s="%s"' \
+        printf '%s="%s"\n%s="%s"\n%s="%s"\n' \
             "ib_dfield4" "login=${ib_login}" \
             "ib_dfield5" "password_hash=${ib_password_hash}" \
             "ib_dfield6" "appkey=${ib_appkey}" > "${ib_config}/legacy"
@@ -142,11 +142,11 @@ case "${ib_board}" in
             return 0
         fi
 
-        printf '%s="%s"\n%s="%s"' \
+        printf '%s="%s"\n%s="%s"\n' \
             "ib_dfield5" "username=${ib_login}" \
             "ib_dfield6" "api_key=${ib_key}" > "${ib_config}/legacy"
     ;;
 esac
 
-printf "%s" "${ib_login}" > "${ib_config}/${ib_login_file}"
-printf "%s" "${ib_key}" > "${ib_config}/${ib_key_file}"
+printf "%s\n" "${ib_login}" > "${ib_config}/${ib_login_file}"
+printf "%s\n" "${ib_key}" > "${ib_config}/${ib_key_file}"
