@@ -17,8 +17,7 @@ chat_id="$(jq -r '.message.chat.id' "${update}")"
 message_id="$(jq -r '.message.message_id' "${update}")"
 message_thread_id="$(jq -r '.message.message_thread_id' "${update}")"
 
-. "${units}/alias.sh"
-. "${units}/list.sh"
+. "${units}/user.sh"
 
 reply_parameters="$(jq --null-input --compact-output \
     --arg message_id "${message_id}" \
