@@ -15,6 +15,8 @@ shift
 user_id="$(jq -r '.callback_query.from.id' "${update}")"
 query_id="$(jq -r '.callback_query.id' "${update}")"
 
+. "${units}/alias.sh"
+
 case "${command}" in
     ("post")
         . "${submodules}/callback_post.sh"
