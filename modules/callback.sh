@@ -16,6 +16,7 @@ user_id="$(jq -r '.callback_query.from.id' "${update}")"
 query_id="$(jq -r '.callback_query.id' "${update}")"
 
 . "${units}/alias.sh"
+. "${units}/list.sh"
 
 case "${command}" in
     ("post")

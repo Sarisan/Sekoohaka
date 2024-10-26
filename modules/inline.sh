@@ -17,6 +17,7 @@ chat_type="$(jq -r '.inline_query.chat_type' "${update}")"
 offset="$(jq -r '.inline_query.offset' "${update}")"
 
 . "${units}/alias.sh"
+. "${units}/list.sh"
 
 if [ -n "${command}" ]
 then

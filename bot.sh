@@ -277,6 +277,13 @@ rm -fr "${cache}"
 mkdir -p "${cache}"
 mkdir -p "${config}"
 
+if ! [ -f "${config}/blacklist" ]
+then
+    printf "%s\n%s\n" \
+        "777000" \
+        "1087968824" > "${config}/blacklist"
+fi
+
 echo "PID: ${$}"
 
 curl --get \
