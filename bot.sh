@@ -292,6 +292,16 @@ then
         "1087968824" > "${config}/blacklist"
 fi
 
+if ! [ -f "${config}/whitelist" ]
+then
+    printf "" > "${config}/whitelist"
+fi
+
+if ! [ -f "${config}/aliases" ]
+then
+    printf "" > "${config}/aliases"
+fi
+
 echo "PID: ${$}"
 
 curl --get \
