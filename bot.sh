@@ -140,7 +140,8 @@ if [ -n "${shorts_limit}" ]
 then
     if ! test ${shorts_limit} -gt 0 > /dev/null 2>&1
     then
-        echo "Illegal shortcuts limit number"
+        echo "Illegal shortcuts limit number" \
+            "\nSee '${0} -h'"
         exit 1
     fi
 
@@ -156,7 +157,8 @@ if [ -n "${inline_limit}" ]
 then
     if ! test ${inline_limit} -gt 0 > /dev/null 2>&1
     then
-        echo "Illegal inline results limit number"
+        echo "Illegal inline results limit number" \
+            "\nSee '${0} -h'"
         exit 1
     fi
 
@@ -174,7 +176,8 @@ then
         (none | normal | advanced)
         ;;
         (*)
-            echo "Unrecognized caching mode ${caching_mode}. See '${0} -h'"
+            echo "Unrecognized caching mode ${caching_mode}" \
+                "\nSee '${0} -h'"
             exit 1
         ;;
     esac
@@ -186,7 +189,8 @@ if [ -n "${caching_time}" ]
 then
     if ! test ${caching_time} -gt 0 > /dev/null 2>&1
     then
-        echo "Illegal caching time"
+        echo "Illegal caching time" \
+            "\nSee '${0} -h'"
         exit 1
     fi
 
@@ -202,7 +206,8 @@ if [ -n "${internal_timeout}" ]
 then
     if ! test ${internal_timeout} -gt 0 > /dev/null 2>&1
     then
-        echo "Illegal Telegram Bot API timeout"
+        echo "Illegal Telegram Bot API timeout" \
+            "\nSee '${0} -h'"
         exit 1
     fi
 
@@ -218,7 +223,8 @@ if [ -n "${external_timeout}" ]
 then
     if ! test ${external_timeout} -gt 0 > /dev/null 2>&1
     then
-        echo "Illegal Image Boards API timeout"
+        echo "Illegal Image Boards API timeout" \
+            "\nSee '${0} -h'"
         exit 1
     fi
 
@@ -234,7 +240,8 @@ if [ -n "${head_timeout}" ]
 then
     if ! test ${head_timeout} -gt 0 > /dev/null 2>&1
     then
-        echo "Illegal head request timeout"
+        echo "Illegal head request timeout" \
+            "\nSee '${0} -h'"
         exit 1
     fi
 
@@ -254,7 +261,8 @@ fi
 
 if [ -n "${1}" ]
 then
-    echo "Unrecognized action ${1}. See '${0} -h'"
+    echo "Unrecognized action ${1}" \
+        "\nSee '${0} -h'"
     exit 1
 fi
 
