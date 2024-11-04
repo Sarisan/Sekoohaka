@@ -6,17 +6,32 @@ aliases="${config}/aliases"
 blacklist="${config}/blacklist"
 whitelist="${config}/whitelist"
 
-if [ -f "${aliases}" ] && alias_id="$(grep -w "${user_id}" "${aliases}" | parameter 2)"
+positional_saved="${@}"
+
+if [ -s "${aliases}" ]
 then
-    user_id="${alias_id}"
+    set -- $(cat "${aliases}")
+
+    while [ ${#} -ge 2 ]
+    do
+        if [ "${user_id}" = "${1}" ]
+        then
+            user_id="${2}"
+            break
+        fi
+
+        shift 2
+    done
 fi
 
-if [ -f "${blacklist}" ] && grep -qw "${user_id}" "${blacklist}"
+if [ -s "${blacklist}" ] && grep -qw "${user_id}" "${blacklist}"
 then
     exit 0
 fi
 
-if [ -f "${whitelist}" ] && ! grep -qw "${user_id}" "${whitelist}"
+if [ -s "${whitelist}" ] && ! grep -qw "${user_id}" "${whitelist}"
 then
     exit 0
 fi
+
+set -- ${positional_saved}
