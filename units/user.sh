@@ -6,7 +6,7 @@ aliases="${lists}/aliases"
 blacklist="${lists}/blacklist"
 whitelist="${lists}/whitelist"
 
-positional_saved="${@}"
+positional_parameters="${@}"
 
 if [ -s "${aliases}" ]
 then
@@ -34,4 +34,4 @@ then
     exit 0
 fi
 
-set -- ${positional_saved}
+set -- ${positional_parameters}
