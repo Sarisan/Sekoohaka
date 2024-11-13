@@ -13,6 +13,7 @@ version="2.5.2"
 dir="${0%/*}"
 cache="${dir}/cache/${$}"
 config="${dir}/config"
+lists="${dir}/lists"
 modules="${dir}/modules"
 submodules="${dir}/submodules"
 units="${dir}/units"
@@ -284,23 +285,6 @@ done
 rm -fr "${cache}"
 mkdir -p "${cache}"
 mkdir -p "${config}"
-
-if ! [ -f "${config}/blacklist" ]
-then
-    printf "%s\n%s\n" \
-        "777000" \
-        "1087968824" > "${config}/blacklist"
-fi
-
-if ! [ -f "${config}/whitelist" ]
-then
-    printf "" > "${config}/whitelist"
-fi
-
-if ! [ -f "${config}/aliases" ]
-then
-    printf "" > "${config}/aliases"
-fi
 
 echo "PID: ${$}"
 

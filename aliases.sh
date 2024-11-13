@@ -9,8 +9,8 @@
 set -e
 umask 77
 
-config="${0%/*}/config"
-list="${config}/aliases"
+lists="${0%/*}/lists"
+list="${lists}/aliases"
 
 if [ -n "${1}" ]
 then

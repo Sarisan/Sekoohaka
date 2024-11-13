@@ -2,9 +2,9 @@
 # Copyright (C) 2024 Danil Lisin
 # SPDX-License-Identifier: Apache-2.0
 
-aliases="${config}/aliases"
-blacklist="${config}/blacklist"
-whitelist="${config}/whitelist"
+aliases="${lists}/aliases"
+blacklist="${lists}/blacklist"
+whitelist="${lists}/whitelist"
 
 positional_saved="${@}"
 
