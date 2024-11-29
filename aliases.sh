@@ -141,7 +141,7 @@ case "${action}" in
     (del)
         if [ -f "${list}" ]
         then
-            sed -e "s/${user_id} .*$//" -e '/^$/d' -i "${list}"
+            sed -e "s/^${user_id} .*$//" -e '/^$/d' -i "${list}"
         fi
     ;;
     (reset)
