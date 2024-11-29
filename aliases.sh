@@ -20,10 +20,7 @@ then
         (help)
             help=0
         ;;
-        (show)
-            show=0
-        ;;
-        (add | del)
+        (show | add | del)
         ;;
         (*)
             echo "Unrecognized action ${action}" \
@@ -81,36 +78,36 @@ then
     exit 1
 fi
 
-if [ -n "${show}" ]
-then
-    if [ -f "${list}" ]
-    then
-        cat "${list}"
-    fi
+case "${action}" in
+    (add | del)
+        if [ -n "${1}" ]
+        then
+            user_id="${1}"
 
-    exit 0
-fi
+            if ! test ${user_id} -gt 0 > /dev/null 2>&1
+            then
+                echo "Illegal user ID ${user_id}"
+                exit 1
+            fi
 
-if [ -n "${1}" ]
-then
-    user_id="${1}"
+            shift
+        else
+            echo "You must specify the target user ID" \
+                "\nSee '${0} help'"
+            exit 1
+        fi
+    ;;
+esac
 
-    if ! test ${user_id} -gt 0 > /dev/null 2>&1
-    then
-        echo "Illegal user ID ${user_id}"
-        exit 1
-    fi
-
-    shift
-else
-    echo "You must specify the target user ID" \
-        "\nSee '${0} help'"
-    exit 1
-fi
-
-mkdir -p "${config}"
+mkdir -p "${lists}"
 
 case "${action}" in
+    (show)
+        if [ -f "${list}" ]
+        then
+            cat "${list}"
+        fi
+    ;;
     (add)
         if [ -n "${1}" ]
         then

@@ -20,10 +20,7 @@ then
         (help)
             help=0
         ;;
-        (show)
-            show=0
-        ;;
-        (add | del)
+        (show | add | del)
         ;;
         (*)
             echo "Unrecognized action ${action}" \
@@ -43,9 +40,9 @@ then
         "\n\nUsage: ${0} [action] [IDs]" \
         "\n\nActions:" \
         "\n  help\t\tShow help information" \
-        "\n  show\t\tShow list entries" \
-        "\n  add\t\tAdd user IDs to the list" \
-        "\n  del\t\tRemove user IDs from the list"
+        "\n  show\t\tShow whitelist entries" \
+        "\n  add\t\tAdd user IDs to the whitelist" \
+        "\n  del\t\tRemove user IDs from the whitelist"
     exit 0
 fi
 
@@ -81,46 +78,48 @@ then
     exit 1
 fi
 
-if [ -n "${show}" ]
-then
-    if [ -f "${list}" ]
-    then
-        cat "${list}"
-    fi
+case "${action}" in
+    (add | del)
+        if [ -n "${1}" ]
+        then
+            user_id="${1}"
 
-    exit 0
-fi
-
-if [ ${#} -eq 0 ]
-then
-    echo "You must specify at least one user ID" \
-        "\nSee '${0} help'"
-    exit 1
-fi
-
-mkdir -p "${config}"
-
-for user_id in ${@}
-do
-    if ! test ${user_id} -gt 0 > /dev/null 2>&1
-    then
-        echo "Illegal user ID ${user_id}"
-    fi
-
-    case "${action}" in
-        (add)
-            if [ -f "${list}" ] && grep -qwFe "${user_id}" "${list}"
+            if ! test ${user_id} -gt 0 > /dev/null 2>&1
             then
-                echo "User ID ${user_id} is already in the whitelist"
-            else
-                printf "%s\n" "${user_id}" >> "${list}"
+                echo "Illegal user ID ${user_id}"
+                exit 1
             fi
-        ;;
-        (del)
-            if [ -f "${list}" ]
-            then
-                sed -e "s/${user_id}//" -e '/^$/d' -i "${list}"
-            fi
-        ;;
-    esac
-done
+
+            shift
+        else
+            echo "You must specify the user ID" \
+                "\nSee '${0} help'"
+            exit 1
+        fi
+    ;;
+esac
+
+mkdir -p "${lists}"
+
+case "${action}" in
+    (show)
+        if [ -f "${list}" ]
+        then
+            cat "${list}"
+        fi
+    ;;
+    (add)
+        if [ -f "${list}" ] && grep -qwFe "${user_id}" "${list}"
+        then
+            echo "User ID ${user_id} is already in the whitelist"
+        else
+            printf "%s\n" "${user_id}" >> "${list}"
+        fi
+    ;;
+    (del)
+        if [ -f "${list}" ]
+        then
+            sed -e "s/${user_id}//" -e '/^$/d' -i "${list}"
+        fi
+    ;;
+esac
