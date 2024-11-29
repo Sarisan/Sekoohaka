@@ -20,7 +20,7 @@ then
         (help)
             help=0
         ;;
-        (show | add | del)
+        (show | add | del | reset)
         ;;
         (*)
             echo "Unrecognized action ${action}" \
@@ -42,7 +42,8 @@ then
         "\n  help\t\tShow help information" \
         "\n  show\t\tShow all aliases" \
         "\n  add\t\tAdd user ID alias" \
-        "\n  del\t\tRemove user ID alias"
+        "\n  del\t\tRemove user ID alias" \
+        "\n  reset\t\tRemove all aliases"
     exit 0
 fi
 
@@ -142,5 +143,8 @@ case "${action}" in
         then
             sed -e "s/${user_id} .*$//" -e '/^$/d' -i "${list}"
         fi
+    ;;
+    (reset)
+        printf "" > "${list}"
     ;;
 esac

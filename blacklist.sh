@@ -20,7 +20,7 @@ then
         (help)
             help=0
         ;;
-        (show | add | del)
+        (show | add | del | reset)
         ;;
         (*)
             echo "Unrecognized action ${action}" \
@@ -42,7 +42,8 @@ then
         "\n  help\t\tShow help information" \
         "\n  show\t\tShow blacklist entries" \
         "\n  add\t\tAdd user IDs to the blacklist" \
-        "\n  del\t\tRemove user IDs from the blacklist"
+        "\n  del\t\tRemove user IDs from the blacklist" \
+        "\n  reset\t\tRemove all blacklist entries"
     exit 0
 fi
 
@@ -121,5 +122,8 @@ case "${action}" in
         then
             sed -e "s/${user_id}//" -e '/^$/d' -i "${list}"
         fi
+    ;;
+    (reset)
+        printf "" > "${list}"
     ;;
 esac
