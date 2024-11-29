@@ -104,13 +104,13 @@ mkdir -p "${lists}"
 
 case "${action}" in
     (show)
-        if [ -f "${list}" ]
+        if [ -s "${list}" ]
         then
             cat "${list}"
         fi
     ;;
     (add)
-        if [ -f "${list}" ] && grep -qwFe "${user_id}" "${list}"
+        if [ -s "${list}" ] && grep -qwFe "${user_id}" "${list}"
         then
             echo "User ID ${user_id} is already in the blacklist"
         else
@@ -118,7 +118,7 @@ case "${action}" in
         fi
     ;;
     (del)
-        if [ -f "${list}" ]
+        if [ -s "${list}" ]
         then
             sed -e "s/^${user_id}$//" -e '/^$/d' -i "${list}"
         fi
