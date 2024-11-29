@@ -104,7 +104,7 @@ mkdir -p "${lists}"
 
 case "${action}" in
     (show)
-        if [ -f "${list}" ]
+        if [ -s "${list}" ]
         then
             cat "${list}"
         fi
@@ -139,7 +139,7 @@ case "${action}" in
         printf "%s %s\n" "${user_id}" "${alias}" >> "${list}"
     ;;
     (del)
-        if [ -f "${list}" ]
+        if [ -s "${list}" ]
         then
             sed -e "s/^${user_id} .*$//" -e '/^$/d' -i "${list}"
         fi
