@@ -62,7 +62,7 @@ then
     exit 1
 fi
 
-for function in cat grep mkdir sed
+for function in cat mkdir sed
 do
     if busybox ${function} --help > /dev/null 2>&1
     then
