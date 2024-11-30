@@ -286,19 +286,19 @@ rm -fr "${cache}"
 mkdir -p "${cache}"
 mkdir -p "${config}"
 
-if ! [ -f "${lists}/aliases" ]
+if ! [ -f "${lists}/aliases.txt" ]
 then
-    cat "${lists}/aliases.default" > "${lists}/aliases"
+    cat "${lists}/aliases.txt.default" > "${lists}/aliases.txt"
 fi
 
-if ! [ -f "${lists}/blacklist" ]
+if ! [ -f "${lists}/blacklist.txt" ]
 then
-    cat "${lists}/blacklist.default" > "${lists}/blacklist"
+    cat "${lists}/blacklist.txt.default" > "${lists}/blacklist.txt"
 fi
 
-if ! [ -f "${lists}/whitelist" ]
+if ! [ -f "${lists}/whitelist.txt" ]
 then
-    cat "${lists}/whitelist.default" > "${lists}/whitelist"
+    cat "${lists}/whitelist.txt.default" > "${lists}/whitelist.txt"
 fi
 
 echo "PID: ${$}"

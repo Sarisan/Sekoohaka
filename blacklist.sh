@@ -10,7 +10,7 @@ set -e
 umask 77
 
 lists="${0%/*}/lists"
-list="${lists}/blacklist"
+list="${lists}/blacklist.txt"
 
 if [ -n "${1}" ]
 then
@@ -122,6 +122,6 @@ case "${action}" in
         fi
     ;;
     (reset)
-        cat "${lists}/blacklist.default" > "${lists}/blacklist"
+        cat "${list}.default" > "${list}"
     ;;
 esac

@@ -10,7 +10,7 @@ set -e
 umask 77
 
 lists="${0%/*}/lists"
-list="${lists}/aliases"
+list="${lists}/aliases.txt"
 
 if [ -n "${1}" ]
 then
@@ -143,6 +143,6 @@ case "${action}" in
         fi
     ;;
     (reset)
-        cat "${lists}/aliases.default" > "${lists}/aliases"
+        cat "${list}.default" > "${list}"
     ;;
 esac
