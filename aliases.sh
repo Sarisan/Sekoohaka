@@ -100,8 +100,6 @@ case "${action}" in
     ;;
 esac
 
-mkdir -p "${lists}"
-
 case "${action}" in
     (show)
         if [ -s "${list}" ]
@@ -145,6 +143,6 @@ case "${action}" in
         fi
     ;;
     (reset)
-        printf "" > "${list}"
+        cat "${lists}/aliases.default" > "${lists}/aliases"
     ;;
 esac

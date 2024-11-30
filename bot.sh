@@ -285,23 +285,20 @@ done
 rm -fr "${cache}"
 mkdir -p "${cache}"
 mkdir -p "${config}"
-mkdir -p "${lists}"
 
 if ! [ -f "${lists}/aliases" ]
 then
-    printf "" > "${lists}/aliases"
+    cat "${lists}/aliases.default" > "${lists}/aliases"
 fi
 
 if ! [ -f "${lists}/blacklist" ]
 then
-    printf "%s\n%s\n" \
-        "777000" \
-        "1087968824" > "${lists}/blacklist"
+    cat "${lists}/blacklist.default" > "${lists}/blacklist"
 fi
 
 if ! [ -f "${lists}/whitelist" ]
 then
-    printf "" > "${lists}/whitelist"
+    cat "${lists}/whitelist.default" > "${lists}/whitelist"
 fi
 
 echo "PID: ${$}"
