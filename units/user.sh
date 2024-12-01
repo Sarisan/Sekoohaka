@@ -24,12 +24,12 @@ then
     done
 fi
 
-if [ -s "${blacklist}" ] && grep -qw "${user_id}" "${blacklist}"
+if [ -s "${blacklist}" ] && grep -qx "${user_id}" "${blacklist}"
 then
     exit 0
 fi
 
-if [ -s "${whitelist}" ] && ! grep -qw "${user_id}" "${whitelist}"
+if [ -s "${whitelist}" ] && ! grep -qx "${user_id}" "${whitelist}"
 then
     exit 0
 fi
