@@ -62,7 +62,7 @@ then
     exit 1
 fi
 
-for function in cat mkdir sed
+for function in cat grep mkdir sed
 do
     if busybox ${function} --help > /dev/null 2>&1
     then
@@ -110,7 +110,7 @@ case "${action}" in
     (add)
         if [ -n "${1}" ]
         then
-            alias="${1}"
+            alias_name="${1}"
             shift
         else
             echo "You must specify the alias name" \
@@ -118,23 +118,15 @@ case "${action}" in
             exit 1
         fi
 
-        if [ -s "${list}" ]
+        if [ -s "${list}" ] && alias="$(grep -xe "${user_id} .*" "${list}")"
         then
-            set -- $(cat "${list}")
+            alias_name="$(printf "%s" "${alias}" | cut -d ' ' -f 2)"
 
-            while [ ${#} -ge 2 ]
-            do
-                if [ "${1}" = "${user_id}" ]
-                then
-                    echo "User ID ${user_id} already has an alias ${2}"
-                    exit 1
-                fi
-
-                shift 2
-            done
+            echo "User ID ${user_id} already has an alias ${alias_name}"
+            exit 1
         fi
 
-        printf "%s %s\n" "${user_id}" "${alias}" >> "${list}"
+        printf "%s %s\n" "${user_id}" "${alias_name}" >> "${list}"
     ;;
     (del)
         if [ -s "${list}" ]

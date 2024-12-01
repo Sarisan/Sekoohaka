@@ -8,20 +8,9 @@ whitelist="${lists}/whitelist.txt"
 
 positional_parameters="${@}"
 
-if [ -s "${aliases}" ]
+if [ -s "${aliases}" ] && alias="$(grep -x "${user_id} .*" "${aliases}")"
 then
-    set -- $(cat "${aliases}")
-
-    while [ ${#} -ge 2 ]
-    do
-        if [ "${user_id}" = "${1}" ]
-        then
-            user_id="${2}"
-            break
-        fi
-
-        shift 2
-    done
+    user_id="$(printf "%s" "${alias}" | parameter 2)"
 fi
 
 if [ -s "${blacklist}" ] && grep -qx "${user_id}" "${blacklist}"
