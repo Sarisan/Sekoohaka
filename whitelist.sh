@@ -111,9 +111,10 @@ case "${action}" in
         if [ -s "${list}" ] && grep -qxFe "${user_id}" "${list}"
         then
             echo "User ID ${user_id} is already in the whitelist"
-        else
-            printf "%s\n" "${user_id}" >> "${list}"
+            exit 1
         fi
+
+        printf "%s\n" "${user_id}" >> "${list}"
     ;;
     (del)
         if [ -s "${list}" ]
