@@ -108,7 +108,7 @@ case "${action}" in
         fi
     ;;
     (add)
-        if [ -s "${list}" ] && grep -qxFe "${user_id}" "${list}"
+        if [ -s "${list}" ] && grep -qxe "${user_id}" "${list}"
         then
             echo "User ID ${user_id} is already in the blacklist"
             exit 1
