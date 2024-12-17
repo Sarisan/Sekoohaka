@@ -1,16 +1,9 @@
-#!/usr/bin/env dash
-#
 # Copyright (C) 2024 Maria Lisina
 # Copyright (C) 2024 Danil Lisin
 # SPDX-License-Identifier: Apache-2.0
-#
-# Run this software with `env -i` to avoid variable conflict
 
-set -e
-umask 77
-
-lists="${0%/*}/lists"
-list="${lists}/whitelist.txt"
+lists="${dir}/lists"
+list="${lists}/aliases.txt"
 
 if [ -n "${1}" ]
 then
@@ -24,7 +17,7 @@ then
         ;;
         (*)
             echo "Unrecognized action ${action}" \
-                "\nSee '${0} help'"
+                "\nSee '${0} aliases help'"
             exit 1
         ;;
     esac
@@ -36,14 +29,14 @@ fi
 
 if [ -n "${help}" ]
 then
-    echo "Whitelist Manager" \
-        "\n\nUsage: ${0} [action] [IDs]" \
+    echo "Aliases Manager" \
+        "\n\nUsage: ${0} aliases [action] [ID] [alias]" \
         "\n\nActions:" \
         "\n  help\t\tShow help information" \
-        "\n  show\t\tShow whitelist entries" \
-        "\n  add\t\tAdd user IDs to the whitelist" \
-        "\n  del\t\tRemove user IDs from the whitelist" \
-        "\n  reset\t\tRemove all whitelist entries"
+        "\n  show\t\tShow all aliases" \
+        "\n  add\t\tAdd user ID alias" \
+        "\n  del\t\tRemove user ID alias" \
+        "\n  reset\t\tRemove all aliases"
     exit 0
 fi
 
@@ -93,8 +86,8 @@ case "${action}" in
 
             shift
         else
-            echo "You must specify the user ID" \
-                "\nSee '${0} help'"
+            echo "You must specify the target user ID" \
+                "\nSee '${0} aliases help'"
             exit 1
         fi
     ;;
@@ -108,18 +101,30 @@ case "${action}" in
         fi
     ;;
     (add)
-        if [ -s "${list}" ] && grep -qxe "${user_id}" "${list}"
+        if [ -n "${1}" ]
         then
-            echo "User ID ${user_id} is already in the whitelist"
+            alias_name="${1}"
+            shift
+        else
+            echo "You must specify the alias name" \
+                "\nSee '${0} aliases help'"
             exit 1
         fi
 
-        printf "%s\n" "${user_id}" >> "${list}"
+        if [ -s "${list}" ] && alias="$(grep -xe "${user_id} .*" "${list}")"
+        then
+            alias_name="$(printf "%s" "${alias}" | cut -d ' ' -f 2)"
+
+            echo "User ID ${user_id} already has an alias ${alias_name}"
+            exit 1
+        fi
+
+        printf "%s %s\n" "${user_id}" "${alias_name}" >> "${list}"
     ;;
     (del)
         if [ -s "${list}" ]
         then
-            sed -e "s/^${user_id}$//" -e '/^$/d' -i "${list}"
+            sed -e "s/^${user_id} .*$//" -e '/^$/d' -i "${list}"
         fi
     ;;
     (reset)

@@ -1,16 +1,9 @@
-#!/usr/bin/env dash
-#
 # Copyright (C) 2024 Maria Lisina
 # Copyright (C) 2024 Danil Lisin
 # SPDX-License-Identifier: Apache-2.0
-#
-# Run this software with `env -i` to avoid variable conflict
 
-set -e
-umask 77
-
-lists="${0%/*}/lists"
-list="${lists}/blacklist.txt"
+lists="${dir}/lists"
+list="${lists}/whitelist.txt"
 
 if [ -n "${1}" ]
 then
@@ -24,7 +17,7 @@ then
         ;;
         (*)
             echo "Unrecognized action ${action}" \
-                "\nSee '${0} help'"
+                "\nSee '${0} whitelist help'"
             exit 1
         ;;
     esac
@@ -36,14 +29,14 @@ fi
 
 if [ -n "${help}" ]
 then
-    echo "Blacklist Manager" \
-        "\n\nUsage: ${0} [action] [IDs]" \
+    echo "Whitelist Manager" \
+        "\n\nUsage: ${0} whitelist [action] [IDs]" \
         "\n\nActions:" \
         "\n  help\t\tShow help information" \
-        "\n  show\t\tShow blacklist entries" \
-        "\n  add\t\tAdd user IDs to the blacklist" \
-        "\n  del\t\tRemove user IDs from the blacklist" \
-        "\n  reset\t\tRemove all blacklist entries"
+        "\n  show\t\tShow whitelist entries" \
+        "\n  add\t\tAdd user IDs to the whitelist" \
+        "\n  del\t\tRemove user IDs from the whitelist" \
+        "\n  reset\t\tRemove all whitelist entries"
     exit 0
 fi
 
@@ -94,7 +87,7 @@ case "${action}" in
             shift
         else
             echo "You must specify the user ID" \
-                "\nSee '${0} help'"
+                "\nSee '${0} whitelist help'"
             exit 1
         fi
     ;;
@@ -110,7 +103,7 @@ case "${action}" in
     (add)
         if [ -s "${list}" ] && grep -qxe "${user_id}" "${list}"
         then
-            echo "User ID ${user_id} is already in the blacklist"
+            echo "User ID ${user_id} is already in the whitelist"
             exit 1
         fi
 
