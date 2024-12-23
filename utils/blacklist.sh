@@ -30,12 +30,12 @@ fi
 if [ -n "${help}" ]
 then
     echo "Blacklist Manager" \
-        "\n\nUsage: ${0} blacklist [action] [IDs]" \
+        "\n\nUsage: ${0} blacklist [action] [ID]" \
         "\n\nActions:" \
         "\n  help\t\tShow help information" \
         "\n  show\t\tShow blacklist entries" \
-        "\n  add\t\tAdd user IDs to the blacklist" \
-        "\n  del\t\tRemove user IDs from the blacklist" \
+        "\n  add\t\tAdd user ID to the blacklist" \
+        "\n  del\t\tRemove user ID from the blacklist" \
         "\n  reset\t\tRemove all blacklist entries"
     exit 0
 fi
