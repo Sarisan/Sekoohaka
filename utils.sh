@@ -30,6 +30,9 @@ then
         (whitelist)
             . "${utils}/whitelist.sh"
         ;;
+        (list)
+            . "${utils}/list.sh"
+        ;;
         (*)
             echo "Unrecognized action or util ${action}" \
                 "\nSee '${0} help'"
@@ -49,6 +52,7 @@ then
         "\n\nUtils:" \
         "\n  aliases\tAliases Manager" \
         "\n  blacklist\tBlacklist Manager" \
-        "\n  whitelist\tWhitelist Manager"
+        "\n  whitelist\tWhitelist Manager" \
+        "\n  list\t\tList Supported Image Boards"
     exit 0
 fi
