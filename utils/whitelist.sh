@@ -30,12 +30,12 @@ fi
 if [ -n "${help}" ]
 then
     echo "Whitelist Manager" \
-        "\n\nUsage: ${0} whitelist [action] [IDs]" \
+        "\n\nUsage: ${0} whitelist [action] [ID]" \
         "\n\nActions:" \
         "\n  help\t\tShow help information" \
         "\n  show\t\tShow whitelist entries" \
-        "\n  add\t\tAdd user IDs to the whitelist" \
-        "\n  del\t\tRemove user IDs from the whitelist" \
+        "\n  add\t\tAdd user ID to the whitelist" \
+        "\n  del\t\tRemove user ID from the whitelist" \
         "\n  reset\t\tRemove all whitelist entries"
     exit 0
 fi
