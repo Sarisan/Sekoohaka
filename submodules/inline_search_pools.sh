@@ -1,5 +1,5 @@
-# Copyright (C) 2024 Maria Lisina
-# Copyright (C) 2024 Danil Lisin
+# Copyright (C) 2024-2025 Maria Lisina
+# Copyright (C) 2024-2025 Danil Lisin
 # SPDX-License-Identifier: Apache-2.0
 
 ib_created_at="$(jq -r ".${ib_iarray}[${array_count}].${ib_icreated}" "${ib_file}")"
