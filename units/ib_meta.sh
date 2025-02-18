@@ -77,6 +77,13 @@ if [ -n "${ib_file_size}" ] && [ "${ib_file_size}" != "null" ] && [ ${ib_file_si
 then
     if [ ${ib_file_size} -gt 20971520 ] && [ "${ib_sample_url}" = "${ib_file_url}" ]
     then
+        if [ "${ib_preview_url}" = "${ib_sample_url}" ]
+        then
+            ib_preview_url="${ib_error_url}"
+            ib_width="${ib_error_width}"
+            ib_height="${ib_error_height}"
+        fi
+
         ib_sample_url="${ib_preview_url}"
         ib_type="photo"
     fi
