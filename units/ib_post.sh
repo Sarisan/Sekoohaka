@@ -56,7 +56,7 @@ then
     done
 fi
 
-if [ -n "${ib_parent_id}" ] && [ "${ib_parent_id}" != "null" ] && [ ${ib_parent_id} -gt 0 ]
+if [ -n "${ib_parent_id}" ] && [ "${ib_parent_id}" != "null" ]
 then
     output_text="$(printf "%s\n<b>Parent ID:</b> <code>%s</code>" "${output_text}" "${ib_parent_id}")"
 fi
