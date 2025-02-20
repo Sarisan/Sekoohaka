@@ -26,9 +26,9 @@ then
     if [ -z "${ib_preview_url}" ] || [ "${ib_preview_url}" = "null" ]
     then
         ib_preview_url=${ib_error_url}
-    elif [ "${ib_name}" = "Idol Complex" ]
+    elif [ "${ib_name}" = "Idol Complex" ] || [ "${ib_name}" = "Sankaku Channel" ]
     then
-        ib_preview_url="https:${ib_preview_url}"
+        ib_preview_url="${ib_sample_url}"
     fi
 
     if [ -n "${ib_width}" ] && [ "${ib_width}" != "null" ] && [ ${ib_width} -gt 0 ]
