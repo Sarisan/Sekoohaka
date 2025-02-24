@@ -8,3 +8,6 @@ then
     ib_width="${ib_error_width}"
     ib_height="${ib_error_height}"
 fi
+
+ib_sample_url="${ib_preview_url}"
+ib_type="photo"
