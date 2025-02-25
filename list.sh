@@ -89,8 +89,19 @@ do
             printf "  Features: none\n"
         fi
 
-        printf "  URL: %s\n" "${ib_url}"
-        printf "  Alias: %c\n" "${ib_board}"
+        if [ -n "${ib_url}" ]
+        then
+            printf "  URL: %s\n" "${ib_url}"
+        else
+            printf "  URL: none\n"
+        fi
+
+        if [ -n "${ib_board}" ]
+        then
+            printf "  Alias: %c\n" "${ib_board}"
+        else
+            printf "  Alias: none\n"
+        fi
 
         printf '\n'
     fi
