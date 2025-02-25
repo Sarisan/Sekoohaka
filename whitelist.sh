@@ -1,7 +1,15 @@
+#!/usr/bin/env dash
+#
 # Copyright (C) 2024-2025 Maria Lisina
 # Copyright (C) 2024-2025 Danil Lisin
 # SPDX-License-Identifier: Apache-2.0
+#
+# Run this software with `env -i` to avoid variable conflict
 
+set -e
+umask 77
+
+dir="${0%/*}"
 lists="${dir}/lists"
 list="${lists}/whitelist.txt"
 
@@ -17,7 +25,7 @@ then
         ;;
         (*)
             echo "Unrecognized action ${action}" \
-                "\nSee '${0} whitelist help'"
+                "\nSee '${0} help'"
             exit 1
         ;;
     esac
@@ -30,7 +38,7 @@ fi
 if [ -n "${help}" ]
 then
     echo "Whitelist Manager" \
-        "\n\nUsage: ${0} whitelist [action] [ID]" \
+        "\n\nUsage: ${0} [action] [ID]" \
         "\n\nActions:" \
         "\n  help\t\tShow help information" \
         "\n  show\t\tShow whitelist entries" \
@@ -87,7 +95,7 @@ case "${action}" in
             shift
         else
             echo "You must specify the user ID" \
-                "\nSee '${0} whitelist help'"
+                "\nSee '${0} help'"
             exit 1
         fi
     ;;

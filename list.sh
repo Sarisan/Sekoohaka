@@ -1,7 +1,15 @@
+#!/usr/bin/env dash
+#
 # Copyright (C) 2024-2025 Maria Lisina
 # Copyright (C) 2024-2025 Danil Lisin
 # SPDX-License-Identifier: Apache-2.0
+#
+# Run this software with `env -i` to avoid variable conflict
 
+set -e
+umask 77
+
+dir="${0%/*}"
 units="${dir}/units"
 
 if [ -n "${1}" ]
@@ -14,7 +22,7 @@ then
         ;;
         (*)
             echo "Unrecognized action ${action}" \
-                "\nSee '${0} list help'"
+                "\nSee '${0} help'"
             exit 1
         ;;
     esac
@@ -25,7 +33,7 @@ fi
 if [ -n "${help}" ]
 then
     echo "List Supported Image Boards" \
-        "\n\nUsage: ${0} list [action]" \
+        "\n\nUsage: ${0} [action]" \
         "\n\nActions:" \
         "\n  help\t\tShow help information"
     exit 0
