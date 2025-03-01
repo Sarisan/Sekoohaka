@@ -16,7 +16,8 @@ case "${command}" in
         inline_options="aq"
     ;;
     (*)
-        exit 0
+        . "${submodules}/inline_help.sh"
+        return 0
     ;;
 esac
 
