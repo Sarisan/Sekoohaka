@@ -4,6 +4,7 @@
 
 case "${ib_board}" in
     (d)
+        ib_auth="https://danbooru.donmai.us/profile.json"
         ib_config="${config}/${user_id}/danbooru"
         ib_authorization="Authorization: Baisc"
         ib_login_file="login"
@@ -12,22 +13,23 @@ case "${ib_board}" in
         ib_key_word="API key"
     ;;
     (g)
+        ib_noauth=0
         ib_config="${config}/${user_id}/gelbooru"
-        ib_noverify=0
         ib_login_file="user_id"
         ib_key_file="api_key"
         ib_login_word="user ID"
         ib_key_word="API key"
     ;;
     (i)
+        ib_noauth=0
         ib_config="${config}/${user_id}/idol"
-        ib_noverify=0
         ib_login_file="login"
         ib_key_file="password"
         ib_login_word="login"
         ib_key_word="password"
     ;;
     (s)
+        ib_auth="https://sankakuapi.com/auth/token"
         ib_config="${config}/${user_id}/sankaku"
         ib_authorization="Authorization: Bearer"
         ib_expire=36000
@@ -39,11 +41,11 @@ case "${ib_board}" in
     (k|y)
         case "${ib_board}" in
             (k)
-                ib_auth="https://konachan.com"
+                ib_auth="https://konachan.com/user.json"
                 ib_config="${config}/${user_id}/konachan"
             ;;
             (y)
-                ib_auth="https://yande.re"
+                ib_auth="https://yande.re/user.json"
                 ib_config="${config}/${user_id}/yandere"
             ;;
         esac

@@ -41,7 +41,7 @@ case "${ib_board}" in
             --silent \
             --user "${ib_login}:${ib_key}" \
             --user-agent "Sekoohaka" \
-            "https://danbooru.donmai.us/profile.json"
+            "${ib_auth}"
         then
             output_text="Failed to process request"
             return 0
@@ -98,7 +98,7 @@ case "${ib_board}" in
             --request POST \
             --silent \
             --user-agent "Sekoohaka" \
-            "https://sankakuapi.com/auth/token"
+            "${ib_auth}"
         then
             output_text="Failed to process request"
             return 0
@@ -130,7 +130,7 @@ case "${ib_board}" in
             --proxy "${external_proxy}" \
             --silent \
             --user-agent "Sekoohaka" \
-            "${ib_auth}/user.json"
+            "${ib_auth}"
         then
             output_text="Failed to process request"
             return 0
