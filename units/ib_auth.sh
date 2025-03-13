@@ -98,7 +98,7 @@ case "${ib_board}" in
             --request POST \
             --silent \
             --user-agent "Sekoohaka" \
-            "https://capi-v2.sankakucomplex.com/auth/token"
+            "https://sankakuapi.com/auth/token"
         then
             output_text="Failed to process request"
             return 0

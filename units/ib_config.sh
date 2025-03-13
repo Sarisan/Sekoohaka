@@ -215,7 +215,7 @@ case "${ib_board}" in
     ;;
     (s)
         ib_name="Sankaku Channel"
-        ib_api="https://capi-v2.sankakucomplex.com"
+        ib_api="https://sankakuapi.com"
         ib_url="https://chan.sankakucomplex.com"
 
         ib_ratings="
