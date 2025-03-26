@@ -115,7 +115,7 @@ then
     exit 1
 fi
 
-for function in base64 bc cat cut date find grep ls mkdir rm sed seq sha1sum sleep stat tr
+for function in base64 bc cat cut date find grep ls mkdir rm sed sha1sum sleep stat tr
 do
     if busybox ${function} --help > /dev/null 2>&1
     then
@@ -276,11 +276,6 @@ alias parameter="cut -d ' ' -f"
 alias enhash="sha1sum | parameter 1"
 alias htmlescape="sed -e 's/</\&#60;/g' -e 's/>/\&#62;/g'"
 alias urlencode="jq -Rr @uri"
-
-for ascii in $(seq 33 126)
-do
-    ascii_table="${ascii_table} $(printf "%b" "\0$(printf "%o" ${ascii})")"
-done
 
 rm -fr "${cache}"
 mkdir -p "${cache}"
