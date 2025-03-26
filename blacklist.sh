@@ -10,8 +10,8 @@ set -e
 umask 77
 
 dir="${0%/*}"
-lists="${dir}/lists"
-list="${lists}/blacklist.txt"
+files="${dir}/files"
+list="${files}/blacklist.txt"
 
 if [ -n "${1}" ]
 then

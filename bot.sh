@@ -13,7 +13,7 @@ version="2.8-inadev"
 dir="${0%/*}"
 cache="${dir}/cache/${$}"
 config="${dir}/config"
-lists="${dir}/lists"
+files="${dir}/files"
 modules="${dir}/modules"
 submodules="${dir}/submodules"
 units="${dir}/units"
@@ -286,19 +286,19 @@ rm -fr "${cache}"
 mkdir -p "${cache}"
 mkdir -p "${config}"
 
-if ! [ -f "${lists}/aliases.txt" ]
+if ! [ -f "${files}/aliases.txt" ]
 then
-    cat "${lists}/aliases.txt.default" > "${lists}/aliases.txt"
+    cat "${files}/aliases.txt.default" > "${files}/aliases.txt"
 fi
 
-if ! [ -f "${lists}/blacklist.txt" ]
+if ! [ -f "${files}/blacklist.txt" ]
 then
-    cat "${lists}/blacklist.txt.default" > "${lists}/blacklist.txt"
+    cat "${files}/blacklist.txt.default" > "${files}/blacklist.txt"
 fi
 
-if ! [ -f "${lists}/whitelist.txt" ]
+if ! [ -f "${files}/whitelist.txt" ]
 then
-    cat "${lists}/whitelist.txt.default" > "${lists}/whitelist.txt"
+    cat "${files}/whitelist.txt.default" > "${files}/whitelist.txt"
 fi
 
 echo "PID: ${$}"

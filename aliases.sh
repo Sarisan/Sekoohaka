@@ -10,8 +10,8 @@ set -e
 umask 77
 
 dir="${0%/*}"
-lists="${dir}/lists"
-list="${lists}/aliases.txt"
+files="${dir}/files"
+list="${files}/aliases.txt"
 
 if [ -n "${1}" ]
 then
