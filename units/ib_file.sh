@@ -14,7 +14,7 @@ then
     ib_ctime=$(date +%s)
     ib_mtime=$(stat -c %Y "${ib_file}")
 
-    if [ $((ib_ctime - ib_mtime)) -le ${caching_time} ]
+    if [ $((ib_ctime - ib_mtime)) -le $((caching_time - 10)) ]
     then
         rm -fr "${cache}/${ib_hash}.lock"
         return 0
