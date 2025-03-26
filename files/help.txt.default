@@ -1,0 +1,61 @@
+<b>Sekoohaka Bot v{version}</b>
+
+<b>Fields descriptions:</b>
+[command] - Inline command
+[b] - Image Board
+[page] - Search page number
+[options] - Search options
+[name] - Search pool or tag name
+[tags] - Search tags
+[query] - Search query
+[id] - Post ID
+[login] - Image Board login or username
+[key] - Image Board API key or password
+
+<b>Inline search:</b>
+<code>pools</code> [b] [page] [options] [name] - Pools search
+<code>posts</code> [b] [page] [options] [tags] - Posts search
+<code>tags</code> [b] [page] [options] [name] - Tags search
+<code>shorts</code> [page] [options] [query] - Shortcuts search
+
+<b>Search options:</b>
+a - Enable autopaging (lpts)
+m - Show more metadata (p)
+p - Show gif/video as preview only (p)
+q - Add quick buttons (lpts)
+r - Reverse search order (s)
+w - Match full words only (s)
+
+<b>Inline commands:</b>
+<code>help</code> - Send this message
+<code>original</code> [b] [id] - Get original file of post
+<code>post</code> [b] [id] - Get infromation of post
+<code>short</code> [query] - Create inline shortcut
+
+<b>Commands:</b>
+/help - Send this message
+/authorize [b] [login] [key] - Authorize to Image Board
+/original [b] [id] - Get original file of post
+/post [b] [id] - Get infromation of post
+/short [query] - Create inline shortcut
+/shorts - Manage saved shortcuts
+/stop - Remove all your data
+
+<b>Inline aliases:</b>
+<code>l</code> - <code>pools</code>
+<code>p</code> - <code>posts</code>
+<code>t</code> - <code>tags</code>
+<code>s</code> - <code>shorts</code>
+<b>Inline examples:</b>
+<code>p d 1 -a rating:g</code>
+<code>t d *genshin*</code>
+<code>original d 4507929</code>
+<code>short p d -mq ringouulu</code>
+
+<b>Supported Image Boards:</b>
+d - <a href="https://danbooru.donmai.us">Danbooru</a> (auth) (lpt)
+g - <a href="https://gelbooru.com">Gelbooru</a> (auth) (pt)
+i - <a href="https://idol.sankakucomplex.com">Idol Complex</a> (auth) (lpt)
+k - <a href="https://konachan.com">Konachan.com</a> (auth) (lpt)
+s - <a href="https://chan.sankakucomplex.com">Sankaku Channel</a> (auth) (lpt)
+y - <a href="https://yande.re">yande.re</a> (auth) (lpt)

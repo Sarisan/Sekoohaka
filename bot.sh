@@ -301,6 +301,11 @@ then
     cat "${files}/whitelist.txt.default" > "${files}/whitelist.txt"
 fi
 
+if ! [ -f "${files}/help.txt" ]
+then
+    cat "${files}/help.txt.default" > "${files}/help.txt"
+fi
+
 echo "PID: ${$}"
 
 curl --get \
