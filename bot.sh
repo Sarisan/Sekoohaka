@@ -96,7 +96,14 @@ then
         "\n\nCaching modes:" \
         "\n  none\t\tNo caching" \
         "\n  normal\tCache inline results and posts" \
-        "\n  advanced\tExtract posts cache from inline results"
+        "\n  advanced\tExtract posts cache from inline results" \
+        "\n\nSupported Image Boards:" \
+        "\n  Danbooru\t\t(https://danbooru.donmai.us/)" \
+        "\n  Gelbooru\t\t(https://gelbooru.com/)" \
+        "\n  Idol Complex\t\t(https://idol.sankakucomplex.com/)" \
+        "\n  Konachan.com\t\t(https://konachan.com/)" \
+        "\n  Sankaku Channel\t(https://chan.sankakucomplex.com/)" \
+        "\n  yande.re\t\t(https://yande.re/)"
     exit 0
 fi
 
