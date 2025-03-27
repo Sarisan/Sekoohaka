@@ -322,9 +322,24 @@ curl --get \
 
 if ! jq -e '.' "${cache}/getMe.json" > /dev/null
 then
-    log_text="Failed to get the bot information"
+    log_text="Failed to get bot information"
     . "${units}/log.sh"
 
+    exit 1
+fi
+
+if [ "$(jq -r '.ok' "${cache}/getMe.json")" != "true" ]
+then
+    error_description="$(jq -r '.description' "${cache}/getMe.json")"
+
+    if [ "${error_description}" != "null" ]
+    then
+        log_text="${error_description}"
+    else
+        log_text="An unknown error occurred"
+    fi
+
+    . "${units}/log.sh"
     exit 1
 fi
 
@@ -332,7 +347,7 @@ username="$(jq -r '.result.username' "${cache}/getMe.json")"
 
 if [ "${username}" = "null" ]
 then
-    log_text="Failed to authorize the bot"
+    log_text="Failed to get bot username"
     . "${units}/log.sh"
 
     exit 1
