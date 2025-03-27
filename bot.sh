@@ -46,7 +46,7 @@ then
                 caching_time=${OPTARG}
             ;;
             (c)
-                cache_clear=0
+                clear_cache=0
             ;;
             (q)
                 no_logs=0
