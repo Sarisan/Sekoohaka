@@ -290,8 +290,16 @@ mkdir -p "${config}"
 
 for file in aliases blacklist whitelist help
 do
-    if ! [ -f "${files}/${file}.txt" ]
+    if [ -f "${files}/${file}.txt" ]
     then
+        file_ctime=$(stat -c %Y "${files}/${file}.txt.default")
+        file_mtime=$(stat -c %Y "${files}/${file}.txt")
+
+        if [ ${file_ctime} -gt ${file_mtime} ]
+        then
+            echo "Warning: ${file}.txt is older than ${file}.txt.default"
+        fi
+    else
         cat "${files}/${file}.txt.default" > "${files}/${file}.txt"
     fi
 done
