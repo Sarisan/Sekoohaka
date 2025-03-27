@@ -2,7 +2,8 @@
 # Copyright (C) 2024-2025 Danil Lisin
 # SPDX-License-Identifier: Apache-2.0
 
-output_text="$(cat "${files}/help.txt" | sed "s/{version}/${version}/")"
+. "${units}/help.sh"
+
 output_title="Sekoohaka Bot"
 output_description="Click to send the help message"
 
