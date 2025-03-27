@@ -9,7 +9,7 @@
 set -e
 umask 77
 
-version="2.9-inadev"
+version="2.9"
 dir="${0%/*}"
 cache="${dir}/cache/${$}"
 config="${dir}/config"
