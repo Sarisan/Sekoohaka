@@ -19,12 +19,12 @@
 <code>shorts</code> [page] [options] [query] - Shortcuts search
 
 <b>Search options:</b>
-a - Enable autopaging (lpts)
-m - Show more metadata (p)
-p - Show gif/video as preview only (p)
-q - Add quick buttons (lpts)
-r - Reverse search order (s)
-w - Match full words only (s)
+<code>a</code> - Enable autopaging (lpts)
+<code>m</code> - Show more metadata (p)
+<code>p</code> - Show gif/video as preview only (p)
+<code>q</code> - Add quick buttons (lpts)
+<code>r</code> - Reverse search order (s)
+<code>w</code> - Match full words only (s)
 
 <b>Inline commands:</b>
 <code>help</code> - Send this message
@@ -53,9 +53,9 @@ w - Match full words only (s)
 <code>short p d -mq ringouulu</code>
 
 <b>Supported Image Boards:</b>
-d - <a href="https://danbooru.donmai.us">Danbooru</a> (auth) (lpt)
-g - <a href="https://gelbooru.com">Gelbooru</a> (auth) (pt)
-i - <a href="https://idol.sankakucomplex.com">Idol Complex</a> (auth) (lpt)
-k - <a href="https://konachan.com">Konachan.com</a> (auth) (lpt)
-s - <a href="https://chan.sankakucomplex.com">Sankaku Channel</a> (auth) (lpt)
-y - <a href="https://yande.re">yande.re</a> (auth) (lpt)
+<code>d</code> - <a href="https://danbooru.donmai.us">Danbooru</a> (auth) (lpt)
+<code>g</code> - <a href="https://gelbooru.com">Gelbooru</a> (auth) (pt)
+<code>i</code> - <a href="https://idol.sankakucomplex.com">Idol Complex</a> (auth) (lpt)
+<code>k</code> - <a href="https://konachan.com">Konachan.com</a> (auth) (lpt)
+<code>s</code> - <a href="https://chan.sankakucomplex.com">Sankaku Channel</a> (auth) (lpt)
+<code>y</code> - <a href="https://yande.re">yande.re</a> (auth) (lpt)
