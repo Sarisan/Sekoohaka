@@ -78,12 +78,25 @@ curl --data-urlencode "chat_id=${chat_id}" \
 if ! jq -e '.' "${output_file}" > /dev/null 2>&1
 then
     output_text="An unknown error occurred"
+    log_text="${update_id}: An unknown error occurred"
+
+    . "${units}/log.sh"
     return 0
 fi
 
 if [ "$(jq -r '.ok' "${output_file}")" != "true" ]
 then
     output_text="Failed to send the original file"
+    error_description="$(jq -r '.description' "${output_file}")"
+
+    if [ "${error_description}" != "null" ]
+    then
+        log_text="${update_id}: ${error_description}"
+    else
+        log_text="${update_id}: An unknown error occurred"
+    fi
+
+    . "${units}/log.sh"
     return 0
 fi
 
