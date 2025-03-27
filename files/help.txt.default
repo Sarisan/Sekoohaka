@@ -46,6 +46,7 @@
 <code>p</code> - <code>posts</code>
 <code>t</code> - <code>tags</code>
 <code>s</code> - <code>shorts</code>
+
 <b>Inline examples:</b>
 <code>p d 1 -a rating:g</code>
 <code>t d *genshin*</code>
