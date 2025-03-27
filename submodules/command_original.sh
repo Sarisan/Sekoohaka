@@ -28,14 +28,37 @@ then
     return 0
 fi
 
+output_file="${cache}/${update_id}_sendChatAction.json"
+
 curl --data-urlencode "chat_id=${chat_id}" \
     --data-urlencode "message_thread_id=${message_thread_id}" \
     --data-urlencode "action=upload_document" \
     --get \
     --max-time ${internal_timeout} \
+    --output "${output_file}" \
     --proxy "${internal_proxy}" \
     --silent \
     "${api_address}/bot${api_token}/sendChatAction" > /dev/null
+
+if ! jq -e '.' "${output_file}" > /dev/null 2>&1
+then
+    log_text="${update_id}: An unknown error occurred"
+    . "${units}/log.sh"
+fi
+
+if [ "$(jq -r '.ok' "${output_file}")" != "true" ]
+then
+    error_description="$(jq -r '.description' "${output_file}")"
+
+    if [ "${error_description}" != "null" ]
+    then
+        log_text="${update_id}: ${error_description}"
+    else
+        log_text="${update_id}: An unknown error occurred"
+    fi
+
+    . "${units}/log.sh"
+fi
 
 output_file="${cache}/${update_id}_sendDocument.json"
 

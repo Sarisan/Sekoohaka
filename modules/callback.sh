@@ -77,11 +77,34 @@ then
     fi
 fi
 
+output_file="${cache}/${update_id}_answerCallbackQuery.json"
+
 curl --data-urlencode "callback_query_id=${query_id}" \
     --data-urlencode "text=${notification_text}" \
     --data-urlencode "cache_time=0" \
     --get \
     --max-time ${internal_timeout} \
+    --output "${output_file}" \
     --proxy "${internal_proxy}" \
     --silent \
     "${api_address}/bot${api_token}/answerCallbackQuery" > /dev/null
+
+if ! jq -e '.' "${output_file}" > /dev/null 2>&1
+then
+    log_text="${update_id}: An unknown error occurred"
+    . "${units}/log.sh"
+fi
+
+if [ "$(jq -r '.ok' "${output_file}")" != "true" ]
+then
+    error_description="$(jq -r '.description' "${output_file}")"
+
+    if [ "${error_description}" != "null" ]
+    then
+        log_text="${update_id}: ${error_description}"
+    else
+        log_text="${update_id}: An unknown error occurred"
+    fi
+
+    . "${units}/log.sh"
+fi
