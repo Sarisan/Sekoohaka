@@ -21,7 +21,7 @@ offset=-1
 
 if [ -n "${1}" ]
 then
-    while getopts ha:lg:r:m:t:ci:e:d:n:x: options
+    while getopts ha:lg:r:m:t:cqi:e:d:n:x: options
     do
         case "${options}" in
             (h)
@@ -47,6 +47,9 @@ then
             ;;
             (c)
                 cache_clear=0
+            ;;
+            (q)
+                no_logs=0
             ;;
             (i)
                 internal_timeout=${OPTARG}
@@ -88,6 +91,7 @@ then
         "\n  -m <mode>\tCaching mode, default: normal" \
         "\n  -t <secs>\tCaching time, max: 1000, default: 300 secs" \
         "\n  -c\t\tClear cache automatically" \
+        "\n  -q\t\tDo not print logs" \
         "\n  -i <secs>\tTelegram Bot API connetion timeout, max: 10, default: 10 secs" \
         "\n  -e <secs>\tImage Boards API connetion timeout, max: 10, default: 5 secs" \
         "\n  -d <secs>\tHead request connetion timeout, max: 10, default: 2 secs" \
@@ -297,14 +301,16 @@ do
 
         if [ ${file_ctime} -gt ${file_mtime} ]
         then
-            echo "Warning: ${file}.txt is older than ${file}.txt.default"
+            log_text="Warning: ${file}.txt is older than ${file}.txt.default"
+            . "${units}/log.sh"
         fi
     else
         cat "${files}/${file}.txt.default" > "${files}/${file}.txt"
     fi
 done
 
-echo "PID: ${$}"
+log_text="PID: ${$}"
+. "${units}/log.sh"
 
 curl --get \
     --max-time ${internal_timeout} \
@@ -316,7 +322,9 @@ curl --get \
 
 if ! jq -e '.' "${cache}/getMe.json" > /dev/null
 then
-    echo "Failed to get the bot information"
+    log_text="Failed to get the bot information"
+    . "${units}/log.sh"
+
     exit 1
 fi
 
@@ -324,11 +332,14 @@ username="$(jq -r '.result.username' "${cache}/getMe.json")"
 
 if [ "${username}" = "null" ]
 then
-    echo "Failed to authorize the bot"
+    log_text="Failed to authorize the bot"
+    . "${units}/log.sh"
+
     exit 1
 fi
 
-echo "Bot: ${username}"
+log_text="Bot: ${username}"
+. "${units}/log.sh"
 
 while trap 'wait && exit 0' INT TERM
 do

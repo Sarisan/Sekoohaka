@@ -68,6 +68,7 @@ Options:
   -m <mode>     Caching mode, default: normal
   -t <secs>     Caching time, max: 1000, default: 300 secs
   -c            Clear cache automatically
+  -q            Do not print logs
   -i <secs>     Telegram Bot API connetion timeout, max: 10, default: 10 secs
   -e <secs>     Image Boards API connetion timeout, max: 10, default: 5 secs
   -d <secs>     Head request connetion timeout, max: 10, default: 2 secs
