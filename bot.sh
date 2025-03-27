@@ -288,25 +288,13 @@ rm -fr "${cache}"
 mkdir -p "${cache}"
 mkdir -p "${config}"
 
-if ! [ -f "${files}/aliases.txt" ]
-then
-    cat "${files}/aliases.txt.default" > "${files}/aliases.txt"
-fi
-
-if ! [ -f "${files}/blacklist.txt" ]
-then
-    cat "${files}/blacklist.txt.default" > "${files}/blacklist.txt"
-fi
-
-if ! [ -f "${files}/whitelist.txt" ]
-then
-    cat "${files}/whitelist.txt.default" > "${files}/whitelist.txt"
-fi
-
-if ! [ -f "${files}/help.txt" ]
-then
-    cat "${files}/help.txt.default" > "${files}/help.txt"
-fi
+for file in aliases blacklist whitelist help
+do
+    if ! [ -f "${files}/${file}.txt" ]
+    then
+        cat "${files}/${file}.txt.default" > "${files}/${file}.txt"
+    fi
+done
 
 echo "PID: ${$}"
 
