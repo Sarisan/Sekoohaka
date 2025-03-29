@@ -10,7 +10,7 @@ set -e
 umask 77
 exec 2> /dev/null
 
-version="2.9.2"
+version="2.9.3"
 dir="${0%/*}"
 cache="${dir}/cache/${$}"
 config="${dir}/config"
