@@ -66,7 +66,7 @@ then
         --silent \
         "${api_address}/bot${api_token}/editMessageText"
 
-    if [ -z "${notification_text}" ] && ! jq -e '.' "${output_file}" > /dev/null 2>&1
+    if [ -z "${notification_text}" ] && ! jq -e '.' "${output_file}" > /dev/null
     then
         notification_text="An unknown error occurred"
     fi
@@ -89,7 +89,7 @@ curl --data-urlencode "callback_query_id=${query_id}" \
     --silent \
     "${api_address}/bot${api_token}/answerCallbackQuery" > /dev/null
 
-if ! jq -e '.' "${output_file}" > /dev/null 2>&1
+if ! jq -e '.' "${output_file}" > /dev/null
 then
     log_text="${update_id}: An unknown error occurred"
     . "${units}/log.sh"

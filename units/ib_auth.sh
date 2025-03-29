@@ -47,7 +47,7 @@ case "${ib_board}" in
             return 0
         fi
 
-        if ! jq -e '.' "${ib_auth_file}" > /dev/null 2>&1
+        if ! jq -e '.' "${ib_auth_file}" > /dev/null
         then
             output_text="An unknown error occurred"
             return 0
@@ -104,7 +104,7 @@ case "${ib_board}" in
             return 0
         fi
 
-        if ! jq -e '.' "${ib_auth_file}" > /dev/null 2>&1
+        if ! jq -e '.' "${ib_auth_file}" > /dev/null
         then
             output_text="An unknown error occurred"
             return 0
@@ -136,7 +136,7 @@ case "${ib_board}" in
             return 0
         fi
 
-        if ! jq -e '.' "${ib_auth_file}" > /dev/null 2>&1
+        if ! jq -e '.' "${ib_auth_file}" > /dev/null
         then
             output_text="Invalid username or API key"
             return 0

@@ -8,6 +8,7 @@
 
 set -e
 umask 77
+exec 2> /dev/null
 
 dir="${0%/*}"
 files="${dir}/files"
@@ -65,7 +66,7 @@ fi
 
 for function in cat grep mkdir sed
 do
-    if busybox ${function} --help > /dev/null 2>&1
+    if busybox ${function} --help
     then
         alias ${function}="busybox ${function}"
     else
@@ -86,7 +87,7 @@ case "${action}" in
         then
             user_id="${1}"
 
-            if ! test ${user_id} -gt 0 > /dev/null 2>&1
+            if ! test ${user_id} -gt 0
             then
                 echo "Illegal user ID ${user_id}"
                 exit 1

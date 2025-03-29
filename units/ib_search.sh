@@ -25,7 +25,7 @@ else
     return 0
 fi
 
-if test "${1}" -gt 0 > /dev/null 2>&1
+if test "${1}" -gt 0
 then
     inline_page=${1}
     shift
@@ -43,7 +43,7 @@ if [ -n "${1}" ]
 then
     inline_query="${@}"
 
-    while getopts ${inline_options} inline_getopts > /dev/null 2>&1
+    while getopts ${inline_options} inline_getopts
     do
         case "${inline_getopts}" in
             (a)

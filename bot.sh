@@ -8,6 +8,7 @@
 
 set -e
 umask 77
+exec 2> /dev/null
 
 version="2.9.2"
 dir="${0%/*}"
@@ -128,7 +129,7 @@ fi
 
 for function in base64 bc cat cut date find grep ls mkdir rm sed sha1sum sleep stat tr
 do
-    if busybox ${function} --help > /dev/null 2>&1
+    if busybox ${function} --help
     then
         alias ${function}="busybox ${function}"
     else
@@ -150,7 +151,7 @@ fi
 
 if [ -n "${shorts_limit}" ]
 then
-    if ! test ${shorts_limit} -gt 0 > /dev/null 2>&1
+    if ! test ${shorts_limit} -gt 0
     then
         echo "Illegal shortcuts limit number" \
             "\nSee '${0} -h'"
@@ -167,7 +168,7 @@ fi
 
 if [ -n "${inline_limit}" ]
 then
-    if ! test ${inline_limit} -gt 0 > /dev/null 2>&1
+    if ! test ${inline_limit} -gt 0
     then
         echo "Illegal inline results limit number" \
             "\nSee '${0} -h'"
@@ -199,7 +200,7 @@ fi
 
 if [ -n "${caching_time}" ]
 then
-    if ! test ${caching_time} -gt 0 > /dev/null 2>&1
+    if ! test ${caching_time} -gt 0
     then
         echo "Illegal caching time" \
             "\nSee '${0} -h'"
@@ -216,7 +217,7 @@ fi
 
 if [ -n "${internal_timeout}" ]
 then
-    if ! test ${internal_timeout} -gt 0 > /dev/null 2>&1
+    if ! test ${internal_timeout} -gt 0
     then
         echo "Illegal Telegram Bot API timeout" \
             "\nSee '${0} -h'"
@@ -233,7 +234,7 @@ fi
 
 if [ -n "${external_timeout}" ]
 then
-    if ! test ${external_timeout} -gt 0 > /dev/null 2>&1
+    if ! test ${external_timeout} -gt 0
     then
         echo "Illegal Image Boards API timeout" \
             "\nSee '${0} -h'"
@@ -250,7 +251,7 @@ fi
 
 if [ -n "${head_timeout}" ]
 then
-    if ! test ${head_timeout} -gt 0 > /dev/null 2>&1
+    if ! test ${head_timeout} -gt 0
     then
         echo "Illegal head request timeout" \
             "\nSee '${0} -h'"

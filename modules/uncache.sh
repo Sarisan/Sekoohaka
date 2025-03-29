@@ -7,14 +7,14 @@ then
     exit 0
 fi
 
-if ! mkdir "${cache}.lock" > /dev/null 2>&1
+if ! mkdir "${cache}.lock"
 then
     exit 0
 fi
 
 for file in $(ls -x "${cache}")
 do
-    until mkdir "${cache}/${file%.*}.lock" > /dev/null 2>&1
+    until mkdir "${cache}/${file%.*}.lock"
     do
         sleep 1
     done

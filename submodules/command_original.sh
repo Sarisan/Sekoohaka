@@ -40,7 +40,7 @@ curl --data-urlencode "chat_id=${chat_id}" \
     --silent \
     "${api_address}/bot${api_token}/sendChatAction" > /dev/null
 
-if ! jq -e '.' "${output_file}" > /dev/null 2>&1
+if ! jq -e '.' "${output_file}" > /dev/null
 then
     log_text="${update_id}: An unknown error occurred"
     . "${units}/log.sh"
@@ -75,7 +75,7 @@ curl --data-urlencode "chat_id=${chat_id}" \
     --silent \
     "${api_address}/bot${api_token}/sendDocument"
 
-if ! jq -e '.' "${output_file}" > /dev/null 2>&1
+if ! jq -e '.' "${output_file}" > /dev/null
 then
     output_text="An unknown error occurred"
     log_text="${update_id}: An unknown error occurred"

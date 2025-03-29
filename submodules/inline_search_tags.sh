@@ -5,7 +5,7 @@
 ib_tag="$(jq -r ".${ib_iarray}[${array_count}].${ib_itag}" "${ib_file}")"
 ib_count="$(jq -r ".${ib_iarray}[${array_count}].${ib_icount}" "${ib_file}")"
 
-if [ -n "${ib_irecode}" ] && ib_tag_recode="$(printf "%s" "${ib_tag}" | recode ${ib_irecode}..ASCII 2>&1)"
+if [ -n "${ib_irecode}" ] && ib_tag_recode="$(printf "%s" "${ib_tag}" | recode ${ib_irecode}..ASCII)"
 then
     ib_tag="${ib_tag_recode}"
 fi

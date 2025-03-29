@@ -2,7 +2,7 @@
 # Copyright (C) 2024-2025 Danil Lisin
 # SPDX-License-Identifier: Apache-2.0
 
-until mkdir "${cache}/${ib_hash}.lock" > /dev/null 2>&1
+until mkdir "${cache}/${ib_hash}.lock"
 do
     sleep 1
 done
@@ -77,7 +77,7 @@ then
     return 0
 fi
 
-if ! jq -e '.' "${ib_file}" > /dev/null 2>&1
+if ! jq -e '.' "${ib_file}" > /dev/null
 then
     output_title="An error occurred"
     output_text="An unknown error occurred"
@@ -87,7 +87,7 @@ then
     return 0
 fi
 
-if ! jq -e ".${ib_iarray}[0]|has(\"${ib_iid}\")" "${ib_file}" > /dev/null 2>&1
+if ! jq -e ".${ib_iarray}[0]|has(\"${ib_iid}\")" "${ib_file}" > /dev/null
 then
     if [ -n "${inline_options}" ] && [ -n "${offset}" ]
     then

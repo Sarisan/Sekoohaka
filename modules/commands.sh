@@ -77,7 +77,7 @@ curl --data-urlencode "chat_id=${chat_id}" \
     --silent \
     "${api_address}/bot${api_token}/sendMessage" > /dev/null
 
-if ! jq -e '.' "${output_file}" > /dev/null 2>&1
+if ! jq -e '.' "${output_file}" > /dev/null
 then
     log_text="${update_id}: An unknown error occurred"
     . "${units}/log.sh"

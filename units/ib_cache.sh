@@ -2,7 +2,7 @@
 # Copyright (C) 2024-2025 Danil Lisin
 # SPDX-License-Identifier: Apache-2.0
 
-until mkdir "${cache}/${ib_hash}.lock" > /dev/null 2>&1
+until mkdir "${cache}/${ib_hash}.lock"
 do
     sleep 1
 done
