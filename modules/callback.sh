@@ -69,11 +69,24 @@ then
     if [ -z "${notification_text}" ] && ! jq -e '.' "${output_file}" > /dev/null
     then
         notification_text="An unknown error occurred"
+        log_text="${update_id}: An unknown error occurred"
+
+        . "${units}/log.sh"
     fi
 
     if [ -z "${notification_text}" ] && [ "$(jq -r '.ok' "${output_file}")" != "true" ]
     then
         notification_text="Failed to update message"
+        error_description="$(jq -r '.description' "${output_file}")"
+
+        if [ "${error_description}" != "null" ]
+        then
+            log_text="${update_id}: ${error_description}"
+        else
+            log_text="${update_id}: An unknown error occurred"
+        fi
+
+        . "${units}/log.sh"
     fi
 fi
 
