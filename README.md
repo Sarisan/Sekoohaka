@@ -161,3 +161,14 @@ Supported Image Boards:
 * `k` - [Konachan.com](https://konachan.com/) (auth) (lpt)
 * `s` - [Sankaku Channel](https://chan.sankakucomplex.com/) (auth) (lpt)
 * `y` - [yande.re](https://yande.re/) (auth) (lpt)
+
+## Donation
+
+If you want to support this bot development you can donate any amount of these cryptocurrencies
+
+| Currency | Address |
+| :---: | :---: |
+| BTC | `bc1qqr8yryvx43y6p3kg7y2cw32w6tv748el7k38ff` |
+| ETH | `0x8993D744dF7183e112E2A4489991890f6a143104` |
+| BNB | `0x8993D744dF7183e112E2A4489991890f6a143104` |
+| TON | `UQBdoPQq3akozSLiWqt6x2Rizv0TrxHzRjczoztFN-LMCwGO` |
