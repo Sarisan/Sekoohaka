@@ -126,7 +126,7 @@ Supported Image Boards:
 * `original [b] [id]` - Get original file of post
 * `post [b] [id]` - Get infromation of post
 * `short [query]` - Create inline shortcut
-* `donate` - Send donate details
+* `donate` - Send donation details
 
 ### Commands
 
@@ -137,7 +137,7 @@ Supported Image Boards:
 * `/short [query]` - Create inline shortcut
 * `/shorts` - Manage saved shortcuts
 * `/stop` - Remove all user data
-* `/donate` - Send donate details
+* `/donate` - Send donation details
 
 ### Inline aliases
 

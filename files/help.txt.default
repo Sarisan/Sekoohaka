@@ -31,7 +31,7 @@
 <code>original</code> [b] [id] - Get original file of post
 <code>post</code> [b] [id] - Get infromation of post
 <code>short</code> [query] - Create inline shortcut
-<code>donate</code> - Send donate details
+<code>donate</code> - Send donation details
 
 <b>Commands:</b>
 /help - Send this message
@@ -41,7 +41,7 @@
 /short [query] - Create inline shortcut
 /shorts - Manage saved shortcuts
 /stop - Remove all your data
-/donate - Send donate details
+/donate - Send donation details
 
 <b>Inline aliases:</b>
 <code>l</code> - <code>pools</code>
