@@ -293,7 +293,7 @@ rm -fr "${cache}"
 mkdir -p "${cache}"
 mkdir -p "${config}"
 
-for file in aliases blacklist whitelist help
+for file in aliases blacklist donate help whitelist
 do
     if [ -f "${files}/${file}.txt" ]
     then

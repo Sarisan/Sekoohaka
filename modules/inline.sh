@@ -26,6 +26,9 @@ else
 fi
 
 case "${command}" in
+    ("donate")
+        . "${submodules}/inline_donate.sh"
+    ;;
     ("help")
         . "${submodules}/inline_help.sh"
     ;;

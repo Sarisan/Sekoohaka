@@ -32,6 +32,9 @@ case "${command}" in
     ("/authorize" | "/authorize@${username}")
         . "${submodules}/command_authorize.sh"
     ;;
+    ("/donate" | "/donate@${username}")
+        . "${submodules}/command_donate.sh"
+    ;;
     ("/help" | "/help@${username}")
         . "${submodules}/command_help.sh"
     ;;
