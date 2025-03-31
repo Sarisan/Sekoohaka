@@ -10,7 +10,7 @@ set -e
 umask 77
 exec 2> /dev/null
 
-version="2.9.4"
+version="2.10-inadev"
 dir="${0%/*}"
 cache="${dir}/cache/${$}"
 config="${dir}/config"
