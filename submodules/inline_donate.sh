@@ -8,8 +8,8 @@ then
     return 0
 fi
 
-output_text="$(cat "${files}/donate.txt")"
 output_title="Donate"
+output_text="$(cat "${files}/donate.txt")"
 output_description="Click to send the details"
 
 results="$(jq --null-input --compact-output \
