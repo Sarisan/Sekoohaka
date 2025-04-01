@@ -14,6 +14,7 @@ version="2.10-inadev"
 dir="${0%/*}"
 cache="${dir}/cache/${$}"
 config="${dir}/config"
+dumps="${dir}/dumps"
 files="${dir}/files"
 modules="${dir}/modules"
 submodules="${dir}/submodules"
@@ -380,6 +381,7 @@ do
     fi
 
     update="${cache}/${update_id}.json"
+    dump="${update##*/}"
 
     if ! jq -c '.result.[0]' "${cache}/getUpdates.json" > "${update}"
     then

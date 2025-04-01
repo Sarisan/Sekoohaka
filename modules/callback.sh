@@ -51,6 +51,7 @@ then
     fi
 
     output_file="${cache}/${update_id}_editMessageText.json"
+    dump="${dump} ${output_file##*/}"
 
     curl --data-urlencode "chat_id=${chat_id}" \
         --data-urlencode "message_id=${message_id}" \
@@ -91,6 +92,7 @@ then
 fi
 
 output_file="${cache}/${update_id}_answerCallbackQuery.json"
+dump="${dump} ${output_file##*/}"
 
 curl --data-urlencode "callback_query_id=${query_id}" \
     --data-urlencode "text=${notification_text}" \

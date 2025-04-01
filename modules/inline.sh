@@ -50,6 +50,7 @@ case "${command}" in
 esac
 
 output_file="${cache}/${update_id}_answerInlineQuery.json"
+dump="${dump} ${output_file##*/}"
 
 curl --data-urlencode "inline_query_id=${query_id}" \
     --data-urlencode "results=${results}" \

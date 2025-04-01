@@ -29,6 +29,7 @@ then
 fi
 
 output_file="${cache}/${update_id}_sendChatAction.json"
+dump="${dump} ${output_file##*/}"
 
 curl --data-urlencode "chat_id=${chat_id}" \
     --data-urlencode "message_thread_id=${message_thread_id}" \
@@ -61,6 +62,7 @@ then
 fi
 
 output_file="${cache}/${update_id}_sendDocument.json"
+dump="${dump} ${output_file##*/}"
 
 curl --data-urlencode "chat_id=${chat_id}" \
     --data-urlencode "message_thread_id=${message_thread_id}" \
