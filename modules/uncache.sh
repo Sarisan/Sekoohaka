@@ -22,7 +22,7 @@ do
     cache_ctime=$(date +%s)
     cache_mtime=$(stat -c %Y "${cache}/${file}")
 
-    if [ $((cache_ctime - cache_mtime)) -gt $((caching_time + 10)) ]
+    if [ $((cache_ctime - cache_mtime)) -gt $((caching_time + 15)) ]
     then
         rm -f "${cache}/${file}"
     fi
