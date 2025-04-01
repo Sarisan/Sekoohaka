@@ -16,5 +16,8 @@ fi
 
 for cache_dump in ${dump}
 do
-    cp "${cache}/${cache_dump}" "${dumps}/${update_id}"
+    if [ -f "${cache}/${cache_dump}" ]
+    then
+        cp "${cache}/${cache_dump}" "${dumps}/${update_id}"
+    fi
 done
