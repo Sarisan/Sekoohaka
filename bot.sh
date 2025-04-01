@@ -93,7 +93,7 @@ then
         "\n  -m <mode>\tCaching mode, default: normal" \
         "\n  -t <secs>\tCaching time, max: 1000, default: 300 secs" \
         "\n  -c\t\tClear cache automatically" \
-        "\n  -q\t\tDo not print logs" \
+        "\n  -q\t\tDo not print logs and do not collect dumps" \
         "\n  -i <secs>\tTelegram Bot API connetion timeout, max: 10, default: 10 secs" \
         "\n  -e <secs>\tImage Boards API connetion timeout, max: 10, default: 5 secs" \
         "\n  -d <secs>\tHead request connetion timeout, max: 10, default: 2 secs" \
