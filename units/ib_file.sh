@@ -71,7 +71,7 @@ then
     output_title="An error occurred"
     output_text="Failed to access ${ib_name} API"
     notification_text="${output_text}"
-    log_text="ib_file: (${update_id}): ${output_text}"
+    log_text="ib_file (${update_id}): ${output_text}"
 
     next_offset=${inline_page:-0}
 
@@ -85,7 +85,7 @@ then
     output_title="An error occurred"
     output_text="An unknown error occurred"
     notification_text="${output_text}"
-    log_text="ib_file: (${update_id}): ${output_text}"
+    log_text="ib_file (${update_id}): ${output_text}"
 
     . "${units}/log.sh"
     rm -fr "${ib_file}" "${cache}/${ib_hash}.lock"

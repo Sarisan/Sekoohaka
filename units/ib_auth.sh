@@ -47,7 +47,7 @@ case "${ib_board}" in
             "${ib_auth}"
         then
             output_text="Failed to process request"
-            log_text="ib_auth: (${update_id}): ${output_text}"
+            log_text="ib_auth (${update_id}): ${output_text}"
 
             . "${units}/log.sh"
             return 0
@@ -56,7 +56,7 @@ case "${ib_board}" in
         if ! jq -e '.' "${ib_auth_file}" > /dev/null
         then
             output_text="An unknown error occurred"
-            log_text="ib_auth: (${update_id}): ${output_text}"
+            log_text="ib_auth (${update_id}): ${output_text}"
 
             . "${units}/log.sh"
             return 0
@@ -65,7 +65,7 @@ case "${ib_board}" in
         if [ "$(jq -r '.success' "${ib_auth_file}")" = "false" ]
         then
             output_text="Error: <code>$(jq -r '.message' "${ib_auth_file}" | htmlescape)</code>"
-            log_text="ib_auth: (${update_id}): $(jq -r '.message' "${ib_auth_file}")"
+            log_text="ib_auth (${update_id}): $(jq -r '.message' "${ib_auth_file}")"
 
             . "${units}/log.sh"
             return 0
@@ -74,7 +74,7 @@ case "${ib_board}" in
         if [ "$(jq -r '.name' "${ib_auth_file}")" != "${ib_login}" ]
         then
             output_text="An unexpected error occurred"
-            log_text="ib_auth: (${update_id}): ${output_text}"
+            log_text="ib_auth (${update_id}): ${output_text}"
 
             . "${units}/log.sh"
             return 0
@@ -117,7 +117,7 @@ case "${ib_board}" in
             "${ib_auth}"
         then
             output_text="Failed to process request"
-            log_text="ib_auth: (${update_id}): ${output_text}"
+            log_text="ib_auth (${update_id}): ${output_text}"
 
             . "${units}/log.sh"
             return 0
@@ -126,7 +126,7 @@ case "${ib_board}" in
         if ! jq -e '.' "${ib_auth_file}" > /dev/null
         then
             output_text="An unknown error occurred"
-            log_text="ib_auth: (${update_id}): ${output_text}"
+            log_text="ib_auth (${update_id}): ${output_text}"
 
             . "${units}/log.sh"
             return 0
@@ -135,7 +135,7 @@ case "${ib_board}" in
         if [ "$(jq -r '.success' "${ib_auth_file}")" != "true" ]
         then
             output_text="Error: <code>$(jq -r '.error' "${ib_auth_file}" | htmlescape)</code>"
-            log_text="ib_auth: (${update_id}): $(jq -r '.error' "${ib_auth_file}")"
+            log_text="ib_auth (${update_id}): $(jq -r '.error' "${ib_auth_file}")"
 
             . "${units}/log.sh"
             return 0
@@ -159,7 +159,7 @@ case "${ib_board}" in
             "${ib_auth}"
         then
             output_text="Failed to process request"
-            log_text="ib_auth: (${update_id}): ${output_text}"
+            log_text="ib_auth (${update_id}): ${output_text}"
 
             . "${units}/log.sh"
             return 0
@@ -168,7 +168,7 @@ case "${ib_board}" in
         if ! jq -e '.' "${ib_auth_file}" > /dev/null
         then
             output_text="Invalid username or API key"
-            log_text="ib_auth: (${update_id}): ${output_text}"
+            log_text="ib_auth (${update_id}): ${output_text}"
 
             . "${units}/log.sh"
             return 0
