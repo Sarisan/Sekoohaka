@@ -10,7 +10,12 @@ set -e
 umask 77
 exec 2> /dev/null
 
-version="2.10-inadev"
+if command -v git > /dev/null
+then
+    gitrev="$(git rev-parse --short HEAD)"
+fi
+
+version="2.10-${gitrev:-inadev}"
 dir="${0%/*}"
 cache="${dir}/cache/${$}"
 config="${dir}/config"
