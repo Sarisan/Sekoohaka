@@ -33,6 +33,7 @@ fi
 case "${ib_board}" in
     (d)
         ib_auth_file="${cache}/${update_id}_profile.json"
+        dump="${dump} ${ib_auth_file##*/}"
 
         if ! curl --max-time ${external_timeout} \
             --output "${ib_auth_file}" \
@@ -44,24 +45,36 @@ case "${ib_board}" in
             "${ib_auth}"
         then
             output_text="Failed to process request"
+            log_text="ib_auth: (${update_id}): ${output_text}"
+
+            . "${units}/log.sh"
             return 0
         fi
 
         if ! jq -e '.' "${ib_auth_file}" > /dev/null
         then
             output_text="An unknown error occurred"
+            log_text="ib_auth: (${update_id}): ${output_text}"
+
+            . "${units}/log.sh"
             return 0
         fi
 
         if [ "$(jq -r '.success' "${ib_auth_file}")" = "false" ]
         then
             output_text="Error: <code>$(jq -r '.message' "${ib_auth_file}" | htmlescape)</code>"
+            log_text="ib_auth: (${update_id}): ${output_text}"
+
+            . "${units}/log.sh"
             return 0
         fi
 
         if [ "$(jq -r '.name' "${ib_auth_file}")" != "${ib_login}" ]
         then
             output_text="An unexpected error occurred"
+            log_text="ib_auth: (${update_id}): ${output_text}"
+
+            . "${units}/log.sh"
             return 0
         fi
 
@@ -89,6 +102,7 @@ case "${ib_board}" in
             '{"login": $login, "password": $password}')"
 
         ib_auth_file="${cache}/${update_id}_token.json"
+        dump="${dump} ${ib_auth_file##*/}"
 
         if ! curl --data "${ib_login_data}" \
             --header "Content-Type: application/json" \
@@ -101,18 +115,27 @@ case "${ib_board}" in
             "${ib_auth}"
         then
             output_text="Failed to process request"
+            log_text="ib_auth: (${update_id}): ${output_text}"
+
+            . "${units}/log.sh"
             return 0
         fi
 
         if ! jq -e '.' "${ib_auth_file}" > /dev/null
         then
             output_text="An unknown error occurred"
+            log_text="ib_auth: (${update_id}): ${output_text}"
+
+            . "${units}/log.sh"
             return 0
         fi
 
         if [ "$(jq -r '.success' "${ib_auth_file}")" != "true" ]
         then
             output_text="Error: <code>$(jq -r '.error' "${ib_auth_file}" | htmlescape)</code>"
+            log_text="ib_auth: (${update_id}): ${output_text}"
+
+            . "${units}/log.sh"
             return 0
         fi
 
@@ -121,6 +144,7 @@ case "${ib_board}" in
     ;;
     (k|y)
         ib_auth_file="${cache}/${update_id}_user.json"
+        dump="${dump} ${ib_auth_file##*/}"
 
         if ! curl --data-urlencode "username=${ib_login}" \
             --data-urlencode "api_key=${ib_key}" \
@@ -133,12 +157,18 @@ case "${ib_board}" in
             "${ib_auth}"
         then
             output_text="Failed to process request"
+            log_text="ib_auth: (${update_id}): ${output_text}"
+
+            . "${units}/log.sh"
             return 0
         fi
 
         if ! jq -e '.' "${ib_auth_file}" > /dev/null
         then
             output_text="Invalid username or API key"
+            log_text="ib_auth: (${update_id}): ${output_text}"
+
+            . "${units}/log.sh"
             return 0
         fi
 
