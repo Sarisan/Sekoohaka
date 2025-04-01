@@ -38,6 +38,7 @@ For distribution specific installation commands follow [command-not-found](https
 * base64
 * bc
 * cat
+* cp
 * cut
 * date
 * find
