@@ -65,7 +65,7 @@ curl --data-urlencode "inline_query_id=${query_id}" \
 
 if ! jq -e '.' "${output_file}" > /dev/null
 then
-    log_text="${update_id}: An unknown error occurred"
+    log_text="answerInlineQuery (${update_id}): An unknown error occurred"
     . "${units}/log.sh"
 fi
 
@@ -75,9 +75,9 @@ then
 
     if [ "${error_description}" != "null" ]
     then
-        log_text="${update_id}: ${error_description}"
+        log_text="answerInlineQuery (${update_id}): ${error_description}"
     else
-        log_text="${update_id}: An unknown error occurred"
+        log_text="answerInlineQuery (${update_id}): An unknown error occurred"
     fi
 
     . "${units}/log.sh"

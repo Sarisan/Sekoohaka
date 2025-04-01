@@ -70,7 +70,7 @@ then
     if [ -z "${notification_text}" ] && ! jq -e '.' "${output_file}" > /dev/null
     then
         notification_text="An unknown error occurred"
-        log_text="${update_id}: An unknown error occurred"
+        log_text="editMessageText (${update_id}): An unknown error occurred"
 
         . "${units}/log.sh"
     fi
@@ -82,9 +82,9 @@ then
 
         if [ "${error_description}" != "null" ]
         then
-            log_text="${update_id}: ${error_description}"
+            log_text="editMessageText (${update_id}): ${error_description}"
         else
-            log_text="${update_id}: An unknown error occurred"
+            log_text="editMessageText (${update_id}): An unknown error occurred"
         fi
 
         . "${units}/log.sh"
@@ -106,7 +106,7 @@ curl --data-urlencode "callback_query_id=${query_id}" \
 
 if ! jq -e '.' "${output_file}" > /dev/null
 then
-    log_text="${update_id}: An unknown error occurred"
+    log_text="answerCallbackQuery (${update_id}): An unknown error occurred"
     . "${units}/log.sh"
 fi
 
@@ -116,9 +116,9 @@ then
 
     if [ "${error_description}" != "null" ]
     then
-        log_text="${update_id}: ${error_description}"
+        log_text="answerCallbackQuery (${update_id}): ${error_description}"
     else
-        log_text="${update_id}: An unknown error occurred"
+        log_text="answerCallbackQuery (${update_id}): An unknown error occurred"
     fi
 
     . "${units}/log.sh"
