@@ -53,7 +53,7 @@ then
     output_file="${cache}/${update_id}_editMessageText.json"
     dump="${dump} ${output_file##*/}"
 
-    curl --data-urlencode "chat_id=${chat_id}" \
+    if ! curl --data-urlencode "chat_id=${chat_id}" \
         --data-urlencode "message_id=${message_id}" \
         --data-urlencode "inline_message_id=${inline_message_id}" \
         --data-urlencode "text=${output_text}" \
@@ -66,6 +66,12 @@ then
         --proxy "${internal_proxy}" \
         --silent \
         "${api_address}/bot${api_token}/editMessageText"
+    then
+        notification_text="An unknown error occurred"
+        log_text="editMessageText (${update_id}): An unknown error occurred"
+
+        . "${units}/log.sh"
+    fi
 
     if [ -z "${notification_text}" ] && ! jq -e '.' "${output_file}" > /dev/null
     then
@@ -94,7 +100,7 @@ fi
 output_file="${cache}/${update_id}_answerCallbackQuery.json"
 dump="${dump} ${output_file##*/}"
 
-curl --data-urlencode "callback_query_id=${query_id}" \
+if ! curl --data-urlencode "callback_query_id=${query_id}" \
     --data-urlencode "text=${notification_text}" \
     --data-urlencode "cache_time=0" \
     --get \
@@ -102,12 +108,20 @@ curl --data-urlencode "callback_query_id=${query_id}" \
     --output "${output_file}" \
     --proxy "${internal_proxy}" \
     --silent \
-    "${api_address}/bot${api_token}/answerCallbackQuery" > /dev/null
+    "${api_address}/bot${api_token}/answerCallbackQuery"
+then
+    log_text="answerCallbackQuery (${update_id}): An unknown error occurred"
+    . "${units}/log.sh"
+
+    exit 0
+fi
 
 if ! jq -e '.' "${output_file}" > /dev/null
 then
     log_text="answerCallbackQuery (${update_id}): An unknown error occurred"
     . "${units}/log.sh"
+
+    exit 0
 fi
 
 if [ "$(jq -r '.ok' "${output_file}")" != "true" ]

@@ -31,7 +31,7 @@ fi
 output_file="${cache}/${update_id}_sendChatAction.json"
 dump="${dump} ${output_file##*/}"
 
-curl --data-urlencode "chat_id=${chat_id}" \
+if ! curl --data-urlencode "chat_id=${chat_id}" \
     --data-urlencode "message_thread_id=${message_thread_id}" \
     --data-urlencode "action=upload_document" \
     --get \
@@ -39,15 +39,19 @@ curl --data-urlencode "chat_id=${chat_id}" \
     --output "${output_file}" \
     --proxy "${internal_proxy}" \
     --silent \
-    "${api_address}/bot${api_token}/sendChatAction" > /dev/null
-
-if ! jq -e '.' "${output_file}" > /dev/null
+    "${api_address}/bot${api_token}/sendChatAction"
 then
     log_text="sendChatAction (${update_id}): An unknown error occurred"
     . "${units}/log.sh"
 fi
 
-if [ "$(jq -r '.ok' "${output_file}")" != "true" ]
+if [ -z "${log_text}" ] && ! jq -e '.' "${output_file}" > /dev/null
+then
+    log_text="sendChatAction (${update_id}): An unknown error occurred"
+    . "${units}/log.sh"
+fi
+
+if [ -z "${log_text}" ] && [ "$(jq -r '.ok' "${output_file}")" != "true" ]
 then
     error_description="$(jq -r '.description' "${output_file}")"
 
@@ -64,7 +68,7 @@ fi
 output_file="${cache}/${update_id}_sendDocument.json"
 dump="${dump} ${output_file##*/}"
 
-curl --data-urlencode "chat_id=${chat_id}" \
+if ! curl --data-urlencode "chat_id=${chat_id}" \
     --data-urlencode "message_thread_id=${message_thread_id}" \
     --data-urlencode "document=${ib_file_url}" \
     --data-urlencode "thumbnail=${ib_preview_url}" \
@@ -76,6 +80,13 @@ curl --data-urlencode "chat_id=${chat_id}" \
     --proxy "${internal_proxy}" \
     --silent \
     "${api_address}/bot${api_token}/sendDocument"
+then
+    output_text="An unknown error occurred"
+    log_text="sendDocument (${update_id}): An unknown error occurred"
+
+    . "${units}/log.sh"
+    return 0
+fi
 
 if ! jq -e '.' "${output_file}" > /dev/null
 then

@@ -67,7 +67,7 @@ esac
 output_file="${cache}/${update_id}_sendMessage.json"
 dump="${dump} ${output_file##*/}"
 
-curl --data-urlencode "chat_id=${chat_id}" \
+if ! curl --data-urlencode "chat_id=${chat_id}" \
     --data-urlencode "message_thread_id=${message_thread_id}" \
     --data-urlencode "text=${output_text}" \
     --data-urlencode "parse_mode=HTML" \
@@ -79,12 +79,20 @@ curl --data-urlencode "chat_id=${chat_id}" \
     --output "${output_file}" \
     --proxy "${internal_proxy}" \
     --silent \
-    "${api_address}/bot${api_token}/sendMessage" > /dev/null
+    "${api_address}/bot${api_token}/sendMessage"
+then
+    log_text="sendMessage (${update_id}): An unknown error occurred"
+    . "${units}/log.sh"
+
+    exit 0
+fi
 
 if ! jq -e '.' "${output_file}" > /dev/null
 then
     log_text="sendMessage (${update_id}): An unknown error occurred"
     . "${units}/log.sh"
+
+    exit 0
 fi
 
 if [ "$(jq -r '.ok' "${output_file}")" != "true" ]

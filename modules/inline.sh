@@ -52,7 +52,7 @@ esac
 output_file="${cache}/${update_id}_answerInlineQuery.json"
 dump="${dump} ${output_file##*/}"
 
-curl --data-urlencode "inline_query_id=${query_id}" \
+if ! curl --data-urlencode "inline_query_id=${query_id}" \
     --data-urlencode "results=${results}" \
     --data-urlencode "cache_time=0" \
     --data-urlencode "next_offset=${next_offset}" \
@@ -61,12 +61,20 @@ curl --data-urlencode "inline_query_id=${query_id}" \
     --output "${output_file}" \
     --proxy "${internal_proxy}" \
     --silent \
-    "${api_address}/bot${api_token}/answerInlineQuery" > /dev/null
+    "${api_address}/bot${api_token}/answerInlineQuery"
+then
+    log_text="answerInlineQuery (${update_id}): An unknown error occurred"
+    . "${units}/log.sh"
+
+    exit 0
+fi
 
 if ! jq -e '.' "${output_file}" > /dev/null
 then
     log_text="answerInlineQuery (${update_id}): An unknown error occurred"
     . "${units}/log.sh"
+
+    exit 0
 fi
 
 if [ "$(jq -r '.ok' "${output_file}")" != "true" ]
