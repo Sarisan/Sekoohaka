@@ -7,6 +7,8 @@ do
     sleep 1
 done
 
+ib_config="${config}/${user_id}/${ib_config}"
+
 if [ -f "${ib_config}/legacy" ]
 then
     . "${ib_config}/legacy"
