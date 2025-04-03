@@ -2,11 +2,11 @@
 # Copyright (C) 2024-2025 Danil Lisin
 # SPDX-License-Identifier: Apache-2.0
 
-until mkdir "${config}/${user_id}_auth.lock"
+until mkdir "${user_config}_auth.lock"
 do
     sleep 1
 done
 
 . "${units}/ib_auth.sh"
 
-rm -fr "${config}/${user_id}_auth.lock"
+rm -fr "${user_config}_auth.lock"

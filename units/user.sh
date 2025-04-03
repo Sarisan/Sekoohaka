@@ -6,6 +6,7 @@ aliases="${files}/aliases.txt"
 blacklist="${files}/blacklist.txt"
 whitelist="${files}/whitelist.txt"
 
+user_config="${config}/${user_id}"
 positional_parameters="${@}"
 
 if [ -s "${aliases}" ] && alias="$(grep -x "${user_id} .*" "${aliases}")"

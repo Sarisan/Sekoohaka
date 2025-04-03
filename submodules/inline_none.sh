@@ -2,12 +2,12 @@
 # Copyright (C) 2024-2025 Danil Lisin
 # SPDX-License-Identifier: Apache-2.0
 
-until mkdir "${config}/${user_id}_short.lock"
+until mkdir "${user_config}_short.lock"
 do
     sleep 1
 done
 
-short_config="${config}/${user_id}/short"
+short_config="${user_config}/short"
 
 if [ -d "${short_config}" ]
 then
@@ -25,4 +25,4 @@ fi
 
 shift ${#}
 
-rm -fr "${config}/${user_id}_short.lock"
+rm -fr "${user_config}_short.lock"

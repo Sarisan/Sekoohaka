@@ -2,13 +2,11 @@
 # Copyright (C) 2024-2025 Danil Lisin
 # SPDX-License-Identifier: Apache-2.0
 
-ib_config="${config}/${user_id}/${ib_config}"
-
 if [ -z "${ib_login}" ]
 then
-    if [ -f "${ib_config}/${ib_login_file}" ]
+    if [ -f "${user_config}/${ib_config}/${ib_login_file}" ]
     then
-        ib_login="$(cat "${ib_config}/${ib_login_file}")"
+        ib_login="$(cat "${user_config}/${ib_config}/${ib_login_file}")"
     else
         output_text="You must specify the ${ib_login_word}"
         return 0
@@ -17,9 +15,9 @@ fi
 
 if [ -z "${ib_key}" ]
 then
-    if [ -f "${ib_config}/${ib_key_file}" ]
+    if [ -f "${user_config}/${ib_config}/${ib_key_file}" ]
     then
-        ib_key="$(cat "${ib_config}/${ib_key_file}")"
+        ib_key="$(cat "${user_config}/${ib_config}/${ib_key_file}")"
     else
         output_text="You must specify the ${ib_key_word}"
         return 0
@@ -80,12 +78,12 @@ case "${ib_board}" in
             return 0
         fi
 
-        printf "%s" "${ib_login}:${ib_key}" | base64 > "${ib_config}/token"
+        printf "%s" "${ib_login}:${ib_key}" | base64 > "${user_config}/${ib_config}/token"
     ;;
     (g)
         printf '%s="%s"\n%s="%s"\n' \
             "ib_dfield5" "user_id=${ib_login}" \
-            "ib_dfield6" "api_key=${ib_key}" > "${ib_config}/legacy"
+            "ib_dfield6" "api_key=${ib_key}" > "${user_config}/${ib_config}/legacy"
     ;;
     (i)
         ib_login_lower="$(printf "%s" "${ib_login}" | tr '[:upper:]' '[:lower:]')"
@@ -95,7 +93,7 @@ case "${ib_board}" in
         printf '%s="%s"\n%s="%s"\n%s="%s"\n' \
             "ib_dfield4" "login=${ib_login}" \
             "ib_dfield5" "password_hash=${ib_password_hash}" \
-            "ib_dfield6" "appkey=${ib_appkey}" > "${ib_config}/legacy"
+            "ib_dfield6" "appkey=${ib_appkey}" > "${user_config}/${ib_config}/legacy"
     ;;
     (s)
         ib_login_data="$(jq --null-input --compact-output \
@@ -141,8 +139,8 @@ case "${ib_board}" in
             return 0
         fi
 
-        jq -r '.access_token' "${ib_auth_file}" > "${ib_config}/token"
-        date +%s > "${ib_config}/timestamp"
+        jq -r '.access_token' "${ib_auth_file}" > "${user_config}/${ib_config}/token"
+        date +%s > "${user_config}/${ib_config}/timestamp"
     ;;
     (k|y)
         ib_auth_file="${cache}/${update_id}_user.json"
@@ -176,9 +174,9 @@ case "${ib_board}" in
 
         printf '%s="%s"\n%s="%s"\n' \
             "ib_dfield5" "username=${ib_login}" \
-            "ib_dfield6" "api_key=${ib_key}" > "${ib_config}/legacy"
+            "ib_dfield6" "api_key=${ib_key}" > "${user_config}/${ib_config}/legacy"
     ;;
 esac
 
-printf "%s\n" "${ib_login}" > "${ib_config}/${ib_login_file}"
-printf "%s\n" "${ib_key}" > "${ib_config}/${ib_key_file}"
+printf "%s\n" "${ib_login}" > "${user_config}/${ib_config}/${ib_login_file}"
+printf "%s\n" "${ib_key}" > "${user_config}/${ib_config}/${ib_key_file}"

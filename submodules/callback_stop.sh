@@ -2,7 +2,7 @@
 # Copyright (C) 2024-2025 Danil Lisin
 # SPDX-License-Identifier: Apache-2.0
 
-if mkdir "${config}/${user_id}_stop.lock"
+if mkdir "${user_config}_stop.lock"
 then
     notification_text="Click again to confirm data removal"
     return 0
@@ -12,13 +12,13 @@ locks="auth short"
 
 for lock in ${locks}
 do
-    until mkdir "${config}/${user_id}_${lock}.lock"
+    until mkdir "${user_config}_${lock}.lock"
     do
         sleep 1
     done
 done
 
-if rm -fr "${config}/${user_id}"
+if rm -fr "${user_config}"
 then
     notification_text="Removed all your data"
 else
@@ -27,7 +27,7 @@ fi
 
 for lock in ${locks}
 do
-    rm -fr "${config}/${user_id}_${lock}.lock"
+    rm -fr "${user_config}_${lock}.lock"
 done
 
-rm -fr "${config}/${user_id}_stop.lock"
+rm -fr "${user_config}_stop.lock"

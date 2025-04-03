@@ -2,22 +2,20 @@
 # Copyright (C) 2024-2025 Danil Lisin
 # SPDX-License-Identifier: Apache-2.0
 
-until mkdir "${config}/${user_id}_auth.lock"
+until mkdir "${user_config}_auth.lock"
 do
     sleep 1
 done
 
-ib_config="${config}/${user_id}/${ib_config}"
-
-if [ -f "${ib_config}/legacy" ]
+if [ -f "${user_config}/${ib_config}/legacy" ]
 then
-    . "${ib_config}/legacy"
+    . "${user_config}/${ib_config}/legacy"
 fi
 
-if [ -f "${ib_config}/timestamp" ]
+if [ -f "${user_config}/${ib_config}/timestamp" ]
 then
     ib_ctime=$(date +%s)
-    ib_mtime=$(cat "${ib_config}/timestamp")
+    ib_mtime=$(cat "${user_config}/${ib_config}/timestamp")
 
     if [ $((ib_ctime - ib_mtime)) -gt ${ib_expire} ]
     then
@@ -34,9 +32,9 @@ then
     fi
 fi
 
-if [ -f "${ib_config}/token" ]
+if [ -f "${user_config}/${ib_config}/token" ]
 then
-    ib_header="${ib_authorization} $(cat "${ib_config}/token")"
+    ib_header="${ib_authorization} $(cat "${user_config}/${ib_config}/token")"
 fi
 
-rm -fr "${config}/${user_id}_auth.lock"
+rm -fr "${user_config}_auth.lock"

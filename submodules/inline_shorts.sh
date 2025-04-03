@@ -2,12 +2,12 @@
 # Copyright (C) 2024-2025 Danil Lisin
 # SPDX-License-Identifier: Apache-2.0
 
-until mkdir "${config}/${user_id}_short.lock"
+until mkdir "${user_config}_short.lock"
 do
     sleep 1
 done
 
-short_config="${config}/${user_id}/short"
+short_config="${user_config}/short"
 . "${units}/shorts_search.sh"
 
 if [ -n "${output_text}" ]
@@ -19,7 +19,7 @@ then
         --arg description "${output_text}" \
         '[{"type": "article", "id": $id, "title": $title, "input_message_content": {"message_text": $text}, "description": $description}]')"
 
-    rm -fr "${config}/${user_id}_short.lock"
+    rm -fr "${user_config}_short.lock"
     return 0
 fi
 
@@ -87,4 +87,4 @@ then
     next_offset=$((inline_page + 1))
 fi
 
-rm -fr "${config}/${user_id}_short.lock"
+rm -fr "${user_config}_short.lock"
