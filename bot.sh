@@ -319,17 +319,23 @@ done
 log_text="PID: ${$}"
 . "${units}/log.sh"
 
-curl --get \
+if ! curl --get \
     --max-time ${internal_timeout} \
     --output "${cache}/getMe.json" \
     --proxy "${internal_proxy}" \
     --show-error \
     --silent \
     "${api_address}/bot${api_token}/getMe"
+then
+    log_text="Failed to access Telegram Bot API"
+    . "${units}/log.sh"
+
+    exit 1
+fi
 
 if ! jq -e '.' "${cache}/getMe.json" > /dev/null
 then
-    log_text="Failed to get bot information"
+    log_text="An unknown error occurred"
     . "${units}/log.sh"
 
     exit 1
