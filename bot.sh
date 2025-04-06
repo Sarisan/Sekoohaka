@@ -327,7 +327,7 @@ if ! curl --get \
     --silent \
     "${api_address}/bot${api_token}/getMe"
 then
-    log_text="Failed to access Telegram Bot API"
+    log_text="getMe: Failed to access Telegram Bot API"
     . "${units}/log.sh"
 
     exit 1
@@ -335,7 +335,7 @@ fi
 
 if ! jq -e '.' "${cache}/getMe.json" > /dev/null
 then
-    log_text="An unknown error occurred"
+    log_text="getMe: An unknown error occurred"
     . "${units}/log.sh"
 
     exit 1
@@ -347,9 +347,9 @@ then
 
     if [ "${error_description}" != "null" ]
     then
-        log_text="${error_description}"
+        log_text="getMe: ${error_description}"
     else
-        log_text="An unknown error occurred"
+        log_text="getMe: An unknown error occurred"
     fi
 
     . "${units}/log.sh"
