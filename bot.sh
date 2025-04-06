@@ -28,7 +28,7 @@ offset=-1
 
 if [ -n "${1}" ]
 then
-    while getopts ha:lg:r:m:t:cqi:e:d:n:x: options
+    while getopts ha:lg:r:m:t:s:cqi:e:d:n:x: options
     do
         case "${options}" in
             (h)
@@ -51,6 +51,9 @@ then
             ;;
             (t)
                 caching_time=${OPTARG}
+            ;;
+            (s)
+                sleeping_time=${OPTARG}
             ;;
             (c)
                 clear_cache=0
@@ -97,6 +100,7 @@ then
         "\n  -g <num>\tShortcuts storage limit, max: 10000, default: 100" \
         "\n  -m <mode>\tCaching mode, default: normal" \
         "\n  -t <secs>\tCaching time, max: 1000, default: 300 secs" \
+        "\n  -s <secs>\tSleeping time, max: 100, default: 10 secs" \
         "\n  -c\t\tClear cache automatically" \
         "\n  -q\t\tDo not print logs and do not collect dumps" \
         "\n  -i <secs>\tTelegram Bot API connetion timeout, max: 10, default: 10 secs" \
@@ -219,6 +223,23 @@ then
     fi
 else
     caching_time=300
+fi
+
+if [ -n "${sleeping_time}" ]
+then
+    if ! test ${sleeping_time} -gt 0
+    then
+        echo "Illegal sleeping time" \
+            "\nSee '${0} -h'"
+        exit 1
+    fi
+
+    if [ ${sleeping_time} -gt 100 ]
+    then
+        sleeping_time=100
+    fi
+else
+    sleeping_time=10
 fi
 
 if [ -n "${internal_timeout}" ]
@@ -376,8 +397,14 @@ do
         --output "${cache}/getUpdates.json" \
         --proxy "${internal_proxy}" \
         --silent \
-        "${api_address}/bot${api_token}/getUpdates"
+        "${api_address}r/bot${api_token}/getUpdates"
     then
+        unset dump
+
+        log_text="getUpdates: Failed to access Telegram Bot API, sleeping for ${sleeping_time} seconds"
+        . "${units}/log.sh"
+
+        sleep ${sleeping_time}
         continue
     fi
 
