@@ -15,7 +15,7 @@ then
     gitrev="$(git rev-parse --short HEAD)"
 fi
 
-version="2.10-${gitrev:-inadev}"
+version="3.0-${gitrev:-inadev}"
 dir="${0%/*}"
 cache="${dir}/cache/${$}"
 config="${dir}/config"
