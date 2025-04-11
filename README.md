@@ -121,7 +121,7 @@ Caching modes:
 
 * `help` - Send help message
 * `original [b] [id]` - Get original file of post
-* `post [b] [id]` - Get infromation of post
+* `post [b] [id]` - Get information of post
 * `short [query]` - Create inline shortcut
 * `donate` - Send donation details
 
@@ -130,7 +130,7 @@ Caching modes:
 * `/help` - Send help message
 * `/authorize [b] [login] [key]` - Authorize to Image Board
 * `/original [b] [id]` - Get original file of post
-* `/post [b] [id]` - Get infromation of post
+* `/post [b] [id]` - Get information of post
 * `/hash [md5]` - Get posts IDs by hash lookup
 * `/short [query]` - Create inline shortcut
 * `/shorts` - Manage saved shortcuts
