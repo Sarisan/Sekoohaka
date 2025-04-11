@@ -28,7 +28,7 @@ then
             fi
         done
 
-        if [ "${ib_name}" = "Idol Complex" ]
+        if [ "${ib_name}" = "Idol Complex" ] && echo "${reply_text}" | grep -q 'MD5'
         then
             ib_post_id="$(printf "%s" "${reply_text}" | grep 'MD5' | parameter 2)"
         fi
