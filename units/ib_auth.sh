@@ -24,7 +24,7 @@ then
     fi
 fi
 
-if ! mkdir -p "${ib_config}"
+if ! mkdir -p "${user_config}/${ib_config}"
 then
     output_text="Failed to create user config"
     return 0
