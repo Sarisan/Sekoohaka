@@ -99,9 +99,9 @@ Caching modes:
 * `[tags]` - Search tags
 * `[query]` - Search query
 * `[id]` - Post ID
+* `[md5]` - MD5 hash
 * `[login]` - Image Board login or username
 * `[key]` - Image Board API key or password
-* `[md5]` - MD5 hash
 
 ### Inline search
 
@@ -122,8 +122,8 @@ Caching modes:
 ### Inline commands
 
 * `help` - Send help message
-* `original [b] [id]` - Get original file of post
-* `post [b] [id]` - Get information of post
+* `original [b] [id/md5]` - Get original file of post
+* `post [b] [id/md5]` - Get information of post
 * `short [query]` - Create inline shortcut
 * `donate` - Send donation details
 
@@ -131,8 +131,8 @@ Caching modes:
 
 * `/help` - Send help message
 * `/authorize [b] [login] [key]` - Authorize to Image Board
-* `/original [b] [id]` - Get original file of post
-* `/post [b] [id]` - Get information of post
+* `/original [b] [id/md5]` - Get original file of post
+* `/post [b] [id/md5]` - Get information of post
 * `/hash [md5]` - Get posts IDs by hash lookup
 * `/short [query]` - Create inline shortcut
 * `/shorts` - Manage saved shortcuts

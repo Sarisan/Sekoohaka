@@ -9,9 +9,9 @@
 [tags] - Search tags
 [query] - Search query
 [id] - Post ID
+[md5] - MD5 hash
 [login] - Image Board login or username
 [key] - Image Board API key or password
-[md5] - MD5 hash
 
 <b>Inline search:</b>
 <code>pools</code> [b] [page] [options] [name] - Pools search
@@ -29,16 +29,16 @@
 
 <b>Inline commands:</b>
 <code>help</code> - Send this message
-<code>original</code> [b] [id] - Get original file of post
-<code>post</code> [b] [id] - Get information of post
+<code>original</code> [b] [id/md5] - Get original file of post
+<code>post</code> [b] [id/md5] - Get information of post
 <code>short</code> [query] - Create inline shortcut
 <code>donate</code> - Send donation details
 
 <b>Commands:</b>
 /help - Send this message
 /authorize [b] [login] [key] - Authorize to Image Board
-/original [b] [id] - Get original file of post
-/post [b] [id] - Get information of post
+/original [b] [id/md5] - Get original file of post
+/post [b] [id/md5] - Get information of post
 /hash [md5] - Get posts IDs by hash lookup
 /short [query] - Create inline shortcut
 /shorts - Manage saved shortcuts
