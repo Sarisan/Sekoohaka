@@ -82,14 +82,6 @@ Caching modes:
   none          No caching
   normal        Cache inline results and posts
   advanced      Extract posts cache from inline results
-
-Supported Image Boards:
-  Danbooru              (https://danbooru.donmai.us/)
-  Gelbooru              (https://gelbooru.com/)
-  Idol Complex          (https://idol.sankakucomplex.com/)
-  Konachan.com          (https://konachan.com/)
-  Sankaku Channel       (https://chan.sankakucomplex.com/)
-  yande.re              (https://yande.re/)
 ```
 
 ## Usage
