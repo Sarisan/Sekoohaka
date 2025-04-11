@@ -76,6 +76,8 @@ then
     next_offset=${inline_page:-0}
 
     . "${units}/log.sh"
+    . "${units}/dump.sh"
+
     rm -fr "${ib_file}" "${cache}/${ib_hash}.lock"
     return 0
 fi
@@ -88,6 +90,8 @@ then
     log_text="ib_file (${update_id}): ${output_text}"
 
     . "${units}/log.sh"
+    . "${units}/dump.sh"
+
     rm -fr "${ib_file}" "${cache}/${ib_hash}.lock"
     return 0
 fi

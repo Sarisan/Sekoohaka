@@ -82,7 +82,9 @@ if ! curl --data-urlencode "chat_id=${chat_id}" \
     "${api_address}/bot${api_token}/sendMessage"
 then
     log_text="sendMessage (${update_id}): An unknown error occurred"
+
     . "${units}/log.sh"
+    . "${units}/dump.sh"
 
     exit 0
 fi
@@ -90,7 +92,9 @@ fi
 if ! jq -e '.' "${output_file}" > /dev/null
 then
     log_text="sendMessage (${update_id}): An unknown error occurred"
+
     . "${units}/log.sh"
+    . "${units}/dump.sh"
 
     exit 0
 fi
@@ -107,4 +111,5 @@ then
     fi
 
     . "${units}/log.sh"
+    . "${units}/dump.sh"
 fi

@@ -71,6 +71,7 @@ then
         log_text="editMessageText (${update_id}): An unknown error occurred"
 
         . "${units}/log.sh"
+        . "${units}/dump.sh"
     fi
 
     if [ -z "${notification_text}" ] && ! jq -e '.' "${output_file}" > /dev/null
@@ -79,6 +80,7 @@ then
         log_text="editMessageText (${update_id}): An unknown error occurred"
 
         . "${units}/log.sh"
+        . "${units}/dump.sh"
     fi
 
     if [ -z "${notification_text}" ] && [ "$(jq -r '.ok' "${output_file}")" != "true" ]
@@ -94,6 +96,7 @@ then
         fi
 
         . "${units}/log.sh"
+        . "${units}/dump.sh"
     fi
 fi
 
@@ -111,7 +114,9 @@ if ! curl --data-urlencode "callback_query_id=${query_id}" \
     "${api_address}/bot${api_token}/answerCallbackQuery"
 then
     log_text="answerCallbackQuery (${update_id}): An unknown error occurred"
+
     . "${units}/log.sh"
+    . "${units}/dump.sh"
 
     exit 0
 fi
@@ -119,7 +124,9 @@ fi
 if ! jq -e '.' "${output_file}" > /dev/null
 then
     log_text="answerCallbackQuery (${update_id}): An unknown error occurred"
+
     . "${units}/log.sh"
+    . "${units}/dump.sh"
 
     exit 0
 fi
@@ -136,4 +143,5 @@ then
     fi
 
     . "${units}/log.sh"
+    . "${units}/dump.sh"
 fi

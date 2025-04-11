@@ -392,8 +392,6 @@ log_text="Bot: ${username}"
 
 while trap 'wait && exit 0' INT TERM
 do
-    unset dump
-
     if ! curl --data "offset=${offset}" \
         --get \
         --output "${cache}/getUpdates.json" \

@@ -48,6 +48,8 @@ case "${ib_board}" in
             log_text="ib_auth (${update_id}): ${output_text}"
 
             . "${units}/log.sh"
+            . "${units}/dump.sh"
+
             return 0
         fi
 
@@ -57,6 +59,8 @@ case "${ib_board}" in
             log_text="ib_auth (${update_id}): ${output_text}"
 
             . "${units}/log.sh"
+            . "${units}/dump.sh"
+
             return 0
         fi
 
@@ -66,6 +70,8 @@ case "${ib_board}" in
             log_text="ib_auth (${update_id}): $(jq -r '.message' "${ib_auth_file}")"
 
             . "${units}/log.sh"
+            . "${units}/dump.sh"
+
             return 0
         fi
 
@@ -75,6 +81,8 @@ case "${ib_board}" in
             log_text="ib_auth (${update_id}): ${output_text}"
 
             . "${units}/log.sh"
+            . "${units}/dump.sh"
+
             return 0
         fi
 
@@ -118,6 +126,8 @@ case "${ib_board}" in
             log_text="ib_auth (${update_id}): ${output_text}"
 
             . "${units}/log.sh"
+            . "${units}/dump.sh"
+
             return 0
         fi
 
@@ -127,6 +137,8 @@ case "${ib_board}" in
             log_text="ib_auth (${update_id}): ${output_text}"
 
             . "${units}/log.sh"
+            . "${units}/dump.sh"
+
             return 0
         fi
 
@@ -136,6 +148,8 @@ case "${ib_board}" in
             log_text="ib_auth (${update_id}): $(jq -r '.error' "${ib_auth_file}")"
 
             . "${units}/log.sh"
+            . "${units}/dump.sh"
+
             return 0
         fi
 
@@ -160,6 +174,8 @@ case "${ib_board}" in
             log_text="ib_auth (${update_id}): ${output_text}"
 
             . "${units}/log.sh"
+            . "${units}/dump.sh"
+
             return 0
         fi
 
@@ -169,6 +185,8 @@ case "${ib_board}" in
             log_text="ib_auth (${update_id}): ${output_text}"
 
             . "${units}/log.sh"
+            . "${units}/dump.sh"
+
             return 0
         fi
 

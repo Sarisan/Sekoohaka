@@ -8,16 +8,3 @@ then
 fi
 
 printf "[%s] %s\n" "$(date +"%Y-%m-%d %X")" "${log_text}"
-
-if [ -n "${dump}" ]
-then
-    mkdir -p "${dumps}/${update_id}"
-fi
-
-for cache_dump in ${dump}
-do
-    if [ -f "${cache}/${cache_dump}" ]
-    then
-        cp "${cache}/${cache_dump}" "${dumps}/${update_id}"
-    fi
-done

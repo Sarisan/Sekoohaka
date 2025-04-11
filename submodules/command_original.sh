@@ -42,13 +42,17 @@ if ! curl --data-urlencode "chat_id=${chat_id}" \
     "${api_address}/bot${api_token}/sendChatAction"
 then
     log_text="sendChatAction (${update_id}): An unknown error occurred"
+
     . "${units}/log.sh"
+    . "${units}/dump.sh"
 fi
 
 if [ -z "${log_text}" ] && ! jq -e '.' "${output_file}" > /dev/null
 then
     log_text="sendChatAction (${update_id}): An unknown error occurred"
+
     . "${units}/log.sh"
+    . "${units}/dump.sh"
 fi
 
 if [ -z "${log_text}" ] && [ "$(jq -r '.ok' "${output_file}")" != "true" ]
@@ -63,6 +67,7 @@ then
     fi
 
     . "${units}/log.sh"
+    . "${units}/dump.sh"
 fi
 
 output_file="${cache}/${update_id}_sendDocument.json"
@@ -85,6 +90,8 @@ then
     log_text="sendDocument (${update_id}): An unknown error occurred"
 
     . "${units}/log.sh"
+    . "${units}/dump.sh"
+
     return 0
 fi
 
@@ -94,6 +101,8 @@ then
     log_text="sendDocument (${update_id}): An unknown error occurred"
 
     . "${units}/log.sh"
+    . "${units}/dump.sh"
+
     return 0
 fi
 
@@ -110,6 +119,8 @@ then
     fi
 
     . "${units}/log.sh"
+    . "${units}/dump.sh"
+
     return 0
 fi
 
