@@ -48,6 +48,7 @@ For distribution specific installation commands follow [command-not-found](https
 * mkdir
 * rm
 * sed
+* sort
 * sha1sum
 * sleep
 * stat
