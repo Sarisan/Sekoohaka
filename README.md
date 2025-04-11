@@ -15,6 +15,7 @@ Telegram Image Board Bot written in POSIX Shell (dash)
 * Original file download
 * Post information view
 * Post tags view
+* MD5 hash lookup
 * Inline shortcuts
 * Inline shortcuts saving
 * Inline shortcuts search
@@ -98,6 +99,7 @@ Caching modes:
 * `[id]` - Post ID
 * `[login]` - Image Board login or username
 * `[key]` - Image Board API key or password
+* `[md5]` - MD5 hash
 
 ### Inline search
 
@@ -129,6 +131,7 @@ Caching modes:
 * `/authorize [b] [login] [key]` - Authorize to Image Board
 * `/original [b] [id]` - Get original file of post
 * `/post [b] [id]` - Get infromation of post
+* `/hash [md5]` - Get posts IDs by hash lookup
 * `/short [query]` - Create inline shortcut
 * `/shorts` - Manage saved shortcuts
 * `/stop` - Remove all user data
