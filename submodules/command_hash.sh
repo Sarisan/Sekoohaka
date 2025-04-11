@@ -29,9 +29,17 @@ done
 for ib_board in ${board_table}
 do
     . "${units}/ib_hash.sh" &
+
+    if [ -z "${threaded_hash}" ]
+    then
+        wait
+    fi
 done
 
-wait
+if [ -n "${threaded_hash}" ]
+then
+    wait
+fi
 
 if [ -s "${ib_posts}" ]
 then

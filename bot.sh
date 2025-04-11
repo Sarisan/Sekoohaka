@@ -28,7 +28,7 @@ offset=-1
 
 if [ -n "${1}" ]
 then
-    while getopts ha:lg:r:m:t:s:cqui:e:d:n:x: options
+    while getopts ha:lg:r:m:t:s:cjqui:e:d:n:x: options
     do
         case "${options}" in
             (h)
@@ -57,6 +57,9 @@ then
             ;;
             (c)
                 clear_cache=0
+            ;;
+            (j)
+                threaded_hash=0
             ;;
             (q)
                 no_logs=0
@@ -105,6 +108,7 @@ then
         "\n  -t <secs>\tCaching time, max: 1000, default: 300 secs" \
         "\n  -s <secs>\tSleeping time, max: 100, default: 10 secs" \
         "\n  -c\t\tClear cache automatically" \
+        "\n  -j\t\tUse threaded MD5 hash lookup" \
         "\n  -q\t\tDo not print logs" \
         "\n  -u\t\tCollect debug dumps" \
         "\n  -i <secs>\tTelegram Bot API connetion timeout, max: 10, default: 10 secs" \
