@@ -392,15 +392,15 @@ log_text="Bot: ${username}"
 
 while trap 'wait && exit 0' INT TERM
 do
+    unset dump
+
     if ! curl --data "offset=${offset}" \
         --get \
         --output "${cache}/getUpdates.json" \
         --proxy "${internal_proxy}" \
         --silent \
-        "${api_address}r/bot${api_token}/getUpdates"
+        "${api_address}/bot${api_token}/getUpdates"
     then
-        unset dump
-
         log_text="getUpdates: Failed to access Telegram Bot API, sleeping for ${sleeping_time} seconds"
         . "${units}/log.sh"
 
@@ -408,10 +408,33 @@ do
         continue
     fi
 
-    if ! update_id="$(jq -r '.result.[0].update_id' "${cache}/getUpdates.json")"
+    if ! jq -e '.' "${cache}/getUpdates.json" > /dev/null
     then
+        log_text="getUpdates: An unknown error occurred, sleeping for ${sleeping_time} seconds"
+        . "${units}/log.sh"
+
+        sleep ${sleeping_time}
         continue
     fi
+
+    if [ "$(jq -r '.ok' "${cache}/getUpdates.json")" != "true" ]
+    then
+        error_description="$(jq -r '.description' "${cache}/getUpdates.json")"
+
+        if [ "${error_description}" != "null" ]
+        then
+            log_text="getUpdates: ${error_description}, sleeping for ${sleeping_time} seconds"
+        else
+            log_text="getUpdates: An unknown error occurred, sleeping for ${sleeping_time} seconds"
+        fi
+
+        . "${units}/log.sh"
+
+        sleep ${sleeping_time}
+        continue
+    fi
+
+    update_id="$(jq -r '.result.[0].update_id' "${cache}/getUpdates.json")"
 
     if [ "${update_id}" = "null" ]
     then
@@ -423,6 +446,9 @@ do
 
     if ! jq -c '.result.[0]' "${cache}/getUpdates.json" > "${update}"
     then
+        log_text="Failed to write update file ${update_id}.json"
+
+        . "${units}/log.sh"
         continue
     fi
 
