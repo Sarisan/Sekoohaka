@@ -2,7 +2,7 @@
 # Copyright (C) 2024-2025 Danil Lisin
 # SPDX-License-Identifier: Apache-2.0
 
-if [ -n "${no_logs}" ]
+if [ -z "${collect_dumps}" ]
 then
     return 0
 fi
