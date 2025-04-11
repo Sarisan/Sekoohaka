@@ -5,6 +5,7 @@
 ib_created_at="$(jq -r ".${ib_iarray}[${array_count}].${ib_icreated}" "${ib_file}")"
 ib_file_size="$(jq -r ".${ib_iarray}[${array_count}].${ib_isize}" "${ib_file}")"
 ib_file_url="$(jq -r ".${ib_iarray}[${array_count}].${ib_ifile}" "${ib_file}")"
+ib_md5="$(jq -r ".${ib_iarray}[${array_count}].${ib_imd5}" "${ib_file}")"
 
 unset ib_date_text ib_resolution_text ib_type_text ib_size_text
 . "${units}/ib_date.sh"
@@ -43,6 +44,12 @@ then
     then
         output_text="$(printf "%s\n<b>Type:</b> %s" "${output_text}" "${ib_type_text}")"
     fi
+fi
+
+if [ "${ib_name}" = "Idol Complex" ] && [ -n "${ib_md5}" ] && [ "${ib_md5}" != "null" ]
+then
+    ib_id="${ib_md5}"
+    output_text="$(printf "%s\n<b>MD5:</b> <code>%s</code>" "${output_text}" "${ib_md5}")"
 fi
 
 keyboard_text1="Post link"

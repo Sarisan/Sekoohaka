@@ -28,6 +28,11 @@ then
             fi
         done
 
+        if [ "${ib_name}" = "Idol Complex" ]
+        then
+            ib_post_id="$(printf "%s" "${reply_text}" | grep 'MD5' | parameter 2)"
+        fi
+
         set -- ${ib_board} ${ib_post_id}
     fi
 fi
