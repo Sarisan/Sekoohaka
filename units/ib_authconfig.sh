@@ -32,7 +32,7 @@ case "${ib_board}" in
         ib_auth="https://sankakuapi.com/auth/token"
         ib_config="sankaku"
         ib_authorization="Authorization: Bearer"
-        ib_expire=36000
+        ib_expire=86400
         ib_login_file="login"
         ib_key_file="password"
         ib_login_word="login"
