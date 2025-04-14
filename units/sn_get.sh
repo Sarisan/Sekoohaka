@@ -77,7 +77,7 @@ then
     return 0
 fi
 
-if [ "${api_address}" = "${external_address}" ]
+if [ "${api_address}" = "${default_address}" ]
 then
     output_file="${cache}/${update_id}_file.jpg"
     dump="${dump} ${output_file##*/}"

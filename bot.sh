@@ -16,7 +16,7 @@ then
 fi
 
 local_address="127.0.0.1:8081"
-external_address="https://api.telegram.org"
+default_address="https://api.telegram.org"
 
 version="3.0-${gitrev:-inadev}"
 dir="${0%/*}"
@@ -167,7 +167,7 @@ fi
 
 if [ -z "${api_address}" ]
 then
-    api_address="${external_address}"
+    api_address="${default_address}"
 fi
 
 if [ -n "${shorts_limit}" ]
