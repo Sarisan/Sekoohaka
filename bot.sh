@@ -15,8 +15,10 @@ then
     gitrev="$(git rev-parse --short HEAD)"
 fi
 
-version="3.0-${gitrev:-inadev}"
 local_address="127.0.0.1:8081"
+external_address="https://api.telegram.org"
+
+version="3.0-${gitrev:-inadev}"
 dir="${0%/*}"
 cache="${dir}/cache/${$}"
 config="${dir}/config"
@@ -165,7 +167,7 @@ fi
 
 if [ -z "${api_address}" ]
 then
-    api_address="https://api.telegram.org"
+    api_address="${external_address}"
 fi
 
 if [ -n "${shorts_limit}" ]
