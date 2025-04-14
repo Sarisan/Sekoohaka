@@ -74,4 +74,42 @@ then
     log_text="Error: sn_get: Cannot access Telegram Bot API working directory"
 
     . "${units}/log.sh"
+    return 0
+fi
+
+if [ "${api_address}" = "${external_address}" ]
+then
+    output_file="${cache}/${update_id}_file.jpg"
+    dump="${dump} ${output_file##*/}"
+
+    if ! curl --max-time ${internal_timeout} \
+        --output "${output_file}" \
+        --proxy "${internal_proxy}" \
+        --silent \
+        "${api_address}/file/bot${api_token}/${file_path}"
+    then
+        output_text="Failed to download the image file"
+        log_text="getFile (${update_id}): Failed to access Telegram Bot API"
+
+        . "${units}/log.sh"
+        . "${units}/dump.sh"
+
+        return 0
+    fi
+
+    if [ "$(jq -re '.ok' "${output_file}")" = "false" ]
+    then
+        output_text="Failed to download the image file"
+        error_description="$(jq -r '.description' "${output_file}")"
+
+        if [ "${error_description}" != "null" ]
+        then
+            log_text="getFile (${update_id}): ${error_description}"
+        else
+            log_text="getFile (${update_id}): An unknown error occurred"
+        fi
+
+        . "${units}/log.sh"
+        . "${units}/dump.sh"
+    fi
 fi
