@@ -16,6 +16,7 @@ Telegram Image Board Bot written in POSIX Shell (dash)
 * Post information view
 * Post tags view
 * MD5 hash lookup
+* SauceNAO reverse image search
 * Inline shortcuts
 * Inline shortcuts saving
 * Inline shortcuts search
@@ -102,6 +103,7 @@ Caching modes:
 * `[md5]` - MD5 hash
 * `[login]` - Image Board login or username
 * `[key]` - Image Board API key or password
+* `[snkey]` - SauceNAO API Key
 
 ### Inline search
 
@@ -134,6 +136,7 @@ Caching modes:
 * `/original [b] [id/md5]` - Get original file of post
 * `/post [b] [id/md5]` - Get information of post
 * `/hash [md5]` - Get posts IDs by hash lookup
+* `/saucenao [snkey]` - Reverse search image
 * `/short [query]` - Create inline shortcut
 * `/shorts` - Manage saved shortcuts
 * `/stop` - Remove all user data

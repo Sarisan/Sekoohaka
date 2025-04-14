@@ -8,7 +8,7 @@ then
     return 0
 fi
 
-locks="auth short"
+locks="auth saucenao short"
 
 for lock in ${locks}
 do
