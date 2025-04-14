@@ -63,7 +63,7 @@ if ! curl --data-urlencode "inline_query_id=${query_id}" \
     --silent \
     "${api_address}/bot${api_token}/answerInlineQuery"
 then
-    log_text="answerInlineQuery (${update_id}): An unknown error occurred"
+    log_text="answerInlineQuery (${update_id}): Failed to access Telegram Bot API"
 
     . "${units}/log.sh"
     . "${units}/dump.sh"

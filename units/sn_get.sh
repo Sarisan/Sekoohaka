@@ -28,8 +28,8 @@ if ! curl --data-urlencode "file_id=${file_id}" \
     --silent \
     "${api_address}/bot${api_token}/getFile"
 then
-    output_text="An unknown error occurred"
-    log_text="getFile (${update_id}): An unknown error occurred"
+    output_text="Failed to get the image file"
+    log_text="getFile (${update_id}): Failed to access Telegram Bot API"
 
     . "${units}/log.sh"
     . "${units}/dump.sh"
@@ -50,7 +50,7 @@ fi
 
 if [ "$(jq -r '.ok' "${output_file}")" != "true" ]
 then
-    output_text="An unknown error occurred"
+    output_text="Failed to get the image file"
     error_description="$(jq -r '.description' "${output_file}")"
 
     if [ "${error_description}" != "null" ]
@@ -71,7 +71,7 @@ file_path="$(jq -r '.result.file_path' "${output_file}")"
 if [ "${api_address}" = "127.0.0.1:8081" ] && ! ls "${file_path}" > /dev/null
 then
     output_text="This command cannot be used, contact bot deployer"
-    log_text="Error: sn_get: Cannot access Bot API working directory"
+    log_text="Error: sn_get: Cannot access Telegram Bot API working directory"
 
     . "${units}/log.sh"
 fi

@@ -41,7 +41,7 @@ if ! curl --data-urlencode "chat_id=${chat_id}" \
     --silent \
     "${api_address}/bot${api_token}/sendChatAction"
 then
-    log_text="sendChatAction (${update_id}): An unknown error occurred"
+    log_text="sendChatAction (${update_id}): Failed to access Telegram Bot API"
 
     . "${units}/log.sh"
     . "${units}/dump.sh"
@@ -86,8 +86,8 @@ if ! curl --data-urlencode "chat_id=${chat_id}" \
     --silent \
     "${api_address}/bot${api_token}/sendDocument"
 then
-    output_text="An unknown error occurred"
-    log_text="sendDocument (${update_id}): An unknown error occurred"
+    output_text="Failed to send the original file"
+    log_text="sendDocument (${update_id}): Failed to access Telegram Bot API"
 
     . "${units}/log.sh"
     . "${units}/dump.sh"

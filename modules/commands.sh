@@ -87,7 +87,7 @@ if ! curl --data-urlencode "chat_id=${chat_id}" \
     --silent \
     "${api_address}/bot${api_token}/sendMessage"
 then
-    log_text="sendMessage (${update_id}): An unknown error occurred"
+    log_text="sendMessage (${update_id}): Failed to access Telegram Bot API"
 
     . "${units}/log.sh"
     . "${units}/dump.sh"

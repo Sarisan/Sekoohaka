@@ -67,8 +67,8 @@ then
         --silent \
         "${api_address}/bot${api_token}/editMessageText"
     then
-        notification_text="An unknown error occurred"
-        log_text="editMessageText (${update_id}): An unknown error occurred"
+        notification_text="Failed to update message"
+        log_text="editMessageText (${update_id}): Failed to access Telegram Bot API"
 
         . "${units}/log.sh"
         . "${units}/dump.sh"
@@ -113,7 +113,7 @@ if ! curl --data-urlencode "callback_query_id=${query_id}" \
     --silent \
     "${api_address}/bot${api_token}/answerCallbackQuery"
 then
-    log_text="answerCallbackQuery (${update_id}): An unknown error occurred"
+    log_text="answerCallbackQuery (${update_id}): Failed to access Telegram Bot API"
 
     . "${units}/log.sh"
     . "${units}/dump.sh"
