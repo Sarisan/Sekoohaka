@@ -111,6 +111,8 @@ then
 
         . "${units}/log.sh"
         . "${units}/dump.sh"
+
+        return 0
     fi
 fi
 
