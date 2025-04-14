@@ -120,3 +120,5 @@ then
 else
     sn_query="file=@${output_file}"
 fi
+
+. "${units}/sn_search.sh"

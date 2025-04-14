@@ -29,13 +29,5 @@ then
     return 0
 fi
 
-. "${units}/sn_search.sh"
-
-if [ -n "${output_text}" ]
-then
-    rm -fr "${user_config}_saucenao.lock"
-    return 0
-fi
-
 . "${units}/sn_result.sh"
 rm -fr "${user_config}_saucenao.lock"
