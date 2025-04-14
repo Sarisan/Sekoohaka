@@ -50,14 +50,14 @@ case "${command}" in
     ("/prpr" | "/prpr@${username}")
         . "${submodules}/command_prpr.sh"
     ;;
-    ("/saucenao" | "/saucenao@${username}")
-        . "${submodules}/command_saucenao.sh"
-    ;;
     ("/short" | "/short@${username}")
         . "${submodules}/command_short.sh"
     ;;
     ("/shorts" | "/shorts@${username}")
         . "${submodules}/command_shorts.sh"
+    ;;
+    ("/source" | "/source@${username}")
+        . "${submodules}/command_source.sh"
     ;;
     ("/start" | "/start@${username}")
         . "${submodules}/command_help.sh"

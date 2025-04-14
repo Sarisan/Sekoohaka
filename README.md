@@ -136,7 +136,7 @@ Caching modes:
 * `/original [b] [id/md5]` - Get original file of post
 * `/post [b] [id/md5]` - Get information of post
 * `/hash [md5]` - Get posts IDs by hash lookup
-* `/saucenao [snkey]` - Reverse search image
+* `/source [snkey]` - Reverse search image
 * `/short [query]` - Create inline shortcut
 * `/shorts` - Manage saved shortcuts
 * `/stop` - Remove all user data
