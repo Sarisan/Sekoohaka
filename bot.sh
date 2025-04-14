@@ -16,6 +16,7 @@ then
 fi
 
 version="3.0-${gitrev:-inadev}"
+local_address="127.0.0.1:8081"
 dir="${0%/*}"
 cache="${dir}/cache/${$}"
 config="${dir}/config"
@@ -38,7 +39,7 @@ then
                 api_address="${OPTARG}"
             ;;
             (l)
-                api_address="127.0.0.1:8081"
+                api_address="${local_address}"
             ;;
             (g)
                 shorts_limit=${OPTARG}
