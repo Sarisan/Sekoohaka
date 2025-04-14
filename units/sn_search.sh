@@ -53,8 +53,8 @@ fi
 
 if [ "$(jq -r '.header.status' "${sn_file}")" != "0" ]
 then
-    output_text="Error: $(jq -r '.header.message' "${sn_file}")"
-    log_text="sn_search (${update_id}): $(jq -r '.header.status' "${sn_file}")"
+    output_text="Error: <code>$(jq -r '.header.message' "${sn_file}" | htmlescape)</code>"
+    log_text="sn_search (${update_id}): $(jq -r '.header.message' "${sn_file}")"
 
     . "${units}/log.sh"
     . "${units}/dump.sh"
