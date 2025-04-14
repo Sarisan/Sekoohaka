@@ -2,7 +2,7 @@
 # Copyright (C) 2024-2025 Danil Lisin
 # SPDX-License-Identifier: Apache-2.0
 
-minimum_similarity="$(jq -r ".header.index.minimum_similarity" "${sn_file}" | sed 's/\.//')"
+minimum_similarity="$(jq -r ".header.minimum_similarity" "${sn_file}" | sed 's/\.//')"
 highest_similarity=0
 highest_index=0
 array_count=0
