@@ -113,3 +113,10 @@ then
         . "${units}/dump.sh"
     fi
 fi
+
+if [ "${api_address}" = "${local_address}" ]
+then
+    sn_query="file=@${file_path}"
+else
+    sn_query="file=@${output_file}"
+fi
