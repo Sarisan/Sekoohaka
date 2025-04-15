@@ -52,7 +52,7 @@ do
     array_count=$((array_count + 1))
 done
 
-if [ ${highest_similarity} -lt ${minimum_similarity} ] && [ ${highest_similarity} -lt 7000 ]
+if [ ${highest_similarity} -lt ${minimum_similarity} ] || [ ${highest_similarity} -lt 7000 ]
 then
     output_text="No results found"
 
