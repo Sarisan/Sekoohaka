@@ -2,7 +2,6 @@
 # Copyright (C) 2024-2025 Danil Lisin
 # SPDX-License-Identifier: Apache-2.0
 
-sn_key="$(cat "${user_config}/saucenao")"
 sn_file="${cache}/${update_id}_search.json"
 dump="${dump} ${sn_file##*/}"
 

@@ -5,11 +5,12 @@
 if [ -n "${1}" ]
 then
     sn_key="${1}"
-elif ! [ -s "${user_config}/saucenao" ]
+elif [ -f "${user_config}/saucenao" ]
 then
-    output_text="You must provide your SauceNAO API Key before you can use SauceNAO"
+    sn_key="$(cat "${user_config}/saucenao")"
     return 0
 else
+    output_text="You must provide your SauceNAO API Key before you can use SauceNAO"
     return 0
 fi
 
