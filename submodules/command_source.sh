@@ -15,9 +15,10 @@ done
 
 . "${units}/sn_auth.sh"
 
+rm -fr "${user_config}_saucenao.lock"
+
 if [ -n "${output_text}" ]
 then
-    rm -fr "${user_config}_saucenao.lock"
     return 0
 fi
 
@@ -25,7 +26,6 @@ fi
 
 if [ -n "${output_text}" ]
 then
-    rm -fr "${user_config}_saucenao.lock"
     return 0
 fi
 
@@ -55,8 +55,6 @@ done
 if [ ${highest_similarity} -lt ${minimum_similarity} ] || [ ${highest_similarity} -lt 7000 ]
 then
     output_text="No results found"
-
-    rm -fr "${user_config}_saucenao.lock"
     return 0
 fi
 
@@ -109,5 +107,3 @@ if [ "${yandere_id}" != "null" ]
 then
     output_text="$(printf "%s\n<b>yande.re ID:</b> <code>%s</code>" "${output_text}" "${yandere_id}")"
 fi
-
-rm -fr "${user_config}_saucenao.lock"
