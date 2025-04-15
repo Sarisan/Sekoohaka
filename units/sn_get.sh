@@ -97,7 +97,7 @@ then
         return 0
     fi
 
-    if [ "$(jq -re '.ok' "${output_file}")" = "false" ]
+    if [ "$(jq -r '.ok' "${output_file}")" = "false" ]
     then
         output_text="Failed to download the image file"
         error_description="$(jq -r '.description' "${output_file}")"
