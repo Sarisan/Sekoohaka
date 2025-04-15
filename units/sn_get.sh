@@ -114,13 +114,9 @@ then
 
         return 0
     fi
+
+    file_path="${output_file}"
 fi
 
-if [ "${api_address}" = "${local_address}" ]
-then
-    sn_query="file=@${file_path}"
-else
-    sn_query="file=@${output_file}"
-fi
-
+sn_query="file=@${file_path}"
 . "${units}/sn_search.sh"
