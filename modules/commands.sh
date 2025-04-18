@@ -86,6 +86,7 @@ if ! curl --data-urlencode "chat_id=${chat_id}" \
     --output "${output_file}" \
     --proxy "${internal_proxy}" \
     --silent \
+    --user-agent "${useragent}" \
     "${api_address}/bot${api_token}/sendMessage"
 then
     log_text="sendMessage (${update_id}): Failed to access Telegram Bot API"

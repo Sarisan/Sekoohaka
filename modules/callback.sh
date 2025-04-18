@@ -65,6 +65,7 @@ then
         --output "${output_file}" \
         --proxy "${internal_proxy}" \
         --silent \
+        --user-agent "${useragent}" \
         "${api_address}/bot${api_token}/editMessageText"
     then
         notification_text="Failed to update message"
@@ -111,6 +112,7 @@ if ! curl --data-urlencode "callback_query_id=${query_id}" \
     --output "${output_file}" \
     --proxy "${internal_proxy}" \
     --silent \
+    --user-agent "${useragent}" \
     "${api_address}/bot${api_token}/answerCallbackQuery"
 then
     log_text="answerCallbackQuery (${update_id}): Failed to access Telegram Bot API"

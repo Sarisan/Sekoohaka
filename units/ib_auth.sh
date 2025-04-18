@@ -41,7 +41,7 @@ case "${ib_board}" in
             --request GET \
             --silent \
             --user "${ib_login}:${ib_key}" \
-            --user-agent "Sekoohaka" \
+            --user-agent "${useragent}" \
             "${ib_auth}"
         then
             output_text="Failed to process request"
@@ -119,7 +119,7 @@ case "${ib_board}" in
             --proxy "${external_proxy}" \
             --request POST \
             --silent \
-            --user-agent "Sekoohaka" \
+            --user-agent "${useragent}" \
             "${ib_auth}"
         then
             output_text="Failed to process request"
@@ -167,7 +167,7 @@ case "${ib_board}" in
             --output "${ib_auth_file}" \
             --proxy "${external_proxy}" \
             --silent \
-            --user-agent "Sekoohaka" \
+            --user-agent "${useragent}" \
             "${ib_auth}"
         then
             output_text="Failed to process request"

@@ -39,6 +39,7 @@ if ! curl --data-urlencode "chat_id=${chat_id}" \
     --output "${output_file}" \
     --proxy "${internal_proxy}" \
     --silent \
+    --user-agent "${useragent}" \
     "${api_address}/bot${api_token}/sendChatAction"
 then
     log_text="sendChatAction (${update_id}): Failed to access Telegram Bot API"
@@ -84,6 +85,7 @@ if ! curl --data-urlencode "chat_id=${chat_id}" \
     --output "${output_file}" \
     --proxy "${internal_proxy}" \
     --silent \
+    --user-agent "${useragent}" \
     "${api_address}/bot${api_token}/sendDocument"
 then
     output_text="Failed to send the original file"

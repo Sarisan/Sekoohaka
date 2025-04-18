@@ -20,7 +20,7 @@ if ! curl --form "output_type=2" \
     --output "${sn_file}" \
     --proxy "${external_proxy}" \
     --silent \
-    --user-agent "Sekoohaka" \
+    --user-agent "${useragent}" \
     "https://saucenao.com/search.php"
 then
     output_text="Failed to process request"

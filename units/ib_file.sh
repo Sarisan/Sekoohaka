@@ -65,7 +65,7 @@ if ! curl --data-urlencode "${ib_dfield1}" \
     --output "${ib_file}" \
     --proxy "${external_proxy}" \
     --silent \
-    --user-agent "Sekoohaka" \
+    --user-agent "${useragent}" \
     "${ib_data_url}"
 then
     output_title="An error occurred"

@@ -16,5 +16,5 @@ ib_file_size="$(curl --head \
     --max-time ${head_timeout} \
     --proxy "${external_proxy}" \
     --silent \
-    --user-agent "Sekoohaka" \
+    --user-agent "${useragent}" \
     "${ib_file_url}" | grep -i "content-length" | parameter 2)"

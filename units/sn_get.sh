@@ -26,6 +26,7 @@ if ! curl --data-urlencode "file_id=${file_id}" \
     --output "${output_file}" \
     --proxy "${internal_proxy}" \
     --silent \
+    --user-agent "${useragent}" \
     "${api_address}/bot${api_token}/getFile"
 then
     output_text="Failed to get the image file"
@@ -86,6 +87,7 @@ then
         --output "${output_file}" \
         --proxy "${internal_proxy}" \
         --silent \
+        --user-agent "${useragent}" \
         "${api_address}/file/bot${api_token}/${file_path}"
     then
         output_text="Failed to download the image file"

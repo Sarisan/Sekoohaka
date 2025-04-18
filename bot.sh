@@ -15,10 +15,12 @@ then
     gitrev="$(git rev-parse --short HEAD)"
 fi
 
+version="3.0-${gitrev:-inadev}"
+useragent="Sekoohaka/${version} Telegram Bot"
+
 local_address="127.0.0.1:8081"
 default_address="https://api.telegram.org"
 
-version="3.0-${gitrev:-inadev}"
 dir="${0%/*}"
 cache="${dir}/cache/${$}"
 config="${dir}/config"
@@ -357,6 +359,7 @@ if ! curl --get \
     --proxy "${internal_proxy}" \
     --show-error \
     --silent \
+    --user-agent "${useragent}" \
     "${api_address}/bot${api_token}/getMe"
 then
     log_text="getMe: Failed to access Telegram Bot API"
@@ -408,6 +411,7 @@ do
         --output "${cache}/getUpdates.json" \
         --proxy "${internal_proxy}" \
         --silent \
+        --user-agent "${useragent}" \
         "${api_address}/bot${api_token}/getUpdates"
     then
         log_text="getUpdates: Failed to access Telegram Bot API, sleeping for ${sleeping_time} seconds"
