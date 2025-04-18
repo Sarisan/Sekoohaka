@@ -5,7 +5,7 @@
 message_id="$(jq -r '.message.reply_to_message.message_id' "${update}")"
 file_id="$(jq -r '.message.reply_to_message.photo.[1].file_id' "${update}")"
 
-if [ "${message_id}" = "null" ]
+if [ "${message_id}" = "null" ] || [ "${message_id}" = "${message_thread_id}" ]
 then
     output_text="You must use this command in reply to an image"
     return 0
