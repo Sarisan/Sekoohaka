@@ -5,16 +5,18 @@
 url_table="
     https://danbooru.donmai.us/posts/.* d / 5
     danbooru.donmai.us/posts/.* d / 3
+    https://safebooru.donmai.us/posts/.* d / 5
+    safebooru.donmai.us/posts/.* d / 3
     https://gelbooru.com/index.php?page=post&s=view&id=.* g = 4
     gelbooru.com/index.php?page=post&s=view&id=.* g = 4
-    https://idol.sankakucomplex.com/en/posts/.* i / 6
-    idol.sankakucomplex.com/en/posts/.* i / 4
+    https://idol.sankakucomplex.com/.*/posts/.* i / 6
+    idol.sankakucomplex.com/.*/posts/.* i / 4
     https://idol.sankakucomplex.com/posts/.* i / 5
     idol.sankakucomplex.com/posts/.* i / 3
     https://konachan.com/post/show/.* k / 6
     konachan.com/post/show/.* k / 4
-    https://chan.sankakucomplex.com/en/posts/.* s / 6
-    chan.sankakucomplex.com/en/posts/.* s / 4
+    https://chan.sankakucomplex.com/.*/posts/.* s / 6
+    chan.sankakucomplex.com/.*/posts/.* s / 4
     https://chan.sankakucomplex.com/posts/.* s / 5
     chan.sankakucomplex.com/posts/.* s / 3
     https://yande.re/post/show/.* y / 6
