@@ -159,6 +159,7 @@ Caching modes:
 
 ### Supported Image Boards
 
+* `a` - [Safebooru](https://safebooru.donmai.us/) (auth) (lpt)
 * `d` - [Danbooru](https://danbooru.donmai.us/) (auth) (lpt)
 * `g` - [Gelbooru](https://gelbooru.com/) (auth) (pt)
 * `i` - [Idol Complex](https://idol.sankakucomplex.com/) (auth) (lpt)

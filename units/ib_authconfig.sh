@@ -3,7 +3,7 @@
 # SPDX-License-Identifier: Apache-2.0
 
 case "${ib_board}" in
-    (d)
+    (a|d)
         ib_auth="https://danbooru.donmai.us/profile.json"
         ib_config="danbooru"
         ib_authorization="Authorization: Baisc"

@@ -60,6 +60,7 @@
 <code>short p d -mq ringouulu</code>
 
 <b>Supported Image Boards:</b>
+<code>a</code> - <a href="https://safebooru.donmai.us">Safebooru</a> (auth) (lpt)
 <code>d</code> - <a href="https://danbooru.donmai.us">Danbooru</a> (auth) (lpt)
 <code>g</code> - <a href="https://gelbooru.com">Gelbooru</a> (auth) (pt)
 <code>i</code> - <a href="https://idol.sankakucomplex.com">Idol Complex</a> (auth) (lpt)

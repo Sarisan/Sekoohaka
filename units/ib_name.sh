@@ -2,7 +2,7 @@
 # Copyright (C) 2024-2025 Danil Lisin
 # SPDX-License-Identifier: Apache-2.0
 
-board_table="d g i k s y"
+board_table="a d g i k s y"
 
 if [ -z "${1}" ]
 then

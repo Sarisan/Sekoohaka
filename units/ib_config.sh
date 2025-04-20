@@ -7,10 +7,19 @@ ib_error_width=536
 ib_error_height=516
 
 case "${ib_board}" in
-    (d)
-        ib_name="Danbooru"
-        ib_api="https://danbooru.donmai.us"
-        ib_url="https://danbooru.donmai.us"
+    (a|d)
+        case "${ib_board}" in
+            (a)
+                ib_name="Safebooru"
+                ib_api="https://safebooru.donmai.us"
+                ib_url="https://safebooru.donmai.us"
+            ;;
+            (d)
+                ib_name="Danbooru"
+                ib_api="https://danbooru.donmai.us"
+                ib_url="https://danbooru.donmai.us"
+            ;;
+        esac
 
         ib_ratings="
             g general
