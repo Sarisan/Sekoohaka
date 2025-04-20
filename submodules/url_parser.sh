@@ -63,6 +63,14 @@ ib_hash="$(printf "%s%s%s" "${user_id}" "${ib_board}" "${ib_post_id}" | enhash)"
 
 if [ -n "${output_text}" ]
 then
+    keyboard_text1="Delete"
+    keyboard_data1="delete"
+
+    reply_markup="$(jq --null-input --compact-output \
+        --arg text1 "${keyboard_text1}" \
+        --arg data1 "${keyboard_data1}" \
+        '{"inline_keyboard": [[{"text": $text1, "callback_data": $data1}]]}')"
+
     return 0
 fi
 
@@ -74,11 +82,15 @@ link_preview_options="$(jq --null-input --compact-output \
 
 keyboard_text1="Post link"
 keyboard_url1="${ib_url}$(printf "%s" "${ib_post_id}" | urlencode)"
+keyboard_text2="Delete"
+keyboard_data2="delete"
 
 reply_markup="$(jq --null-input --compact-output \
     --arg text1 "${keyboard_text1}" \
     --arg url1 "${keyboard_url1}" \
-    '{"inline_keyboard": [[{"text": $text1, "url": $url1}]]}')"
+    --arg text2 "${keyboard_text2}" \
+    --arg data2 "${keyboard_data2}" \
+    '{"inline_keyboard": [[{"text": $text1, "url": $url1}], [{"text": $text2, "callback_data": $data2}]]}')"
 
 if [ ${ib_tags_count} -gt 0 ]
 then

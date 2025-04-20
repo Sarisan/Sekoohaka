@@ -18,6 +18,9 @@ query_id="$(jq -r '.callback_query.id' "${update}")"
 . "${units}/user.sh"
 
 case "${command}" in
+    ("delete")
+        . "${submodules}/callback_delete.sh"
+    ;;
     ("post")
         . "${submodules}/callback_post.sh"
     ;;
