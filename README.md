@@ -15,6 +15,7 @@ Telegram Image Board Bot written in POSIX Shell (dash)
 * Original file download
 * Post information view
 * Post tags view
+* Post URL detection
 * MD5 hash lookup
 * SauceNAO reverse image search
 * Inline shortcuts
