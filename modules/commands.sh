@@ -67,7 +67,7 @@ case "${command}" in
         . "${submodules}/command_stop.sh"
     ;;
     (*)
-        exit 0
+        . "${submodules}/url_parser.sh"
     ;;
 esac
 
