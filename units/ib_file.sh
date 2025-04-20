@@ -119,7 +119,7 @@ then
             ;;
         esac
     else
-        output_text="Try different post ID"
+        output_text="Try different post ID or MD5 hash"
     fi
 
     notification_text="${output_text}"
