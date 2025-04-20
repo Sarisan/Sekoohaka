@@ -16,14 +16,16 @@ case "${ib_board}" in
             g general
             s sensitive
             q questionable
-            e explicit"
+            e explicit
+        "
 
         ib_groups="
             tag_string_artist Artist
             tag_string_copyright Copyright
             tag_string_character Character
             tag_string_general General
-            tag_string_meta Meta"
+            tag_string_meta Meta
+        "
 
         case "${ib_mode}" in
             (l)
@@ -86,10 +88,12 @@ case "${ib_board}" in
             general general
             sensitive sensitive
             questionable questionable
-            explicit explicit"
+            explicit explicit
+        "
 
         ib_groups="
-            tags Tags"
+            tags Tags
+        "
 
         case "${ib_mode}" in
             (p)
@@ -150,7 +154,8 @@ case "${ib_board}" in
         ib_ratings="
             s safe
             q questionable
-            e explicit"
+            e explicit
+        "
 
         ib_groups="
             tags[]|select(.type==1)|.name Idol
@@ -161,7 +166,8 @@ case "${ib_board}" in
             tags[]|select(.type==5)|.name Set
             tags[]|select(.type==0)|.name General
             tags[]|select(.type==8)|.name Medium
-            tags[]|select(.type==9)|.name Meta"
+            tags[]|select(.type==9)|.name Meta
+        "
 
         case "${ib_mode}" in
             (l)
@@ -221,7 +227,8 @@ case "${ib_board}" in
         ib_ratings="
             s safe
             q questionable
-            e explicit"
+            e explicit
+        "
 
         ib_groups="
             tags[]|select(.type==1)|.tagName Artist
@@ -231,7 +238,8 @@ case "${ib_board}" in
             tags[]|select(.type==5)|.tagName Genre
             tags[]|select(.type==0)|.tagName General
             tags[]|select(.type==8)|.tagName Medium
-            tags[]|select(.type==9)|.tagName Meta"
+            tags[]|select(.type==9)|.tagName Meta
+        "
 
         case "${ib_mode}" in
             (l)
@@ -297,10 +305,12 @@ case "${ib_board}" in
         ib_ratings="
             s safe
             q questionable
-            e explicit"
+            e explicit
+        "
 
         ib_groups="
-            tags Tags"
+            tags Tags
+        "
 
         case "${ib_mode}" in
             (l)
