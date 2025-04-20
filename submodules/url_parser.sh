@@ -47,8 +47,7 @@ fi
 
 if [ ${#ib_post_id} -gt 32 ]
 then
-    output_text="Invalid URL"
-    return 0
+    exit 0
 elif [ ${#ib_post_id} -eq 32 ]
 then
     ib_query="md5:${ib_post_id}"
