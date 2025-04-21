@@ -126,6 +126,7 @@ then
         "\n  normal\tCache inline results and posts" \
         "\n  advanced\tExtract posts cache from inline results" \
         "\n\nSupported Image Boards:" \
+        "\n  Safebooru\t\t(https://safebooru.donmai.us/)" \
         "\n  Danbooru\t\t(https://danbooru.donmai.us/)" \
         "\n  Gelbooru\t\t(https://gelbooru.com/)" \
         "\n  Idol Complex\t\t(https://idol.sankakucomplex.com/)" \
