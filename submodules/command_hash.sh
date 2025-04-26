@@ -15,7 +15,7 @@ fi
 
 if ! [ ${#ib_post_md5} -eq 32 ]
 then
-    output_text="Invalid MD5 hash provided"
+    output_text="Invalid MD5 hash"
     return 0
 fi
 
