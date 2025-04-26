@@ -23,7 +23,7 @@
 <b>Search options:</b>
 <code>a</code> - Enable autopaging (lpts)
 <code>m</code> - Show more metadata (p)
-<code>p</code> - Show gif/video as preview only (p)
+<code>p</code> - Show previews only (p)
 <code>q</code> - Add quick buttons (lpts)
 <code>r</code> - Reverse search order (s)
 <code>w</code> - Match full words only (s)
