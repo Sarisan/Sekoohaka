@@ -18,6 +18,7 @@ if ! curl --data-urlencode "chat_id=${chat_id}" \
     --user-agent "${useragent}" \
     "${api_address}/bot${api_token}/deleteMessage"
 then
+    notification_text="Failed to delete message"
     log_text="deleteMessage (${update_id}): Failed to access Telegram Bot API"
 
     . "${units}/log.sh"
@@ -28,6 +29,7 @@ fi
 
 if ! jq -e '.' "${output_file}" > /dev/null
 then
+    notification_text="An unknown error occurred"
     log_text="deleteMessage (${update_id}): An unknown error occurred"
 
     . "${units}/log.sh"
@@ -38,6 +40,7 @@ fi
 
 if [ "$(jq -r '.ok' "${output_file}")" != "true" ]
 then
+    notification_text="Failed to delete message"
     error_description="$(jq -r '.description' "${output_file}")"
 
     if [ "${error_description}" != "null" ]
