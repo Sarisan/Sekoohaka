@@ -141,6 +141,7 @@ Caching modes:
 * `/short [query]` - Create inline shortcut
 * `/shorts` - Manage saved shortcuts
 * `/stop` - Remove all user data
+* `/ping` - Measure bot latency
 * `/donate` - Send donation details
 
 ### Inline aliases

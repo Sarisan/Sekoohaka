@@ -45,6 +45,9 @@ case "${command}" in
     ("/original" | "/original@${username}")
         . "${submodules}/command_original.sh"
     ;;
+    ("/ping" | "/ping@${username}")
+        . "${submodules}/command_ping.sh"
+    ;;
     ("/post" | "/post@${username}")
         . "${submodules}/command_post.sh"
     ;;

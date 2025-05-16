@@ -45,6 +45,7 @@
 /short [query] - Create inline shortcut
 /shorts - Manage saved shortcuts
 /stop - Remove all your data
+/ping - Measure bot latency
 /donate - Send donation details
 
 <b>Inline aliases:</b>
