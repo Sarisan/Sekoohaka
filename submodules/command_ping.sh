@@ -6,7 +6,7 @@ output_text="Measuring..."
 output_file="${cache}/${update_id}_sendMessage.json"
 dump="${dump} ${output_file##*/}"
 
-latency_init="$(cat /proc/timer_list | sed '3!d' | parameter 3)"
+latency_init="$(gdate +%s%3N)"
 
 if ! curl --data-urlencode "chat_id=${chat_id}" \
     --data-urlencode "message_thread_id=${message_thread_id}" \
@@ -29,7 +29,7 @@ then
     return 0
 fi
 
-latency_fin="$(cat /proc/timer_list | sed '3!d' | parameter 3)"
+latency_fin="$(gdate +%s%3N)"
 
 if ! jq -e '.' "${output_file}" > /dev/null
 then
@@ -63,7 +63,7 @@ fi
 chat_id="$(jq -r '.result.chat.id' "${output_file}")"
 message_id="$(jq -r '.result.message_id' "${output_file}")"
 
-latency=$(((latency_fin - latency_init) / 1000000 - 10))
+latency=$((latency_fin - latency_init- 5))
 output_text="$(printf "<b>Latency:</b> %ums" "${latency}")"
 
 output_file="${cache}/${update_id}_editMessageText.json"

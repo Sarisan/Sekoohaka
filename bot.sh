@@ -131,7 +131,7 @@ then
     exit 0
 fi
 
-for required in busybox curl jq recode
+for required in busybox coreutils curl jq recode
 do
     if ! command -v ${required} > /dev/null
     then
@@ -148,7 +148,7 @@ fi
 
 for function in base64 bc cat cp cut date find grep ls mkdir rm sed sort sha1sum sleep stat tr
 do
-    if busybox ${function} --help
+    if busybox ${function} --help > /dev/null
     then
         alias ${function}="busybox ${function}"
     else
@@ -160,6 +160,23 @@ if [ -n "${missing}" ]
 then
     echo "Missing BusyBox functions:${missing}" \
         "\nUpdate your BusyBox or get a version with all the required functions"
+    exit 1
+fi
+
+for function in date
+do
+    if coreutils --coreutils-prog=${function} --help > /dev/null
+    then
+        alias g${function}="coreutils --coreutils-prog=${function}"
+    else
+        missing="${missing} ${function}"
+    fi
+done
+
+if [ -n "${missing}" ]
+then
+    echo "Missing GNU Core Utilities:${missing}" \
+        "\nUpdate your GNU Core Utilities or get a version with all the required functions"
     exit 1
 fi
 

@@ -30,6 +30,7 @@ BusyBox is a hard-coded dependency and cannot be replaced with alternatives!
 
 * dash
 * busybox
+* coreutils
 * curl
 * jq
 * recode
@@ -55,6 +56,10 @@ For distribution specific installation commands follow [command-not-found](https
 * sleep
 * stat
 * tr
+
+### GNU Core Utilities
+
+* date
 
 ## Deployment
 
