@@ -2,7 +2,7 @@
 # Copyright (C) 2024-2025 Danil Lisin
 # SPDX-License-Identifier: Apache-2.0
 
-board_table="a d g i k s y"
+board_table=(a d g i k s y)
 
 if [[ -z "${1}" ]]
 then
@@ -18,7 +18,7 @@ then
         ib_reply_name="$(printf "%s" "${reply_text}" | sed '1!d')"
         ib_post_id="$(printf "%s" "${reply_text}" | grep 'ID' | parameter 2)"
 
-        for ib_board in ${board_table}
+        for ib_board in ${board_table[@]}
         do
             . "${units}/ib_config.zsh"
 
