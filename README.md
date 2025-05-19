@@ -1,6 +1,6 @@
 # Sekoohaka
 
-Telegram Image Board Bot written in POSIX Shell (dash)
+Telegram Image Board Bot written in Z Shell (zsh)
 
 ## Features
 
@@ -28,9 +28,8 @@ Telegram Image Board Bot written in POSIX Shell (dash)
 
 BusyBox is a hard-coded dependency and cannot be replaced with alternatives!
 
-* dash
+* zsh
 * busybox
-* coreutils
 * curl
 * jq
 * recode
@@ -40,7 +39,6 @@ For distribution specific installation commands follow [command-not-found](https
 ### BusyBox functions
 
 * base64
-* bc
 * cat
 * cp
 * cut
@@ -57,13 +55,9 @@ For distribution specific installation commands follow [command-not-found](https
 * stat
 * tr
 
-### GNU Core Utilities
-
-* date
-
 ## Deployment
 
-It is highly recommended to run it with an empty environment to avoid variable conflict: `env -i ./bot.sh` or `env -i PATH="${PATH}" ./bot.sh` for Termux.
+It is highly recommended to run it with an empty environment to avoid variable conflict: `env -i ./bot.zsh` or `env -i PATH="${PATH}" ./bot.zsh` for Termux.
 For better performance, it is recommended to use a locally deployed [Telegram Bot API](https://github.com/tdlib/telegram-bot-api) server.
 
 ### Available options
