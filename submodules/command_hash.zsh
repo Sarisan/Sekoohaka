@@ -2,7 +2,7 @@
 # Copyright (C) 2024-2025 Danil Lisin
 # SPDX-License-Identifier: Apache-2.0
 
-board_table="a d g i k s y"
+board_table=(a d g i k s y)
 
 if [[ -n "${1}" ]]
 then
@@ -26,7 +26,7 @@ do
     sleep 1
 done
 
-for ib_board in ${board_table}
+for ib_board in ${board_table[@]}
 do
     . "${units}/ib_hash.sh" &
 
