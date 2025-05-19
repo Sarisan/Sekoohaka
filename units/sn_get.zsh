@@ -18,7 +18,7 @@ then
 fi
 
 output_file="${cache}/${update_id}_getFile.json"
-dump="${dump} ${output_file##*/}"
+dump=(${dump[@]} ${output_file##*/})
 
 if ! curl --data-urlencode "file_id=${file_id}" \
     --get \
@@ -81,7 +81,7 @@ fi
 if [[ "${api_address}" = "${default_address}" ]]
 then
     output_file="${cache}/${update_id}_file.jpg"
-    dump="${dump} ${output_file##*/}"
+    dump=(${dump[@]} ${output_file##*/})
 
     if ! curl --max-time ${internal_timeout} \
         --output "${output_file}" \

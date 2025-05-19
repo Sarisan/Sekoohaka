@@ -12,7 +12,7 @@ then
     mkdir -p "${dumps}/${update_id}"
 fi
 
-for cache_dump in ${dump}
+for cache_dump in ${dump[@]}
 do
     if [[ -f "${cache}/${cache_dump}" ]]
     then

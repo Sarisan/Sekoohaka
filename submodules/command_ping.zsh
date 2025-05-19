@@ -4,7 +4,7 @@
 
 output_text="Measuring..."
 output_file="${cache}/${update_id}_sendMessage.json"
-dump="${dump} ${output_file##*/}"
+dump=(${dump[@]} ${output_file##*/})
 
 latency_init="$(strftime %s%N)"
 
@@ -67,7 +67,7 @@ latency=$(((latency_fin - latency_init) / 1000000 - 5))
 output_text="$(printf "<b>Latency:</b> %ums" "${latency}")"
 
 output_file="${cache}/${update_id}_editMessageText.json"
-dump="${dump} ${output_file##*/}"
+dump=(${dump[@]} ${output_file##*/})
 
 if ! curl --data-urlencode "chat_id=${chat_id}" \
     --data-urlencode "message_id=${message_id}" \

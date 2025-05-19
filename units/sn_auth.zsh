@@ -15,7 +15,7 @@ else
 fi
 
 sn_file="${cache}/${update_id}_search.json"
-dump="${dump} ${sn_file##*/}"
+dump=(${dump[@]} ${sn_file##*/})
 
 if ! curl --data-urlencode "output_type=2" \
     --data-urlencode "api_key=${sn_key}" \

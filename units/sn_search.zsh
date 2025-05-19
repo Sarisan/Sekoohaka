@@ -3,7 +3,7 @@
 # SPDX-License-Identifier: Apache-2.0
 
 sn_file="${cache}/${update_id}_search.json"
-dump="${dump} ${sn_file##*/}"
+dump=(${dump[@]} ${sn_file##*/})
 
 if ! curl --form "output_type=2" \
     --form "api_key=${sn_key}" \

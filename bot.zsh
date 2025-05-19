@@ -471,7 +471,7 @@ do
     fi
 
     update="${cache}/${update_id}.json"
-    dump="${update##*/}"
+    dump=(${update##*/})
 
     if ! jq -c '.result.[0]' "${cache}/getUpdates.json" > "${update}"
     then
