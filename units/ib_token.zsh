@@ -21,7 +21,7 @@ then
     then
         if [[ -n "${ib_lock}" ]]
         then
-            . "${units}/ib_lock.sh" &
+            . "${units}/ib_lock.zsh" &
 
             output_title="Refreshing access token..."
             output_text="Try again in a few seconds"

@@ -129,5 +129,5 @@ fi
 if [[ "${caching_mode}" = "advanced" ]]
 then
     ib_hash="$(printf "%s%s%s" "${user_id}" "${ib_board}" "${ib_id}" | enhash)"
-    . "${units}/ib_cache.sh" &
+    . "${units}/ib_cache.zsh" &
 fi

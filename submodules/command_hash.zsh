@@ -28,7 +28,7 @@ done
 
 for ib_board in ${board_table[@]}
 do
-    . "${units}/ib_hash.sh" &
+    . "${units}/ib_hash.zsh" &
 
     if [[ -z "${threaded_hash}" ]]
     then
