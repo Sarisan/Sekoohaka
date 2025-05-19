@@ -32,36 +32,39 @@ do
     ib_group_tags=($(jq -r ".${ib_iarray}[0].${ib_groups[1]}" "${ib_file}" | htmlescape))
     ib_group_name="${ib_groups[2]}"
 
-    if [[ -n "${ib_group_tags}" && "${ib_group_tags}" != "null" ]]
+    if [[ -z "${ib_group_tags}" || "${ib_group_tags}" = "null" ]]
     then
-        if [[ ${#ib_group_tags} -gt ${ib_groups_offset} ]]
+        ib_groups=(${ib_groups[@]:2})
+        continue
+    fi
+
+    if [[ ${#ib_group_tags} -gt ${ib_groups_offset} ]]
+    then
+        ib_group_tags=(${ib_group_tags[@]:${ib_groups_offset}})
+        ib_groups_offset=0
+    else
+        ib_groups_offset=$((ib_groups_offset - $#ib_group_tags))
+        ib_groups=(${ib_groups[@]:2})
+        continue
+    fi
+
+    ib_group_text="$(printf "%s\n<b>%s:</b>" "${output_text}" "${ib_group_name}")"
+
+    while [[ ${#ib_group_tags} -gt 0 ]]
+    do
+        ib_tag="<code>${ib_group_tags[1]}</code>"
+
+        if [[ $(($#ib_group_text + $#ib_tag)) -gt 2048 ]]
         then
-            ib_group_tags=(${ib_group_tags[@]:${ib_groups_offset}})
-            ib_groups_offset=0
-        else
-            ib_groups_offset=$((ib_groups_offset - $#ib_group_tags))
-            ib_groups=(${ib_groups[@]:2})
-            continue
+            break 2
         fi
 
-        ib_group_text="$(printf "%s\n<b>%s:</b>" "${output_text}" "${ib_group_name}")"
+        ib_group_text="${ib_group_text} ${ib_tag}"
+        ib_tags_count=$((ib_tags_count + 1))
 
-        while [[ ${#ib_group_tags} -gt 0 ]]
-        do
-            ib_tag="<code>${ib_group_tags[1]}</code>"
-
-            if [[ $(($#ib_group_text + $#ib_tag)) -gt 2048 ]]
-            then
-                break 2
-            fi
-
-            ib_group_text="${ib_group_text} ${ib_tag}"
-            ib_tags_count=$((ib_tags_count + 1))
-
-            output_text="${ib_group_text}"
-            ib_group_tags=(${ib_group_tags[@]:1})
-        done
-    fi
+        output_text="${ib_group_text}"
+        ib_group_tags=(${ib_group_tags[@]:1})
+    done
 
     ib_groups=(${ib_groups[@]:2})
 done
