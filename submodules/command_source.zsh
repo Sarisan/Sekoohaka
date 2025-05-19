@@ -59,7 +59,7 @@ then
 fi
 
 thumbnail="$(jq -r ".results.[${highest_index}].header.thumbnail" "${sn_file}")"
-similarity="$(printf "%.2f" "$((highest_similarity} / 100)"))"
+similarity="$(printf "%.2f" "${highest_similarity}")"
 
 link_preview_options="$(jq --null-input --compact-output \
     --arg url "${thumbnail}" \
