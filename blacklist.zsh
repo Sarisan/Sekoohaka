@@ -49,6 +49,21 @@ then
     exit 0
 fi
 
+for module in zsh/files
+do
+    if ! zmodload ${module}
+    then
+        failed="${failed} ${module}"
+    fi
+done
+
+if [[ -n "${failed}" ]]
+then
+    echo "Failed to load Z Shell modules:${failed}" \
+        "\nUpdate your Z Shell or get a version with all the required modules"
+    exit 1
+fi
+
 for required in busybox
 do
     if ! command -v ${required} > /dev/null
@@ -64,7 +79,7 @@ then
     exit 1
 fi
 
-for function in cat grep mkdir sed
+for function in grep sed
 do
     if busybox ${function} --help > /dev/null
     then
@@ -106,7 +121,7 @@ case "${action}" in
     (show)
         if [[ -s "${list}" ]]
         then
-            cat "${list}"
+            < "${list}"
         fi
     ;;
     (add)
@@ -125,6 +140,6 @@ case "${action}" in
         fi
     ;;
     (reset)
-        cat "${list}.default" > "${list}"
+        < "${list}.default" > "${list}"
     ;;
 esac
