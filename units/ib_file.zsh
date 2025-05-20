@@ -17,7 +17,7 @@ then
 
     if [[ $((ib_ctime - ib_mtime)) -le $((caching_time - 15)) ]]
     then
-        rm -fr "${cache}/${ib_hash}.lock"
+        rmdir "${cache}/${ib_hash}.lock"
         return 0
     fi
 fi
@@ -28,7 +28,7 @@ then
 
     if [[ -n "${output_text}" ]]
     then
-        rm -fr "${cache}/${ib_hash}.lock"
+        rmdir "${cache}/${ib_hash}.lock"
         return 0
     fi
 fi
@@ -78,7 +78,7 @@ then
     . "${units}/log.zsh"
     . "${units}/dump.zsh"
 
-    rm -fr "${ib_file}" "${cache}/${ib_hash}.lock"
+    rmdir "${ib_file}" "${cache}/${ib_hash}.lock"
     return 0
 fi
 
@@ -92,7 +92,7 @@ then
     . "${units}/log.zsh"
     . "${units}/dump.zsh"
 
-    rm -fr "${ib_file}" "${cache}/${ib_hash}.lock"
+    rmdir "${ib_file}" "${cache}/${ib_hash}.lock"
     return 0
 fi
 
@@ -127,4 +127,4 @@ then
     rm -f "${ib_file}"
 fi
 
-rm -fr "${cache}/${ib_hash}.lock"
+rmdir "${cache}/${ib_hash}.lock"

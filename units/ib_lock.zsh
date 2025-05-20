@@ -9,4 +9,4 @@ done
 
 . "${units}/ib_auth.zsh"
 
-rm -fr "${user_config}_auth.lock"
+rmdir "${user_config}_auth.lock"

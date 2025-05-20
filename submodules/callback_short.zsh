@@ -14,7 +14,7 @@ then
 else
     notification_text="You must specify the query"
 
-    rm -fr "${user_config}_short.lock"
+    rmdir "${user_config}_short.lock"
     return 0
 fi
 
@@ -24,7 +24,7 @@ if ! mkdir -p "${short_config}"
 then
     notification_text="Failed to create user config"
 
-    rm -fr "${user_config}_short.lock"
+    rmdir "${user_config}_short.lock"
     return 0
 fi
 
@@ -44,4 +44,4 @@ else
     notification_text="Too many shortcuts"
 fi
 
-rm -fr "${user_config}_short.lock"
+rmdir "${user_config}_short.lock"

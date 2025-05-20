@@ -48,4 +48,4 @@ else
     output_text="No results found"
 fi
 
-rm -fr "${ib_posts%.*}.lock"
+rmdir "${ib_posts%.*}.lock"

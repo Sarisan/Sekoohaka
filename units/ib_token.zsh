@@ -37,4 +37,4 @@ then
     ib_header="${ib_authorization} $(cat "${user_config}/${ib_config}/token")"
 fi
 
-rm -fr "${user_config}_auth.lock"
+rmdir "${user_config}_auth.lock"

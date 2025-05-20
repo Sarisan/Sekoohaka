@@ -19,7 +19,7 @@ then
         --arg description "${output_text}" \
         '[{"type": "article", "id": $id, "title": $title, "input_message_content": {"message_text": $text}, "description": $description}]')"
 
-    rm -fr "${user_config}_short.lock"
+    rmdir "${user_config}_short.lock"
     return 0
 fi
 
@@ -87,4 +87,4 @@ then
     next_offset=$((inline_page + 1))
 fi
 
-rm -fr "${user_config}_short.lock"
+rmdir "${user_config}_short.lock"

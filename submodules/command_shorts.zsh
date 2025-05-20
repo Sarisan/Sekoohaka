@@ -33,4 +33,4 @@ else
     output_text="You have no saved shortcuts yet"
 fi
 
-rm -fr "${user_config}_short.lock"
+rmdir "${user_config}_short.lock"

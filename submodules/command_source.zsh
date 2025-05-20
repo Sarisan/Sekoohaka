@@ -15,7 +15,7 @@ done
 
 . "${units}/sn_auth.zsh"
 
-rm -fr "${user_config}_saucenao.lock"
+rmdir "${user_config}_saucenao.lock"
 
 if [[ -n "${output_text}" ]]
 then

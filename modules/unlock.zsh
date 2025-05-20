@@ -9,4 +9,4 @@ fi
 
 find "${cache}" "${config}" -follow -name "*.lock" -type d -mmin +1 -exec rm -fr {} +
 
-rm -fr "${cache}.unlock"
+rmdir "${cache}.unlock"

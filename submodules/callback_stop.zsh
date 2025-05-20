@@ -27,7 +27,7 @@ fi
 
 for lock in ${locks[@]}
 do
-    rm -fr "${user_config}_${lock}.lock"
+    rmdir "${user_config}_${lock}.lock"
 done
 
-rm -fr "${user_config}_stop.lock"
+rmdir "${user_config}_stop.lock"

@@ -45,8 +45,6 @@ For distribution specific installation commands follow [command-not-found](https
 * find
 * grep
 * ls
-* mkdir
-* rm
 * sed
 * sort
 * sha1sum

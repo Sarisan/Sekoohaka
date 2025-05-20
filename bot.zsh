@@ -151,7 +151,7 @@ then
     exit 1
 fi
 
-for function in base64 cat cp cut find grep ls mkdir rm sed sort sha1sum sleep stat tr
+for function in base64 cat cp cut find grep ls sed sort sha1sum sleep stat tr
 do
     if busybox ${function} --help > /dev/null
     then
@@ -168,7 +168,7 @@ then
     exit 1
 fi
 
-for module in zsh/datetime zsh/zutil
+for module in zsh/datetime zsh/files zsh/zutil
 do
     if ! zmodload ${module}
     then
@@ -345,7 +345,7 @@ alias enhash="sha1sum | parameter 1"
 alias htmlescape="sed -e 's/</\&#60;/g' -e 's/>/\&#62;/g'"
 alias urlencode="jq -Rr @uri"
 
-rm -fr "${cache}"
+rmdir "${cache}"
 mkdir -p "${cache}"
 mkdir -p "${config}"
 

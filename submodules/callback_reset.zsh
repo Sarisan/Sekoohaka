@@ -20,5 +20,5 @@ else
     notification_text="Something went wrong, try again later"
 fi
 
-rm -fr "${user_config}_short.lock"
-rm -fr "${user_config}_reset.lock"
+rmdir "${user_config}_short.lock"
+rmdir "${user_config}_reset.lock"

@@ -27,7 +27,7 @@ do
         rm -f "${cache}/${file}"
     fi
 
-    rm -fr "${cache}/${file%.*}.lock"
+    rmdir "${cache}/${file%.*}.lock"
 done
 
-rm -fr "${cache}.lock"
+rmdir "${cache}.lock"

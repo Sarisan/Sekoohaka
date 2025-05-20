@@ -21,4 +21,4 @@ else
     command="help"
 fi
 
-rm -fr "${user_config}_short.lock"
+rmdir "${user_config}_short.lock"

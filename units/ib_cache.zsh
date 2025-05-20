@@ -17,4 +17,4 @@ else
     printf '[%s]' "${ib_post}" | jq -c > "${ib_file}"
 fi
 
-rm -fr "${cache}/${ib_hash}.lock"
+rmdir "${cache}/${ib_hash}.lock"
