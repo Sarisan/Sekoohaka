@@ -345,7 +345,7 @@ alias enhash="sha1sum | parameter 1"
 alias htmlescape="sed -e 's/</\&#60;/g' -e 's/>/\&#62;/g'"
 alias urlencode="jq -Rr @uri"
 
-rmdir "${cache}"
+rm -fr "${cache}"
 mkdir -p "${cache}"
 mkdir -p "${config}"
 
