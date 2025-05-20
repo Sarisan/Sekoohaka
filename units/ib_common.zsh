@@ -34,7 +34,7 @@ then
     shift
 else
     output_title="Invalid arguments"
-    output_text="You must specify the post ID or the MD5 h.zsh"
+    output_text="You must specify the post ID or the MD5 hash"
     notification_text="${output_text}"
 
     return 0

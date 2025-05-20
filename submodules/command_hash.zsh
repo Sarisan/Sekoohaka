@@ -9,13 +9,13 @@ then
     ib_post_md5="${1}"
     shift
 else
-    output_text="You must specify the MD5 h.zsh"
+    output_text="You must specify the MD5 hash"
     return 0
 fi
 
 if ! [[ ${#ib_post_md5} -eq 32 ]]
 then
-    output_text="Invalid MD5 h.zsh"
+    output_text="Invalid MD5 hash"
     return 0
 fi
 
