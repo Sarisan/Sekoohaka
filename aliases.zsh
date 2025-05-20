@@ -119,10 +119,18 @@ esac
 
 case "${action}" in
     (list)
-        if [[ -s "${list}" ]]
+        if ! [[ -s "${list}" ]]
         then
-            < "${list}"
+            exit 0
         fi
+
+        list=($(< "${list}"))
+
+        while [[ ${#list} -ge 2 ]]
+        do
+            printf "%s --> %s\n" "${list[1]}" "${list[2]}"
+            list=(${list[@]:2})
+        done
     ;;
     (add)
         if [[ -n "${1}" ]]
