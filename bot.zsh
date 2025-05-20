@@ -151,7 +151,7 @@ then
     exit 1
 fi
 
-for function in base64 cat cp cut date find grep ls mkdir rm sed sort sha1sum sleep stat tr
+for function in base64 cat cp cut find grep ls mkdir rm sed sort sha1sum sleep stat tr
 do
     if busybox ${function} --help > /dev/null
     then

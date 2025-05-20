@@ -154,7 +154,7 @@ case "${ib_board}" in
         fi
 
         jq -r '.access_token' "${ib_auth_file}" > "${user_config}/${ib_config}/token"
-        date +%s > "${user_config}/${ib_config}/timestamp"
+        strftime %s > "${user_config}/${ib_config}/timestamp"
     ;;
     (k|y)
         ib_auth_file="${cache}/${update_id}_user.json"

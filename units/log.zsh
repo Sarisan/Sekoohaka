@@ -7,4 +7,4 @@ then
     return 0
 fi
 
-printf "[%s] %s\n" "$(date +"%Y-%m-%d %X")" "${log_text}"
+printf "[%s] %s\n" "$(strftime "%Y-%m-%d %X")" "${log_text}"

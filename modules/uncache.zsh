@@ -19,7 +19,7 @@ do
         sleep 1
     done
 
-    cache_ctime=$(date +%s)
+    cache_ctime=$(strftime %s)
     cache_mtime=$(stat -c %Y "${cache}/${file}")
 
     if [[ $((cache_ctime - cache_mtime)) -gt $((caching_time + 15)) ]]

@@ -14,7 +14,7 @@ fi
 
 if [[ -f "${user_config}/${ib_config}/timestamp" ]]
 then
-    ib_ctime=$(date +%s)
+    ib_ctime=$(strftime %s)
     ib_mtime=$(cat "${user_config}/${ib_config}/timestamp")
 
     if [[ $((ib_ctime - ib_mtime)) -gt ${ib_expire} ]]

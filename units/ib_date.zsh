@@ -11,8 +11,8 @@ then
 
     if [[ -n "${ib_idate}" ]]
     then
-        ib_date_text="$(date -ud "${ib_created_at}" -D "${ib_idate}" +"%Y-%m-%d %H:%M")"
-    else
-        ib_date_text="$(date -ud "@${ib_created_at}" +"%Y-%m-%d %H:%M")"
+        ib_created_at="$(strftime -r "${ib_idate}" "${ib_created_at}")"
     fi
+
+    ib_date_text="$(strftime "%Y-%m-%d %H:%M" "${ib_created_at}")"
 fi
