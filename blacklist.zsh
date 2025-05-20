@@ -22,7 +22,7 @@ then
         (help)
             help=0
         ;;
-        (show | add | del | reset)
+        (list | add | del | reset)
         ;;
         (*)
             echo "Unrecognized action ${action}" \
@@ -42,7 +42,7 @@ then
         "\n\nUsage: ${0} [action] [ID]" \
         "\n\nActions:" \
         "\n  help\t\tShow help information" \
-        "\n  show\t\tShow blacklist entries" \
+        "\n  list\t\tList blacklist entries" \
         "\n  add\t\tAdd user ID to the blacklist" \
         "\n  del\t\tRemove user ID from the blacklist" \
         "\n  reset\t\tRemove all blacklist entries"
@@ -118,7 +118,7 @@ case "${action}" in
 esac
 
 case "${action}" in
-    (show)
+    (list)
         if [[ -s "${list}" ]]
         then
             < "${list}"
