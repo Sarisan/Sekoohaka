@@ -6,7 +6,7 @@ if [[ -z "${ib_login}" ]]
 then
     if [[ -f "${user_config}/${ib_config}/${ib_login_file}" ]]
     then
-        ib_login="$(cat "${user_config}/${ib_config}/${ib_login_file}")"
+        ib_login="$(< "${user_config}/${ib_config}/${ib_login_file}")"
     else
         output_text="You must specify the ${ib_login_word}"
         return 0
@@ -17,7 +17,7 @@ if [[ -z "${ib_key}" ]]
 then
     if [[ -f "${user_config}/${ib_config}/${ib_key_file}" ]]
     then
-        ib_key="$(cat "${user_config}/${ib_config}/${ib_key_file}")"
+        ib_key="$(< "${user_config}/${ib_config}/${ib_key_file}")"
     else
         output_text="You must specify the ${ib_key_word}"
         return 0

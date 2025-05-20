@@ -7,7 +7,7 @@ then
     sn_key="${1}"
 elif [[ -f "${user_config}/saucenao" ]]
 then
-    sn_key="$(cat "${user_config}/saucenao")"
+    sn_key="$(< "${user_config}/saucenao")"
     return 0
 else
     output_text="You must provide your SauceNAO API Key before you can use SauceNAO"

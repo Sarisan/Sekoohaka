@@ -9,7 +9,7 @@ then
 fi
 
 output_title="Donate"
-output_text="$(cat "${files}/donate.txt")"
+output_text="$(< "${files}/donate.txt")"
 output_description="Click to send the details"
 
 results="$(jq --null-input --compact-output \

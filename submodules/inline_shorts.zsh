@@ -28,7 +28,7 @@ array_count=0
 
 for short in ${shorts[@]}
 do
-    short_query="$(cat "${short_config}/${short}")"
+    short_query="$(< "${short_config}/${short}")"
 
     output_title="Shortcut"
     output_text="<b>Shortcut:</b> <code>$(printf "%s" "${short_query}" | htmlescape)</code>"

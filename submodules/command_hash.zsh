@@ -43,7 +43,7 @@ fi
 
 if [[ -s "${ib_posts}" ]]
 then
-    output_text="$(cat "${ib_posts}" | sort)"
+    output_text="$(< "${ib_posts}" | sort)"
 else
     output_text="No results found"
 fi

@@ -39,7 +39,6 @@ For distribution specific installation commands follow [command-not-found](https
 ### BusyBox functions
 
 * base64
-* cat
 * cp
 * cut
 * find

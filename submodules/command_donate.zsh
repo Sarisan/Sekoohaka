@@ -7,4 +7,4 @@ then
     exit 0
 fi
 
-output_text="$(cat "${files}/donate.txt")"
+output_text="$(< "${files}/donate.txt")"
