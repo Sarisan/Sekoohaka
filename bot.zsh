@@ -136,6 +136,21 @@ then
     exit 0
 fi
 
+for module in zsh/datetime zsh/files zsh/stat zsh/zutil
+do
+    if ! zmodload ${module}
+    then
+        failed="${failed} ${module}"
+    fi
+done
+
+if [[ -n "${failed}" ]]
+then
+    echo "Failed to load Z Shell modules:${failed}" \
+        "\nUpdate your Z Shell or get a version with all the required modules"
+    exit 1
+fi
+
 for required in busybox curl jq recode
 do
     if ! command -v ${required} > /dev/null
@@ -165,21 +180,6 @@ if [[ -n "${missing}" ]]
 then
     echo "Missing BusyBox functions:${missing}" \
         "\nUpdate your BusyBox or get a version with all the required functions"
-    exit 1
-fi
-
-for module in zsh/datetime zsh/files zsh/stat zsh/zutil
-do
-    if ! zmodload ${module}
-    then
-        failed="${failed} ${module}"
-    fi
-done
-
-if [[ -n "${failed}" ]]
-then
-    echo "Failed to load Z Shell modules:${failed}" \
-        "\nUpdate your Z Shell or get a version with all the required modules"
     exit 1
 fi
 
