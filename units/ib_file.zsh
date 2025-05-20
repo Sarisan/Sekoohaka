@@ -13,7 +13,7 @@ dump=(${dump[@]} ${ib_file##*/})
 if [[ -f "${ib_file}" && "${caching_mode}" != "none" ]]
 then
     ib_ctime=$(strftime %s)
-    ib_mtime=$(stat -c %Y "${ib_file}")
+    ib_mtime=$(stat +mtime "${ib_file}")
 
     if [[ $((ib_ctime - ib_mtime)) -le $((caching_time - 15)) ]]
     then

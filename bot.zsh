@@ -151,7 +151,7 @@ then
     exit 1
 fi
 
-for function in base64 cat cp cut find grep ls sed sort sha1sum sleep stat tr
+for function in base64 cat cp cut find grep ls sed sort sha1sum sleep tr
 do
     if busybox ${function} --help > /dev/null
     then
@@ -168,7 +168,7 @@ then
     exit 1
 fi
 
-for module in zsh/datetime zsh/files zsh/zutil
+for module in zsh/datetime zsh/files zsh/stat zsh/zutil
 do
     if ! zmodload ${module}
     then
@@ -353,8 +353,8 @@ for file in aliases blacklist donate help whitelist
 do
     if [[ -f "${files}/${file}.txt" ]]
     then
-        file_ctime=$(stat -c %Y "${files}/${file}.txt.default")
-        file_mtime=$(stat -c %Y "${files}/${file}.txt")
+        file_ctime=$(stat +mtime "${files}/${file}.txt.default")
+        file_mtime=$(stat +mtime "${files}/${file}.txt")
 
         if [[ ${file_ctime} -gt ${file_mtime} ]]
         then

@@ -49,7 +49,6 @@ For distribution specific installation commands follow [command-not-found](https
 * sort
 * sha1sum
 * sleep
-* stat
 * tr
 
 ## Deployment
