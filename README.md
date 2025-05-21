@@ -155,13 +155,13 @@ Caching modes:
 
 ### Supported Image Boards
 
-* `a` - [Safebooru](https://safebooru.donmai.us/) (auth) (lpt)
-* `d` - [Danbooru](https://danbooru.donmai.us/) (auth) (lpt)
-* `g` - [Gelbooru](https://gelbooru.com/) (auth) (pt)
-* `i` - [Idol Complex](https://idol.sankakucomplex.com/) (auth) (lpt)
-* `k` - [Konachan.com](https://konachan.com/) (auth) (lpt)
-* `s` - [Sankaku Channel](https://chan.sankakucomplex.com/) (auth) (lpt)
-* `y` - [yande.re](https://yande.re/) (auth) (lpt)
+* `a` - [Safebooru](https://safebooru.donmai.us/)
+* `d` - [Danbooru](https://danbooru.donmai.us/)
+* `g` - [Gelbooru](https://gelbooru.com/)
+* `i` - [Idol Complex](https://idol.sankakucomplex.com/)
+* `k` - [Konachan.com](https://konachan.com/)
+* `s` - [Sankaku Channel](https://chan.sankakucomplex.com/)
+* `y` - [yande.re](https://yande.re/)
 
 ## Donation
 

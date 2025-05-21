@@ -62,10 +62,10 @@
 <code>short p d -mq ringouulu</code>
 
 <b>Supported Image Boards:</b>
-<code>a</code> - <a href="https://safebooru.donmai.us">Safebooru</a> (auth) (lpt)
-<code>d</code> - <a href="https://danbooru.donmai.us">Danbooru</a> (auth) (lpt)
-<code>g</code> - <a href="https://gelbooru.com">Gelbooru</a> (auth) (pt)
-<code>i</code> - <a href="https://idol.sankakucomplex.com">Idol Complex</a> (auth) (lpt)
-<code>k</code> - <a href="https://konachan.com">Konachan.com</a> (auth) (lpt)
-<code>s</code> - <a href="https://chan.sankakucomplex.com">Sankaku Channel</a> (auth) (lpt)
-<code>y</code> - <a href="https://yande.re">yande.re</a> (auth) (lpt)
+<code>a</code> - <a href="https://safebooru.donmai.us">Safebooru</a>
+<code>d</code> - <a href="https://danbooru.donmai.us">Danbooru</a>
+<code>g</code> - <a href="https://gelbooru.com">Gelbooru</a>
+<code>i</code> - <a href="https://idol.sankakucomplex.com">Idol Complex</a>
+<code>k</code> - <a href="https://konachan.com">Konachan.com</a>
+<code>s</code> - <a href="https://chan.sankakucomplex.com">Sankaku Channel</a>
+<code>y</code> - <a href="https://yande.re">yande.re</a>
