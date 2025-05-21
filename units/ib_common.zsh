@@ -45,7 +45,7 @@ fi
 
 if [[ -n "${ib_parent}" ]]
 then
-    ib_query="parent:${ib_post_id}"
+    ib_query="parent:${ib_post_id} -id:${ib_post_id}"
 elif [[ ${#ib_post_id} -eq 32 ]]
 then
     ib_query="md5:${ib_post_id}"
