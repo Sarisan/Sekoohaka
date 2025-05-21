@@ -16,7 +16,7 @@ then
     if [[ "${reply_text}" != "null" ]]
     then
         ib_reply_name="$(printf "%s" "${reply_text}" | sed '1!d')"
-        ib_post_id="$(printf "%s" "${reply_text}" | grep 'ID' | parameter 2)"
+        ib_post_id="$(printf "%s" "${reply_text}" | sed '2!d' | parameter 2)"
 
         for ib_board in ${board_table[@]}
         do
