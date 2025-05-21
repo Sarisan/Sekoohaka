@@ -135,9 +135,9 @@ Caching modes:
 * `/source [snkey]` - Reverse search image
 * `/short [query]` - Create inline shortcut
 * `/shorts` - Manage saved shortcuts
-* `/stop` - Remove all user data
 * `/ping` - Measure bot latency
 * `/donate` - Send donation details
+* `/stop` - Remove all user data
 
 ### Inline aliases
 
