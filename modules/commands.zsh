@@ -46,6 +46,9 @@ case "${command}" in
     ("/original" | "/original@${username}")
         . "${submods}/command_original.zsh"
     ;;
+    ("/parent" | "/parent@${username}")
+        . "${submods}/command_parent.zsh"
+    ;;
     ("/ping" | "/ping@${username}")
         . "${submods}/command_ping.zsh"
     ;;

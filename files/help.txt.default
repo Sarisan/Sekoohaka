@@ -40,6 +40,7 @@
 /authorize [b] [login] [key] - Authorize to Image Board
 /original [b] [id/md5] - Get original file of post
 /post [b] [id/md5] - Get information of post
+/parent [b] [id] - Get children posts IDs
 /hash [md5] - Get posts IDs by hash lookup
 /source [snkey] - Reverse search image
 /short [query] - Create inline shortcut

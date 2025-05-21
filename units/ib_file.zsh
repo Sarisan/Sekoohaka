@@ -118,6 +118,9 @@ then
                 output_text="Try different page or tag name"
             ;;
         esac
+    elif [[ -n "${ib_parent}" ]]
+    then
+        output_text="No results found"
     else
         output_text="Try different post ID or MD5 hash"
     fi
