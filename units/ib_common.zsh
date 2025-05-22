@@ -45,8 +45,7 @@ fi
 
 if [[ -n "${ib_parent}" ]]
 then
-    ib_post_id="${ib_post_id} -id:${ib_post_id}"
-    ib_query="parent:${ib_post_id}"
+    ib_query="parent:${ib_post_id} -id:${ib_post_id}"
 elif [[ ${#ib_post_id} -eq 32 ]]
 then
     ib_query="md5:${ib_post_id}"
@@ -57,5 +56,5 @@ else
     ib_query="id:${ib_post_id}"
 fi
 
-ib_hash="$(printf "%s%s%s" "${user_id}" "${ib_board}" "${ib_post_id}" | enhash)"
+ib_hash="$(printf "%s%s%s" "${user_id}" "${ib_board}" "${ib_query}" | enhash)"
 . "${units}/ib_file.zsh"

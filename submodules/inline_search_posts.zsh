@@ -128,6 +128,13 @@ fi
 
 if [[ "${caching_mode}" = "advanced" ]]
 then
-    ib_hash="$(printf "%s%s%s" "${user_id}" "${ib_board}" "${ib_id}" | enhash)"
+    if [[ "${ib_name}" = "Idol Complex" ]]
+    then
+        ib_query="md5:${ib_md5}"
+    else
+        ib_query="id:${ib_id}"
+    fi
+
+    ib_hash="$(printf "%s%s%s" "${user_id}" "${ib_board}" "${ib_query}" | enhash)"
     . "${units}/ib_cache.zsh" &
 fi

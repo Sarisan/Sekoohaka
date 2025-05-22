@@ -59,7 +59,7 @@ else
     ib_query="id:${ib_post_id}"
 fi
 
-ib_hash="$(printf "%s%s%s" "${user_id}" "${ib_board}" "${ib_post_id}" | enhash)"
+ib_hash="$(printf "%s%s%s" "${user_id}" "${ib_board}" "${ib_query}" | enhash)"
 . "${units}/ib_file.zsh"
 
 if [[ -n "${output_text}" ]]
