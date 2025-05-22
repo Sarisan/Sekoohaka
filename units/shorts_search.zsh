@@ -81,7 +81,7 @@ fi
 
 if [[ ${#shorts} -ge $(((inline_page - 1) * inline_limit + 1)) ]]
 then
-    shorts=(${shorts[@]:$(((inline_page - 1) * inline_limit))})
+    shift $(((inline_page - 1) * inline_limit)) shorts
 else
     if [[ -n "${offset}" ]]
     then

@@ -48,7 +48,7 @@ then
             output_text="$(printf "%s\n<b>Rating:</b> <code>%s</code>" "${output_text}" "${ib_ratings[2]}")"
             break
         else
-            ib_ratings=(${ib_ratings[@]:2})
+            shift 2 ib_ratings
         fi
     done
 fi

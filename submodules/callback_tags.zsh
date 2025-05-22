@@ -34,17 +34,17 @@ do
 
     if [[ -z "${ib_group_tags}" || "${ib_group_tags}" = "null" ]]
     then
-        ib_groups=(${ib_groups[@]:2})
+        shift 2 ib_groups
         continue
     fi
 
     if [[ ${#ib_group_tags} -gt ${ib_groups_offset} ]]
     then
-        ib_group_tags=(${ib_group_tags[@]:${ib_groups_offset}})
+        shift ${ib_groups_offset} ib_group_tags
         ib_groups_offset=0
     else
         ib_groups_offset=$((ib_groups_offset - $#ib_group_tags))
-        ib_groups=(${ib_groups[@]:2})
+        shift 2 ib_groups
         continue
     fi
 
@@ -63,10 +63,10 @@ do
         ib_tags_count=$((ib_tags_count + 1))
 
         output_text="${ib_group_text}"
-        ib_group_tags=(${ib_group_tags[@]:1})
+        shift 1 ib_group_tags
     done
 
-    ib_groups=(${ib_groups[@]:2})
+    shift 2 ib_groups
 done
 
 if [[ -z "${output_text}" ]]

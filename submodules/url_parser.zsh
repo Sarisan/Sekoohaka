@@ -35,7 +35,7 @@ do
         break
     fi
 
-    url_table=(${url_table[@]:4})
+    shift 4 url_table
 done
 
 if [[ -z "${ib_post_id}" ]]
