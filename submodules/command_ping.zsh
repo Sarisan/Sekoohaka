@@ -63,7 +63,7 @@ fi
 chat_id="$(jq -r '.result.chat.id' "${output_file}")"
 message_id="$(jq -r '.result.message_id' "${output_file}")"
 
-latency=$(((latency_fin - latency_init) / 1000000 - 5))
+latency=$(((latency_fin - latency_init) / 1000000))
 output_text="$(printf "<b>Latency:</b> %ums" "${latency}")"
 
 output_file="${cache}/${update_id}_editMessageText.json"
