@@ -129,7 +129,7 @@ case "${action}" in
         while [[ ${#list} -ge 2 ]]
         do
             printf "%s --> %s\n" "${list[1]}" "${list[2]}"
-            list=(${list[@]:2})
+            shift 2 list
         done
     ;;
     (add)
