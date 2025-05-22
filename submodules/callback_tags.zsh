@@ -56,16 +56,16 @@ do
 
         if [[ $(($#ib_group_text + $#ib_tag)) -gt 2048 ]]
         then
+            output_text="${ib_group_text}"
             break 2
         fi
 
         ib_group_text="${ib_group_text} ${ib_tag}"
         ib_tags_count=$((ib_tags_count + 1))
-
-        output_text="${ib_group_text}"
         shift 1 ib_group_tags
     done
 
+    output_text="${ib_group_text}"
     shift 2 ib_groups
 done
 
