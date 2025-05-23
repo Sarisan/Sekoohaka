@@ -53,7 +53,7 @@ then
                 cache_time=${OPTARG}
             ;;
             (s)
-                sleeping_time=${OPTARG}
+                sleep_time=${OPTARG}
             ;;
             (c)
                 clear_cache=0
@@ -249,21 +249,21 @@ else
     cache_time=300
 fi
 
-if [[ -n "${sleeping_time}" ]]
+if [[ -n "${sleep_time}" ]]
 then
-    if ! test ${sleeping_time} -gt 0
+    if ! test ${sleep_time} -gt 0
     then
         echo "Illegal sleeping time" \
             "\nSee '${0} -h'"
         exit 1
     fi
 
-    if [[ ${sleeping_time} -gt 100 ]]
+    if [[ ${sleep_time} -gt 100 ]]
     then
-        sleeping_time=100
+        sleep_time=100
     fi
 else
-    sleeping_time=10
+    sleep_time=10
 fi
 
 if [[ -n "${internal_timeout}" ]]
@@ -425,19 +425,19 @@ do
         --user-agent "${useragent}" \
         "${api_address}/bot${api_token}/getUpdates"
     then
-        log_text="getUpdates: Failed to access Telegram Bot API, sleeping for ${sleeping_time} seconds"
+        log_text="getUpdates: Failed to access Telegram Bot API, sleeping for ${sleep_time} seconds"
         . "${units}/log.zsh"
 
-        sleep ${sleeping_time}
+        sleep ${sleep_time}
         continue
     fi
 
     if ! jq -e '.' "${cache}/getUpdates.json" > /dev/null
     then
-        log_text="getUpdates: An unknown error occurred, sleeping for ${sleeping_time} seconds"
+        log_text="getUpdates: An unknown error occurred, sleeping for ${sleep_time} seconds"
         . "${units}/log.zsh"
 
-        sleep ${sleeping_time}
+        sleep ${sleep_time}
         continue
     fi
 
@@ -447,14 +447,14 @@ do
 
         if [[ "${error_description}" != "null" ]]
         then
-            log_text="getUpdates: ${error_description}, sleeping for ${sleeping_time} seconds"
+            log_text="getUpdates: ${error_description}, sleeping for ${sleep_time} seconds"
         else
-            log_text="getUpdates: An unknown error occurred, sleeping for ${sleeping_time} seconds"
+            log_text="getUpdates: An unknown error occurred, sleeping for ${sleep_time} seconds"
         fi
 
         . "${units}/log.zsh"
 
-        sleep ${sleeping_time}
+        sleep ${sleep_time}
         continue
     fi
 
