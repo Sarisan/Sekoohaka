@@ -126,7 +126,7 @@ then
         '.reply_markup.inline_keyboard += [[{"text": $text1, "switch_inline_query_current_chat": $query1}, {"text": $text2, "switch_inline_query_current_chat": $query2}]]')"
 fi
 
-if [[ "${caching_mode}" = "advanced" ]]
+if [[ "${cache_mode}" = "advanced" ]]
 then
     if [[ "${ib_name}" = "Idol Complex" ]]
     then

@@ -10,7 +10,7 @@ done
 ib_file="${cache}/${ib_hash}.json"
 dump=(${dump[@]} ${ib_file##*/})
 
-if [[ -f "${ib_file}" && "${caching_mode}" != "none" ]]
+if [[ -f "${ib_file}" && "${cache_mode}" != "none" ]]
 then
     ib_ctime=$(strftime %s)
     ib_mtime=$(stat +mtime "${ib_file}")

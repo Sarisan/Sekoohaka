@@ -52,10 +52,10 @@ then
                 inline_limit=${OPTARG}
             ;;
             (m)
-                caching_mode=${OPTARG}
+                cache_mode=${OPTARG}
             ;;
             (t)
-                caching_time=${OPTARG}
+                cache_time=${OPTARG}
             ;;
             (s)
                 sleeping_time=${OPTARG}
@@ -222,36 +222,36 @@ else
     inline_limit=10
 fi
 
-if [[ -n "${caching_mode}" ]]
+if [[ -n "${cache_mode}" ]]
 then
-    case "${caching_mode}" in
+    case "${cache_mode}" in
         (none | normal | advanced)
         ;;
         (*)
-            echo "Unrecognized caching mode ${caching_mode}" \
+            echo "Unrecognized caching mode ${cache_mode}" \
                 "\nSee '${0} -h'"
             exit 1
         ;;
     esac
 else
-    caching_mode=normal
+    cache_mode=normal
 fi
 
-if [[ -n "${caching_time}" ]]
+if [[ -n "${cache_time}" ]]
 then
-    if ! test ${caching_time} -gt 0
+    if ! test ${cache_time} -gt 0
     then
         echo "Illegal caching time" \
             "\nSee '${0} -h'"
         exit 1
     fi
 
-    if [[ ${caching_time} -gt 1000 ]]
+    if [[ ${cache_time} -gt 1000 ]]
     then
-        caching_time=1000
+        cache_time=1000
     fi
 else
-    caching_time=300
+    cache_time=300
 fi
 
 if [[ -n "${sleeping_time}" ]]
