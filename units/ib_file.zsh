@@ -78,7 +78,7 @@ then
     . "${units}/log.zsh"
     . "${units}/dump.zsh"
 
-    rmdir "${ib_file}" "${cache}/${ib_hash}.lock"
+    rm -fr "${ib_file}" "${cache}/${ib_hash}.lock"
     return 0
 fi
 
@@ -92,7 +92,7 @@ then
     . "${units}/log.zsh"
     . "${units}/dump.zsh"
 
-    rmdir "${ib_file}" "${cache}/${ib_hash}.lock"
+    rm -fr "${ib_file}" "${cache}/${ib_hash}.lock"
     return 0
 fi
 
