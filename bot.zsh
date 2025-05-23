@@ -105,8 +105,8 @@ then
         "\n  -r <num>\tInline results limit, max: 50, default: 10" \
         "\n  -g <num>\tShortcuts storage limit, max: 10000, default: 100" \
         "\n  -m <mode>\tCache mode, default: normal" \
-        "\n  -t <secs>\tCache time, max: 1000, default: 300 secs" \
-        "\n  -s <secs>\tSleeping time, max: 100, default: 10 secs" \
+        "\n  -t <secs>\tCache expiration time, max: 1000, default: 300 secs" \
+        "\n  -s <secs>\tSleep duration time, max: 100, default: 10 secs" \
         "\n  -c\t\tClear cache automatically" \
         "\n  -j\t\tUse threaded MD5 hash lookup" \
         "\n  -q\t\tDo not print logs" \

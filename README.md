@@ -66,8 +66,8 @@ Options:
   -r <num>      Inline results limit, max: 50, default: 10
   -g <num>      Shortcuts storage limit, max: 10000, default: 100
   -m <mode>     Cache mode, default: normal
-  -t <secs>     Cache time, max: 1000, default: 300 secs
-  -s <secs>     Sleeping time, max: 100, default: 10 secs
+  -t <secs>     Cache expiration time, max: 1000, default: 300 secs
+  -s <secs>     Sleep duration time, max: 100, default: 10 secs
   -c            Clear cache automatically
   -j            Use threaded MD5 hash lookup
   -q            Do not print logs
