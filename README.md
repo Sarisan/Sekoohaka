@@ -16,6 +16,7 @@ Telegram Image Board Bot written in Z Shell (zsh)
 * Post information view
 * Post tags view
 * Post URL detection
+* Children IDs lookup
 * MD5 hash lookup
 * SauceNAO reverse image search
 * Inline shortcuts
