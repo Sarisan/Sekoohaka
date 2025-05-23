@@ -65,8 +65,8 @@ Options:
   -l            Use local Telegram Bot API, address: 127.0.0.1:8081
   -r <num>      Inline results limit, max: 50, default: 10
   -g <num>      Shortcuts storage limit, max: 10000, default: 100
-  -m <mode>     Caching mode, default: normal
-  -t <secs>     Caching time, max: 1000, default: 300 secs
+  -m <mode>     Cache mode, default: normal
+  -t <secs>     Cache time, max: 1000, default: 300 secs
   -s <secs>     Sleeping time, max: 100, default: 10 secs
   -c            Clear cache automatically
   -j            Use threaded MD5 hash lookup
@@ -78,9 +78,9 @@ Options:
   -n <addr>     Proxy server for Telegram Bot API
   -x <addr>     Proxy server for Image Boards API
 
-Caching modes:
-  none          No caching
-  normal        Cache inline results and posts
+Cache modes:
+  none          No cache reuse
+  normal        Reuse inline results and posts cache
   advanced      Extract posts cache from inline results
 ```
 

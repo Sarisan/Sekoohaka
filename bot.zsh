@@ -109,8 +109,8 @@ then
         "\n  -l\t\tUse local Telegram Bot API, address: 127.0.0.1:8081" \
         "\n  -r <num>\tInline results limit, max: 50, default: 10" \
         "\n  -g <num>\tShortcuts storage limit, max: 10000, default: 100" \
-        "\n  -m <mode>\tCaching mode, default: normal" \
-        "\n  -t <secs>\tCaching time, max: 1000, default: 300 secs" \
+        "\n  -m <mode>\tCache mode, default: normal" \
+        "\n  -t <secs>\tCache time, max: 1000, default: 300 secs" \
         "\n  -s <secs>\tSleeping time, max: 100, default: 10 secs" \
         "\n  -c\t\tClear cache automatically" \
         "\n  -j\t\tUse threaded MD5 hash lookup" \
@@ -121,9 +121,9 @@ then
         "\n  -d <secs>\tHead request connetion timeout, max: 10, default: 2 secs" \
         "\n  -n <addr>\tProxy server for Telegram Bot API" \
         "\n  -x <addr>\tProxy server for Image Boards API" \
-        "\n\nCaching modes:" \
-        "\n  none\t\tNo caching" \
-        "\n  normal\tCache inline results and posts" \
+        "\n\nCache modes:" \
+        "\n  none\t\tNo cache reuse" \
+        "\n  normal\tReuse inline results and posts cache" \
         "\n  advanced\tExtract posts cache from inline results" \
         "\n\nSupported Image Boards:" \
         "\n  Safebooru\t\t(https://safebooru.donmai.us/)" \
