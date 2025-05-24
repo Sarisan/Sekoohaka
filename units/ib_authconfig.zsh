@@ -20,14 +20,6 @@ case "${ib_board}" in
         ib_login_word="user ID"
         ib_key_word="API key"
     ;;
-    (i)
-        ib_noauth=0
-        ib_config="idol"
-        ib_login_file="login"
-        ib_key_file="password"
-        ib_login_word="login"
-        ib_key_word="password"
-    ;;
     (s)
         ib_auth="https://sankakuapi.com/auth/token"
         ib_config="sankaku"

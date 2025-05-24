@@ -93,16 +93,6 @@ case "${ib_board}" in
             "ib_dfield5" "user_id=${ib_login}" \
             "ib_dfield6" "api_key=${ib_key}" > "${user_config}/${ib_config}/legacy"
     ;;
-    (i)
-        ib_login_lower="$(printf "%s" "${ib_login}" | tr '[:upper:]' '[:lower:]')"
-        ib_password_hash="$(printf "choujin-steiner--%s--" "${ib_key}" | enhash)"
-        ib_appkey="$(printf "sankakuapp_%s_Z5NE9YASej" "${ib_login_lower}" | enhash)"
-
-        printf '%s="%s"\n%s="%s"\n%s="%s"\n' \
-            "ib_dfield4" "login=${ib_login}" \
-            "ib_dfield5" "password_hash=${ib_password_hash}" \
-            "ib_dfield6" "appkey=${ib_appkey}" > "${user_config}/${ib_config}/legacy"
-    ;;
     (s)
         ib_login_data="$(jq --null-input --compact-output \
             --arg login "${ib_login}" \
