@@ -61,9 +61,9 @@ keyboard_url1="${ib_url}$(printf "%s" "${ib_id}" | urlencode)"
 keyboard_text2="Resume"
 keyboard_query2="${command} ${ib_board} ${inline_page}"
 
-if [[ -n "${inline_query}" ]]
+if [[ -n "${search_query}" ]]
 then
-    keyboard_query2="${keyboard_query2} ${inline_query}"
+    keyboard_query2="${keyboard_query2} ${search_query}"
 fi
 
 case "${ib_type}" in
