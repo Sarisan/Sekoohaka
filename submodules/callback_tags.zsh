@@ -10,7 +10,6 @@ then
     return 0
 fi
 
-ib_created_at="$(jq -r ".${ib_iarray}[${array_count}].${ib_icreated}" "${ib_file}")"
 ib_file_size="$(jq -r ".${ib_iarray}[0].${ib_isize}" "${ib_file}")"
 ib_file_url="$(jq -r ".${ib_iarray}[0].${ib_ifile}" "${ib_file}")"
 ib_tags=($(jq -r ".${ib_iarray}[0].${ib_itags}" "${ib_file}" | htmlescape))

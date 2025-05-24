@@ -129,7 +129,7 @@ case "${ib_board}" in
                 ib_imd5="md5"
                 ib_isource="source"
                 ib_itags="tags"
-                ib_ioffset="-1"
+                ib_ioffset=-1
                 ib_itzfield="-4,6-"
                 ib_idate="%a %b %d %X %Y"
                 ib_ifilename="cut -d '/' -f 7"
@@ -149,7 +149,7 @@ case "${ib_board}" in
                 ib_itag="name"
                 ib_icount="count"
                 ib_iwildcard="%"
-                ib_ioffset="-1"
+                ib_ioffset=-1
                 ib_irecode="HTML"
                 ib_url="${ib_url}/index.php?page=wiki&s=list&search="
             ;;

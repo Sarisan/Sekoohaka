@@ -6,7 +6,7 @@ output_text="Measuring..."
 output_file="${cache}/${update_id}_sendMessage.json"
 dump=(${dump[@]} ${output_file##*/})
 
-latency_init="$(strftime %s%N)"
+latency_init=$(strftime %s%N)
 
 if ! curl --data-urlencode "chat_id=${chat_id}" \
     --data-urlencode "message_thread_id=${message_thread_id}" \
@@ -29,7 +29,7 @@ then
     return 0
 fi
 
-latency_fin="$(strftime +%s%N)"
+latency_fin=$(strftime %s%N)
 
 if ! jq -e '.' "${output_file}" > /dev/null
 then

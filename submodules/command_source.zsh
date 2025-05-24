@@ -59,8 +59,6 @@ then
 fi
 
 thumbnail="$(jq -r ".results.[${highest_index}].header.thumbnail" "${sn_file}")"
-similarity="$(printf "%.2f" "${highest_similarity}")"
-
 link_preview_options="$(jq --null-input --compact-output \
     --arg url "${thumbnail}" \
     '{"url": $url, "prefer_small_media": true, "show_above_text": true}')"
@@ -72,8 +70,7 @@ konachan_id="$(jq -r ".results.[${highest_index}].data.konachan_id" "${sn_file}"
 sankaku_id="$(jq -r ".results.[${highest_index}].data.sankaku_id" "${sn_file}")"
 yandere_id="$(jq -r ".results.[${highest_index}].data.yandere_id" "${sn_file}")"
 
-output_text="<b>SauceNAO</b>"
-output_text="$(printf "%s\n<b>Similarity:</b> %s%%" "${output_text}" "${similarity}")"
+output_text="$(printf "<b>SauceNAO</b>\n<b>Similarity:</b> %.2f%%" "${highest_similarity}")"
 
 if [[ "${danbooru_id}" != "null" ]]
 then
