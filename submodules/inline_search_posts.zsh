@@ -2,9 +2,9 @@
 # Copyright (C) 2024-2025 Danil Lisin
 # SPDX-License-Identifier: Apache-2.0
 
-ib_created_at="$(jq -r ".${ib_iarray}[${array_count}].${ib_icreated}" "${ib_file}")"
-ib_file_size="$(jq -r ".${ib_iarray}[${array_count}].${ib_isize}" "${ib_file}")"
-ib_file_url="$(jq -r ".${ib_iarray}[${array_count}].${ib_ifile}" "${ib_file}")"
+ib_created_at="${ib_created_ats[${array_index}]}"
+ib_file_size="${ib_file_sizes[${array_index}]}"
+ib_file_url="${ib_file_urls[${array_index}]}"
 
 unset ib_date_text ib_resolution_text ib_type_text ib_size_text
 . "${units}/ib_date.zsh"
@@ -47,7 +47,7 @@ fi
 
 if [[ "${ib_name}" = "Idol Complex" ]]
 then
-    ib_md5="$(jq -r ".${ib_iarray}[${array_count}].${ib_imd5}" "${ib_file}")"
+    ib_md5="${ib_md5s[${array_index}]}"
 
     if [[ -n "${ib_md5}" && "${ib_md5}" != "null" ]]
     then

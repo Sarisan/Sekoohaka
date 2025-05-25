@@ -2,8 +2,8 @@
 # Copyright (C) 2024-2025 Danil Lisin
 # SPDX-License-Identifier: Apache-2.0
 
-ib_tag="$(jq -r ".${ib_iarray}[${array_count}].${ib_itag}" "${ib_file}")"
-ib_count="$(jq -r ".${ib_iarray}[${array_count}].${ib_icount}" "${ib_file}")"
+ib_tag="${ib_tags[${array_index}]}"
+ib_count="${ib_counts[${array_index}]}"
 
 if [[ -n "${ib_irecode}" ]] && ib_tag_recode="$(printf "%s" "${ib_tag}" | recode ${ib_irecode}..ASCII)"
 then

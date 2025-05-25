@@ -36,14 +36,38 @@ then
     return 0
 fi
 
-results="[]"
+ib_ids=("${(@f)$(jq -r ".${ib_iarray}[].${ib_iid}" "${ib_file}")}")
+
+case "${ib_mode}" in
+    (l)
+        ib_created_ats=("${(@f)$(jq -r ".${ib_iarray}[].${ib_icreated}" "${ib_file}")}")
+        ib_pools=("${(@f)$(jq -r ".${ib_iarray}[].${ib_ipool}" "${ib_file}")}")
+        ib_counts=("${(@f)$(jq -r ".${ib_iarray}[].${ib_icount}" "${ib_file}")}")
+    ;;
+    (p)
+        ib_created_ats=("${(@f)$(jq -r ".${ib_iarray}[].${ib_icreated}" "${ib_file}")}")
+        ib_file_sizes=("${(@f)$(jq -r ".${ib_iarray}[].${ib_isize}" "${ib_file}")}")
+        ib_file_urls=("${(@f)$(jq -r ".${ib_iarray}[].${ib_ifile}" "${ib_file}")}")
+
+        if [[ "${ib_name}" = "Idol Complex" ]]
+        then
+            ib_md5s=("${(@f)$(jq -r ".${ib_iarray}[].${ib_imd5}" "${ib_file}")}")
+        fi
+    ;;
+    (t)
+        ib_tags=("${(@f)$(jq -r ".${ib_iarray}[].${ib_itag}" "${ib_file}")}")
+        ib_counts=("${(@f)$(jq -r ".${ib_iarray}[].${ib_icount}" "${ib_file}")}")
+    ;;
+esac
+
 array_count=0
 
 while [[ -n "${array_count}" ]]
 do
-    ib_id="$(jq -r ".${ib_iarray}[${array_count}].${ib_iid}" "${ib_file}")"
+    array_index=$((array_count + 1))
+    ib_id="${ib_ids[${array_index}]}"
 
-    if [[ "${ib_id}" = "null" ]]
+    if [[ -z "${ib_id}" || "${ib_id}" = "null" ]]
     then
         break
     fi
@@ -60,9 +84,11 @@ do
         ;;
     esac
 
-    results="$(printf "%s" "${results}" | jq -c ".[${array_count}] += ${result}")"
+    results+=(${result})
     array_count=$((array_count + 1))
 done
+
+results="$(printf "%s\n" "${results[@]}" | jq -sc)"
 
 if [[ -n "${ib_autopaging}" ]]
 then
