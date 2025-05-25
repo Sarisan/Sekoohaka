@@ -23,7 +23,6 @@ then
     return 0
 fi
 
-results="[]"
 array_count=0
 
 for short in ${shorts[@]}
@@ -73,7 +72,7 @@ do
             '.reply_markup.inline_keyboard += [[{"text": $text1, "callback_data": $data1}]]')"
     fi
 
-    results="$(printf "%s" "${results}" | jq -c ".[${array_count}] += ${result}")"
+    results+=(${result})
     array_count=$((array_count + 1))
 
     if [[ ${array_count} -eq ${inline_limit} ]]
@@ -81,6 +80,8 @@ do
         break
     fi
 done
+
+results="$(printf "%s\n" "${results[@]}" | jq -sc)"
 
 if [[ -n "${shorts_autopaging}" ]]
 then
