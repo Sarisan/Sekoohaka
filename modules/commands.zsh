@@ -79,7 +79,7 @@ case "${command}" in
 esac
 
 output_file="${cache}/${update_id}_sendMessage.json"
-dump=(${dump[@]} ${output_file##*/})
+dump+=(${output_file##*/})
 
 if ! curl --data-urlencode "chat_id=${chat_id}" \
     --data-urlencode "message_thread_id=${message_thread_id}" \

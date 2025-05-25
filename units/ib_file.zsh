@@ -8,7 +8,7 @@ do
 done
 
 ib_file="${cache}/${ib_hash}.json"
-dump=(${dump[@]} ${ib_file##*/})
+dump+=(${ib_file##*/})
 
 if [[ -f "${ib_file}" && "${cache_mode}" != "none" ]]
 then

@@ -72,7 +72,7 @@ then
     do
         if grep ${shorts_grep} "${shorts_query}" "${short_config}/${short}"
         then
-            query_shorts=(${query_shorts[@]} ${short})
+            query_shorts+=(${short})
         fi
     done
 

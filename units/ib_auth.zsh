@@ -33,7 +33,7 @@ fi
 case "${ib_board}" in
     (d)
         ib_auth_file="${cache}/${update_id}_profile.json"
-        dump=(${dump[@]} ${ib_auth_file##*/})
+        dump+=(${ib_auth_file##*/})
 
         if ! curl --max-time ${external_timeout} \
             --output "${ib_auth_file}" \
@@ -100,7 +100,7 @@ case "${ib_board}" in
             '{"login": $login, "password": $password}')"
 
         ib_auth_file="${cache}/${update_id}_token.json"
-        dump=(${dump[@]} ${ib_auth_file##*/})
+        dump+=(${ib_auth_file##*/})
 
         if ! curl --data "${ib_login_data}" \
             --header "Content-Type: application/json" \
@@ -148,7 +148,7 @@ case "${ib_board}" in
     ;;
     (k|y)
         ib_auth_file="${cache}/${update_id}_user.json"
-        dump=(${dump[@]} ${ib_auth_file##*/})
+        dump+=(${ib_auth_file##*/})
 
         if ! curl --data-urlencode "username=${ib_login}" \
             --data-urlencode "api_key=${ib_key}" \
