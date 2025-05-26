@@ -25,9 +25,9 @@ fi
 
 array_count=0
 
-for short in ${shorts[@]}
+for ((idx = 1; idx <= ${inline_limit} && idx <= ${#shorts}; idx++))
 do
-    short_query="$(< "${short_config}/${short}")"
+    short_query="$(< "${short_config}/${shorts[idx]}")"
 
     output_title="Shortcut"
     output_text="<b>Shortcut:</b> <code>$(printf "%s" "${short_query}" | htmlescape)</code>"
@@ -37,7 +37,7 @@ do
     keyboard_query1="${short_query}"
 
     result="$(jq --null-input --compact-output \
-        --arg id "${short}" \
+        --arg id "${shorts[idx]}" \
         --arg title "${output_title}" \
         --arg text "${output_text}" \
         --arg text1 "${keyboard_text1}" \
@@ -73,12 +73,6 @@ do
     fi
 
     results+=(${result})
-    array_count=$((array_count + 1))
-
-    if [[ ${array_count} -eq ${inline_limit} ]]
-    then
-        break
-    fi
 done
 
 results="$(printf "%s\n" "${results[@]}" | jq -sc)"
