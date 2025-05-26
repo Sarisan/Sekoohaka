@@ -50,9 +50,9 @@ do
         keyboard_text1="Resume"
         keyboard_query1="${command} ${inline_page}"
 
-        if [[ -n "${inline_query}" ]]
+        if [[ -n "${search_query}" ]]
         then
-            keyboard_query1="${keyboard_query1} ${inline_query}"
+            keyboard_query1="${keyboard_query1} ${search_query}"
         fi
 
         result="$(printf "%s" "${result}" | jq --compact-output \

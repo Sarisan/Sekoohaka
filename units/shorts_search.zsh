@@ -18,7 +18,7 @@ fi
 
 if [[ -n "${1}" ]]
 then
-    inline_query="${@}"
+    search_query="${@}"
 
     if ! zparseopts -D -F -K -- \
         a=shorts_autopaging \
