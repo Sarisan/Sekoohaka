@@ -12,6 +12,10 @@ fi
 
 ib_file_size="$(jq -r ".${ib_iarray}[0].${ib_isize}" "${ib_file}")"
 ib_file_url="$(jq -r ".${ib_iarray}[0].${ib_ifile}" "${ib_file}")"
+ib_sample_url="$(jq -r ".${ib_iarray}[0].${ib_isample}" "${ib_file}")"
+ib_preview_url="$(jq -r ".${ib_iarray}[0].${ib_ipreview}" "${ib_file}")"
+ib_width="$(jq -r ".${ib_iarray}[0].${ib_iwidth}" "${ib_file}")"
+ib_height="$(jq -r ".${ib_iarray}[0].${ib_iheight}" "${ib_file}")"
 ib_tags=($(jq -r ".${ib_iarray}[0].${ib_itags}" "${ib_file}" | htmlescape))
 ib_groups_offset=${1:-0}
 ib_tags_offset=${1:-0}

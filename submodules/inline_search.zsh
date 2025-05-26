@@ -48,6 +48,10 @@ case "${ib_mode}" in
         ib_created_ats=("${(@f)$(jq -r ".${ib_iarray}[].${ib_icreated}" "${ib_file}")}")
         ib_file_sizes=("${(@f)$(jq -r ".${ib_iarray}[].${ib_isize}" "${ib_file}")}")
         ib_file_urls=("${(@f)$(jq -r ".${ib_iarray}[].${ib_ifile}" "${ib_file}")}")
+        ib_sample_urls=("${(@f)$(jq -r ".${ib_iarray}[].${ib_isample}" "${ib_file}")}")
+        ib_preview_urls=("${(@f)$(jq -r ".${ib_iarray}[].${ib_ipreview}" "${ib_file}")}")
+        ib_widths=("${(@f)$(jq -r ".${ib_iarray}[].${ib_iwidth}" "${ib_file}")}")
+        ib_heights=("${(@f)$(jq -r ".${ib_iarray}[].${ib_iheight}" "${ib_file}")}")
 
         if [[ "${ib_name}" = "Idol Complex" ]]
         then
@@ -60,12 +64,9 @@ case "${ib_mode}" in
     ;;
 esac
 
-array_count=0
-
-while [[ -n "${array_count}" ]]
+for ((idx = 1; idx > 0; idx++))
 do
-    array_index=$((array_count + 1))
-    ib_id="${ib_ids[${array_index}]}"
+    ib_id="${ib_ids[idx]}"
 
     if [[ -z "${ib_id}" || "${ib_id}" = "null" ]]
     then
@@ -85,7 +86,6 @@ do
     esac
 
     results+=(${result})
-    array_count=$((array_count + 1))
 done
 
 results="$(printf "%s\n" "${results[@]}" | jq -sc)"

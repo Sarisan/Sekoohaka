@@ -9,6 +9,11 @@ ib_file_url="$(jq -r ".${ib_iarray}[0].${ib_ifile}" "${ib_file}")"
 
 if [[ -n "${ib_file_url}" && "${ib_file_url}" != "null" ]]
 then
+    ib_sample_url="$(jq -r ".${ib_iarray}[0].${ib_isample}" "${ib_file}")"
+    ib_preview_url="$(jq -r ".${ib_iarray}[0].${ib_ipreview}" "${ib_file}")"
+    ib_width="$(jq -r ".${ib_iarray}[0].${ib_iwidth}" "${ib_file}")"
+    ib_height="$(jq -r ".${ib_iarray}[0].${ib_iheight}" "${ib_file}")"
+
     . "${units}/ib_meta.zsh"
 else
     output_text="No original file found"

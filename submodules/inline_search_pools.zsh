@@ -2,9 +2,9 @@
 # Copyright (C) 2024-2025 Danil Lisin
 # SPDX-License-Identifier: Apache-2.0
 
-ib_created_at="${ib_created_ats[${array_index}]}"
-ib_pool="${ib_pools[${array_index}]}"
-ib_count="${ib_counts[${array_index}]}"
+ib_created_at="${ib_created_ats[idx]}"
+ib_pool="${ib_pools[idx]}"
+ib_count="${ib_counts[idx]}"
 
 unset ib_date_text
 . "${units}/ib_date.zsh"

@@ -4,10 +4,6 @@
 
 if [[ -n "${ib_file_url}" && "${ib_file_url}" != "null" ]]
 then
-    ib_sample_url="$(jq -r ".${ib_iarray}[${array_count}].${ib_isample}" "${ib_file}")"
-    ib_preview_url="$(jq -r ".${ib_iarray}[${array_count}].${ib_ipreview}" "${ib_file}")"
-    ib_width="$(jq -r ".${ib_iarray}[${array_count}].${ib_iwidth}" "${ib_file}")"
-    ib_height="$(jq -r ".${ib_iarray}[${array_count}].${ib_iheight}" "${ib_file}")"
     ib_type="$(printf "%s" "${ib_file_url}" | eval ${ib_ifilename} | cut -d '.' -f 2)"
 
     if [[ "${ib_name}" = "Idol Complex" ]]
