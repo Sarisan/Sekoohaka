@@ -31,8 +31,9 @@ fi
 
 minimum_similarity="$(jq -r ".header.minimum_similarity" "${sn_file}")"
 highest_similarity=0
+highest_index=0
 
-for ((idx = 0; idx > 0; idx++))
+for ((idx = 0; idx >= 0; idx++))
 do
     similarity="$(jq -r ".results.[${idx}].header.similarity" "${sn_file}")"
 
@@ -44,6 +45,7 @@ do
     if [[ ${highest_similarity} -lt ${similarity} ]]
     then
         highest_similarity=${similarity}
+        highest_index=${idx}
     fi
 done
 
@@ -53,17 +55,17 @@ then
     return 0
 fi
 
-thumbnail="$(jq -r ".results.[${idx}].header.thumbnail" "${sn_file}")"
+thumbnail="$(jq -r ".results.[${highest_index}].header.thumbnail" "${sn_file}")"
 link_preview_options="$(jq --null-input --compact-output \
     --arg url "${thumbnail}" \
     '{"url": $url, "prefer_small_media": true, "show_above_text": true}')"
 
-danbooru_id="$(jq -r ".results.[${idx}].data.danbooru_id" "${sn_file}")"
-gelbooru_id="$(jq -r ".results.[${idx}].data.gelbooru_id" "${sn_file}")"
-idol_id="$(jq -r ".results.[${idx}].data.idol_id" "${sn_file}")"
-konachan_id="$(jq -r ".results.[${idx}].data.konachan_id" "${sn_file}")"
-sankaku_id="$(jq -r ".results.[${idx}].data.sankaku_id" "${sn_file}")"
-yandere_id="$(jq -r ".results.[${idx}].data.yandere_id" "${sn_file}")"
+danbooru_id="$(jq -r ".results.[${highest_index}].data.danbooru_id" "${sn_file}")"
+gelbooru_id="$(jq -r ".results.[${highest_index}].data.gelbooru_id" "${sn_file}")"
+idol_id="$(jq -r ".results.[${highest_index}].data.idol_id" "${sn_file}")"
+konachan_id="$(jq -r ".results.[${highest_index}].data.konachan_id" "${sn_file}")"
+sankaku_id="$(jq -r ".results.[${highest_index}].data.sankaku_id" "${sn_file}")"
+yandere_id="$(jq -r ".results.[${highest_index}].data.yandere_id" "${sn_file}")"
 
 output_text="$(printf "<b>SauceNAO</b>\n<b>Similarity:</b> %.2f%%" "${highest_similarity}")"
 
@@ -79,7 +81,7 @@ fi
 
 if [[ "${idol_id}" != "null" ]]
 then
-    idol_md5="$(jq -r ".results.[${idx}].header.index_name" "${sn_file}" | parameter 6 | cut -d '_' -f 1)"
+    idol_md5="$(jq -r ".results.[${highest_index}].header.index_name" "${sn_file}" | parameter 6 | cut -d '_' -f 1)"
 
     output_text="$(printf "%s\n<b>Idol Complex ID:</b> <code>%s</code>" "${output_text}" "${idol_id}")"
     output_text="$(printf "%s\n<b>Idol Complex MD5:</b> <code>%s</code>" "${output_text}" "${idol_md5}")"
