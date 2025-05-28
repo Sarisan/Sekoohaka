@@ -72,7 +72,7 @@ file_path="$(jq -r '.result.file_path' "${output_file}")"
 if [[ "${api_address}" = "${local_address}" ]] && ! ls "${file_path}" > /dev/null
 then
     output_text="There is an error on the bot side, please contact bot deployer"
-    log_text="Error: sn_get: Cannot access Telegram Bot API working directory"
+    log_text="Error: sn_get (${update_id}): Cannot access Telegram Bot API working directory"
 
     . "${units}/log.zsh"
     return 0
