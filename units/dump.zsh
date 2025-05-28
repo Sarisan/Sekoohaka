@@ -14,8 +14,15 @@ fi
 
 for cache_dump in ${dump[@]}
 do
+    until mkdir "${cache}/${cache_dump%.*}.lock"
+    do
+        sleep 1
+    done
+
     if [[ -f "${cache}/${cache_dump}" ]]
     then
         cp "${cache}/${cache_dump}" "${dumps}/${update_id}"
     fi
+
+    rmdir "${cache}/${cache_dump%.*}.lock"
 done
