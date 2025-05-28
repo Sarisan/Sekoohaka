@@ -12,17 +12,17 @@ then
     mkdir -p "${dumps}/${update_id}"
 fi
 
-for cache_dump in ${dump[@]}
+for dump_file in ${dump[@]}
 do
-    until mkdir "${cache}/${cache_dump%.*}.lock"
+    until mkdir "${cache}/${dump_file%.*}.lock"
     do
         sleep 1
     done
 
-    if [[ -f "${cache}/${cache_dump}" ]]
+    if [[ -f "${cache}/${dump_file}" ]]
     then
-        cp "${cache}/${cache_dump}" "${dumps}/${update_id}"
+        cp "${cache}/${dump_file}" "${dumps}/${update_id}"
     fi
 
-    rmdir "${cache}/${cache_dump%.*}.lock"
+    rmdir "${cache}/${dump_file%.*}.lock"
 done
