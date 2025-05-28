@@ -166,7 +166,7 @@ then
     exit 1
 fi
 
-for function in base64 cp cut find grep ls sed sort sha1sum sleep tr
+for function in base64 cut find grep ls sed sort sha1sum sleep tr
 do
     if busybox ${function} --help > /dev/null
     then

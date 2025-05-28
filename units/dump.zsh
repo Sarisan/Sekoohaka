@@ -21,7 +21,7 @@ do
 
     if [[ -f "${cache}/${dump_file}" ]]
     then
-        cp "${cache}/${dump_file}" "${dumps}/${update_id}"
+        mv "${cache}/${dump_file}" "${dumps}/${update_id}"
     fi
 
     rmdir "${cache}/${dump_file%.*}.lock"
