@@ -24,15 +24,13 @@ then
     do
         . "${units}/ib_config.zsh"
 
-        if [[ "${ib_board}" = "${board_table[-1]}" && "${ib_reply_name}" != "${ib_name}" ]]
-        then
-            output_text="Could not find Image Board in replied message"
-            return 0
-        fi
-
         if [[ "${ib_reply_name}" = "${ib_name}" ]]
         then
             break
+        elif [[ "${ib_board}" = "${board_table[-1]}" ]]
+        then
+            output_text="Could not find Image Board in replied message"
+            return 0
         fi
     done
 
