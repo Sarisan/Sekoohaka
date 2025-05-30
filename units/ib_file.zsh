@@ -74,7 +74,7 @@ then
     notification_text="${output_text}"
     log_text="ib_file (${update_id}): ${output_text}"
 
-    next_offset=${inline_page:-0}
+    next_offset=${inline_page}
 
     . "${units}/log.zsh"
     . "${units}/dump.zsh"
