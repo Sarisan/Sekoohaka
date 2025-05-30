@@ -14,15 +14,8 @@ fi
 
 for dump_file in ${dump[@]}
 do
-    until mkdir "${cache}/${dump_file%.*}.lock"
-    do
-        sleep 1
-    done
-
-    if [[ -f "${cache}/${dump_file}" ]]
+    if [[ -f "${cache}/${cache_dump}" ]]
     then
         mv "${cache}/${dump_file}" "${dumps}/${update_id}"
     fi
-
-    rmdir "${cache}/${dump_file%.*}.lock"
 done
