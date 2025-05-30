@@ -67,7 +67,7 @@ case "${ib_board}" in
         if [[ "$(jq -r '.success' "${ib_auth_file}")" = "false" ]]
         then
             output_text="Error: <code>$(jq -r '.message' "${ib_auth_file}" | htmlescape)</code>"
-            log_text="ib_auth (${update_id}): $(jq -r '.message' "${ib_auth_file}")"
+            log_text="ib_auth (${update_id}): Error: $(jq -r '.message' "${ib_auth_file}")"
 
             . "${units}/log.zsh"
             . "${units}/dump.zsh"
@@ -257,7 +257,7 @@ case "${ib_board}" in
         if [[ "$(jq -r '.success' "${ib_auth_file}")" != "true" ]]
         then
             output_text="Error: <code>$(jq -r '.error' "${ib_auth_file}" | htmlescape)</code>"
-            log_text="ib_auth (${update_id}): $(jq -r '.error' "${ib_auth_file}")"
+            log_text="ib_auth (${update_id}): Error: $(jq -r '.error' "${ib_auth_file}")"
 
             . "${units}/log.zsh"
             . "${units}/dump.zsh"
