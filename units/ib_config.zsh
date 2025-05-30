@@ -157,7 +157,7 @@ case "${ib_board}" in
     ;;
     (i)
         ib_name="Idol Complex"
-        ib_api="https://iapi.sankakucomplex.com"
+        ib_api="https://idol.sankakucomplex.com"
         ib_url="https://idol.sankakucomplex.com"
 
         ib_ratings=(

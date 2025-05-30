@@ -32,6 +32,11 @@ then
     fi
 fi
 
+if [[ -f "${user_config}/${ib_config}/cookies.txt" ]]
+then
+    ib_cookies="${user_config}/${ib_config}/cookies.txt"
+fi
+
 if [[ -f "${user_config}/${ib_config}/token" ]]
 then
     ib_header="${ib_authorization} $(< "${user_config}/${ib_config}/token")"

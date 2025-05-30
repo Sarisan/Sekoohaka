@@ -50,7 +50,8 @@ fi
 
 rm -f "${ib_file}"
 
-if ! curl --data-urlencode "${ib_dfield1}" \
+if ! curl --cookie "${ib_cookies}" \
+    --data-urlencode "${ib_dfield1}" \
     --data-urlencode "${ib_dfield2}" \
     --data-urlencode "${ib_dfield3}" \
     --data-urlencode "${ib_dfield4}" \

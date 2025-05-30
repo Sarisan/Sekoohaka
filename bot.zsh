@@ -151,7 +151,7 @@ then
     exit 1
 fi
 
-for required in busybox curl jq recode
+for required in busybox curl jq recode xq
 do
     if ! command -v ${required} > /dev/null
     then

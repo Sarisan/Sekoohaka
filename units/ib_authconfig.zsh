@@ -20,6 +20,15 @@ case "${ib_board}" in
         ib_login_word="user ID"
         ib_key_word="API key"
     ;;
+    (i)
+        ib_auth="https://idol.sankakucomplex.com"
+        ib_config="idol"
+        ib_expire=86400
+        ib_login_file="username"
+        ib_key_file="password"
+        ib_login_word="email or username"
+        ib_key_word="password"
+    ;;
     (s)
         ib_auth="https://sankakuapi.com/auth/token"
         ib_config="sankaku"

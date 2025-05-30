@@ -34,6 +34,7 @@ BusyBox is a hard-coded dependency and cannot be replaced with alternatives!
 * curl
 * jq
 * recode
+* xq
 
 For distribution specific installation commands follow [command-not-found](https://command-not-found.com/).
 

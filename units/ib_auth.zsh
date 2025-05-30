@@ -93,6 +93,120 @@ case "${ib_board}" in
             "ib_dfield5" "user_id=${ib_login}" \
             "ib_dfield6" "api_key=${ib_key}" > "${user_config}/${ib_config}/legacy"
     ;;
+    (i)
+        ib_cookies="${user_config}/${ib_config}/cookies.txt"
+        ib_auth_file="${cache}/${update_id}_login.html"
+        dump+=(${ib_auth_file##*/})
+
+        if ! curl --cookie-jar "${ib_cookies}" \
+            --max-time ${external_timeout} \
+            --output "${ib_auth_file}" \
+            --proxy "${external_proxy}" \
+            --request GET \
+            --silent \
+            --user-agent "${useragent}" \
+            "${ib_auth}/users/login"
+        then
+            output_text="Failed to process request"
+            log_text="ib_auth (${update_id}): ${output_text}"
+
+            . "${units}/log.zsh"
+            . "${units}/dump.zsh"
+
+            return 0
+        fi
+
+        ib_action="$(xq -a "action" -q "form" "${ib_auth_file}")"
+        ib_token="$(xq -a "value" -q "form>input[name=authenticity_token]" "${ib_auth_file}")"
+
+        if [[ -z "${ib_action}" || -z "${ib_token}" ]]
+        then
+            output_text="Failed to process request"
+            log_text="ib_auth (${update_id}): ${output_text}"
+
+            . "${units}/log.zsh"
+            . "${units}/dump.zsh"
+
+            return 0
+        fi
+
+        ib_auth_file="${cache}/${update_id}_authenticate.html"
+        dump+=(${ib_auth_file##*/})
+
+        if ! curl --cookie "${ib_cookies}" \
+            --cookie-jar "${ib_cookies}" \
+            --data-urlencode "authenticity_token=${ib_token}" \
+            --data-urlencode "user[name]=${ib_login}" \
+            --data-urlencode "user[password]=${ib_key}" \
+            --data-urlencode "commit=Login" \
+            --header "Referer: ${ib_auth}/users/login" \
+            --max-time ${external_timeout} \
+            --output "${ib_auth_file}" \
+            --proxy "${external_proxy}" \
+            --request POST \
+            --silent \
+            --user-agent "${useragent}" \
+            "${ib_auth}${ib_action}"
+        then
+            output_text="Failed to process request"
+            log_text="ib_auth (${update_id}): ${output_text}"
+
+            . "${units}/log.zsh"
+            . "${units}/dump.zsh"
+
+            return 0
+        fi
+
+        if [[ -s "${ib_auth_file}" ]]
+        then
+            output_text="Failed to process request"
+            log_text="ib_auth (${update_id}): ${output_text}"
+
+            . "${units}/log.zsh"
+            . "${units}/dump.zsh"
+
+            return 0
+        fi
+
+        ib_auth_file="${cache}/${update_id}_home.html"
+        dump+=(${ib_auth_file##*/})
+
+        if ! curl --cookie "${ib_cookies}" \
+            --max-time ${external_timeout} \
+            --output "${ib_auth_file}" \
+            --proxy "${external_proxy}" \
+            --request GET \
+            --silent \
+            --user-agent "${useragent}" \
+            "${ib_auth}/users/home"
+        then
+            output_text="Failed to process request"
+            log_text="ib_auth (${update_id}): ${output_text}"
+
+            . "${units}/log.zsh"
+            . "${units}/dump.zsh"
+
+            return 0
+        fi
+
+        ib_notice="$(xq -q "div[id=notice]" "${ib_auth_file}" | htmlescape)"
+
+        if [[ -n "${ib_notice}" && "${ib_notice}" != "You are now logged in" ]]
+        then
+            output_text="${ib_notice}"
+        elif [[ -z "${ib_notice}" ]]
+        then
+            output_text="Failed to process request"
+            log_text="ib_auth (${update_id}): ${output_text}"
+
+            . "${units}/log.zsh"
+            . "${units}/dump.zsh"
+
+            return 0
+        fi
+
+        strftime %s > "${user_config}/${ib_config}/timestamp"
+    ;;
     (s)
         ib_login_data="$(jq --null-input --compact-output \
             --arg login "${ib_login}" \
