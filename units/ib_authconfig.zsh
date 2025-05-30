@@ -6,7 +6,7 @@ case "${ib_board}" in
     (a|d)
         ib_auth="https://danbooru.donmai.us"
         ib_config="danbooru"
-        ib_authorization="Authorization: Baisc"
+        ib_header="Authorization: Baisc"
         ib_login_file="login"
         ib_key_file="api_key"
         ib_login_word="login"
@@ -32,7 +32,7 @@ case "${ib_board}" in
     (s)
         ib_auth="https://sankakuapi.com"
         ib_config="sankaku"
-        ib_authorization="Authorization: Bearer"
+        ib_header="Authorization: Bearer"
         ib_expire=86400
         ib_login_file="login"
         ib_key_file="password"

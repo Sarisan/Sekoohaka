@@ -39,7 +39,7 @@ fi
 
 if [[ -f "${user_config}/${ib_config}/token" ]]
 then
-    ib_header="${ib_authorization} $(< "${user_config}/${ib_config}/token")"
+    ib_header="${ib_header} $(< "${user_config}/${ib_config}/token")"
 fi
 
 rmdir "${user_config}_auth.lock"
