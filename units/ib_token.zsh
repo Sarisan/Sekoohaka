@@ -23,7 +23,7 @@ then
         then
             . "${units}/ib_lock.zsh" &
 
-            output_title="Refreshing access token..."
+            output_title="Refreshing ${ib_name} session..."
             output_text="Try again in a few seconds"
             notification_text="${output_title} ${output_text}"
         else
