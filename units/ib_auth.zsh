@@ -42,7 +42,7 @@ case "${ib_board}" in
             --silent \
             --user "${ib_login}:${ib_key}" \
             --user-agent "${useragent}" \
-            "${ib_auth}"
+            "${ib_auth}/profile.json"
         then
             output_text="Failed to process request"
             log_text="ib_auth (${update_id}): ${output_text}"
@@ -232,7 +232,7 @@ case "${ib_board}" in
             --request POST \
             --silent \
             --user-agent "${useragent}" \
-            "${ib_auth}"
+            "${ib_auth}/auth/token"
         then
             output_text="Failed to process request"
             log_text="ib_auth (${update_id}): ${output_text}"
@@ -280,7 +280,7 @@ case "${ib_board}" in
             --proxy "${external_proxy}" \
             --silent \
             --user-agent "${useragent}" \
-            "${ib_auth}"
+            "${ib_auth}/user.json"
         then
             output_text="Failed to process request"
             log_text="ib_auth (${update_id}): ${output_text}"
