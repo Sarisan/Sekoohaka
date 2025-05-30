@@ -26,7 +26,7 @@ then
 
         if [[ "${ib_board}" = "${board_table[-1]}" && "${ib_reply_name}" != "${ib_name}" ]]
         then
-            output_text="Could not find image board in replied message"
+            output_text="Could not find Image Board in replied message"
             return 0
         fi
 

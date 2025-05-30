@@ -13,7 +13,7 @@ fi
 
 if [[ "${file_id}" = "null" ]]
 then
-    output_text="Could not find an image in replied message"
+    output_text="Could not find image in replied message"
     return 0
 fi
 

@@ -13,16 +13,20 @@ then
     if [[ -z "${ib_data_url}" ]]
     then
         output_title="Invalid arguments"
-        output_text="Unsupported image board"
+        output_text="Unsupported Image Board"
         notification_text="${output_text}"
 
         return 0
     fi
 
     shift
+elif [[ -n "${ib_parent}" ]]
+then
+    output_text="You must specify the Image Board and the parent post ID"
+    return 0
 else
     output_title="Invalid arguments"
-    output_text="You must specify the image board"
+    output_text="You must specify the Image Board and the post ID or the MD5 hash"
     notification_text="${output_text}"
 
     return 0

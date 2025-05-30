@@ -12,7 +12,7 @@ then
     if [[ -z "${ib_data_url}" ]]
     then
         output_title="Invalid arguments"
-        output_text="Unsupported image board"
+        output_text="Unsupported Image Board"
 
         return 0
     fi
@@ -20,7 +20,7 @@ then
     shift
 else
     output_title="Invalid arguments"
-    output_text="You must specify the image board"
+    output_text="You must specify the Image Board"
 
     return 0
 fi

@@ -9,13 +9,13 @@ then
 
     if [[ -z "${ib_config}" ]]
     then
-        output_text="Unsupported image board"
+        output_text="Unsupported Image Board"
         return 0
     fi
 
     shift
 else
-    output_text="You must specify the image board"
+    output_text="You must specify the Image Board"
     return 0
 fi
 

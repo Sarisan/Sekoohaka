@@ -8,7 +8,7 @@ then
     then
         ib_login="$(< "${user_config}/${ib_config}/${ib_login_file}")"
     else
-        output_text="You must specify the ${ib_login_word}"
+        output_text="You must specify the ${ib_login_word} and the ${ib_key_word}"
         return 0
     fi
 fi
