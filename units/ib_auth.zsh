@@ -189,12 +189,20 @@ case "${ib_board}" in
             return 0
         fi
 
-        ib_notice="$(xq -q "div[id=notice]" "${ib_auth_file}" | htmlescape)"
+        ib_notice="$(xq -q "div[id=notice]" "${ib_auth_file}")"
 
         if [[ -n "${ib_notice}" && "${ib_notice}" != "You are now logged in" ]]
         then
-            output_text="${ib_notice}"
-        elif [[ -z "${ib_notice}" ]]
+            output_text="$(printf "%s" "${ib_notice}" | htmlescape)"
+            log_text="ib_auth (${update_id}): ${ib_notice}"
+
+            . "${units}/log.zsh"
+            . "${units}/dump.zsh"
+
+            return 0
+        fi
+
+        if [[ -z "${ib_notice}" ]]
         then
             output_text="Failed to process request"
             log_text="ib_auth (${update_id}): ${output_text}"
