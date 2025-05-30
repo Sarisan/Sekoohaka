@@ -4,8 +4,17 @@
 
 case "${ib_board}" in
     (a|d)
-        ib_auth="https://danbooru.donmai.us"
-        ib_config="danbooru"
+        case "${ib_board}" in
+            (a)
+                ib_auth="https://safebooru.donmai.us"
+                ib_config="safebooru"
+            ;;
+            (d)
+                ib_auth="https://danbooru.donmai.us"
+                ib_config="danbooru"
+            ;;
+        esac
+
         ib_header="Authorization: Baisc"
         ib_login_file="login"
         ib_key_file="api_key"
