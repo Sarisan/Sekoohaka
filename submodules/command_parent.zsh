@@ -4,6 +4,12 @@
 
 ib_parent=0
 . "${units}/ib_name.zsh"
+
+if [[ -n "${output_text}" ]]
+then
+    return 0
+fi
+
 . "${units}/ib_common.zsh"
 
 if [[ -n "${output_text}" ]]
