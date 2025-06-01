@@ -19,7 +19,7 @@ then
     output_text="<b>Saved shortcuts:</b> ${#shorts} / ${shorts_limit}"
 
     keyboard_text1="Open inline"
-    keyboard_query1="shorts"
+    keyboard_query1="shorts "
     keyboard_text2="Remove all"
     keyboard_data2="reset"
 
