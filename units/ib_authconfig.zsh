@@ -32,6 +32,7 @@ case "${ib_board}" in
     (i)
         ib_auth="https://idol.sankakucomplex.com"
         ib_config="idol"
+        ib_cookie="_idolcomplex_session"
         ib_expire=86400
         ib_login_file="username"
         ib_key_file="password"

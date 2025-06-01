@@ -34,7 +34,7 @@ fi
 
 if [[ -f "${user_config}/${ib_config}/cookies" ]]
 then
-    ib_cookies="${user_config}/${ib_config}/cookies"
+    ib_cookies="${ib_cookie}=$(< ${user_config}/${ib_config}/cookies | grep "${ib_cookie}" | sed -e "s/.*${ib_cookie}\t//")"
 fi
 
 if [[ -f "${user_config}/${ib_config}/token" ]]
