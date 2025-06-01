@@ -94,7 +94,7 @@ case "${ib_board}" in
             "ib_dfield6" "api_key=${ib_key}" > "${user_config}/${ib_config}/legacy"
     ;;
     (i)
-        ib_cookies="${user_config}/${ib_config}/cookies.txt"
+        ib_cookies="${user_config}/${ib_config}/cookies"
         ib_auth_file="${cache}/${update_id}_login.html"
         dump+=(${ib_auth_file##*/})
 

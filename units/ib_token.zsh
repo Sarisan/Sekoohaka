@@ -32,9 +32,9 @@ then
     fi
 fi
 
-if [[ -f "${user_config}/${ib_config}/cookies.txt" ]]
+if [[ -f "${user_config}/${ib_config}/cookies" ]]
 then
-    ib_cookies="${user_config}/${ib_config}/cookies.txt"
+    ib_cookies="${user_config}/${ib_config}/cookies"
 fi
 
 if [[ -f "${user_config}/${ib_config}/token" ]]
