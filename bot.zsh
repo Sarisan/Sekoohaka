@@ -10,7 +10,7 @@ set -e
 umask 77
 exec 2> /dev/null
 
-if command -v git > /dev/nullAdd commentMore actions
+if command -v git > /dev/null
 then
     gitrev="$(git rev-parse --short HEAD)"
 fi
