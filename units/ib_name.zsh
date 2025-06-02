@@ -34,7 +34,7 @@ then
         fi
     done
 
-    if [[ -z "${ib_parent}" && "${ib_name}" = "Idol Complex" ]] && echo "${reply_text}" | grep -q 'MD5'
+    if [[ -z "${ib_parent}" && "${ib_config}" = "idolcomplex" ]] && echo "${reply_text}" | grep -q 'MD5'
     then
         ib_post_id="$(printf "%s" "${reply_text}" | grep 'MD5' | parameter 2)"
     else

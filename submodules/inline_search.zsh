@@ -53,7 +53,7 @@ case "${ib_mode}" in
         ib_widths=("${(@f)$(jq -r ".${ib_iarray}[].${ib_iwidth}" "${ib_file}")}")
         ib_heights=("${(@f)$(jq -r ".${ib_iarray}[].${ib_iheight}" "${ib_file}")}")
 
-        if [[ "${ib_name}" = "Idol Complex" ]]
+        if [[ "${ib_config}" = "idolcomplex" ]]
         then
             ib_md5s=("${(@f)$(jq -r ".${ib_iarray}[].${ib_imd5}" "${ib_file}")}")
         fi

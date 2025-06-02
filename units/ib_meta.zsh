@@ -6,7 +6,7 @@ if [[ -n "${ib_file_url}" && "${ib_file_url}" != "null" ]]
 then
     ib_type="$(printf "%s" "${ib_file_url}" | eval ${ib_ifilename} | cut -d '.' -f 2)"
 
-    if [[ "${ib_name}" = "Idol Complex" ]]
+    if [[ "${ib_config}" = "idolcomplex" ]]
     then
         ib_file_url="https:${ib_file_url}"
     fi
@@ -14,7 +14,7 @@ then
     if [[ -z "${ib_sample_url}" || "${ib_sample_url}" = "null" ]]
     then
         ib_sample_url=${ib_file_url}
-    elif [[ "${ib_name}" = "Idol Complex" ]]
+    elif [[ "${ib_config}" = "idolcomplex" ]]
     then
         ib_sample_url="https:${ib_sample_url}"
     fi
@@ -22,7 +22,7 @@ then
     if [[ -z "${ib_preview_url}" || "${ib_preview_url}" = "null" ]]
     then
         ib_preview_url=${ib_error_url}
-    elif [[ "${ib_name}" = "Idol Complex" || "${ib_name}" = "Sankaku Channel" ]]
+    elif [[ "${ib_config}" = "idolcomplex" || "${ib_config}" = "sankakuchannel" ]]
     then
         ib_preview_url="${ib_sample_url}"
     fi

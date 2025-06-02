@@ -49,7 +49,7 @@ then
     fi
 fi
 
-if [[ "${ib_name}" = "Idol Complex" ]]
+if [[ "${ib_config}" = "idolcomplex" ]]
 then
     ib_md5="${ib_md5s[idx]}"
 
@@ -132,7 +132,7 @@ fi
 
 if [[ "${cache_mode}" = "advanced" ]]
 then
-    if [[ "${ib_name}" = "Idol Complex" ]]
+    if [[ "${ib_config}" = "idolcomplex" ]]
     then
         ib_query="md5:${ib_md5}"
     else
