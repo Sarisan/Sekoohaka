@@ -47,7 +47,7 @@ case "${ib_board}" in
             --user-agent "${useragent}" \
             "${ib_auth}/profile.json"
         then
-            output_text="Failed to process request"
+            output_text="Failed to access ${ib_name} API"
             log_text="ib_auth (${update_id}): ${output_text}"
 
             . "${units}/log.zsh"
@@ -80,7 +80,7 @@ case "${ib_board}" in
 
         if [[ "$(jq -r '.name' "${ib_auth_file}")" != "${ib_login}" ]]
         then
-            output_text="An unexpected error occurred"
+            output_text="Failed to verify user authorization"
             log_text="ib_auth (${update_id}): ${output_text}"
 
             . "${units}/log.zsh"
@@ -110,7 +110,7 @@ case "${ib_board}" in
             --user-agent "${useragent}" \
             "${ib_auth}/users/login"
         then
-            output_text="Failed to process request"
+            output_text="Failed to access ${ib_name} API"
             log_text="ib_auth (${update_id}): ${output_text}"
 
             . "${units}/log.zsh"
@@ -124,7 +124,7 @@ case "${ib_board}" in
 
         if [[ -z "${ib_action}" || -z "${ib_token}" ]]
         then
-            output_text="Failed to process request"
+            output_text="Failed to get authorization data"
             log_text="ib_auth (${update_id}): ${output_text}"
 
             . "${units}/log.zsh"
@@ -151,7 +151,7 @@ case "${ib_board}" in
             --user-agent "${useragent}" \
             "${ib_auth}${ib_action}"
         then
-            output_text="Failed to process request"
+            output_text="Failed to access ${ib_name} API"
             log_text="ib_auth (${update_id}): ${output_text}"
 
             . "${units}/log.zsh"
@@ -162,7 +162,7 @@ case "${ib_board}" in
 
         if [[ -s "${ib_auth_file}" ]]
         then
-            output_text="Failed to process request"
+            output_text="An unknown error occurred"
             log_text="ib_auth (${update_id}): ${output_text}"
 
             . "${units}/log.zsh"
@@ -183,7 +183,7 @@ case "${ib_board}" in
             --user-agent "${useragent}" \
             "${ib_auth}/users/home"
         then
-            output_text="Failed to process request"
+            output_text="Failed to access ${ib_name} API"
             log_text="ib_auth (${update_id}): ${output_text}"
 
             . "${units}/log.zsh"
@@ -207,7 +207,7 @@ case "${ib_board}" in
 
         if [[ -z "${ib_notice}" ]]
         then
-            output_text="Failed to process request"
+            output_text="Failed to verify user authorization"
             log_text="ib_auth (${update_id}): ${output_text}"
 
             . "${units}/log.zsh"
@@ -237,7 +237,7 @@ case "${ib_board}" in
             --user-agent "${useragent}" \
             "${ib_auth}/auth/token"
         then
-            output_text="Failed to process request"
+            output_text="Failed to access ${ib_name} API"
             log_text="ib_auth (${update_id}): ${output_text}"
 
             . "${units}/log.zsh"
@@ -285,7 +285,7 @@ case "${ib_board}" in
             --user-agent "${useragent}" \
             "${ib_auth}/user.json"
         then
-            output_text="Failed to process request"
+            output_text="Failed to access ${ib_name} API"
             log_text="ib_auth (${update_id}): ${output_text}"
 
             . "${units}/log.zsh"
