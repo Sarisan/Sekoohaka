@@ -7,15 +7,15 @@ do
     sleep 1
 done
 
-if [[ -f "${user_config}/${ib_config}/legacy" ]]
+if [[ -f "${legacy_file}" ]]
 then
-    . "${user_config}/${ib_config}/legacy"
+    . "${legacy_file}"
 fi
 
-if [[ -f "${user_config}/${ib_config}/timestamp" ]]
+if [[ -f "${timestamp_file}" ]]
 then
     ib_ctime=$(strftime %s)
-    ib_mtime=$(< "${user_config}/${ib_config}/timestamp")
+    ib_mtime=$(< "${timestamp_file}")
 
     if [[ $((ib_ctime - ib_mtime)) -gt ${ib_expire} ]]
     then
@@ -32,14 +32,14 @@ then
     fi
 fi
 
-if [[ -f "${user_config}/${ib_config}/cookies" ]]
+if [[ -f "${cookies_file}" ]]
 then
-    ib_cookies="${ib_cookie}=$(< ${user_config}/${ib_config}/cookies | grep "${ib_cookie}" | sed -e "s/.*${ib_cookie}\t//")"
+    ib_cookies="${ib_cookie}=$(< "${cookies_file}" | grep "${ib_cookie}" | sed -e "s/.*${ib_cookie}\t//")"
 fi
 
-if [[ -f "${user_config}/${ib_config}/token" ]]
+if [[ -f "${token_file}" ]]
 then
-    ib_header="${ib_header} $(< "${user_config}/${ib_config}/token")"
+    ib_header="${ib_header} $(< "${token_file}")"
 fi
 
 rmdir "${user_config}_auth.lock"

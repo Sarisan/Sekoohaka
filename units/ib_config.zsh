@@ -11,11 +11,13 @@ case "${ib_board}" in
         case "${ib_board}" in
             (a)
                 ib_name="Safebooru"
+                ib_config="safebooru"
                 ib_api="https://safebooru.donmai.us"
                 ib_url="https://safebooru.donmai.us"
             ;;
             (d)
                 ib_name="Danbooru"
+                ib_config="danbooru"
                 ib_api="https://danbooru.donmai.us"
                 ib_url="https://danbooru.donmai.us"
             ;;
@@ -89,6 +91,7 @@ case "${ib_board}" in
     ;;
     (g)
         ib_name="Gelbooru"
+        ib_config="gelbooru"
         ib_api="https://gelbooru.com"
         ib_url="https://gelbooru.com"
 
@@ -157,6 +160,7 @@ case "${ib_board}" in
     ;;
     (i)
         ib_name="Idol Complex"
+        ib_config="idol"
         ib_api="https://idol.sankakucomplex.com"
         ib_url="https://idol.sankakucomplex.com"
 
@@ -230,6 +234,7 @@ case "${ib_board}" in
     ;;
     (s)
         ib_name="Sankaku Channel"
+        ib_config="sankaku"
         ib_api="https://sankakuapi.com"
         ib_url="https://chan.sankakucomplex.com"
 
@@ -301,11 +306,13 @@ case "${ib_board}" in
         case "${ib_board}" in
             (k)
                 ib_name="Konachan.com"
+                ib_config="konachan"
                 ib_api="https://konachan.com"
                 ib_url="https://konachan.com"
             ;;
             (y)
                 ib_name="yande.re"
+                ib_config="yandere"
                 ib_api="https://yande.re"
                 ib_url="https://yande.re"
             ;;

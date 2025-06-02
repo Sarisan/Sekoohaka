@@ -5,9 +5,10 @@
 if [[ -n "${1}" ]]
 then
     ib_board="${1}"
+    . "${units}/ib_config.zsh"
     . "${units}/ib_authconfig.zsh"
 
-    if [[ -z "${ib_config}" ]]
+    if [[ -z "${ib_auth}" ]]
     then
         output_text="Unsupported Image Board"
         return 0
@@ -35,7 +36,7 @@ fi
 
 if [[ -z "${output_text}" ]]
 then
-    if [[ -n "${ib_noauth}" ]]
+    if [[ "${ib_auth}" = "0" ]]
     then
         output_text="Authorization cannot be verified, make sure you provided the correct credentials"
     else
