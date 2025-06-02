@@ -7,6 +7,6 @@ then
     exit 0
 fi
 
-find "${cache}" "${config}" -follow -name "*.lock" -type d -mmin +1 -exec rm -fr {} +
+find "${cache}" "${users}" -follow -name "*.lock" -type d -mmin +1 -exec rm -fr {} +
 
 rmdir "${cache}.unlock"

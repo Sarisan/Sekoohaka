@@ -21,4 +21,4 @@ then
     exit 0
 fi
 
-user_config="${config}/${user_id}"
+user_config="${users}/${user_id}"

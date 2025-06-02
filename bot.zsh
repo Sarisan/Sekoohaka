@@ -24,6 +24,7 @@ files="${dir}/files"
 mods="${dir}/modules"
 submods="${dir}/submodules"
 units="${dir}/units"
+users="${dir}/users"
 offset=-1
 
 if [[ -n "${1}" ]]
@@ -342,7 +343,7 @@ alias urlencode="jq -Rr @uri"
 
 rm -fr "${cache}"
 mkdir -p "${cache}"
-mkdir -p "${config}"
+mkdir -p "${users}"
 
 for file in aliases blacklist donate help whitelist
 do
