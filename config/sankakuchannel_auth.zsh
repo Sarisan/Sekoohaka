@@ -3,7 +3,7 @@
 # SPDX-License-Identifier: Apache-2.0
 
 ib_auth="https://sankakuapi.com"
-ib_header="Authorization: Bearer"
+ib_head="Authorization: Bearer"
 ib_expire=86400
 ib_login_file="login"
 ib_key_file="password"
