@@ -11,7 +11,7 @@ case "${ib_board}" in
     ;;
 esac
 
-ib_head="Authorization: Baisc"
+ib_header="Authorization: Baisc"
 ib_login_file="login"
 ib_key_file="api_key"
 ib_login_word="login"

@@ -61,7 +61,7 @@ if ! curl --cookie "${ib_cookies}" \
     --data-urlencode "${ib_page}" \
     --data-urlencode "${ib_query}" \
     --get \
-    --header "${ib_header}" \
+    --header "${ib_headers}" \
     --max-time ${external_timeout} \
     --output "${ib_file}" \
     --proxy "${external_proxy}" \
