@@ -7,11 +7,11 @@ do
     sleep 1
 done
 
-short_config="${user_config}/short"
+shorts_config="${user_config}/shorts"
 
-if [[ -d "${short_config}" ]]
+if [[ -d "${shorts_config}" ]]
 then
-    shorts=($(ls -x "${short_config}"))
+    shorts=($(ls -x "${shorts_config}"))
 fi
 
 if [[ ${#shorts} -gt 0 ]]

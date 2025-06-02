@@ -7,7 +7,7 @@ do
     sleep 1
 done
 
-short_config="${user_config}/short"
+shorts_config="${user_config}/shorts"
 . "${units}/shorts_search.zsh"
 
 if [[ -n "${output_text}" ]]
@@ -27,7 +27,7 @@ array_count=0
 
 for ((idx = 1; idx <= ${inline_limit} && idx <= ${#shorts}; idx++))
 do
-    short_query="$(< "${short_config}/${shorts[idx]}")"
+    short_query="$(< "${shorts_config}/${shorts[idx]}")"
 
     output_title="Shortcut"
     output_text="<b>Shortcut:</b> <code>$(printf "%s" "${short_query}" | htmlescape)</code>"

@@ -18,9 +18,9 @@ else
     return 0
 fi
 
-short_config="${user_config}/short"
+shorts_config="${user_config}/shorts"
 
-if ! mkdir -p "${short_config}"
+if ! mkdir -p "${shorts_config}"
 then
     notification_text="Failed to create user config"
 
@@ -29,8 +29,8 @@ then
 fi
 
 short_hash="$(printf "%s" "${short_query}" | enhash)"
-short="${short_config}/${short_hash}"
-shorts=($(ls -x "${short_config}"))
+short="${shorts_config}/${short_hash}"
+shorts=($(ls -x "${shorts_config}"))
 
 if [[ -f "${short}" ]]
 then

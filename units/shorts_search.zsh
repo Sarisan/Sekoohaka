@@ -39,7 +39,7 @@ then
     shift ${#}
 fi
 
-if [[ -d "${short_config}" ]]
+if [[ -d "${shorts_config}" ]]
 then
     if [[ -n "${shorts_reverse}" ]]
     then
@@ -48,7 +48,7 @@ then
         shorts_ls="-xt"
     fi
 
-    shorts=($(ls ${shorts_ls} "${short_config}"))
+    shorts=($(ls ${shorts_ls} "${shorts_config}"))
 fi
 
 if [[ ${#shorts} -eq 0 ]]
@@ -70,7 +70,7 @@ then
 
     for short in ${shorts[@]}
     do
-        if grep ${shorts_grep} "${shorts_query}" "${short_config}/${short}"
+        if grep ${shorts_grep} "${shorts_query}" "${shorts_config}/${short}"
         then
             query_shorts+=(${short})
         fi
