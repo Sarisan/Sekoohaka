@@ -22,7 +22,7 @@ then
     fi
 fi
 
-if [[ -n "${ib_config}" ]]
+if [[ -d "${user_config}/${ib_config}" ]]
 then
     . "${units}/ib_token.zsh"
 
