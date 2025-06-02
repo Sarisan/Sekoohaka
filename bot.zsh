@@ -17,6 +17,7 @@ local_address="127.0.0.1:8081"
 default_address="https://api.telegram.org"
 
 dir="${0%/*}"
+auth="${dir}/auth"
 cache="${dir}/cache/${$}"
 config="${dir}/config"
 dumps="${dir}/dumps/${$}"
