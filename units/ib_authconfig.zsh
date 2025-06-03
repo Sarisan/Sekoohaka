@@ -9,18 +9,18 @@ token_file="${user_config}/${ib_config}/token"
 
 case "${ib_board}" in
     (a|d)
-        . "${config}/donmai_auth.zsh"
+        . "${config}/auth/donmai.zsh"
     ;;
     (g)
-        . "${config}/gelbooru_auth.zsh"
+        . "${config}/auth/gelbooru.zsh"
     ;;
     (i)
-        . "${config}/idolcomplex_auth.zsh"
+        . "${config}/auth/idolcomplex.zsh"
     ;;
     (s)
-        . "${config}/sankakuchannel_auth.zsh"
+        . "${config}/auth/sankakuchannel.zsh"
     ;;
     (k|y)
-        . "${config}/moebooru_auth.zsh"
+        . "${config}/auth/moebooru.zsh"
     ;;
 esac
