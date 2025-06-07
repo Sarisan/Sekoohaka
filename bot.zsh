@@ -90,7 +90,8 @@ then
                 external_proxy="${OPTARG}"
             ;;
             (*)
-                echo "See '${0} -h'"
+                echo "Unrecognized options" \
+                    "\nSee '${0} -h'"
                 exit 1
             ;;
         esac
