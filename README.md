@@ -53,7 +53,8 @@ For distribution specific installation commands follow [command-not-found](https
 
 ## Deployment
 
-It is highly recommended to run it with an empty environment to avoid variable conflict: `env -i ./bot.zsh` or `env -i PATH="${PATH}" ./bot.zsh` for Termux.
+Usage: `./bot.zsh [options] [token]`
+
 For better performance, it is recommended to use a locally deployed [Telegram Bot API](https://github.com/tdlib/telegram-bot-api) server.
 
 ### Available options
