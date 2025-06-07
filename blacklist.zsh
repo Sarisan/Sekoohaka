@@ -3,8 +3,12 @@
 # Copyright (C) 2024-2025 Maria Lisina
 # Copyright (C) 2024-2025 Danil Lisin
 # SPDX-License-Identifier: Apache-2.0
-#
-# Run this software with `env -i` to avoid variable conflict
+
+if [[ ${__blacklist_noenv:-0} -eq 0 ]]
+then
+    env -i PATH="${PATH}" __blacklist_noenv=1 "${0}" ${@}
+    exit ${?}
+fi
 
 set -e
 umask 77
