@@ -33,6 +33,34 @@ units="${dir}/units"
 users="${dir}/users"
 offset=-1
 
+zmods=(
+    zsh/datetime
+    zsh/files
+    zsh/stat
+    zsh/zutil
+)
+
+reqs=(
+    busybox
+    curl
+    jq
+    recode
+    xq
+)
+
+busybox=(
+    base64
+    cut
+    find
+    grep
+    ls
+    sed
+    sort
+    sha1sum
+    sleep
+    tr
+)
+
 if [[ -n "${1}" ]]
 then
     while getopts ha:lg:r:m:t:s:cjqui:e:d:n:x: opts
@@ -139,11 +167,11 @@ then
     exit 0
 fi
 
-for module in zsh/datetime zsh/files zsh/stat zsh/zutil
+for zmod in ${zmods[@]}
 do
-    if ! zmodload ${module}
+    if ! zmodload ${zmod}
     then
-        failed="${failed} ${module}"
+        failed="${failed} ${zmod}"
     fi
 done
 
@@ -154,11 +182,11 @@ then
     exit 1
 fi
 
-for required in busybox curl jq recode xq
+for req in ${reqs[@]}
 do
-    if ! command -v ${required} > /dev/null
+    if ! command -v ${req} > /dev/null
     then
-        missing="${missing} ${required}"
+        missing="${missing} ${req}"
     fi
 done
 
@@ -169,7 +197,7 @@ then
     exit 1
 fi
 
-for function in base64 cut find grep ls sed sort sha1sum sleep tr
+for function in ${busybox[@]}
 do
     if busybox ${function} --help > /dev/null
     then
