@@ -23,7 +23,7 @@ if ! curl --form "output_type=2" \
     --user-agent "${useragent}" \
     "https://saucenao.com/search.php"
 then
-    output_text="Failed to process request"
+    output_text="Failed to access SauceNAO API"
     log_text="sn_search (${update_id}): ${output_text}"
 
     . "${units}/log.zsh"
