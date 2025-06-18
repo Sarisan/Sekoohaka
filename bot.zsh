@@ -397,6 +397,14 @@ do
     fi
 done
 
+if ! [[ -s "${files}/donate.txt" ]]
+then
+    nocommand_donate=0
+    log_text="Warning: File donate.txt is empty, donate command is disabled"
+
+    . "${units}/log.zsh"
+fi
+
 if [[ "${api_address}" != "${local_address}" && "${api_address}" != "${default_address}" ]]
 then
     nocommand_source=0

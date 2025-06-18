@@ -2,7 +2,7 @@
 # Copyright (C) 2024-2025 Danil Lisin
 # SPDX-License-Identifier: Apache-2.0
 
-if ! [[ -s "${files}/donate.txt" ]]
+if [[ -n "${nocommand_donate}" ]]
 then
     . "${submods}/inline_help.zsh"
     return 0

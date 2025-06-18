@@ -8,3 +8,8 @@ if [[ -n "${nocommand_source}" ]]
 then
     output_text="$(printf "%s" "${output_text}" | sed -e '/^\[snkey\].*$/d' -e '/^\/source.*$/d')"
 fi
+
+if [[ -n "${nocommand_donate}" ]]
+then
+    output_text="$(printf "%s" "${output_text}" | sed -e '/^<code>donate.*$/d' -e '/^\/donate.*$/d')"
+fi
