@@ -446,6 +446,14 @@ then
 
     profilephoto="$(jq -r '.result.photos[].[0].file_id' "${cache}/getUserProfilePhotos.json")"
 
+    if [[ -z "${profilephoto}" || "${profilephoto}" = "null" ]]
+    then
+        log_text="Error: Bot must have profile photo to run SauceNAO check"
+
+        . "${units}/log.zsh"
+        exit 1
+    fi
+
     if ! curl --data-urlencode "file_id=${profilephoto}" \
         --get \
         --max-time ${internal_timeout} \
