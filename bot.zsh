@@ -544,15 +544,6 @@ then
 fi
 
 username="$(jq -r '.result.username' "${cache}/getMe.json")"
-
-if [[ "${username}" = "null" ]]
-then
-    log_text="Failed to get bot username"
-    . "${units}/log.zsh"
-
-    exit 1
-fi
-
 log_text="Bot: ${username}"
 . "${units}/log.zsh"
 
