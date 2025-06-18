@@ -3,3 +3,8 @@
 # SPDX-License-Identifier: Apache-2.0
 
 output_text="$(< "${files}/help.txt" | sed "s/{version}/${version}/")"
+
+if [[ -n "${nocommand_source}" ]]
+then
+    output_text="$(printf "%s" "${output_text}" | sed -e '/^\[snkey\].*$/d' -e '/^\/source.*$/d')"
+fi

@@ -397,6 +397,105 @@ do
     fi
 done
 
+if [[ "${api_address}" != "${local_address}" && "${api_address}" != "${default_address}" ]]
+then
+    nocommand_source=0
+    log_text="Warning: You are running bot with unknown Telegram Bot API instance, SauceNAO is disabled"
+
+    . "${units}/log.zsh"
+elif [[ "${api_address}" = "${local_address}" ]]
+then
+    if ! curl --data "user_id=${api_token%:*}" \
+        --get \
+        --max-time ${internal_timeout} \
+        --output "${cache}/getUserProfilePhotos.json" \
+        --proxy "${internal_proxy}" \
+        --show-error \
+        --silent \
+        --user-agent "${useragent}" \
+        "${api_address}/bot${api_token}/getUserProfilePhotos"
+    then
+        log_text="getUserProfilePhotos: Failed to access Telegram Bot API"
+        . "${units}/log.zsh"
+
+        exit 1
+    fi
+
+    if ! jq -e '.' "${cache}/getUserProfilePhotos.json" > /dev/null
+    then
+        log_text="getUserProfilePhotos: An unknown error occurred"
+        . "${units}/log.zsh"
+
+        exit 1
+    fi
+
+    if [[ "$(jq -r '.ok' "${cache}/getUserProfilePhotos.json")" != "true" ]]
+    then
+        error_description="$(jq -r '.description' "${cache}/getUserProfilePhotos.json")"
+
+        if [[ "${error_description}" != "null" ]]
+        then
+            log_text="getUserProfilePhotos: ${error_description}"
+        else
+            log_text="getUserProfilePhotos: An unknown error occurred"
+        fi
+
+        . "${units}/log.zsh"
+        exit 1
+    fi
+
+    profilephoto="$(jq -r '.result.photos[].[0].file_id' "${cache}/getUserProfilePhotos.json")"
+
+    if ! curl --data-urlencode "file_id=${profilephoto}" \
+        --get \
+        --max-time ${internal_timeout} \
+        --output "${cache}/getFile.json" \
+        --proxy "${internal_proxy}" \
+        --silent \
+        --user-agent "${useragent}" \
+        "${api_address}/bot${api_token}/getFile"
+    then
+        log_text="getFile: Failed to access Telegram Bot API"
+        . "${units}/log.zsh"
+
+        exit 1
+    fi
+
+    if ! jq -e '.' "${cache}/getFile.json" > /dev/null
+    then
+        log_text="getFile: An unknown error occurred"
+
+        . "${units}/log.zsh"
+        exit 1
+    fi
+
+    if [[ "$(jq -r '.ok' "${cache}/getFile.json")" != "true" ]]
+    then
+        error_description="$(jq -r '.description' "${cache}/getFile.json")"
+
+        if [[ "${error_description}" != "null" ]]
+        then
+            log_text="getFile: ${error_description}"
+        else
+            log_text="getFile: An unknown error occurred"
+        fi
+
+        . "${units}/log.zsh"
+        exit 1
+    fi
+
+    profilephoto_path="$(jq -r '.result.file_path' "${cache}/getFile.json")"
+
+    if ! ls "${profilephoto_path}" > /dev/null
+    then
+        nocommand_source=0
+        log_text="Error: Cannot access Telegram Bot API working directory, SauceNAO is disabled"
+
+        . "${units}/log.zsh"
+        exit 1
+    fi
+fi
+
 log_text="PID: ${$}"
 . "${units}/log.zsh"
 

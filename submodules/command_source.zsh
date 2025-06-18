@@ -2,10 +2,9 @@
 # Copyright (C) 2024-2025 Danil Lisin
 # SPDX-License-Identifier: Apache-2.0
 
-if [[ "${api_address}" != "${local_address}" && "${api_address}" != "${default_address}" ]]
+if [[ -n "${nocommand_source}" ]]
 then
-    output_text="This command is not available, please contact bot deployer"
-    return 0
+    exit 0
 fi
 
 until mkdir "${user_config}_saucenao.lock"
