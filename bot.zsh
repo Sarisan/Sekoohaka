@@ -389,7 +389,7 @@ do
 
         if [[ ${file_ctime} -gt ${file_mtime} ]]
         then
-            log_text="Warning: ${file}.txt is older than ${file}.txt.default"
+            log_text="Warning: File ${file}.txt is older than ${file}.txt.default"
             . "${units}/log.zsh"
         fi
     else
