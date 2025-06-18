@@ -410,7 +410,6 @@ then
         --max-time ${internal_timeout} \
         --output "${cache}/getUserProfilePhotos.json" \
         --proxy "${internal_proxy}" \
-        --show-error \
         --silent \
         --user-agent "${useragent}" \
         "${api_address}/bot${api_token}/getUserProfilePhotos"
@@ -511,7 +510,6 @@ if ! curl --get \
     --max-time ${internal_timeout} \
     --output "${cache}/getMe.json" \
     --proxy "${internal_proxy}" \
-    --show-error \
     --silent \
     --user-agent "${useragent}" \
     "${api_address}/bot${api_token}/getMe"
