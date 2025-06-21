@@ -53,7 +53,8 @@ esac
 output_file="${cache}/${update_id}_answerInlineQuery.json"
 dump+=(${output_file##*/})
 
-if ! curl --data-urlencode "inline_query_id=${query_id}" \
+if ! curl --connect-timeout ${connrefused_timeout} \
+    --data-urlencode "inline_query_id=${query_id}" \
     --data-urlencode "results=${results}" \
     --data-urlencode "cache_time=0" \
     --data-urlencode "next_offset=${next_offset}" \
@@ -61,6 +62,9 @@ if ! curl --data-urlencode "inline_query_id=${query_id}" \
     --max-time ${internal_timeout} \
     --output "${output_file}" \
     --proxy "${internal_proxy}" \
+    --retry 1 \
+    --retry-connrefused \
+    --retry-max-time $((internal_timeout - connrefused_timeout)) \
     --silent \
     --user-agent "${useragent}" \
     "${api_address}/bot${api_token}/answerInlineQuery"

@@ -12,9 +12,13 @@ then
     return 0
 fi
 
-ib_file_size="$(curl --head \
+ib_file_size="$(curl --connect-timeout ${connrefused_timeout} \
+    --head \
     --max-time ${head_timeout} \
     --proxy "${external_proxy}" \
+    --retry 1 \
+    --retry-connrefused \
+    --retry-max-time $((external_timeout - connrefused_timeout)) \
     --silent \
     --user-agent "${useragent}" \
     "${ib_file_url}" |

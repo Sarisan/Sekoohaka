@@ -8,7 +8,8 @@ dump+=(${output_file##*/})
 
 latency_init=$(strftime %s%N)
 
-if ! curl --data-urlencode "chat_id=${chat_id}" \
+if ! curl --connect-timeout ${connrefused_timeout} \
+    --data-urlencode "chat_id=${chat_id}" \
     --data-urlencode "message_thread_id=${message_thread_id}" \
     --data-urlencode "text=${output_text}" \
     --data-urlencode "reply_parameters=${reply_parameters}" \
@@ -16,6 +17,9 @@ if ! curl --data-urlencode "chat_id=${chat_id}" \
     --max-time ${internal_timeout} \
     --output "${output_file}" \
     --proxy "${internal_proxy}" \
+    --retry 1 \
+    --retry-connrefused \
+    --retry-max-time $((internal_timeout - connrefused_timeout)) \
     --silent \
     --user-agent "${useragent}" \
     "${api_address}/bot${api_token}/sendMessage"
@@ -69,7 +73,8 @@ output_text="$(printf "<b>Latency:</b> %ums" "${latency}")"
 output_file="${cache}/${update_id}_editMessageText.json"
 dump+=(${output_file##*/})
 
-if ! curl --data-urlencode "chat_id=${chat_id}" \
+if ! curl --connect-timeout ${connrefused_timeout} \
+    --data-urlencode "chat_id=${chat_id}" \
     --data-urlencode "message_id=${message_id}" \
     --data-urlencode "text=${output_text}" \
     --data-urlencode "parse_mode=HTML" \
@@ -77,6 +82,9 @@ if ! curl --data-urlencode "chat_id=${chat_id}" \
     --max-time ${internal_timeout} \
     --output "${output_file}" \
     --proxy "${internal_proxy}" \
+    --retry 1 \
+    --retry-connrefused \
+    --retry-max-time $((internal_timeout - connrefused_timeout)) \
     --silent \
     --user-agent "${useragent}" \
     "${api_address}/bot${api_token}/editMessageText"

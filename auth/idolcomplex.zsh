@@ -6,11 +6,15 @@ ib_cookies="${cookies_file}"
 ib_auth_file="${cache}/${update_id}_login.html"
 dump+=(${ib_auth_file##*/})
 
-if ! curl --cookie-jar "${ib_cookies}" \
+if ! curl --connect-timeout ${connrefused_timeout} \
+    --cookie-jar "${ib_cookies}" \
     --max-time ${external_timeout} \
     --output "${ib_auth_file}" \
     --proxy "${external_proxy}" \
     --request GET \
+    --retry 1 \
+    --retry-connrefused \
+    --retry-max-time $((external_timeout - connrefused_timeout)) \
     --silent \
     --user-agent "${useragent}" \
     "${ib_auth}/users/login"
@@ -41,7 +45,8 @@ fi
 ib_auth_file="${cache}/${update_id}_authenticate.html"
 dump+=(${ib_auth_file##*/})
 
-if ! curl --cookie "${ib_cookies}" \
+if ! curl --connect-timeout ${connrefused_timeout} \
+    --cookie "${ib_cookies}" \
     --cookie-jar "${ib_cookies}" \
     --data-urlencode "authenticity_token=${ib_token}" \
     --data-urlencode "user[name]=${ib_login}" \
@@ -52,6 +57,9 @@ if ! curl --cookie "${ib_cookies}" \
     --output "${ib_auth_file}" \
     --proxy "${external_proxy}" \
     --request POST \
+    --retry 1 \
+    --retry-connrefused \
+    --retry-max-time $((external_timeout - connrefused_timeout)) \
     --silent \
     --user-agent "${useragent}" \
     "${ib_auth}${ib_action}"
@@ -79,11 +87,15 @@ fi
 ib_auth_file="${cache}/${update_id}_home.html"
 dump+=(${ib_auth_file##*/})
 
-if ! curl --cookie "${ib_cookies}" \
+if ! curl --connect-timeout ${connrefused_timeout} \
+    --cookie "${ib_cookies}" \
     --max-time ${external_timeout} \
     --output "${ib_auth_file}" \
     --proxy "${external_proxy}" \
     --request GET \
+    --retry 1 \
+    --retry-connrefused \
+    --retry-max-time $((external_timeout - connrefused_timeout)) \
     --silent \
     --user-agent "${useragent}" \
     "${ib_auth}/users/home"

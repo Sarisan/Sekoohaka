@@ -63,7 +63,7 @@ busybox=(
 
 if [[ -n "${1}" ]]
 then
-    while getopts ha:lg:r:m:t:s:cjqui:e:d:n:x: opts
+    while getopts ha:lg:r:m:t:s:cjqui:e:d:f:n:x: opts
     do
         case "${opts}" in
             (h)
@@ -111,6 +111,9 @@ then
             (d)
                 head_timeout=${OPTARG}
             ;;
+            (f)
+                connrefused_timeout=${OPTARG}
+            ;;
             (n)
                 internal_proxy="${OPTARG}"
             ;;
@@ -150,6 +153,7 @@ then
         "\n  -i <secs>\tTelegram Bot API connetion timeout, max: 10, default: 10 secs" \
         "\n  -e <secs>\tImage Boards API connetion timeout, max: 10, default: 5 secs" \
         "\n  -d <secs>\tHead request connetion timeout, max: 10, default: 2 secs" \
+        "\n  -f <secs>\tConnrefused timeout, max: 2, default: none" \
         "\n  -n <addr>\tProxy server for Telegram Bot API" \
         "\n  -x <addr>\tProxy server for Image Boards API" \
         "\n\nCache modes:" \
@@ -353,6 +357,23 @@ else
     head_timeout=2
 fi
 
+if [[ -n "${connrefused_timeout}" ]]
+then
+    if ! test ${connrefused_timeout} -gt 0
+    then
+        echo "Illegal connrefused timeout" \
+            "\nSee '${0} -h'"
+        exit 1
+    fi
+
+    if [[ ${connrefused_timeout} -gt 2 ]]
+    then
+        connrefused_timeout=2
+    fi
+else
+    connrefused_timeout=0
+fi
+
 if [[ -n "${1}" ]]
 then
     api_token="${1}"
@@ -413,11 +434,15 @@ then
     . "${units}/log.zsh"
 elif [[ "${api_address}" = "${local_address}" ]]
 then
-    if ! curl --data "user_id=${api_token%:*}" \
+    if ! curl --connect-timeout ${connrefused_timeout} \
+        --data "user_id=${api_token%:*}" \
         --get \
         --max-time ${internal_timeout} \
         --output "${cache}/getUserProfilePhotos.json" \
         --proxy "${internal_proxy}" \
+        --retry 1 \
+        --retry-connrefused \
+        --retry-max-time $((internal_timeout - connrefused_timeout)) \
         --silent \
         --user-agent "${useragent}" \
         "${api_address}/bot${api_token}/getUserProfilePhotos"
@@ -461,11 +486,15 @@ then
         exit 1
     fi
 
-    if ! curl --data-urlencode "file_id=${profilephoto}" \
+    if ! curl --connect-timeout ${connrefused_timeout} \
+        --data-urlencode "file_id=${profilephoto}" \
         --get \
         --max-time ${internal_timeout} \
         --output "${cache}/getFile.json" \
         --proxy "${internal_proxy}" \
+        --retry 1 \
+        --retry-connrefused \
+        --retry-max-time $((internal_timeout - connrefused_timeout)) \
         --silent \
         --user-agent "${useragent}" \
         "${api_address}/bot${api_token}/getFile"
@@ -514,10 +543,14 @@ fi
 log_text="PID: ${$}"
 . "${units}/log.zsh"
 
-if ! curl --get \
+if ! curl --connect-timeout ${connrefused_timeout} \
+    --get \
     --max-time ${internal_timeout} \
     --output "${cache}/getMe.json" \
     --proxy "${internal_proxy}" \
+    --retry 1 \
+    --retry-connrefused \
+    --retry-max-time $((internal_timeout - connrefused_timeout)) \
     --silent \
     --user-agent "${useragent}" \
     "${api_address}/bot${api_token}/getMe"
@@ -557,10 +590,14 @@ log_text="Bot: ${username}"
 
 while trap 'wait && exit 0' INT TERM
 do
-    if ! curl --data "offset=${offset}" \
+    if ! curl --connect-timeout ${connrefused_timeout} \
+        --data "offset=${offset}" \
         --get \
         --output "${cache}/getUpdates.json" \
         --proxy "${internal_proxy}" \
+        --retry 1 \
+        --retry-connrefused \
+        --retry-max-time $((internal_timeout - connrefused_timeout)) \
         --silent \
         --user-agent "${useragent}" \
         "${api_address}/bot${api_token}/getUpdates"

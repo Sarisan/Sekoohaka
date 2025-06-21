@@ -20,11 +20,15 @@ fi
 output_file="${cache}/${update_id}_getFile.json"
 dump+=(${output_file##*/})
 
-if ! curl --data-urlencode "file_id=${file_id}" \
+if ! curl --connect-timeout ${connrefused_timeout} \
+    --data-urlencode "file_id=${file_id}" \
     --get \
     --max-time ${internal_timeout} \
     --output "${output_file}" \
     --proxy "${internal_proxy}" \
+    --retry 1 \
+    --retry-connrefused \
+    --retry-max-time $((external_timeout - connrefused_timeout)) \
     --silent \
     --user-agent "${useragent}" \
     "${api_address}/bot${api_token}/getFile"
@@ -74,9 +78,13 @@ then
     output_file="${cache}/${update_id}_file.jpg"
     dump+=(${output_file##*/})
 
-    if ! curl --max-time ${internal_timeout} \
+    if ! curl --connect-timeout ${connrefused_timeout} \
+        --max-time ${internal_timeout} \
         --output "${output_file}" \
         --proxy "${internal_proxy}" \
+        --retry 1 \
+        --retry-connrefused \
+        --retry-max-time $((external_timeout - connrefused_timeout)) \
         --silent \
         --user-agent "${useragent}" \
         "${api_address}/file/bot${api_token}/${file_path}"

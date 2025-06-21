@@ -50,7 +50,8 @@ fi
 
 rm -f "${ib_file}"
 
-if ! curl --cookie "${ib_cookies}" \
+if ! curl --connect-timeout ${connrefused_timeout} \
+    --cookie "${ib_cookies}" \
     --data-urlencode "${ib_dfield1}" \
     --data-urlencode "${ib_dfield2}" \
     --data-urlencode "${ib_dfield3}" \
@@ -65,6 +66,9 @@ if ! curl --cookie "${ib_cookies}" \
     --max-time ${external_timeout} \
     --output "${ib_file}" \
     --proxy "${external_proxy}" \
+    --retry 1 \
+    --retry-connrefused \
+    --retry-max-time $((external_timeout - connrefused_timeout)) \
     --silent \
     --user-agent "${useragent}" \
     "${ib_data_url}"

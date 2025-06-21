@@ -10,12 +10,16 @@ ib_login_data="$(jq --null-input --compact-output \
 ib_auth_file="${cache}/${update_id}_token.json"
 dump+=(${ib_auth_file##*/})
 
-if ! curl --data "${ib_login_data}" \
+if ! curl --connect-timeout ${connrefused_timeout} \
+    --data "${ib_login_data}" \
     --header "Content-Type: application/json" \
     --max-time ${external_timeout} \
     --output "${ib_auth_file}" \
     --proxy "${external_proxy}" \
     --request POST \
+    --retry 1 \
+    --retry-connrefused \
+    --retry-max-time $((external_timeout - connrefused_timeout)) \
     --silent \
     --user-agent "${useragent}" \
     "${ib_auth}/auth/token"

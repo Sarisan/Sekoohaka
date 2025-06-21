@@ -5,10 +5,14 @@
 ib_auth_file="${cache}/${update_id}_profile.json"
 dump+=(${ib_auth_file##*/})
 
-if ! curl --max-time ${external_timeout} \
+if ! curl --connect-timeout ${connrefused_timeout} \
+    --max-time ${external_timeout} \
     --output "${ib_auth_file}" \
     --proxy "${external_proxy}" \
     --request GET \
+    --retry 1 \
+    --retry-connrefused \
+    --retry-max-time $((external_timeout - connrefused_timeout)) \
     --silent \
     --user "${ib_login}:${ib_key}" \
     --user-agent "${useragent}" \

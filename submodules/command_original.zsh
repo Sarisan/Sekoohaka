@@ -37,13 +37,17 @@ fi
 output_file="${cache}/${update_id}_sendChatAction.json"
 dump+=(${output_file##*/})
 
-if ! curl --data-urlencode "chat_id=${chat_id}" \
+if ! curl --connect-timeout ${connrefused_timeout} \
+    --data-urlencode "chat_id=${chat_id}" \
     --data-urlencode "message_thread_id=${message_thread_id}" \
     --data-urlencode "action=upload_document" \
     --get \
     --max-time ${internal_timeout} \
     --output "${output_file}" \
     --proxy "${internal_proxy}" \
+    --retry 1 \
+    --retry-connrefused \
+    --retry-max-time $((internal_timeout - connrefused_timeout)) \
     --silent \
     --user-agent "${useragent}" \
     "${api_address}/bot${api_token}/sendChatAction"
@@ -80,7 +84,8 @@ fi
 output_file="${cache}/${update_id}_sendDocument.json"
 dump+=(${output_file##*/})
 
-if ! curl --data-urlencode "chat_id=${chat_id}" \
+if ! curl --connect-timeout ${connrefused_timeout} \
+    --data-urlencode "chat_id=${chat_id}" \
     --data-urlencode "message_thread_id=${message_thread_id}" \
     --data-urlencode "document=${ib_file_url}" \
     --data-urlencode "thumbnail=${ib_preview_url}" \
@@ -90,6 +95,9 @@ if ! curl --data-urlencode "chat_id=${chat_id}" \
     --max-time ${internal_timeout} \
     --output "${output_file}" \
     --proxy "${internal_proxy}" \
+    --retry 1 \
+    --retry-connrefused \
+    --retry-max-time $((internal_timeout - connrefused_timeout)) \
     --silent \
     --user-agent "${useragent}" \
     "${api_address}/bot${api_token}/sendDocument"

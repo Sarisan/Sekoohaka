@@ -5,12 +5,16 @@
 ib_auth_file="${cache}/${update_id}_user.json"
 dump+=(${ib_auth_file##*/})
 
-if ! curl --data-urlencode "username=${ib_login}" \
+if ! curl --connect-timeout ${connrefused_timeout} \
+    --data-urlencode "username=${ib_login}" \
     --data-urlencode "api_key=${ib_key}" \
     --get \
     --max-time ${external_timeout} \
     --output "${ib_auth_file}" \
     --proxy "${external_proxy}" \
+    --retry 1 \
+    --retry-connrefused \
+    --retry-max-time $((external_timeout - connrefused_timeout)) \
     --silent \
     --user-agent "${useragent}" \
     "${ib_auth}/user.json"

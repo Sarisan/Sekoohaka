@@ -5,7 +5,8 @@
 sn_file="${cache}/${update_id}_search.json"
 dump+=(${sn_file##*/})
 
-if ! curl --form "output_type=2" \
+if ! curl --connect-timeout ${connrefused_timeout} \
+    --form "output_type=2" \
     --form "api_key=${sn_key}" \
     --form "dbs[]=9" \
     --form "dbs[]=12" \
@@ -19,6 +20,9 @@ if ! curl --form "output_type=2" \
     --max-time ${external_timeout} \
     --output "${sn_file}" \
     --proxy "${external_proxy}" \
+    --retry 1 \
+    --retry-connrefused \
+    --retry-max-time $((external_timeout - connrefused_timeout)) \
     --silent \
     --user-agent "${useragent}" \
     "https://saucenao.com/search.php"

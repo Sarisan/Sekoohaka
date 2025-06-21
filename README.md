@@ -76,6 +76,7 @@ Options:
   -i <secs>     Telegram Bot API connetion timeout, max: 10, default: 10 secs
   -e <secs>     Image Boards API connetion timeout, max: 10, default: 5 secs
   -d <secs>     Head request connetion timeout, max: 10, default: 2 secs
+  -f <secs>     Connrefused timeout, max: 2, default: none
   -n <addr>     Proxy server for Telegram Bot API
   -x <addr>     Proxy server for Image Boards API
 
