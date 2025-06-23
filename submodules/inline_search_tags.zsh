@@ -26,24 +26,29 @@ then
     keyboard_query2="${keyboard_query2} ${search_query}"
 fi
 
-result="$(jq --null-input --compact-output \
-    --arg id "${ib_id}" \
-    --arg title "${output_title}" \
-    --arg text "${output_text}" \
-    --arg description "${output_description}" \
-    --arg text1 "${keyboard_text1}" \
-    --arg url1 "${keyboard_url1}" \
-    --arg text2 "${keyboard_text2}" \
-    --arg query2 "${keyboard_query2}" \
-    '{"type": "article", "id": $id, "title": $title, "input_message_content": {"message_text": $text, "parse_mode": "HTML"}, "description": $description, "reply_markup": {"inline_keyboard": [[{"text": $text1, "url": $url1}, {"text": $text2, "switch_inline_query_current_chat": $query2}]]}}')"
+result="$(
+    jq --null-input --compact-output \
+        --arg id "${ib_id}" \
+        --arg title "${output_title}" \
+        --arg text "${output_text}" \
+        --arg description "${output_description}" \
+        --arg text1 "${keyboard_text1}" \
+        --arg url1 "${keyboard_url1}" \
+        --arg text2 "${keyboard_text2}" \
+        --arg query2 "${keyboard_query2}" \
+        '{"type": "article", "id": $id, "title": $title, "input_message_content": {"message_text": $text, "parse_mode": "HTML"}, "description": $description, "reply_markup": {"inline_keyboard": [[{"text": $text1, "url": $url1}, {"text": $text2, "switch_inline_query_current_chat": $query2}]]}}'
+)"
 
 if [[ -n "${ib_quick}" ]]
 then
     keyboard_text1="Search posts"
     keyboard_query1="p ${ib_board} ${ib_tag}"
 
-    result="$(printf "%s" "${result}" | jq --compact-output \
-        --arg text1 "${keyboard_text1}" \
-        --arg query1 "${keyboard_query1}" \
-        '.reply_markup.inline_keyboard += [[{"text": $text1, "switch_inline_query_current_chat": $query1}]]')"
+    result="$(
+        printf "%s" "${result}" |
+        jq --compact-output \
+            --arg text1 "${keyboard_text1}" \
+            --arg query1 "${keyboard_query1}" \
+            '.reply_markup.inline_keyboard += [[{"text": $text1, "switch_inline_query_current_chat": $query1}]]'
+    )"
 fi

@@ -55,9 +55,11 @@ then
 fi
 
 thumbnail="$(jq -r ".results.[${highest_index}].header.thumbnail" "${sn_file}")"
-link_preview_options="$(jq --null-input --compact-output \
-    --arg url "${thumbnail}" \
-    '{"url": $url, "prefer_small_media": true, "show_above_text": true}')"
+link_preview_options="$(
+    jq --null-input --compact-output \
+        --arg url "${thumbnail}" \
+        '{"url": $url, "prefer_small_media": true, "show_above_text": true}'
+)"
 
 danbooru_id="$(jq -r ".results.[${highest_index}].data.danbooru_id" "${sn_file}")"
 gelbooru_id="$(jq -r ".results.[${highest_index}].data.gelbooru_id" "${sn_file}")"

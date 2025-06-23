@@ -7,9 +7,11 @@
 output_title="Sekoohaka Bot"
 output_description="Click to send the help message"
 
-results="$(jq --null-input --compact-output \
-    --arg id "${query_id}" \
-    --arg title "${output_title}" \
-    --arg text "${output_text}" \
-    --arg description "${output_description}" \
-    '[{"type": "article", "id": $id, "title": $title, "input_message_content": {"message_text": $text, "parse_mode": "HTML", "link_preview_options": {"is_disabled": true}}, "description": $description}]')"
+results="$(
+    jq --null-input --compact-output \
+        --arg id "${query_id}" \
+        --arg title "${output_title}" \
+        --arg text "${output_text}" \
+        --arg description "${output_description}" \
+        '[{"type": "article", "id": $id, "title": $title, "input_message_content": {"message_text": $text, "parse_mode": "HTML", "link_preview_options": {"is_disabled": true}}, "description": $description}]'
+)"

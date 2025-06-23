@@ -78,27 +78,34 @@ then
     return 0
 fi
 
-link_preview_options="$(jq --null-input --compact-output \
-    --arg url "${ib_sample_url}" \
-    '{"url": $url, "prefer_small_media": true, "show_above_text": true}')"
+link_preview_options="$(
+    jq --null-input --compact-output \
+        --arg url "${ib_sample_url}" \
+        '{"url": $url, "prefer_small_media": true, "show_above_text": true}'
+)"
 
 keyboard_text1="Back"
 keyboard_data1="post ${ib_board} ${ib_post_id}"
 
-reply_markup="$(jq --null-input --compact-output \
-    --arg text1 "${keyboard_text1}" \
-    --arg data1 "${keyboard_data1}" \
-    '{"inline_keyboard": [[{"text": $text1, "callback_data": $data1}]]}')"
+reply_markup="$(
+    jq --null-input --compact-output \
+        --arg text1 "${keyboard_text1}" \
+        --arg data1 "${keyboard_data1}" \
+        '{"inline_keyboard": [[{"text": $text1, "callback_data": $data1}]]}'
+)"
 
 if [[ ${ib_tags_offset} -gt 0 ]]
 then
     keyboard_text1="Over"
     keyboard_data1="tags ${ib_board} ${ib_post_id}"
 
-    reply_markup="$(printf "%s" "${reply_markup}" | jq --compact-output \
-        --arg text1 "${keyboard_text1}" \
-        --arg data1 "${keyboard_data1}" \
-        '.inline_keyboard.[0] += [{"text": $text1, "callback_data": $data1}]')"
+    reply_markup="$(
+        printf "%s" "${reply_markup}" |
+        jq --compact-output \
+            --arg text1 "${keyboard_text1}" \
+            --arg data1 "${keyboard_data1}" \
+            '.inline_keyboard.[0] += [{"text": $text1, "callback_data": $data1}]'
+    )"
 fi
 
 if [[ $(($#ib_tags - ib_tags_offset - ib_tags_count)) -gt 0 ]]
@@ -106,8 +113,11 @@ then
     keyboard_text1="Next"
     keyboard_data1="tags ${ib_board} ${ib_post_id} $((ib_tags_offset + ib_tags_count))"
 
-    reply_markup="$(printf "%s" "${reply_markup}" | jq --compact-output \
-        --arg text1 "${keyboard_text1}" \
-        --arg data1 "${keyboard_data1}" \
-        '.inline_keyboard.[0] += [{"text": $text1, "callback_data": $data1}]')"
+    reply_markup="$(
+        printf "%s" "${reply_markup}" |
+        jq --compact-output \
+            --arg text1 "${keyboard_text1}" \
+            --arg data1 "${keyboard_data1}" \
+            '.inline_keyboard.[0] += [{"text": $text1, "callback_data": $data1}]'
+    )"
 fi

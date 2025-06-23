@@ -23,12 +23,14 @@ then
     keyboard_text2="Remove all"
     keyboard_data2="reset"
 
-    reply_markup="$(jq --null-input --compact-output \
-        --arg text1 "${keyboard_text1}" \
-        --arg query1 "${keyboard_query1}" \
-        --arg text2 "${keyboard_text2}" \
-        --arg data2 "${keyboard_data2}" \
-        '{"inline_keyboard": [[{"text": $text1, "switch_inline_query_current_chat": $query1}, {"text": $text2, "callback_data": $data2}]]}')"
+    reply_markup="$(
+        jq --null-input --compact-output \
+            --arg text1 "${keyboard_text1}" \
+            --arg query1 "${keyboard_query1}" \
+            --arg text2 "${keyboard_text2}" \
+            --arg data2 "${keyboard_data2}" \
+            '{"inline_keyboard": [[{"text": $text1, "switch_inline_query_current_chat": $query1}, {"text": $text2, "callback_data": $data2}]]}'
+    )"
 else
     output_text="You have no saved shortcuts yet"
 fi

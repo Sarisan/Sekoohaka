@@ -4,5 +4,7 @@
 
 . "${units}/help.zsh"
 
-link_preview_options="$(jq --null-input --compact-output \
-    '{"is_disabled": true}')"
+link_preview_options="$(
+    jq --null-input --compact-output \
+        '{"is_disabled": true}'
+)"

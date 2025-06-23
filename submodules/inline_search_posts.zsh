@@ -72,46 +72,52 @@ fi
 
 case "${ib_type}" in
     (photo)
-        result="$(jq --null-input --compact-output \
-            --arg id "${ib_id}" \
-            --arg photo_url "${ib_sample_url}" \
-            --arg thumbnail_url "${ib_preview_url}" \
-            --arg photo_width "${ib_width}" \
-            --arg photo_height "${ib_height}" \
-            --arg caption "${output_text}" \
-            --arg text1 "${keyboard_text1}" \
-            --arg url1 "${keyboard_url1}" \
-            --arg text2 "${keyboard_text2}" \
-            --arg query2 "${keyboard_query2}" \
-            '{"type": "photo", "id": $id, "photo_url": $photo_url, "thumbnail_url": $thumbnail_url, "photo_width": $photo_width, "photo_height": $photo_height, "caption": $caption, "parse_mode": "HTML", "reply_markup": {"inline_keyboard": [[{"text": $text1, "url": $url1}, {"text": $text2, "switch_inline_query_current_chat": $query2}]]}}')"
+        result="$(
+            jq --null-input --compact-output \
+                --arg id "${ib_id}" \
+                --arg photo_url "${ib_sample_url}" \
+                --arg thumbnail_url "${ib_preview_url}" \
+                --arg photo_width "${ib_width}" \
+                --arg photo_height "${ib_height}" \
+                --arg caption "${output_text}" \
+                --arg text1 "${keyboard_text1}" \
+                --arg url1 "${keyboard_url1}" \
+                --arg text2 "${keyboard_text2}" \
+                --arg query2 "${keyboard_query2}" \
+                '{"type": "photo", "id": $id, "photo_url": $photo_url, "thumbnail_url": $thumbnail_url, "photo_width": $photo_width, "photo_height": $photo_height, "caption": $caption, "parse_mode": "HTML", "reply_markup": {"inline_keyboard": [[{"text": $text1, "url": $url1}, {"text": $text2, "switch_inline_query_current_chat": $query2}]]}}'
+        )"
     ;;
     (gif)
-        result="$(jq --null-input --compact-output \
-            --arg id "${ib_id}" \
-            --arg gif_url "${ib_file_url}" \
-            --arg thumbnail_url "${ib_preview_url}" \
-            --arg gif_width "${ib_width}" \
-            --arg gif_height "${ib_height}" \
-            --arg caption "${output_text}" \
-            --arg text1 "${keyboard_text1}" \
-            --arg url1 "${keyboard_url1}" \
-            --arg text2 "${keyboard_text2}" \
-            --arg query2 "${keyboard_query2}" \
-            '{"type": "gif", "id": $id, "gif_url": $gif_url, "thumbnail_url": $thumbnail_url, "gif_width": $gif_width, "gif_height": $gif_height, "caption": $caption, "parse_mode": "HTML", "reply_markup": {"inline_keyboard": [[{"text": $text1, "url": $url1}, {"text": $text2, "switch_inline_query_current_chat": $query2}]]}}')"
+        result="$(
+            jq --null-input --compact-output \
+                --arg id "${ib_id}" \
+                --arg gif_url "${ib_file_url}" \
+                --arg thumbnail_url "${ib_preview_url}" \
+                --arg gif_width "${ib_width}" \
+                --arg gif_height "${ib_height}" \
+                --arg caption "${output_text}" \
+                --arg text1 "${keyboard_text1}" \
+                --arg url1 "${keyboard_url1}" \
+                --arg text2 "${keyboard_text2}" \
+                --arg query2 "${keyboard_query2}" \
+                '{"type": "gif", "id": $id, "gif_url": $gif_url, "thumbnail_url": $thumbnail_url, "gif_width": $gif_width, "gif_height": $gif_height, "caption": $caption, "parse_mode": "HTML", "reply_markup": {"inline_keyboard": [[{"text": $text1, "url": $url1}, {"text": $text2, "switch_inline_query_current_chat": $query2}]]}}'
+        )"
     ;;
     (video)
-        result="$(jq --null-input --compact-output \
-            --arg id "${ib_id}" \
-            --arg mpeg4_url "${ib_file_url}" \
-            --arg thumbnail_url "${ib_preview_url}" \
-            --arg mpeg4_width "${ib_width}" \
-            --arg mpeg4_height "${ib_height}" \
-            --arg caption "${output_text}" \
-            --arg text1 "${keyboard_text1}" \
-            --arg url1 "${keyboard_url1}" \
-            --arg text2 "${keyboard_text2}" \
-            --arg query2 "${keyboard_query2}" \
-            '{"type": "mpeg4_gif", "id": $id, "mpeg4_url": $mpeg4_url, "thumbnail_url": $thumbnail_url, "mpeg4_width": $mpeg4_width, "mpeg4_height": $mpeg4_height, "caption": $caption, "parse_mode": "HTML", "reply_markup": {"inline_keyboard": [[{"text": $text1, "url": $url1}, {"text": $text2, "switch_inline_query_current_chat": $query2}]]}}')"
+        result="$(
+            jq --null-input --compact-output \
+                --arg id "${ib_id}" \
+                --arg mpeg4_url "${ib_file_url}" \
+                --arg thumbnail_url "${ib_preview_url}" \
+                --arg mpeg4_width "${ib_width}" \
+                --arg mpeg4_height "${ib_height}" \
+                --arg caption "${output_text}" \
+                --arg text1 "${keyboard_text1}" \
+                --arg url1 "${keyboard_url1}" \
+                --arg text2 "${keyboard_text2}" \
+                --arg query2 "${keyboard_query2}" \
+                '{"type": "mpeg4_gif", "id": $id, "mpeg4_url": $mpeg4_url, "thumbnail_url": $thumbnail_url, "mpeg4_width": $mpeg4_width, "mpeg4_height": $mpeg4_height, "caption": $caption, "parse_mode": "HTML", "reply_markup": {"inline_keyboard": [[{"text": $text1, "url": $url1}, {"text": $text2, "switch_inline_query_current_chat": $query2}]]}}'
+        )"
     ;;
 esac
 
@@ -122,12 +128,15 @@ then
     keyboard_text2="Post"
     keyboard_query2="post ${ib_board} ${ib_id}"
 
-    result="$(printf "%s" "${result}" | jq --compact-output \
-        --arg text1 "${keyboard_text1}" \
-        --arg query1 "${keyboard_query1}" \
-        --arg text2 "${keyboard_text2}" \
-        --arg query2 "${keyboard_query2}" \
-        '.reply_markup.inline_keyboard += [[{"text": $text1, "switch_inline_query_current_chat": $query1}, {"text": $text2, "switch_inline_query_current_chat": $query2}]]')"
+    result="$(
+        printf "%s" "${result}" |
+        jq --compact-output \
+            --arg text1 "${keyboard_text1}" \
+            --arg query1 "${keyboard_query1}" \
+            --arg text2 "${keyboard_text2}" \
+            --arg query2 "${keyboard_query2}" \
+            '.reply_markup.inline_keyboard += [[{"text": $text1, "switch_inline_query_current_chat": $query1}, {"text": $text2, "switch_inline_query_current_chat": $query2}]]'
+    )"
 fi
 
 if [[ "${cache_mode}" = "advanced" ]]

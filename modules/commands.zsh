@@ -15,9 +15,11 @@ message_id="$(jq -r '.message.message_id' "${update}")"
 is_topic="$(jq -r '.message.is_topic_message' "${update}")"
 message_thread_id="$(jq -r '.message.message_thread_id' "${update}")"
 
-reply_parameters="$(jq --null-input --compact-output \
-    --arg message_id "${message_id}" \
-    '{"message_id": $message_id, "allow_sending_without_reply": true}')"
+reply_parameters="$(
+    jq --null-input --compact-output \
+        --arg message_id "${message_id}" \
+        '{"message_id": $message_id, "allow_sending_without_reply": true}'
+)"
 
 . "${units}/user.zsh"
 set -- ${command_query[@]}

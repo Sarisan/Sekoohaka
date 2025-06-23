@@ -12,16 +12,18 @@ then
     return 0
 fi
 
-ib_file_size="$(curl --connect-timeout ${connrefused_timeout} \
-    --head \
-    --max-time ${head_timeout} \
-    --proxy "${external_proxy}" \
-    --retry 1 \
-    --retry-connrefused \
-    --retry-max-time $((external_timeout - connrefused_timeout)) \
-    --silent \
-    --user-agent "${useragent}" \
-    "${ib_file_url}" |
+ib_file_size="$(
+    curl --connect-timeout ${connrefused_timeout} \
+        --head \
+        --max-time ${head_timeout} \
+        --proxy "${external_proxy}" \
+        --retry 1 \
+        --retry-connrefused \
+        --retry-max-time $((external_timeout - connrefused_timeout)) \
+        --silent \
+        --user-agent "${useragent}" \
+        "${ib_file_url}" |
     grep -i "content-length" |
     parameter 2 |
-    tr -d '\r')"
+    tr -d '\r'
+)"

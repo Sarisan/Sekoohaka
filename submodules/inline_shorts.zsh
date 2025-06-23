@@ -12,12 +12,14 @@ shorts_config="${user_config}/shorts"
 
 if [[ -n "${output_text}" ]]
 then
-    results="$(jq --null-input --compact-output \
-        --arg id "${query_id}" \
-        --arg title "${output_title}" \
-        --arg text "${output_text}" \
-        --arg description "${output_text}" \
-        '[{"type": "article", "id": $id, "title": $title, "input_message_content": {"message_text": $text}, "description": $description}]')"
+    results="$(
+        jq --null-input --compact-output \
+            --arg id "${query_id}" \
+            --arg title "${output_title}" \
+            --arg text "${output_text}" \
+            --arg description "${output_text}" \
+            '[{"type": "article", "id": $id, "title": $title, "input_message_content": {"message_text": $text}, "description": $description}]'
+    )"
 
     rmdir "${user_config}_short.lock"
     return 0
@@ -36,14 +38,16 @@ do
     keyboard_text1="Open inline"
     keyboard_query1="${short_query}"
 
-    result="$(jq --null-input --compact-output \
-        --arg id "${shorts[idx]}" \
-        --arg title "${output_title}" \
-        --arg text "${output_text}" \
-        --arg text1 "${keyboard_text1}" \
-        --arg query1 "${keyboard_query1}" \
-        --arg description "${output_description}" \
-        '{"type": "article", "id": $id, "title": $title, "input_message_content": {"message_text": $text, "parse_mode": "HTML"}, "reply_markup": {"inline_keyboard": [[{"text": $text1, "switch_inline_query_current_chat": $query1}]]}, "description": $description}')"
+    result="$(
+        jq --null-input --compact-output \
+            --arg id "${shorts[idx]}" \
+            --arg title "${output_title}" \
+            --arg text "${output_text}" \
+            --arg text1 "${keyboard_text1}" \
+            --arg query1 "${keyboard_query1}" \
+            --arg description "${output_description}" \
+            '{"type": "article", "id": $id, "title": $title, "input_message_content": {"message_text": $text, "parse_mode": "HTML"}, "reply_markup": {"inline_keyboard": [[{"text": $text1, "switch_inline_query_current_chat": $query1}]]}, "description": $description}'
+    )"
 
     if [[ "${chat_type}" = "sender" ]]
     then
@@ -55,10 +59,13 @@ do
             keyboard_query1="${keyboard_query1} ${search_query}"
         fi
 
-        result="$(printf "%s" "${result}" | jq --compact-output \
-            --arg text1 "${keyboard_text1}" \
-            --arg query1 "${keyboard_query1}" \
-            '.reply_markup.inline_keyboard.[0] += [{"text": $text1, "switch_inline_query_current_chat": $query1}]')"
+        result="$(
+            printf "%s" "${result}" |
+            jq --compact-output \
+                --arg text1 "${keyboard_text1}" \
+                --arg query1 "${keyboard_query1}" \
+                '.reply_markup.inline_keyboard.[0] += [{"text": $text1, "switch_inline_query_current_chat": $query1}]'
+        )"
     fi
 
     if [[ -n "${shorts_quick}" ]]
@@ -66,10 +73,13 @@ do
         keyboard_text1="Manage"
         keyboard_data1="short ${short_query}"
 
-        result="$(printf "%s" "${result}" | jq --compact-output \
-            --arg text1 "${keyboard_text1}" \
-            --arg data1 "${keyboard_data1}" \
-            '.reply_markup.inline_keyboard += [[{"text": $text1, "callback_data": $data1}]]')"
+        result="$(
+            printf "%s" "${result}" |
+            jq --compact-output \
+                --arg text1 "${keyboard_text1}" \
+                --arg data1 "${keyboard_data1}" \
+                '.reply_markup.inline_keyboard += [[{"text": $text1, "callback_data": $data1}]]'
+        )"
     fi
 
     results+=(${result})

@@ -26,12 +26,14 @@ ib_lock=0
 
 if [[ -n "${output_text}" ]]
 then
-    results="$(jq --null-input --compact-output \
-        --arg id "${query_id}" \
-        --arg title "${output_title}" \
-        --arg text "${output_text}" \
-        --arg description "${output_text}" \
-        '[{"type": "article", "id": $id, "title": $title, "input_message_content": {"message_text": $text}, "description": $description}]')"
+    results="$(
+        jq --null-input --compact-output \
+            --arg id "${query_id}" \
+            --arg title "${output_title}" \
+            --arg text "${output_text}" \
+            --arg description "${output_text}" \
+            '[{"type": "article", "id": $id, "title": $title, "input_message_content": {"message_text": $text}, "description": $description}]'
+    )"
 
     return 0
 fi

@@ -23,10 +23,12 @@ then
     keyboard_text1="Original file link"
     keyboard_url1="${ib_file_url}"
 
-    reply_markup="$(jq --null-input --compact-output \
-        --arg text1 "${keyboard_text1}" \
-        --arg url1 "${keyboard_url1}" \
-        '{"inline_keyboard": [[{"text": $text1, "url": $url1}]]}')"
+    reply_markup="$(
+        jq --null-input --compact-output \
+            --arg text1 "${keyboard_text1}" \
+            --arg url1 "${keyboard_url1}" \
+            '{"inline_keyboard": [[{"text": $text1, "url": $url1}]]}'
+    )"
 fi
 
 if [[ -n "${output_text}" ]]

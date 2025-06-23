@@ -2,10 +2,12 @@
 # Copyright (C) 2024-2025 Danil Lisin
 # SPDX-License-Identifier: Apache-2.0
 
-ib_login_data="$(jq --null-input --compact-output \
-    --arg login "${ib_login}" \
-    --arg password "${ib_key}" \
-    '{"login": $login, "password": $password}')"
+ib_login_data="$(
+    jq --null-input --compact-output \
+        --arg login "${ib_login}" \
+        --arg password "${ib_key}" \
+        '{"login": $login, "password": $password}'
+)"
 
 ib_auth_file="${cache}/${update_id}_token.json"
 dump+=(${ib_auth_file##*/})

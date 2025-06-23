@@ -67,39 +67,48 @@ then
     keyboard_text1="Delete"
     keyboard_data1="delete"
 
-    reply_markup="$(jq --null-input --compact-output \
-        --arg text1 "${keyboard_text1}" \
-        --arg data1 "${keyboard_data1}" \
-        '{"inline_keyboard": [[{"text": $text1, "callback_data": $data1}]]}')"
+    reply_markup="$(
+        jq --null-input --compact-output \
+            --arg text1 "${keyboard_text1}" \
+            --arg data1 "${keyboard_data1}" \
+            '{"inline_keyboard": [[{"text": $text1, "callback_data": $data1}]]}'
+    )"
 
     return 0
 fi
 
 . "${units}/ib_post.zsh"
 
-link_preview_options="$(jq --null-input --compact-output \
-    --arg url "${ib_sample_url}" \
-    '{"url": $url, "prefer_small_media": true, "show_above_text": true}')"
+link_preview_options="$(
+    jq --null-input --compact-output \
+        --arg url "${ib_sample_url}" \
+        '{"url": $url, "prefer_small_media": true, "show_above_text": true}'
+)"
 
 keyboard_text1="Post link"
 keyboard_url1="${ib_url}$(printf "%s" "${ib_post_id}" | urlencode)"
 keyboard_text2="Delete"
 keyboard_data2="delete"
 
-reply_markup="$(jq --null-input --compact-output \
-    --arg text1 "${keyboard_text1}" \
-    --arg url1 "${keyboard_url1}" \
-    --arg text2 "${keyboard_text2}" \
-    --arg data2 "${keyboard_data2}" \
-    '{"inline_keyboard": [[{"text": $text1, "url": $url1}], [{"text": $text2, "callback_data": $data2}]]}')"
+reply_markup="$(
+    jq --null-input --compact-output \
+        --arg text1 "${keyboard_text1}" \
+        --arg url1 "${keyboard_url1}" \
+        --arg text2 "${keyboard_text2}" \
+        --arg data2 "${keyboard_data2}" \
+        '{"inline_keyboard": [[{"text": $text1, "url": $url1}], [{"text": $text2, "callback_data": $data2}]]}'
+)"
 
 if [[ ${#ib_tags} -gt 0 ]]
 then
     keyboard_text1="Tags (${#ib_tags})"
     keyboard_data1="tags ${ib_board} ${ib_post_id}"
 
-    reply_markup="$(printf "%s" "${reply_markup}" | jq --compact-output \
-        --arg text1 "${keyboard_text1}" \
-        --arg data1 "${keyboard_data1}" \
-        '.inline_keyboard.[0] += [{"text": $text1, "callback_data": $data1}]')"
+    reply_markup="$(
+        printf "%s" "${reply_markup}" |
+        jq --compact-output \
+            --arg text1 "${keyboard_text1}" \
+            --arg data1 "${keyboard_data1}" \
+            '.inline_keyboard.[0] += [{"text": $text1, "callback_data": $data1}]'
+    )"
 fi
