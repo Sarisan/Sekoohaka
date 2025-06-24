@@ -5,7 +5,7 @@
 for dir in $(find "${cache}" "${users}" -follow -name "*.lock")
 do
     dir_ctime=$(strftime %s)
-    dir_mtime=$(stat +mtime "${file}")
+    dir_mtime=$(stat +mtime "${dir}")
 
     if [[ $((dir_ctime - dir_mtime)) -gt 30 ]]
     then
