@@ -4,7 +4,7 @@
 
 if [[ -z "${clear_cache}" ]]
 then
-    exit 0
+    return 0
 fi
 
 for file in $(ls -1 "${cache}")
