@@ -588,8 +588,12 @@ username="$(jq -r '.result.username' "${cache}/getMe.json")"
 log_text="Bot: ${username}"
 . "${units}/log.zsh"
 
+strftime %s > "${cache}.timer"
+
 while trap 'wait && exit 0' INT TERM
 do
+    . "${mods}/timer.zsh" &
+
     if ! curl --connect-timeout ${connrefused_timeout} \
         --data "offset=${offset}" \
         --get \
@@ -653,9 +657,9 @@ do
         continue
     fi
 
-    for module in "${mods}"/*
+    for module in callback commands inline
     do
-        . "${module}" &
+        . "${mods}/${module}.zsh" &
     done
 
     offset=$((update_id + 1))

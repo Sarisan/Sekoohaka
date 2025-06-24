@@ -7,11 +7,6 @@ then
     exit 0
 fi
 
-if ! mkdir "${cache}.lock"
-then
-    exit 0
-fi
-
 for file in $(ls -x "${cache}")
 do
     until mkdir "${cache}/${file%.*}.lock"
@@ -19,15 +14,13 @@ do
         sleep 1
     done
 
-    cache_ctime=$(strftime %s)
-    cache_mtime=$(stat +mtime "${cache}/${file}")
+    file_ctime=$(strftime %s)
+    file_mtime=$(stat +mtime "${cache}/${file}")
 
-    if [[ $((cache_ctime - cache_mtime)) -gt $((cache_time + 15)) ]]
+    if [[ $((file_ctime - file_mtime)) -gt $((cache_time + 20)) ]]
     then
         rm -f "${cache}/${file}"
     fi
 
     rmdir "${cache}/${file%.*}.lock"
 done
-
-rmdir "${cache}.lock"
