@@ -15,7 +15,7 @@ then
     ib_ctime=$(strftime %s)
     ib_mtime=$(stat +mtime "${ib_file}")
 
-    if [[ $((ib_ctime - ib_mtime)) -le $((cache_time - 15)) ]]
+    if [[ $((ib_ctime - ib_mtime)) -le ${cache_time} ]]
     then
         rmdir "${cache}/${ib_hash}.lock"
         return 0
