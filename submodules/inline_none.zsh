@@ -11,7 +11,7 @@ shorts_config="${user_config}/shorts"
 
 if [[ -d "${shorts_config}" ]]
 then
-    shorts=($(ls -x "${shorts_config}"))
+    shorts=($(ls -1 "${shorts_config}"))
 fi
 
 if [[ ${#shorts} -gt 0 ]]

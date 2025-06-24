@@ -30,7 +30,7 @@ fi
 
 short_hash="$(printf "%s" "${short_query}" | enhash)"
 short="${shorts_config}/${short_hash}"
-shorts=($(ls -x "${shorts_config}"))
+shorts=($(ls -1 "${shorts_config}"))
 
 if [[ -f "${short}" ]]
 then

@@ -43,9 +43,9 @@ if [[ -d "${shorts_config}" ]]
 then
     if [[ -n "${shorts_reverse}" ]]
     then
-        shorts_ls="-xtr"
+        shorts_ls="-1tr"
     else
-        shorts_ls="-xt"
+        shorts_ls="-1t"
     fi
 
     shorts=($(ls ${shorts_ls} "${shorts_config}"))

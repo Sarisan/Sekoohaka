@@ -7,7 +7,7 @@ then
     exit 0
 fi
 
-for file in $(ls -x "${cache}")
+for file in $(ls -1 "${cache}")
 do
     until mkdir "${cache}/${file%.*}.lock"
     do
