@@ -6,23 +6,23 @@ if [[ -n "${ib_file_url}" && "${ib_file_url}" != "null" ]]
 then
     ib_type="$(printf "%s" "${ib_file_url}" | eval ${ib_ifilename} | cut -d '.' -f 2)"
 
-    if [[ "${ib_config}" = "idolcomplex" ]]
+    if [[ "${ib_config}" == "idolcomplex" ]]
     then
         ib_file_url="https:${ib_file_url}"
     fi
 
-    if [[ -z "${ib_sample_url}" || "${ib_sample_url}" = "null" ]]
+    if [[ -z "${ib_sample_url}" || "${ib_sample_url}" == "null" ]]
     then
         ib_sample_url=${ib_file_url}
-    elif [[ "${ib_config}" = "idolcomplex" ]]
+    elif [[ "${ib_config}" == "idolcomplex" ]]
     then
         ib_sample_url="https:${ib_sample_url}"
     fi
 
-    if [[ -z "${ib_preview_url}" || "${ib_preview_url}" = "null" ]]
+    if [[ -z "${ib_preview_url}" || "${ib_preview_url}" == "null" ]]
     then
         ib_preview_url=${ib_error_url}
-    elif [[ "${ib_config}" = "idolcomplex" || "${ib_config}" = "sankakuchannel" ]]
+    elif [[ "${ib_config}" == "idolcomplex" || "${ib_config}" == "sankakuchannel" ]]
     then
         ib_preview_url="${ib_sample_url}"
     fi
@@ -72,7 +72,7 @@ fi
 
 if [[ -n "${ib_file_size}" && "${ib_file_size}" != "null" && ${ib_file_size} -gt 0 ]]
 then
-    if [[ ${ib_file_size} -gt 20971520 && "${ib_sample_url}" = "${ib_file_url}" ]]
+    if [[ ${ib_file_size} -gt 20971520 && "${ib_sample_url}" == "${ib_file_url}" ]]
     then
         . "${units}/ib_sample.zsh"
     fi

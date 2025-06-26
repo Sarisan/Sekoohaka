@@ -36,7 +36,7 @@ for ((idx = 0; idx >= 0; idx++))
 do
     similarity="$(jq -r ".results.[${idx}].header.similarity" "${sn_file}")"
 
-    if [[ "${similarity}" = "null" ]]
+    if [[ "${similarity}" == "null" ]]
     then
         break
     fi

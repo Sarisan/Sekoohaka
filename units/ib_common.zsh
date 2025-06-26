@@ -53,7 +53,7 @@ then
 elif [[ ${#ib_post_id} -eq 32 ]]
 then
     ib_query="md5:${ib_post_id}"
-elif [[ "${ib_config}" = "idolcomplex" ]]
+elif [[ "${ib_config}" == "idolcomplex" ]]
 then
     ib_query="id_range:${ib_post_id}"
 else

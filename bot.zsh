@@ -429,7 +429,7 @@ then
     log_text="Warning: You are running bot with unknown Telegram Bot API instance, SauceNAO is disabled"
 
     . "${units}/log.zsh"
-elif [[ "${api_address}" = "${local_address}" ]]
+elif [[ "${api_address}" == "${local_address}" ]]
 then
     if ! curl --connect-timeout ${connrefused_timeout} \
         --data "user_id=${api_token%:*}" \
@@ -475,7 +475,7 @@ then
 
     profilephoto="$(jq -r '.result.photos[].[0].file_id' "${cache}/getUserProfilePhotos.json")"
 
-    if [[ -z "${profilephoto}" || "${profilephoto}" = "null" ]]
+    if [[ -z "${profilephoto}" || "${profilephoto}" == "null" ]]
     then
         log_text="Error: Bot must have profile photo to run SauceNAO check"
 
@@ -638,7 +638,7 @@ do
 
     update_id="$(jq -r '.result.[0].update_id' "${cache}/getUpdates.json")"
 
-    if [[ "${update_id}" = "null" ]]
+    if [[ "${update_id}" == "null" ]]
     then
         continue
     fi

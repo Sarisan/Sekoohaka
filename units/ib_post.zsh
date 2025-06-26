@@ -47,7 +47,7 @@ if [[ -n "${ib_rating}" && "${ib_rating}" != "null" ]]
 then
     while [[ ${#ib_ratings} -ge 2 ]]
     do
-        if [[ "${ib_rating}" = "${ib_ratings[1]}" ]]
+        if [[ "${ib_rating}" == "${ib_ratings[1]}" ]]
         then
             output_text="$(printf "%s\n<b>Rating:</b> <code>%s</code>" "${output_text}" "${ib_ratings[2]}")"
             break
@@ -62,7 +62,7 @@ then
     output_text="$(printf "%s\n<b>Parent ID:</b> <code>%s</code>" "${output_text}" "${ib_parent_id}")"
 fi
 
-if [[ "${ib_has_children}" = "true" ]]
+if [[ "${ib_has_children}" == "true" ]]
 then
     output_text="$(printf "%s\n<b>Has children:</b> yes" "${output_text}")"
 fi

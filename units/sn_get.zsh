@@ -5,13 +5,13 @@
 message_id="$(jq -r '.message.reply_to_message.message_id' "${update}")"
 file_id="$(jq -r '.message.reply_to_message.photo.[1].file_id' "${update}")"
 
-if [[ "${message_id}" = "null" || "${message_id}" = "${message_thread_id}" ]]
+if [[ "${message_id}" == "null" || "${message_id}" == "${message_thread_id}" ]]
 then
     output_text="You must use this command in reply to an image"
     return 0
 fi
 
-if [[ "${file_id}" = "null" ]]
+if [[ "${file_id}" == "null" ]]
 then
     output_text="Could not find image in replied message"
     return 0
@@ -73,7 +73,7 @@ fi
 
 file_path="$(jq -r '.result.file_path' "${output_file}")"
 
-if [[ "${api_address}" = "${default_address}" ]]
+if [[ "${api_address}" == "${default_address}" ]]
 then
     output_file="${cache}/${update_id}_file.jpg"
     dump+=(${output_file##*/})
@@ -98,7 +98,7 @@ then
         return 0
     fi
 
-    if [[ "$(jq -r '.ok' "${output_file}")" = "false" ]]
+    if [[ "$(jq -r '.ok' "${output_file}")" == "false" ]]
     then
         output_text="Failed to download the image file"
         error_description="$(jq -r '.description' "${output_file}")"

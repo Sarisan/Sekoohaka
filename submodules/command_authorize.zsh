@@ -36,7 +36,7 @@ fi
 
 if [[ -z "${output_text}" ]]
 then
-    if [[ "${ib_auth}" = "0" ]]
+    if [[ "${ib_auth}" == "0" ]]
     then
         output_text="Authorization cannot be verified, make sure you provided the correct credentials"
     else

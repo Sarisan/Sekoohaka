@@ -51,7 +51,7 @@ then
     return 0
 fi
 
-if [[ "$(jq -r '.header.user_id' "${sn_file}")" = "null" ]]
+if [[ "$(jq -r '.header.user_id' "${sn_file}")" == "null" ]]
 then
     output_text="Invalid API Key"
     log_text="sn_auth (${update_id}): ${output_text}"

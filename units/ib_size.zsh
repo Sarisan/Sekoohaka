@@ -7,7 +7,7 @@ then
     return 0
 fi
 
-if [[ -z "${ib_file_url}" || "${ib_file_url}" = "null" ]]
+if [[ -z "${ib_file_url}" || "${ib_file_url}" == "null" ]]
 then
     return 0
 fi

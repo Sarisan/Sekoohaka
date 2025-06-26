@@ -4,7 +4,7 @@
 
 inline_query=($(jq -r '.inline_query.query' "${update}"))
 
-if [[ "${inline_query}" = "null" ]]
+if [[ "${inline_query}" == "null" ]]
 then
     exit 0
 fi

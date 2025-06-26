@@ -55,7 +55,7 @@ case "${ib_mode}" in
         ib_widths=("${(@f)$(jq -r ".${ib_iarray}[].${ib_iwidth}" "${ib_file}")}")
         ib_heights=("${(@f)$(jq -r ".${ib_iarray}[].${ib_iheight}" "${ib_file}")}")
 
-        if [[ "${ib_config}" = "idolcomplex" ]]
+        if [[ "${ib_config}" == "idolcomplex" ]]
         then
             ib_md5s=("${(@f)$(jq -r ".${ib_iarray}[].${ib_imd5}" "${ib_file}")}")
         fi
@@ -70,7 +70,7 @@ for ((idx = 1; idx > 0; idx++))
 do
     ib_id="${ib_ids[idx]}"
 
-    if [[ -z "${ib_id}" || "${ib_id}" = "null" ]]
+    if [[ -z "${ib_id}" || "${ib_id}" == "null" ]]
     then
         break
     fi

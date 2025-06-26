@@ -4,7 +4,7 @@
 
 command_query=($(jq -r '.message.text' "${update}"))
 
-if [[ "${command_query}" = "null" ]]
+if [[ "${command_query}" == "null" ]]
 then
     exit 0
 fi
@@ -27,7 +27,7 @@ set -- ${command_query[@]}
 command="${1}"
 shift
 
-if [[ "${is_topic}" = "null" ]]
+if [[ "${is_topic}" == "null" ]]
 then
     unset message_thread_id
 fi

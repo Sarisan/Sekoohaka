@@ -38,7 +38,7 @@ then
     return 0
 fi
 
-if [[ "$(jq -r '.success' "${ib_auth_file}")" = "false" ]]
+if [[ "$(jq -r '.success' "${ib_auth_file}")" == "false" ]]
 then
     output_text="Error: <code>$(jq -r '.message' "${ib_auth_file}" | htmlescape)</code>"
     log_text="ib_auth (${update_id}): Error: $(jq -r '.message' "${ib_auth_file}")"

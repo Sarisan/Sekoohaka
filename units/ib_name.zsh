@@ -8,12 +8,12 @@ if [[ -z "${1}" ]]
 then
     reply_text="$(jq -r '.message.reply_to_message.text' "${update}")"
 
-    if [[ "${reply_text}" = "null" ]]
+    if [[ "${reply_text}" == "null" ]]
     then
         reply_text="$(jq -r '.message.reply_to_message.caption' "${update}")"
     fi
 
-    if [[ "${reply_text}" = "null" ]]
+    if [[ "${reply_text}" == "null" ]]
     then
         return 0
     fi
@@ -24,17 +24,17 @@ then
     do
         . "${units}/ib_config.zsh"
 
-        if [[ "${ib_reply_name}" = "${ib_name}" ]]
+        if [[ "${ib_reply_name}" == "${ib_name}" ]]
         then
             break
-        elif [[ "${ib_board}" = "${board_table[-1]}" ]]
+        elif [[ "${ib_board}" == "${board_table[-1]}" ]]
         then
             output_text="Could not find Image Board in replied message"
             return 0
         fi
     done
 
-    if [[ -z "${ib_parent}" && "${ib_config}" = "idolcomplex" ]] && echo "${reply_text}" | grep -q 'MD5'
+    if [[ -z "${ib_parent}" && "${ib_config}" == "idolcomplex" ]] && echo "${reply_text}" | grep -q 'MD5'
     then
         ib_post_id="$(printf "%s" "${reply_text}" | grep 'MD5' | parameter 2)"
     else

@@ -4,7 +4,7 @@
 
 callback_query=($(jq -r '.callback_query.data' "${update}"))
 
-if [[ "${callback_query}" = "null" ]]
+if [[ "${callback_query}" == "null" ]]
 then
     exit 0
 fi

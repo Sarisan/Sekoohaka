@@ -24,7 +24,7 @@ ib_tags_count=0
 . "${units}/ib_size.zsh"
 . "${units}/ib_meta.zsh"
 
-if [[ -z "${ib_tags}" || "${ib_tags}" = "null" ]]
+if [[ -z "${ib_tags}" || "${ib_tags}" == "null" ]]
 then
     notification_text="Failed to get tags"
     return 0
@@ -35,7 +35,7 @@ do
     ib_group_tags=($(jq -r ".${ib_iarray}[0].${ib_groups[1]}" "${ib_file}" | htmlescape))
     ib_group_name="${ib_groups[2]}"
 
-    if [[ -z "${ib_group_tags}" || "${ib_group_tags}" = "null" ]]
+    if [[ -z "${ib_group_tags}" || "${ib_group_tags}" == "null" ]]
     then
         shift 2 ib_groups
         continue
