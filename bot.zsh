@@ -405,10 +405,7 @@ for file in aliases blacklist donate help whitelist
 do
     if [[ -f "${files}/${file}.txt" ]]
     then
-        file_ctime=$(stat +mtime "${files}/${file}.txt.default")
-        file_mtime=$(stat +mtime "${files}/${file}.txt")
-
-        if [[ ${file_ctime} -gt ${file_mtime} ]]
+        if [[ "${files}/${file}.txt" -ot "${files}/${file}.txt.default" ]]
         then
             log_text="Warning: File ${file}.txt is older than ${file}.txt.default"
             . "${units}/log.zsh"
