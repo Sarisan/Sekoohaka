@@ -21,6 +21,25 @@ then
             '[{"type": "article", "id": $id, "title": $title, "input_message_content": {"message_text": $text}, "description": $description}]'
     )"
 
+    if [[ "${chat_type}" == "sender" ]]
+    then
+        keyboard_text1="Resume"
+        keyboard_query1="${command} ${inline_page}"
+
+        if [[ -n "${search_query}" ]]
+        then
+            keyboard_query1="${keyboard_query1} ${search_query}"
+        fi
+
+        results="$(
+            printf "%s" "${results}" |
+            jq --compact-output \
+                --arg text1 "${keyboard_text1}" \
+                --arg query1 "${keyboard_query1}" \
+                '.[0] += {"reply_markup": {"inline_keyboard": [[{"text": $text1, "switch_inline_query_current_chat": $query1}]]}}'
+        )"
+    fi
+
     rmdir "${user_config}_short.lock"
     return 0
 fi
