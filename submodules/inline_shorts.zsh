@@ -83,7 +83,7 @@ do
             jq --compact-output \
                 --arg text1 "${keyboard_text1}" \
                 --arg query1 "${keyboard_query1}" \
-                '.reply_markup.inline_keyboard.[0] += [{"text": $text1, "switch_inline_query_current_chat": $query1}]'
+                '.reply_markup.inline_keyboard[0] += [{"text": $text1, "switch_inline_query_current_chat": $query1}]'
         )"
     fi
 

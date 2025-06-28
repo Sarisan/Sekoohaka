@@ -104,7 +104,7 @@ then
         jq --compact-output \
             --arg text1 "${keyboard_text1}" \
             --arg data1 "${keyboard_data1}" \
-            '.inline_keyboard.[0] += [{"text": $text1, "callback_data": $data1}]'
+            '.inline_keyboard[0] += [{"text": $text1, "callback_data": $data1}]'
     )"
 fi
 
@@ -118,6 +118,6 @@ then
         jq --compact-output \
             --arg text1 "${keyboard_text1}" \
             --arg data1 "${keyboard_data1}" \
-            '.inline_keyboard.[0] += [{"text": $text1, "callback_data": $data1}]'
+            '.inline_keyboard[0] += [{"text": $text1, "callback_data": $data1}]'
     )"
 fi
