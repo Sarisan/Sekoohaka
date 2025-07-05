@@ -2,7 +2,7 @@
 # Copyright (C) 2024-2025 Danil Lisin
 # SPDX-License-Identifier: Apache-2.0
 
-until mkdir "${user_config}_short.lock"
+until mkdir "${user_config}_shorts.lock"
 do
     sleep 1
 done
@@ -14,7 +14,7 @@ then
 else
     notification_text="You must specify the query"
 
-    rmdir "${user_config}_short.lock"
+    rmdir "${user_config}_shorts.lock"
     return 0
 fi
 
@@ -24,7 +24,7 @@ if ! mkdir -p "${shorts_config}"
 then
     notification_text="Failed to create user config"
 
-    rmdir "${user_config}_short.lock"
+    rmdir "${user_config}_shorts.lock"
     return 0
 fi
 
@@ -44,4 +44,4 @@ else
     notification_text="Too many shortcuts"
 fi
 
-rmdir "${user_config}_short.lock"
+rmdir "${user_config}_shorts.lock"

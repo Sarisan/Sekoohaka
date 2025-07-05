@@ -8,7 +8,7 @@ then
     return 0
 fi
 
-until mkdir "${user_config}_short.lock"
+until mkdir "${user_config}_shorts.lock"
 do
     sleep 1
 done
@@ -20,5 +20,5 @@ else
     notification_text="Something went wrong, try again later"
 fi
 
-rmdir "${user_config}_short.lock"
+rmdir "${user_config}_shorts.lock"
 rmdir "${user_config}_reset.lock"
