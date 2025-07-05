@@ -2,6 +2,12 @@
 # Copyright (C) 2024-2025 Danil Lisin
 # SPDX-License-Identifier: Apache-2.0
 
+if [[ "${chat_id}" != "${user_id}" ]]
+then
+    output_text="For security reasons you can execute this command only in chat with bot"
+    return 0
+fi
+
 output_text="Remove all your data including login data and saved shortcuts"
 
 keyboard_text1="Remove my data"

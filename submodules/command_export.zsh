@@ -2,6 +2,12 @@
 # Copyright (C) 2024-2025 Danil Lisin
 # SPDX-License-Identifier: Apache-2.0
 
+if [[ "${chat_id}" != "${user_id}" ]]
+then
+    output_text="For security reasons you can execute this command only in chat with bot"
+    return 0
+fi
+
 until mkdir "${user_config}_export.lock"
 do
     sleep 1
@@ -30,7 +36,6 @@ dump+=(${output_file##*/})
 
 if ! curl --connect-timeout ${connrefused_timeout} \
     --data-urlencode "chat_id=${chat_id}" \
-    --data-urlencode "message_thread_id=${message_thread_id}" \
     --data-urlencode "action=upload_document" \
     --get \
     --max-time ${internal_timeout} \
@@ -77,10 +82,8 @@ dump+=(${output_file##*/})
 
 if ! curl --connect-timeout ${connrefused_timeout} \
     --form "chat_id=${chat_id}" \
-    --form "message_thread_id=${message_thread_id}" \
     --form "document=@${cache}/${user_id}.tar" \
     --form "reply_parameters=${reply_parameters}" \
-    --form "reply_markup=${reply_markup}" \
     --get \
     --max-time ${internal_timeout} \
     --output "${output_file}" \
