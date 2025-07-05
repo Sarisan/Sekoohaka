@@ -8,9 +8,7 @@ then
     return 0
 fi
 
-locks=(auth export saucenao shorts)
-
-for lock in ${locks[@]}
+for lock in ${user_locks[@]}
 do
     until mkdir "${user_config}_${lock}.lock"
     do
@@ -25,7 +23,7 @@ else
     notification_text="Something went wrong, try again later"
 fi
 
-for lock in ${locks[@]}
+for lock in ${user_locks[@]}
 do
     rmdir "${user_config}_${lock}.lock"
 done

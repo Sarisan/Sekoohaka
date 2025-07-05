@@ -33,6 +33,13 @@ units="${dir}/units"
 users="${dir}/users"
 offset=-1
 
+user_locks=(
+    auth
+    export
+    saucenao
+    shorts
+)
+
 zmods=(
     zsh/datetime
     zsh/files
