@@ -4,7 +4,7 @@
 
 if [[ "${chat_id}" != "${user_id}" ]]
 then
-    output_text="For security reasons you can execute this command only in chat with bot"
+    output_text="For security reasons you can execute this command only in the bot chat"
     return 0
 fi
 
