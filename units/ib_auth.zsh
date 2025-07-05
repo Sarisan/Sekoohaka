@@ -2,9 +2,6 @@
 # Copyright (C) 2024-2025 Danil Lisin
 # SPDX-License-Identifier: Apache-2.0
 
-login_file="${user_config}/${ib_config}/${ib_login_file}"
-key_file="${user_config}/${ib_config}/${ib_key_file}"
-
 if [[ -z "${ib_login}" ]]
 then
     if [[ -f "${login_file}" ]]

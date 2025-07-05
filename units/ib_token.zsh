@@ -7,9 +7,10 @@ do
     sleep 1
 done
 
-if [[ -f "${legacy_file}" ]]
+if [[ "${ib_auth}" == "0" ]]
 then
-    . "${legacy_file}"
+    ib_dfield5="${ib_login_file}=$(< "${login_file}")"
+    ib_dfield6="${ib_key_file}=$(< "${key_file}")"
 fi
 
 if [[ -f "${timestamp_file}" ]]
