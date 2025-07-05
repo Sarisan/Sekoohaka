@@ -8,7 +8,7 @@ then
     return 0
 fi
 
-locks=(auth saucenao short)
+locks=(auth export saucenao short)
 
 for lock in ${locks[@]}
 do

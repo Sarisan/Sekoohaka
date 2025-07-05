@@ -47,6 +47,7 @@
 /shorts - Manage saved shortcuts
 /ping - Measure bot latency
 /donate - Send donation details
+/export - Export all your data
 /stop - Remove all your data
 
 <b>Inline aliases:</b>

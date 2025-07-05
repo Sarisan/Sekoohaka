@@ -58,6 +58,7 @@ busybox=(
     sort
     sha1sum
     sleep
+    tar
     tr
     wc
 )

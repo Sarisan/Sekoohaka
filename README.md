@@ -49,6 +49,7 @@ For distribution specific installation commands follow [command-not-found](https
 * sort
 * sha1sum
 * sleep
+* tar
 * tr
 * wc
 
@@ -141,6 +142,7 @@ Cache modes:
 * `/shorts` - Manage saved shortcuts
 * `/ping` - Measure bot latency
 * `/donate` - Send donation details
+* `/export` - Export all user data
 * `/stop` - Remove all user data
 
 ### Inline aliases

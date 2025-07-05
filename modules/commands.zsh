@@ -39,6 +39,9 @@ case "${command}" in
     ("/donate" | "/donate@${username}")
         . "${submods}/command_donate.zsh"
     ;;
+    ("/export" | "/export@${username}")
+        . "${submods}/command_export.zsh"
+    ;;
     ("/hash" | "/hash@${username}")
         . "${submods}/command_hash.zsh"
     ;;
