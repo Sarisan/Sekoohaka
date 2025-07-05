@@ -59,6 +59,7 @@ busybox=(
     sha1sum
     sleep
     tr
+    wc
 )
 
 if [[ -n "${1}" ]]
@@ -412,6 +413,15 @@ do
         fi
     else
         < "${files}/${file}.txt.default" > "${files}/${file}.txt"
+    fi
+done
+
+for file in donate help
+do
+    if [[ $(wc -m "${files}/${file}.txt" | parameter 1) -gt 4096 ]]
+    then
+        log_text="Error: File ${file}.txt is too large"
+        . "${units}/log.zsh"
     fi
 done
 

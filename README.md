@@ -50,6 +50,7 @@ For distribution specific installation commands follow [command-not-found](https
 * sha1sum
 * sleep
 * tr
+* wc
 
 ## Deployment
 
