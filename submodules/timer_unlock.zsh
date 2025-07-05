@@ -9,6 +9,6 @@ do
 
     if [[ $((dir_ctime - dir_mtime)) -gt 30 ]]
     then
-        rm -fr "${dir}"
+        rmdir "${dir}"
     fi
 done
