@@ -2,19 +2,22 @@
 # Copyright (C) 2024-2025 Danil Lisin
 # SPDX-License-Identifier: Apache-2.0
 
-message_id="$(jq -r '.message.reply_to_message.message_id' "${update}")"
-file_id="$(jq -r '.message.reply_to_message.photo.[1].file_id' "${update}")"
-
-if [[ "${message_id}" == "null" || "${message_id}" == "${message_thread_id}" ]]
+if [[ -z "${file_id}" ]]
 then
-    output_text="You must use this command in reply to an image"
-    return 0
-fi
+    message_id="$(jq -r '.message.reply_to_message.message_id' "${update}")"
+    file_id="$(jq -r '.message.reply_to_message.photo.[1].file_id' "${update}")"
 
-if [[ "${file_id}" == "null" ]]
-then
-    output_text="Could not find image in replied message"
-    return 0
+    if [[ "${message_id}" == "null" || "${message_id}" == "${message_thread_id}" ]]
+    then
+        output_text="You must use this command in reply to an image"
+        return 0
+    fi
+
+    if [[ "${file_id}" == "null" ]]
+    then
+        output_text="Could not find image in replied message"
+        return 0
+    fi
 fi
 
 output_file="${cache}/${update_id}_getFile.json"

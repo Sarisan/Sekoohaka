@@ -672,7 +672,7 @@ do
         continue
     fi
 
-    for module in callback commands inline
+    for module in callback commands inline source
     do
         . "${mods}/${module}.zsh" &
     done
