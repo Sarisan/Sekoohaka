@@ -2,7 +2,7 @@
 # Copyright (C) 2024-2025 Danil Lisin
 # SPDX-License-Identifier: Apache-2.0
 
-if [[ "${chat_id}" != "${user_id}" ]]
+if [[ "${chat_id}" != "${target_user}" ]]
 then
     output_text="For security reasons you can execute this command only in the bot chat"
     return 0

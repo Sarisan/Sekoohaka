@@ -30,7 +30,7 @@ then
             '{"inline_keyboard": [[{"text": $text1, "switch_inline_query_current_chat": $query1}]]}'
     )"
 
-    if [[ "${chat_id}" == "${user_id}" ]]
+    if [[ "${chat_id}" == "${target_user}" ]]
     then
         keyboard_text1="Remove all"
         keyboard_data1="reset"
