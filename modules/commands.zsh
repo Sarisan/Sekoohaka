@@ -21,16 +21,16 @@ reply_parameters="$(
         '{"message_id": $message_id, "allow_sending_without_reply": true}'
 )"
 
+if [[ "${is_topic}" == "null" ]]
+then
+    unset message_thread_id
+fi
+
 . "${units}/user.zsh"
 set -- ${command_query[@]}
 
 command="${1}"
 shift
-
-if [[ "${is_topic}" == "null" ]]
-then
-    unset message_thread_id
-fi
 
 case "${command}" in
     ("/authorize" | "/authorize@${username}")

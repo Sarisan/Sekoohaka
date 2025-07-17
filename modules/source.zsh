@@ -27,13 +27,12 @@ reply_parameters="$(
         '{"message_id": $message_id, "allow_sending_without_reply": true}'
 )"
 
-. "${units}/user.zsh"
-
 if [[ "${is_topic}" == "null" ]]
 then
     unset message_thread_id
 fi
 
+. "${units}/user.zsh"
 . "${submods}/command_source.zsh"
 
 output_file="${cache}/${update_id}_sendMessage.json"
