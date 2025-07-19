@@ -22,6 +22,13 @@ then
     exit 0
 fi
 
+via_bot="$(jq -r '.message.via_bot.is_bot' "${update}")"
+
+if [[ "${via_bot}" == "true" ]]
+then
+    exit 0
+fi
+
 message_id="$(jq -r '.message.message_id' "${update}")"
 is_topic="$(jq -r '.message.is_topic_message' "${update}")"
 message_thread_id="$(jq -r '.message.message_thread_id' "${update}")"
