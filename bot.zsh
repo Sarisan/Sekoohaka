@@ -173,7 +173,7 @@ then
         "\n  -d <secs>\tHead request connetion timeout, max: 10, default: 2 secs" \
         "\n  -f <secs>\tConnrefused timeout, max: 2, default: none" \
         "\n  -n <addr>\tProxy server for Telegram Bot API" \
-        "\n  -x <addr>\tProxy server for Image Boards API" \
+        "\n  -x <addr>\tProxy server for Image Boards API/SauceNAO" \
         "\n\nCache modes:" \
         "\n  none\t\tNo cache reuse" \
         "\n  normal\tReuse inline results and posts cache" \
