@@ -2,6 +2,11 @@
 # Copyright (C) 2024-2025 Danil Lisin
 # SPDX-License-Identifier: Apache-2.0
 
+if [[ -n "${nocommand_source}" ]]
+then
+    exit 0
+fi
+
 user_id="$(jq -r '.message.from.id' "${update}")"
 chat_id="$(jq -r '.message.chat.id' "${update}")"
 
