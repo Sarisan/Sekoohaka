@@ -616,6 +616,7 @@ do
 
     if ! curl --connect-timeout ${connrefused_timeout} \
         --data "offset=${offset}" \
+        --data "limit=1" \
         --get \
         --output "${cache}/getUpdates.json" \
         --proxy "${internal_proxy}" \
