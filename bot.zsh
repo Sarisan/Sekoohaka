@@ -15,7 +15,12 @@ set -e
 umask 77
 exec 2> /dev/null
 
-version="5.2.2"
+if command -v git > /dev/null
+then
+    gitrev="$(git rev-parse --short HEAD)"
+fi
+
+version="5.3-${gitrev:-indev}"
 useragent="Sekoohaka/${version} Telegram Bot"
 
 local_address="127.0.0.1:8081"
