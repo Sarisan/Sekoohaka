@@ -415,12 +415,27 @@ alias enhash="sha1sum | parameter 1"
 alias htmlescape="sed -e 's/</\&#60;/g' -e 's/>/\&#62;/g'"
 alias urlencode="jq -Rr @uri"
 
+log_text="PID: ${$}"
+. "${units}/log.zsh"
+
+log_text="CWD: $(pwd)"
+. "${units}/log.zsh"
+
+log_text="Creating directories..."
+. "${units}/log.zsh"
+
 rm -fr "${cache}"
 mkdir -p "${cache}"
 mkdir -p "${users}"
 
+log_text="Running files check..."
+. "${units}/log.zsh"
+
 for file in aliases blacklist donate help whitelist
 do
+    log_text="files/${file}.txt"
+    . "${units}/log.zsh"
+
     if [[ -f "${files}/${file}.txt" ]]
     then
         if [[ "${files}/${file}.txt" -ot "${files}/${file}.txt.default" ]]
@@ -433,14 +448,25 @@ do
     fi
 done
 
+log_text="Running files length check..."
+. "${units}/log.zsh"
+
 for file in donate help
 do
-    if [[ $(wc -m "${files}/${file}.txt" | parameter 1) -gt 4096 ]]
+    file_length=$(wc -m "${files}/${file}.txt" | parameter 1)
+
+    log_text="files/${file}.txt:${file_length}"
+    . "${units}/log.zsh"
+
+    if [[ ${file_length} -gt 4096 ]]
     then
         log_text="Error: File ${file}.txt is too large"
         . "${units}/log.zsh"
     fi
 done
+
+log_text="Running donate command check..."
+. "${units}/log.zsh"
 
 if ! [[ -s "${files}/donate.txt" ]]
 then
@@ -449,6 +475,9 @@ then
 
     . "${units}/log.zsh"
 fi
+
+log_text="Running SauceNAO check..."
+. "${units}/log.zsh"
 
 if [[ -z "${allow_source}" && "${api_address}" != "${local_address}" && "${api_address}" != "${default_address}" ]]
 then
@@ -599,7 +628,7 @@ else
     fi
 fi
 
-log_text="PID: ${$}"
+log_text="Retrieving bot information..."
 . "${units}/log.zsh"
 
 if ! curl --connect-timeout ${connrefused_timeout} \
