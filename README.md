@@ -65,6 +65,7 @@ For better performance, it is recommended to use a locally deployed [Telegram Bo
 Options:
   -h            Show help information
   -a <addr>     Telegram Bot API address, default: api.telegram.org
+  -o            Allow SauceNAO with unknown Telegram Bot API instance
   -l            Use local Telegram Bot API, address: 127.0.0.1:8081
   -r <num>      Inline results limit, max: 50, default: 10
   -g <num>      Shortcuts storage limit, max: 10000, default: 100

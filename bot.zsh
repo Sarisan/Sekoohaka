@@ -77,7 +77,7 @@ busybox=(
 
 if [[ -n "${1}" ]]
 then
-    while getopts ha:lg:r:m:t:s:cjqui:e:d:f:n:x: opts
+    while getopts ha:olg:r:m:t:s:cjqui:e:d:f:n:x: opts
     do
         case "${opts}" in
             (h)
@@ -85,6 +85,9 @@ then
             ;;
             (a)
                 api_address="${OPTARG}"
+            ;;
+            (o)
+                allow_source=0
             ;;
             (l)
                 api_address="${local_address}"
@@ -154,6 +157,7 @@ then
         "\n\nOptions:" \
         "\n  -h\t\tShow help information" \
         "\n  -a <addr>\tTelegram Bot API address, default: api.telegram.org" \
+        "\n  -o\t\tAllow SauceNAO with unknown Telegram Bot API instance" \
         "\n  -l\t\tUse local Telegram Bot API, address: 127.0.0.1:8081" \
         "\n  -r <num>\tInline results limit, max: 50, default: 10" \
         "\n  -g <num>\tShortcuts storage limit, max: 10000, default: 100" \
@@ -446,14 +450,13 @@ then
     . "${units}/log.zsh"
 fi
 
-if [[ "${api_address}" != "${local_address}" && "${api_address}" != "${default_address}" ]]
+if [[ -z "${allow_source}" && "${api_address}" != "${local_address}" && "${api_address}" != "${default_address}" ]]
 then
     nocommand_source=0
     log_text="Warning: You are running bot with unknown Telegram Bot API instance, SauceNAO is disabled"
 
     . "${units}/log.zsh"
-elif [[ "${api_address}" == "${local_address}" ]]
-then
+else
     if ! curl --connect-timeout ${connrefused_timeout} \
         --data "user_id=${api_token%:*}" \
         --get \
@@ -548,15 +551,51 @@ then
         exit 1
     fi
 
-    profilephoto_path="$(jq -r '.result.file_path' "${cache}/getFile.json")"
-
-    if ! ls "${profilephoto_path}" > /dev/null
+    if [[ "${api_address}" == "${local_address}" ]]
     then
-        nocommand_source=0
-        log_text="Error: Cannot access Telegram Bot API working directory, SauceNAO is disabled"
+        profilephoto_path="$(jq -r '.result.file_path' "${cache}/getFile.json")"
 
-        . "${units}/log.zsh"
-        exit 1
+        if ! ls "${profilephoto_path}" > /dev/null
+        then
+            nocommand_source=0
+            log_text="Error: Cannot access Telegram Bot API working directory, SauceNAO is disabled"
+
+            . "${units}/log.zsh"
+            exit 1
+        fi
+    else
+        if ! curl --connect-timeout ${connrefused_timeout} \
+            --max-time ${internal_timeout} \
+            --output "${cache}/file.jpg" \
+            --proxy "${internal_proxy}" \
+            --retry 1 \
+            --retry-connrefused \
+            --retry-max-time $((external_timeout - connrefused_timeout)) \
+            --silent \
+            --user-agent "${useragent}" \
+            "${api_address}/file/bot${api_token}/${file_path}"
+        then
+            nocommand_source=0
+            log_text="Error: Failed to download file, SauceNAO is disabled"
+
+            . "${units}/log.zsh"
+            exit 1
+        fi
+
+        if [[ "$(jq -r '.ok' "${output_file}")" == "false" ]]
+        then
+            error_description="$(jq -r '.description' "${output_file}")"
+
+            if [[ "${error_description}" != "null" ]]
+            then
+                log_text="Error: ${error_description}"
+            else
+                log_text="Error: An unknown error occurred"
+            fi
+
+            . "${units}/log.zsh"
+            exit 1
+        fi
     fi
 fi
 

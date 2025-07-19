@@ -76,7 +76,7 @@ fi
 
 file_path="$(jq -r '.result.file_path' "${output_file}")"
 
-if [[ "${api_address}" == "${default_address}" ]]
+if [[ "${api_address}" != "${local_address}" ]]
 then
     output_file="${cache}/${update_id}_file.jpg"
     dump+=(${output_file##*/})
