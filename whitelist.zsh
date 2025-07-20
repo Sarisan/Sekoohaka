@@ -4,9 +4,9 @@
 # Copyright (C) 2024-2025 Danil Lisin
 # SPDX-License-Identifier: Apache-2.0
 
-if [[ "${__whitelist_noenv}" != "0" ]]
+if [[ "${__whitelist_env}" != "0" ]]
 then
-    env -i PATH="${PATH}" __whitelist_noenv=0 "${0}" ${@}
+    env -i PATH="${PATH}" __whitelist_env=0 "${0}" ${@}
     exit ${?}
 fi
 

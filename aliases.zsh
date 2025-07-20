@@ -4,9 +4,9 @@
 # Copyright (C) 2024-2025 Danil Lisin
 # SPDX-License-Identifier: Apache-2.0
 
-if [[ "${__aliases_noenv}" != "0" ]]
+if [[ "${__aliases_env}" != "0" ]]
 then
-    env -i PATH="${PATH}" __aliases_noenv=0 "${0}" ${@}
+    env -i PATH="${PATH}" __aliases_env=0 "${0}" ${@}
     exit ${?}
 fi
 
