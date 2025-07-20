@@ -480,13 +480,13 @@ then
     . "${units}/log.zsh"
 fi
 
-log_text="Running SauceNAO check..."
+log_text="Running source command check..."
 . "${units}/log.zsh"
 
 if [[ -z "${allow_source}" && "${api_address}" != "${local_address}" && "${api_address}" != "${default_address}" ]]
 then
     nocommand_source=0
-    log_text="Warning: You are running bot with unknown Telegram Bot API instance, SauceNAO is disabled"
+    log_text="Warning: You are running bot with unknown Telegram Bot API instance, source command is disabled"
 
     . "${units}/log.zsh"
 else
@@ -536,7 +536,7 @@ else
 
     if [[ -z "${profilephoto}" || "${profilephoto}" == "null" ]]
     then
-        log_text="Error: Bot must have profile photo to run SauceNAO check"
+        log_text="Error: Bot must have profile photo to run source command check"
 
         . "${units}/log.zsh"
         exit 1
@@ -591,7 +591,7 @@ else
         if ! ls "${profilephoto_path}" > /dev/null
         then
             nocommand_source=0
-            log_text="Error: Cannot access Telegram Bot API working directory, SauceNAO is disabled"
+            log_text="Error: Cannot access Telegram Bot API working directory, source command is disabled"
 
             . "${units}/log.zsh"
         fi
@@ -608,7 +608,7 @@ else
             "${api_address}/file/bot${api_token}/${profilephoto_path}"
         then
             nocommand_source=0
-            log_text="Error: Failed to download file, SauceNAO is disabled"
+            log_text="Error: Failed to download file, source command is disabled"
 
             . "${units}/log.zsh"
         fi
@@ -620,9 +620,9 @@ else
 
             if [[ "${error_description}" != "null" ]]
             then
-                log_text="Error: ${error_description}, SauceNAO is disabled"
+                log_text="Error: ${error_description}, source command is disabled"
             else
-                log_text="Error: An unknown error occurred, SauceNAO is disabled"
+                log_text="Error: An unknown error occurred, source command is disabled"
             fi
 
             . "${units}/log.zsh"
