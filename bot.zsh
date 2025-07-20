@@ -584,10 +584,10 @@ else
         exit 1
     fi
 
+    profilephoto_path="$(jq -r '.result.file_path' "${cache}/getFile.json")"
+
     if [[ "${api_address}" == "${local_address}" ]]
     then
-        profilephoto_path="$(jq -r '.result.file_path' "${cache}/getFile.json")"
-
         if ! ls "${profilephoto_path}" > /dev/null
         then
             nocommand_source=0
@@ -606,7 +606,7 @@ else
             --retry-max-time $((external_timeout - connrefused_timeout)) \
             --silent \
             --user-agent "${useragent}" \
-            "${api_address}/file/bot${api_token}/${file_path}"
+            "${api_address}/file/bot${api_token}/${profilephoto_path}"
         then
             nocommand_source=0
             log_text="Error: Failed to download file, SauceNAO is disabled"
@@ -615,9 +615,9 @@ else
             exit 1
         fi
 
-        if [[ "$(jq -r '.ok' "${output_file}")" == "false" ]]
+        if [[ "$(jq -r '.ok' "${cache}/file.jpg")" == "false" ]]
         then
-            error_description="$(jq -r '.description' "${output_file}")"
+            error_description="$(jq -r '.description' "${cache}/file.jpg")"
 
             if [[ "${error_description}" != "null" ]]
             then
