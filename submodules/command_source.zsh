@@ -7,14 +7,14 @@ then
     exit 0
 fi
 
-until mkdir "${user_config}_saucenao.lock"
+until mkdir "${user_config}_source.lock"
 do
     sleep 1
 done
 
 . "${units}/sn_auth.zsh"
 
-rmdir "${user_config}_saucenao.lock"
+rmdir "${user_config}_source.lock"
 
 if [[ -n "${output_text}" ]]
 then

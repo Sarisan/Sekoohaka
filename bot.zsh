@@ -45,7 +45,7 @@ offset=-1
 user_locks=(
     auth
     export
-    saucenao
+    source
     shorts
 )
 
