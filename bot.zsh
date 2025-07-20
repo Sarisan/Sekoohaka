@@ -594,7 +594,6 @@ else
             log_text="Error: Cannot access Telegram Bot API working directory, SauceNAO is disabled"
 
             . "${units}/log.zsh"
-            exit 1
         fi
     else
         if ! curl --connect-timeout ${connrefused_timeout} \
@@ -612,22 +611,21 @@ else
             log_text="Error: Failed to download file, SauceNAO is disabled"
 
             . "${units}/log.zsh"
-            exit 1
         fi
 
         if [[ "$(jq -r '.ok' "${cache}/file.jpg")" == "false" ]]
         then
+            nocommand_source=0
             error_description="$(jq -r '.description' "${cache}/file.jpg")"
 
             if [[ "${error_description}" != "null" ]]
             then
-                log_text="Error: ${error_description}"
+                log_text="Error: ${error_description}, SauceNAO is disabled"
             else
-                log_text="Error: An unknown error occurred"
+                log_text="Error: An unknown error occurred, SauceNAO is disabled"
             fi
 
             . "${units}/log.zsh"
-            exit 1
         fi
     fi
 fi
