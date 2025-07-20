@@ -4,10 +4,10 @@
 # Copyright (C) 2024-2025 Danil Lisin
 # SPDX-License-Identifier: Apache-2.0
 
-if [[ "${__bot_noenv}" != "0" ]]
+if [[ "${__bot_env}" != "0" ]]
 then
     trap 'wait && exit 0' INT TERM
-    env -i PATH="${PATH}" __bot_noenv=0 "${0}" ${@}
+    env -i PATH="${PATH}" __bot_env=0 "${0}" ${@}
     exit ${?}
 fi
 
