@@ -678,6 +678,9 @@ log_text="Bot: ${username}"
 
 strftime %s > "${cache}.timer"
 
+log_text="Startup succeeded"
+. "${units}/log.zsh"
+
 while trap 'wait && exit 0' INT TERM
 do
     . "${mods}/timer.zsh" &
