@@ -22,9 +22,9 @@ then
     exit 0
 fi
 
-via_bot="$(jq -r '.message.via_bot.is_bot' "${update}")"
+via_bot="$(jq -r '.message.via_bot.username' "${update}")"
 
-if [[ "${via_bot}" == "true" ]]
+if [[ "${via_bot}" == "${username}" ]]
 then
     exit 0
 fi
