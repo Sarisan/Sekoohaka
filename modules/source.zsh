@@ -57,7 +57,6 @@ if ! curl --connect-timeout ${connrefused_timeout} \
     --data-urlencode "parse_mode=HTML" \
     --data-urlencode "link_preview_options=${link_preview_options}" \
     --data-urlencode "reply_parameters=${reply_parameters}" \
-    --data-urlencode "reply_markup=${reply_markup}" \
     --get \
     --max-time ${internal_timeout} \
     --output "${output_file}" \
