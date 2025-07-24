@@ -42,6 +42,8 @@ units="${dir}/units"
 users="${dir}/users"
 offset=-1
 
+board_table=(a d g i k s y)
+
 user_locks=(
     auth
     export
