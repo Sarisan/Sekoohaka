@@ -434,7 +434,7 @@ rm -fr "${cache}"
 mkdir -p "${cache}"
 mkdir -p "${users}"
 
-log_text="Running files check..."
+log_text="Running files age check..."
 . "${units}/log.zsh"
 
 for file in aliases blacklist donate help whitelist
