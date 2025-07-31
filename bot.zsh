@@ -434,6 +434,54 @@ rm -fr "${cache}"
 mkdir -p "${cache}"
 mkdir -p "${users}"
 
+log_text="Retrieving bot information..."
+. "${units}/log.zsh"
+
+if ! curl --connect-timeout ${connrefused_timeout} \
+    --get \
+    --max-time ${internal_timeout} \
+    --output "${cache}/getMe.json" \
+    --proxy "${internal_proxy}" \
+    --retry 1 \
+    --retry-connrefused \
+    --retry-max-time $((internal_timeout - connrefused_timeout)) \
+    --silent \
+    --user-agent "${useragent}" \
+    "${api_address}/bot${api_token}/getMe"
+then
+    log_text="getMe: Failed to access Telegram Bot API"
+    . "${units}/log.zsh"
+
+    exit 1
+fi
+
+if ! jq -e '.' "${cache}/getMe.json" > /dev/null
+then
+    log_text="getMe: An unknown error occurred"
+    . "${units}/log.zsh"
+
+    exit 1
+fi
+
+if [[ "$(jq -r '.ok' "${cache}/getMe.json")" != "true" ]]
+then
+    error_description="$(jq -r '.description' "${cache}/getMe.json")"
+
+    if [[ "${error_description}" != "null" ]]
+    then
+        log_text="getMe: ${error_description}"
+    else
+        log_text="getMe: An unknown error occurred"
+    fi
+
+    . "${units}/log.zsh"
+    exit 1
+fi
+
+username="$(jq -r '.result.username' "${cache}/getMe.json")"
+log_text="Bot: ${username}"
+. "${units}/log.zsh"
+
 log_text="Running files age check..."
 . "${units}/log.zsh"
 
@@ -631,54 +679,6 @@ else
         fi
     fi
 fi
-
-log_text="Retrieving bot information..."
-. "${units}/log.zsh"
-
-if ! curl --connect-timeout ${connrefused_timeout} \
-    --get \
-    --max-time ${internal_timeout} \
-    --output "${cache}/getMe.json" \
-    --proxy "${internal_proxy}" \
-    --retry 1 \
-    --retry-connrefused \
-    --retry-max-time $((internal_timeout - connrefused_timeout)) \
-    --silent \
-    --user-agent "${useragent}" \
-    "${api_address}/bot${api_token}/getMe"
-then
-    log_text="getMe: Failed to access Telegram Bot API"
-    . "${units}/log.zsh"
-
-    exit 1
-fi
-
-if ! jq -e '.' "${cache}/getMe.json" > /dev/null
-then
-    log_text="getMe: An unknown error occurred"
-    . "${units}/log.zsh"
-
-    exit 1
-fi
-
-if [[ "$(jq -r '.ok' "${cache}/getMe.json")" != "true" ]]
-then
-    error_description="$(jq -r '.description' "${cache}/getMe.json")"
-
-    if [[ "${error_description}" != "null" ]]
-    then
-        log_text="getMe: ${error_description}"
-    else
-        log_text="getMe: An unknown error occurred"
-    fi
-
-    . "${units}/log.zsh"
-    exit 1
-fi
-
-username="$(jq -r '.result.username' "${cache}/getMe.json")"
-log_text="Bot: ${username}"
-. "${units}/log.zsh"
 
 strftime %s > "${cache}.timer"
 
