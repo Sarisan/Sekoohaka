@@ -165,7 +165,7 @@ then
         "\n  -o\t\tAllow SauceNAO with unknown Telegram Bot API instance" \
         "\n  -l\t\tUse local Telegram Bot API, address: 127.0.0.1:8081" \
         "\n  -r <num>\tInline results limit, max: 50, default: 10" \
-        "\n  -g <num>\tShortcuts storage limit, max: 10000, default: 100" \
+        "\n  -g <num>\tShortcuts storage limit, max: 10000, default: 500" \
         "\n  -m <mode>\tCache mode, default: normal" \
         "\n  -t <secs>\tCache expiration time, max: 1000, default: 300 secs" \
         "\n  -s <secs>\tSleep duration time, max: 100, default: 10 secs" \
@@ -173,9 +173,9 @@ then
         "\n  -j\t\tUse threaded MD5 hash lookup" \
         "\n  -q\t\tDo not print logs" \
         "\n  -u\t\tCollect debug dumps" \
-        "\n  -i <secs>\tTelegram Bot API connetion timeout, max: 10, default: 10 secs" \
-        "\n  -e <secs>\tImage Boards API connetion timeout, max: 10, default: 5 secs" \
-        "\n  -d <secs>\tHead request connetion timeout, max: 10, default: 2 secs" \
+        "\n  -i <secs>\tTelegram Bot API connetion timeout, max: 5, default: 5 secs" \
+        "\n  -e <secs>\tImage Boards API connetion timeout, max: 5, default: 5 secs" \
+        "\n  -d <secs>\tHead request connetion timeout, max: 5, default: 2 secs" \
         "\n  -f <secs>\tConnrefused timeout, max: 2, default: none" \
         "\n  -n <addr>\tProxy server for Telegram Bot API" \
         "\n  -x <addr>\tProxy server for Image Boards API/SauceNAO" \
@@ -260,7 +260,7 @@ then
         shorts_limit=10000
     fi
 else
-    shorts_limit=100
+    shorts_limit=500
 fi
 
 if [[ -n "${inline_limit}" ]]
@@ -338,12 +338,12 @@ then
         exit 1
     fi
 
-    if [[ ${internal_timeout} -gt 10 ]]
+    if [[ ${internal_timeout} -gt 5 ]]
     then
-        internal_timeout=10
+        internal_timeout=5
     fi
 else
-    internal_timeout=10
+    internal_timeout=5
 fi
 
 if [[ -n "${external_timeout}" ]]
@@ -355,9 +355,9 @@ then
         exit 1
     fi
 
-    if [[ ${external_timeout} -gt 10 ]]
+    if [[ ${external_timeout} -gt 5 ]]
     then
-        external_timeout=10
+        external_timeout=5
     fi
 else
     external_timeout=5
@@ -372,9 +372,9 @@ then
         exit 1
     fi
 
-    if [[ ${head_timeout} -gt 10 ]]
+    if [[ ${head_timeout} -gt 5 ]]
     then
-        head_timeout=10
+        head_timeout=5
     fi
 else
     head_timeout=2

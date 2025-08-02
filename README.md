@@ -67,7 +67,7 @@ Options:
   -o            Allow SauceNAO with unknown Telegram Bot API instance
   -l            Use local Telegram Bot API, address: 127.0.0.1:8081
   -r <num>      Inline results limit, max: 50, default: 10
-  -g <num>      Shortcuts storage limit, max: 10000, default: 100
+  -g <num>      Shortcuts storage limit, max: 10000, default: 500
   -m <mode>     Cache mode, default: normal
   -t <secs>     Cache expiration time, max: 1000, default: 300 secs
   -s <secs>     Sleep duration time, max: 100, default: 10 secs
@@ -75,9 +75,9 @@ Options:
   -j            Use threaded MD5 hash lookup
   -q            Do not print logs
   -u            Collect debug dumps
-  -i <secs>     Telegram Bot API connetion timeout, max: 10, default: 10 secs
-  -e <secs>     Image Boards API connetion timeout, max: 10, default: 5 secs
-  -d <secs>     Head request connetion timeout, max: 10, default: 2 secs
+  -i <secs>     Telegram Bot API connetion timeout, max: 5, default: 5 secs
+  -e <secs>     Image Boards API connetion timeout, max: 5, default: 5 secs
+  -d <secs>     Head request connetion timeout, max: 5, default: 2 secs
   -f <secs>     Connrefused timeout, max: 2, default: none
   -n <addr>     Proxy server for Telegram Bot API
   -x <addr>     Proxy server for Image Boards API/SauceNAO
