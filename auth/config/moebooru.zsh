@@ -11,6 +11,7 @@ case "${ib_board}" in
     ;;
 esac
 
+ib_raw=0
 ib_login_file="username"
 ib_key_file="api_key"
 ib_login_word="username"

@@ -7,7 +7,7 @@ do
     sleep 1
 done
 
-if [[ "${ib_auth}" == "0" ]]
+if [[ -n "${ib_raw}" ]]
 then
     ib_dfield5="${ib_login_file}=$(< "${login_file}")"
     ib_dfield6="${ib_key_file}=$(< "${key_file}")"

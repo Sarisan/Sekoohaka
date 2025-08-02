@@ -38,7 +38,3 @@ then
 
     return 0
 fi
-
-printf '%s="%s"\n%s="%s"\n' \
-    "ib_dfield5" "username=${ib_login}" \
-    "ib_dfield6" "api_key=${ib_key}" > "${legacy_file}"
