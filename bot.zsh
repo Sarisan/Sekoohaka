@@ -438,12 +438,12 @@ log_text="Retrieving bot information..."
 
 if ! curl --connect-timeout ${connrefused_timeout} \
     --get \
-    --max-time ${internal_timeout} \
+    --max-time 10 \
     --output "${cache}/getMe.json" \
     --proxy "${internal_proxy}" \
     --retry 1 \
     --retry-connrefused \
-    --retry-max-time $((internal_timeout - connrefused_timeout)) \
+    --retry-max-time $((10 - connrefused_timeout)) \
     --silent \
     --user-agent "${useragent}" \
     "${api_address}/bot${api_token}/getMe"
