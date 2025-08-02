@@ -78,7 +78,6 @@ busybox=(
     sleep
     tar
     tr
-    wc
 )
 
 if [[ -n "${1}" ]]
@@ -507,22 +506,37 @@ log_text="Running files length check..."
 
 for file in donate help
 do
-    file_length=$(wc -m "${files}/${file}.txt" | parameter 1)
-
-    log_text="files/${file}.txt:${file_length}"
+    log_text="files/${file}.txt"
     . "${units}/log.zsh"
 
-    if [[ ${file_length} -gt 4096 ]]
+    file_content="$(< "${files}/${file}.txt")"
+
+    if [[ ${#file_content} -gt 4096 ]]
     then
-        log_text="Error: File ${file}.txt is too large"
+        log_text="Error: File ${file}.txt exceeds 4096 characters limit"
         . "${units}/log.zsh"
     fi
 done
 
+log_text="Running help command check..."
+. "${units}/log.zsh"
+
+file_content="$(< "${files}/help.txt")"
+
+if [[ ${#file_content} -lt 1 ]]
+then
+    log_text="Error: File help.txt must be at least 1 character long"
+    . "${units}/log.zsh"
+
+    exit 1
+fi
+
 log_text="Running donate command check..."
 . "${units}/log.zsh"
 
-if ! [[ -s "${files}/donate.txt" ]]
+file_content="$(< "${files}/donate.txt")"
+
+if [[ ${#file_content} -lt 1 ]]
 then
     nocommand_donate=0
     log_text="Warning: File donate.txt is empty, donate command is disabled"
