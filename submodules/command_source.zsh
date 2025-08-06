@@ -82,7 +82,7 @@ fi
 
 if [[ "${idol_id}" != "null" ]]
 then
-    idol_md5="$(jq -r ".results.[${highest_index}].header.index_name" "${sn_file}" | parameter 6 | cut -d '_' -f 1)"
+    idol_md5="$(jq -r ".results.[${highest_index}].header.index_name" "${sn_file}" | cut -d ' ' -f 6 | cut -d '_' -f 1)"
 
     output_text="$(printf "%s\n<b>Idol Complex ID:</b> <code>%s</code>" "${output_text}" "${idol_id}")"
     output_text="$(printf "%s\n<b>Idol Complex MD5:</b> <code>%s</code>" "${output_text}" "${idol_md5}")"

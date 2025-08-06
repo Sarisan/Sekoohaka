@@ -34,9 +34,9 @@ then
 
     if [[ -z "${ib_parent}" && "${ib_config}" == "idolcomplex" ]] && echo "${reply_text}" | grep -q 'MD5'
     then
-        ib_post_id="$(printf "%s" "${reply_text}" | grep 'MD5' | parameter 2)"
+        ib_post_id="$(printf "%s" "${reply_text}" | grep 'MD5' | cut -d ' ' -f 2)"
     else
-        ib_post_id="$(printf "%s" "${reply_text}" | sed '2!d' | parameter 2)"
+        ib_post_id="$(printf "%s" "${reply_text}" | sed '2!d' | cut -d ' ' -f 2)"
     fi
 
     if [[ -z "${ib_post_id}" ]]

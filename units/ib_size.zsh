@@ -24,6 +24,6 @@ ib_file_size="$(
         --user-agent "${useragent}" \
         "${ib_file_url}" |
     grep -i "content-length" |
-    parameter 2 |
+    cut -d ' ' -f 2 |
     tr -d '\r'
 )"
