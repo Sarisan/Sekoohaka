@@ -4,21 +4,17 @@
 
 target_user="${user_id}"
 
-aliases_file="${files}/aliases.txt"
-blacklist_file="${files}/blacklist.txt"
-whitelist_file="${files}/whitelist.txt"
-
-if [[ -s "${aliases_file}" ]] && alias="$(grep -x "${user_id} .*" "${aliases_file}")"
+if [[ ${aliases_length} -gt 0 ]] && alias="$(grep -x "${user_id} .*" <<< "${aliases_list}")"
 then
     user_id="$(printf "%s" "${alias}" | parameter 2)"
 fi
 
-if [[ -s "${blacklist_file}" ]] && grep -qx "${user_id}" "${blacklist_file}"
+if [[ ${blacklist_length} -gt 0 ]] && grep -qx "${user_id}" <<< "${blacklist_list}"
 then
     exit 0
 fi
 
-if [[ -s "${whitelist_file}" ]] && ! grep -qx "${user_id}" "${whitelist_file}"
+if [[ ${whitelist_length} -gt 0 ]] && !grep -qx "${user_id}" <<< "${whitelist_list}"
 then
     exit 0
 fi
