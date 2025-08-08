@@ -13,6 +13,7 @@ then
 
     if [[ "${reply_text}" == "null" ]]
     then
+        output_text="You must specify the Image Board and the post ID or the MD5 hash, or use this command in reply to a message"
         return 0
     fi
 
