@@ -9,7 +9,7 @@ ib_mode="p"
 
 ib_query="md5:${ib_post_md5}"
 
-ib_hash="$(printf "%s%s%s" "${user_id}" "${ib_board}" "${ib_query}" | enhash)"
+ib_hash="$(sha1sum <<< "${user_id}${ib_board}${ib_query}" | cut -d ' ' -f 1)"
 . "${units}/ib_file.zsh"
 
 if [[ -z "${output_text}" ]]

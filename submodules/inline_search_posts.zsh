@@ -148,6 +148,6 @@ then
         ib_query="id:${ib_id}"
     fi
 
-    ib_hash="$(printf "%s%s%s" "${user_id}" "${ib_board}" "${ib_query}" | enhash)"
+    ib_hash="$(sha1sum <<< "${user_id}${ib_board}${ib_query}" | cut -d ' ' -f 1)"
     . "${units}/ib_cache.zsh" &
 fi

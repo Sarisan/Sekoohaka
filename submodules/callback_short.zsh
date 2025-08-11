@@ -28,7 +28,7 @@ then
     return 0
 fi
 
-short_hash="$(printf "%s" "${short_query}" | enhash)"
+short_hash="$(sha1sum <<< "${short_query}" | cut -d ' ' -f 1)"
 short="${shorts_config}/${short_hash}"
 shorts=($(ls -1 "${shorts_config}"))
 
