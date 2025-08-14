@@ -16,7 +16,18 @@ case "${command}" in
         inline_options="aq"
     ;;
     (*)
-        . "${submods}/inline_help.zsh"
+        set -- ${inline_query[@]}
+        . "${submods}/inline_none.zsh"
+
+        case "${command}" in
+            ("shorts")
+                . "${submods}/inline_shorts.zsh"
+            ;;
+            ("help")
+                . "${submods}/inline_help.zsh"
+            ;;
+        esac
+
         return 0
     ;;
 esac
