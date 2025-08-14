@@ -7,10 +7,7 @@ then
     return 0
 fi
 
-if [[ -n "${dump}" ]]
-then
-    mkdir -p "${dumps}/${update_id}"
-fi
+mkdir -p "${dumps}/${update_id}"
 
 for dump_file in ${dump[@]}
 do
