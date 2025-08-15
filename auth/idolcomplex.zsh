@@ -113,7 +113,7 @@ ib_notice="$(xq -q "div[id=notice]" "${ib_auth_file}")"
 
 if [[ -n "${ib_notice}" && "${ib_notice}" != "You are now logged in" ]]
 then
-    output_text="$(printf "%s" "${ib_notice}" | htmlescape)"
+    output_text="$(htmlescape <<< "${ib_notice}")"
     log_text="ib_auth (${update_id}): ${ib_notice}"
 
     . "${units}/log.zsh"

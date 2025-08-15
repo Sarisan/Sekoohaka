@@ -149,7 +149,7 @@ case "${action}" in
 
         if [[ -s "${list}" ]] && alias="$(grep -xe "${user_id} .*" "${list}")"
         then
-            alias_name="$(printf "%s" "${alias}" | cut -d ' ' -f 2)"
+            alias_name="$(cut -d ' ' -f 2 <<< "${alias}")"
 
             echo "User ID ${user_id} already has an alias ${alias_name}"
             exit 1

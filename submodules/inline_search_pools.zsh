@@ -11,7 +11,7 @@ unset ib_date_text
 
 if [[ -n "${ib_ispace}" ]]
 then
-    ib_pool="$(printf "%s" "${ib_pool}" | tr "${ib_ispace}" ' ')"
+    ib_pool="$(tr "${ib_ispace}" ' ' <<< "${ib_pool}")"
 fi
 
 output_title="${ib_pool:- }"
@@ -22,12 +22,12 @@ then
     output_text="$(printf "%s\n<b>Date:</b> <code>%s</code>" "${output_text}" "${ib_date_text}")"
 fi
 
-output_text="$(printf "%s\n<b>Name:</b> %s" "${output_text}" "$(printf "%s" "${ib_pool}" | htmlescape)")"
+output_text="$(printf "%s\n<b>Name:</b> %s" "${output_text}" "$(htmlescape <<< "${ib_pool}")")"
 output_text="$(printf "%s\n<b>Post count:</b> %s" "${output_text}" "${ib_count}")"
 output_description="Click to send the pool information"
 
 keyboard_text1="Pool link"
-keyboard_url1="${ib_url}$(printf "%s" "${ib_id}" | urlencode)"
+keyboard_url1="${ib_url}$(urlencode <<< "${ib_id}")"
 keyboard_text2="Resume"
 keyboard_query2="${command} ${ib_board} ${inline_page}"
 
@@ -60,10 +60,10 @@ then
     fi
 
     result="$(
-        printf "%s" "${result}" |
         jq --compact-output \
             --arg text1 "${keyboard_text1}" \
             --arg query1 "${keyboard_query1}" \
-            '.reply_markup.inline_keyboard += [[{"text": $text1, "switch_inline_query_current_chat": $query1}]]'
+            '.reply_markup.inline_keyboard += [[{"text": $text1, "switch_inline_query_current_chat": $query1}]]' \
+        <<< "${result}"
     )"
 fi

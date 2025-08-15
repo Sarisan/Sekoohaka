@@ -17,7 +17,7 @@ then
         return 0
     fi
 
-    ib_reply_name="$(printf "%s" "${reply_text}" | sed '1!d')"
+    ib_reply_name="$(sed '1!d' <<< "${reply_text}")"
 
     for ib_board in ${board_table[@]}
     do
@@ -33,11 +33,11 @@ then
         fi
     done
 
-    if [[ -z "${ib_parent}" && "${ib_config}" == "idolcomplex" ]] && echo "${reply_text}" | grep -q 'MD5'
+    if [[ -z "${ib_parent}" && "${ib_config}" == "idolcomplex" ]] && grep -q 'MD5' <<< "${reply_text}"
     then
-        ib_post_id="$(printf "%s" "${reply_text}" | grep 'MD5' | cut -d ' ' -f 2)"
+        ib_post_id="$(grep 'MD5' <<< "${reply_text}" | cut -d ' ' -f 2)"
     else
-        ib_post_id="$(printf "%s" "${reply_text}" | sed '2!d' | cut -d ' ' -f 2)"
+        ib_post_id="$(sed '2!d' <<< "${reply_text}" | cut -d ' ' -f 2)"
     fi
 
     if [[ -z "${ib_post_id}" ]]

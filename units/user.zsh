@@ -6,7 +6,7 @@ target_user="${user_id}"
 
 if [[ ${aliases_length} -gt 0 ]] && alias="$(grep -x "${user_id} .*" <<< "${aliases_list}")"
 then
-    user_id="$(printf "%s" "${alias}" | cut -d ' ' -f 2)"
+    user_id="$(cut -d ' ' -f 2 <<< "${alias}")"
 fi
 
 if [[ ${blacklist_length} -gt 0 ]] && grep -qx "${user_id}" <<< "${blacklist_list}"

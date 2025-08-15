@@ -2,7 +2,7 @@
 # Copyright (C) 2024-2025 Danil Lisin
 # SPDX-License-Identifier: Apache-2.0
 
-if [[ -n "${no_logs}" ]] && ! echo "${log_text}" | grep -q -e "^Error:" -e "^Warning:"
+if [[ -n "${no_logs}" ]] && ! grep -q -e "^Error:" -e "^Warning:" <<< "${log_text}"
 then
     return 0
 fi

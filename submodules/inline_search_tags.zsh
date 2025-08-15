@@ -5,19 +5,19 @@
 ib_tag="${ib_tags[idx]}"
 ib_count="${ib_counts[idx]}"
 
-if [[ -n "${ib_irecode}" ]] && ib_tag_recode="$(printf "%s" "${ib_tag}" | recode ${ib_irecode}..ASCII)"
+if [[ -n "${ib_irecode}" ]] && ib_tag_recode="$(recode ${ib_irecode}..ASCII <<< "${ib_tag}")"
 then
     ib_tag="${ib_tag_recode}"
 fi
 
 output_title="${ib_tag:- }"
 output_text="$(printf "<b>%s</b>\n<b>ID:</b> <code>%s</code>" "${ib_name}" "${ib_id}")"
-output_text="$(printf "%s\n<b>Name:</b> <code>%s</code>" "${output_text}" "$(printf "%s" "${ib_tag}" | htmlescape)")"
+output_text="$(printf "%s\n<b>Name:</b> <code>%s</code>" "${output_text}" "$(htmlescape <<< "${ib_tag}")")"
 output_text="$(printf "%s\n<b>Post count:</b> %s" "${output_text}" "${ib_count}")"
 output_description="Click to send the tag information"
 
 keyboard_text1="Wiki link"
-keyboard_url1="${ib_url}$(printf "%s" "${ib_tag}" | urlencode)"
+keyboard_url1="${ib_url}$(urlencode <<< "${ib_tag}")"
 keyboard_text2="Resume"
 keyboard_query2="${command} ${ib_board} ${inline_page}"
 
@@ -45,10 +45,10 @@ then
     keyboard_query1="p ${ib_board} ${ib_tag}"
 
     result="$(
-        printf "%s" "${result}" |
         jq --compact-output \
             --arg text1 "${keyboard_text1}" \
             --arg query1 "${keyboard_query1}" \
-            '.reply_markup.inline_keyboard += [[{"text": $text1, "switch_inline_query_current_chat": $query1}]]'
+            '.reply_markup.inline_keyboard += [[{"text": $text1, "switch_inline_query_current_chat": $query1}]]' \
+        <<< "${result}"
     )"
 fi

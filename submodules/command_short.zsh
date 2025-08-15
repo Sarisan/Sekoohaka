@@ -17,7 +17,7 @@ then
     return 0
 fi
 
-output_text="<b>Shortcut:</b> <code>$(printf "%s" "${short_query}" | htmlescape)</code>"
+output_text="<b>Shortcut:</b> <code>$(htmlescape <<< "${short_query}")</code>"
 
 keyboard_text1="Open inline"
 keyboard_query1="${short_query}"
@@ -37,10 +37,10 @@ then
     keyboard_data1="${short_query}"
 
     reply_markup="$(
-        printf "%s" "${reply_markup}" |
         jq --compact-output \
             --arg text1 "${keyboard_text1}" \
             --arg data1 "${keyboard_data1}" \
-            '.inline_keyboard[0] += [{"text": $text1, "callback_data": $data1}]'
+            '.inline_keyboard[0] += [{"text": $text1, "callback_data": $data1}]' \
+        <<< "${reply_markup}"
     )"
 fi

@@ -4,7 +4,7 @@
 
 if [[ -n "${ib_file_url}" && "${ib_file_url}" != "null" ]]
 then
-    ib_type="$(printf "%s" "${ib_file_url}" | eval ${ib_ifilename} | cut -d '.' -f 2)"
+    ib_type="$(eval ${ib_ifilename} <<< "${ib_file_url}" | cut -d '.' -f 2)"
 
     if [[ "${ib_config}" == "idolcomplex" ]]
     then
@@ -34,7 +34,7 @@ then
 
     if [[ -n "${ib_type}" ]]
     then
-        ib_type_text="$(printf "%s" "${ib_type}" | tr '[:lower:]' '[:upper:]')"
+        ib_type_text="$(tr '[:lower:]' '[:upper:]' <<< "${ib_type}")"
     fi
 
     case "${ib_type}" in

@@ -61,7 +61,7 @@ then
 fi
 
 keyboard_text1="Post link"
-keyboard_url1="${ib_url}$(printf "%s" "${ib_id}" | urlencode)"
+keyboard_url1="${ib_url}$(urlencode <<< "${ib_id}")"
 keyboard_text2="Resume"
 keyboard_query2="${command} ${ib_board} ${inline_page}"
 
@@ -129,13 +129,13 @@ then
     keyboard_query2="post ${ib_board} ${ib_id}"
 
     result="$(
-        printf "%s" "${result}" |
         jq --compact-output \
             --arg text1 "${keyboard_text1}" \
             --arg query1 "${keyboard_query1}" \
             --arg text2 "${keyboard_text2}" \
             --arg query2 "${keyboard_query2}" \
-            '.reply_markup.inline_keyboard += [[{"text": $text1, "switch_inline_query_current_chat": $query1}, {"text": $text2, "switch_inline_query_current_chat": $query2}]]'
+            '.reply_markup.inline_keyboard += [[{"text": $text1, "switch_inline_query_current_chat": $query1}, {"text": $text2, "switch_inline_query_current_chat": $query2}]]' \
+        <<< "${result}"
     )"
 fi
 

@@ -32,11 +32,11 @@ then
         fi
 
         results="$(
-            printf "%s" "${results}" |
             jq --compact-output \
                 --arg text1 "${keyboard_text1}" \
                 --arg query1 "${keyboard_query1}" \
-                '.[0] += {"reply_markup": {"inline_keyboard": [[{"text": $text1, "switch_inline_query_current_chat": $query1}]]}}'
+                '.[0] += {"reply_markup": {"inline_keyboard": [[{"text": $text1, "switch_inline_query_current_chat": $query1}]]}}' \
+            <<< "${results}"
         )"
     fi
 
@@ -51,7 +51,7 @@ do
     short_query="$(< "${shorts_config}/${shorts[idx]}")"
 
     output_title="Shortcut"
-    output_text="<b>Shortcut:</b> <code>$(printf "%s" "${short_query}" | htmlescape)</code>"
+    output_text="<b>Shortcut:</b> <code>$(htmlescape <<< "${short_query}")</code>"
     output_description="${short_query}"
 
     keyboard_text1="Open inline"
@@ -79,11 +79,11 @@ do
         fi
 
         result="$(
-            printf "%s" "${result}" |
             jq --compact-output \
                 --arg text1 "${keyboard_text1}" \
                 --arg query1 "${keyboard_query1}" \
-                '.reply_markup.inline_keyboard[0] += [{"text": $text1, "switch_inline_query_current_chat": $query1}]'
+                '.reply_markup.inline_keyboard[0] += [{"text": $text1, "switch_inline_query_current_chat": $query1}]' \
+            <<< "${result}"
         )"
     fi
 
@@ -93,18 +93,18 @@ do
         keyboard_data1="short ${short_query}"
 
         result="$(
-            printf "%s" "${result}" |
             jq --compact-output \
                 --arg text1 "${keyboard_text1}" \
                 --arg data1 "${keyboard_data1}" \
-                '.reply_markup.inline_keyboard += [[{"text": $text1, "callback_data": $data1}]]'
+                '.reply_markup.inline_keyboard += [[{"text": $text1, "callback_data": $data1}]]' \
+            <<< "${result}"
         )"
     fi
 
     results+=(${result})
 done
 
-results="$(printf "%s" "${results[@]}" | jq -sc)"
+results="$(jq -sc <<< "${results[@]}")"
 
 if [[ -n "${shorts_autopaging}" ]]
 then

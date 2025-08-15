@@ -35,7 +35,7 @@ fi
 
 if [[ -f "${cookies_file}" ]]
 then
-    ib_cookies="${ib_cookie}=$(< "${cookies_file}" | grep "${ib_cookie}" | sed "s/.*${ib_cookie}\t//")"
+    ib_cookies="${ib_cookie}=$(grep "${ib_cookie}" < "${cookies_file}" | sed "s/.*${ib_cookie}\t//")"
 fi
 
 if [[ -f "${token_file}" ]]

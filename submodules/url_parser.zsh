@@ -27,10 +27,10 @@ ib_mode="p"
 
 while [[ ${#url_table} -ge 4 ]]
 do
-    if echo ${command} | grep -qx "${url_table[1]}"
+    if grep -qx "${url_table[1]}" <<< ${command}
     then
         ib_board="${url_table[2]}"
-        ib_post_id="$(printf "%s" ${command} | cut -d ${url_table[3]} -f ${url_table[4]} | cut -d '?' -f 1)"
+        ib_post_id="$(cut -d ${url_table[3]} -f ${url_table[4]} <<< ${command} | cut -d '?' -f 1)"
 
         break
     fi
@@ -86,7 +86,7 @@ link_preview_options="$(
 )"
 
 keyboard_text1="Post link"
-keyboard_url1="${ib_url}$(printf "%s" "${ib_post_id}" | urlencode)"
+keyboard_url1="${ib_url}$(urlencode <<< "${ib_post_id}")"
 keyboard_text2="Delete"
 keyboard_data2="delete"
 
@@ -105,10 +105,10 @@ then
     keyboard_data1="tags ${ib_board} ${ib_post_id}"
 
     reply_markup="$(
-        printf "%s" "${reply_markup}" |
         jq --compact-output \
             --arg text1 "${keyboard_text1}" \
             --arg data1 "${keyboard_data1}" \
-            '.inline_keyboard[0] += [{"text": $text1, "callback_data": $data1}]'
+            '.inline_keyboard[0] += [{"text": $text1, "callback_data": $data1}]' \
+        <<< "${reply_markup}"
     )"
 fi

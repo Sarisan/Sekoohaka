@@ -19,7 +19,7 @@ link_preview_options="$(
 )"
 
 keyboard_text1="Post link"
-keyboard_url1="${ib_url}$(printf "%s" "${ib_post_id}" | urlencode)"
+keyboard_url1="${ib_url}$(urlencode <<< "${ib_post_id}")"
 
 reply_markup="$(
     jq --null-input --compact-output \
@@ -34,10 +34,10 @@ then
     keyboard_data1="tags ${ib_board} ${ib_post_id}"
 
     reply_markup="$(
-        printf "%s" "${reply_markup}" |
         jq --compact-output \
             --arg text1 "${keyboard_text1}" \
             --arg data1 "${keyboard_data1}" \
-            '.inline_keyboard[0] += [{"text": $text1, "callback_data": $data1}]'
+            '.inline_keyboard[0] += [{"text": $text1, "callback_data": $data1}]' \
+        <<< "${reply_markup}"
     )"
 fi

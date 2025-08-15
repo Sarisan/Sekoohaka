@@ -111,7 +111,7 @@ do
     results+=(${result})
 done
 
-results="$(printf "%s" "${results[@]}" | jq -sc)"
+results="$(jq -sc <<< ${results[@]})"
 
 if [[ -n "${ib_autopaging}" ]]
 then

@@ -74,9 +74,9 @@ fi
 
 if [[ -n "${ib_source}" && "${ib_source}" != "null" ]]
 then
-    if echo "${ib_source}" | grep -q -e "pixiv" -e "pximg"
+    if grep -q -e "pixiv" -e "pximg" <<< "${ib_source}"
     then
-        ib_source="https://www.pixiv.net/artworks/$(printf "%s" "${ib_source##*/}" | cut -d '_' -f 1)"
+        ib_source="https://www.pixiv.net/artworks/$(cut -d '_' -f 1 <<< "${ib_source##*/}")"
     fi
 
     if [[ ${#ib_source} -le 2048 ]]

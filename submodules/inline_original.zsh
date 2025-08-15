@@ -54,10 +54,10 @@ then
     keyboard_url1="${ib_file_url}"
 
     results="$(
-        printf "%s" "${results}" |
         jq --compact-output \
             --arg text1 "${keyboard_text1}" \
             --arg url1 "${keyboard_url1}" \
-            '.[0] += {"reply_markup": {"inline_keyboard": [[{"text": $text1, "url": $url1}]]}}'
+            '.[0] += {"reply_markup": {"inline_keyboard": [[{"text": $text1, "url": $url1}]]}}' \
+        <<< "${results}"
     )"
 fi

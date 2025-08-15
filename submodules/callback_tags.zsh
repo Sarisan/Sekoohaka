@@ -100,11 +100,11 @@ then
     keyboard_data1="tags ${ib_board} ${ib_post_id}"
 
     reply_markup="$(
-        printf "%s" "${reply_markup}" |
         jq --compact-output \
             --arg text1 "${keyboard_text1}" \
             --arg data1 "${keyboard_data1}" \
-            '.inline_keyboard[0] += [{"text": $text1, "callback_data": $data1}]'
+            '.inline_keyboard[0] += [{"text": $text1, "callback_data": $data1}]' \
+        <<< "${reply_markup}"
     )"
 fi
 
@@ -114,10 +114,10 @@ then
     keyboard_data1="tags ${ib_board} ${ib_post_id} $((ib_tags_offset + ib_tags_count))"
 
     reply_markup="$(
-        printf "%s" "${reply_markup}" |
         jq --compact-output \
             --arg text1 "${keyboard_text1}" \
             --arg data1 "${keyboard_data1}" \
-            '.inline_keyboard[0] += [{"text": $text1, "callback_data": $data1}]'
+            '.inline_keyboard[0] += [{"text": $text1, "callback_data": $data1}]' \
+        <<< "${reply_markup}"
     )"
 fi
