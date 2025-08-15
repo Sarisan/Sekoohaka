@@ -139,7 +139,7 @@ case "${action}" in
     (add)
         if [[ -n "${1}" ]]
         then
-            alias_name="${1}"
+            alias_id="${1}"
             shift
         else
             echo "You must specify the alias name" \
@@ -149,13 +149,13 @@ case "${action}" in
 
         if [[ -s "${list}" ]] && alias="$(grep -xe "${user_id} .*" "${list}")"
         then
-            alias_name="$(cut -d ' ' -f 2 <<< "${alias}")"
+            alias_id="$(cut -d ' ' -f 2 <<< "${alias}")"
 
-            echo "User ID ${user_id} already has an alias ${alias_name}"
+            echo "User ID ${user_id} already has an alias ${alias_id}"
             exit 1
         fi
 
-        printf "%s %s\n" "${user_id}" "${alias_name}" >> "${list}"
+        printf "%s %s\n" "${user_id}" "${alias_id}" >> "${list}"
     ;;
     (del)
         if [[ -s "${list}" ]]
