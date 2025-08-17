@@ -72,6 +72,9 @@ link_preview_options="$(
 
 output_text="$(printf "<b>SauceNAO</b>\n<b>Similarity:</b> %.2f%%" "${highest_similarity}")"
 
+reply_markup="{}"
+keyboard_offset=0
+
 while [[ ${#source_table} -ge 3 ]]
 do
     ib_id="$(jq -r ".results.[${highest_index}].data.${source_table[3]}" "${sn_file}")"
@@ -79,16 +82,29 @@ do
     if [[ "${ib_id}" == "null" ]]
     then
         shift 3 source_table
-        break
+        continue
     fi
 
     output_text="$(printf "%s\n<b>%s ID:</b> <code>%s</code>" "${output_text}" "${source_table[1]}" "${ib_id}")"
 
     if [[ "${source_table[3]}" == "idol_id" ]]
     then
-        ib_md5="$(jq -r ".results.[${highest_index}].header.index_name" "${sn_file}" | cut -d ' ' -f 6 | cut -d '_' -f 1)"
-        output_text="$(printf "%s\n<b>%s MD5:</b> <code>%s</code>" "${output_text}" "${source_table[1]}" "${ib_md5}")"
+        ib_id="$(jq -r ".results.[${highest_index}].header.index_name" "${sn_file}" | cut -d ' ' -f 6 | cut -d '_' -f 1)"
+        output_text="$(printf "%s\n<b>%s MD5:</b> <code>%s</code>" "${output_text}" "${source_table[1]}" "${ib_id}")"
     fi
 
+    keyboard_text1="${source_table[1]}"
+    keyboard_query1="post ${source_table[2]} ${ib_id}"
+
+    reply_markup="$(
+        jq --compact-output \
+            --argjson offset "$(printf "%u" "${keyboard_offset}")" \
+            --arg text1 "${keyboard_text1}" \
+            --arg query1 "${keyboard_query1}" \
+            '.inline_keyboard[$offset] += [{"text": $text1, "switch_inline_query_current_chat": $query1}]' \
+        <<< "${reply_markup}"
+    )"
+
+    keyboard_offset=$((keyboard_offset + 0.5))
     shift 3 source_table
 done
