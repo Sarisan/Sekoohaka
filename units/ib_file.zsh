@@ -51,7 +51,6 @@ fi
 rm -f "${ib_file}"
 
 if ! curl --connect-timeout ${connrefused_timeout} \
-    --cookie "${ib_cookies}" \
     --data-urlencode "${ib_dfield1}" \
     --data-urlencode "${ib_dfield2}" \
     --data-urlencode "${ib_dfield3}" \

@@ -37,11 +37,8 @@ case "${ib_board}" in
     (g)
         . "${auth}/gelbooru.zsh"
     ;;
-    (i)
-        . "${auth}/idolcomplex.zsh"
-    ;;
-    (s)
-        . "${auth}/sankakuchannel.zsh"
+    (i|s)
+        . "${auth}/sankakucomplex.zsh"
     ;;
     (k|y)
         . "${auth}/moebooru.zsh"

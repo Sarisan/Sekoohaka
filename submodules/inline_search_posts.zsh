@@ -49,17 +49,6 @@ then
     fi
 fi
 
-if [[ "${ib_config}" == "idolcomplex" ]]
-then
-    ib_md5="${ib_md5s[idx]}"
-
-    if [[ -n "${ib_md5}" && "${ib_md5}" != "null" ]]
-    then
-        ib_id="${ib_md5}"
-        output_text="$(printf "%s\n<b>MD5:</b> <code>%s</code>" "${output_text}" "${ib_md5}")"
-    fi
-fi
-
 keyboard_text1="Post link"
 keyboard_url1="${ib_url}$(urlencode <<< "${ib_id}")"
 keyboard_text2="Resume"
@@ -141,12 +130,7 @@ fi
 
 if [[ "${cache_mode}" == "advanced" ]]
 then
-    if [[ "${ib_config}" == "idolcomplex" ]]
-    then
-        ib_query="md5:${ib_md5}"
-    else
-        ib_query="id:${ib_id}"
-    fi
+    ib_query="id:${ib_id}"
 
     ib_hash="$(sha1sum <<< "${user_id}${ib_board}${ib_query}" | cut -d ' ' -f 1)"
     . "${units}/ib_cache.zsh" &

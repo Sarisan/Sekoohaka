@@ -33,12 +33,7 @@ then
         fi
     done
 
-    if [[ -z "${ib_parent}" && "${ib_config}" == "idolcomplex" ]] && grep -q 'MD5' <<< "${reply_text}"
-    then
-        ib_post_id="$(grep 'MD5' <<< "${reply_text}" | cut -d ' ' -f 2)"
-    else
-        ib_post_id="$(sed '2!d' <<< "${reply_text}" | cut -d ' ' -f 2)"
-    fi
+    ib_post_id="$(sed '2!d' <<< "${reply_text}" | cut -d ' ' -f 2)"
 
     if [[ -z "${ib_post_id}" ]]
     then

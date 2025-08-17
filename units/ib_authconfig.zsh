@@ -3,7 +3,6 @@
 # SPDX-License-Identifier: Apache-2.0
 
 timestamp_file="${user_config}/${ib_config}/timestamp"
-cookies_file="${user_config}/${ib_config}/cookies"
 token_file="${user_config}/${ib_config}/token"
 
 case "${ib_board}" in
@@ -13,11 +12,8 @@ case "${ib_board}" in
     (g)
         . "${auth}/config/gelbooru.zsh"
     ;;
-    (i)
-        . "${auth}/config/idolcomplex.zsh"
-    ;;
-    (s)
-        . "${auth}/config/sankakuchannel.zsh"
+    (i|s)
+        . "${auth}/config/sankakucomplex.zsh"
     ;;
     (k|y)
         . "${auth}/config/moebooru.zsh"

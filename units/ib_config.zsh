@@ -13,11 +13,8 @@ case "${ib_board}" in
     (g)
         . "${config}/gelbooru.zsh"
     ;;
-    (i)
-        . "${config}/idolcomplex.zsh"
-    ;;
-    (s)
-        . "${config}/sankakuchannel.zsh"
+    (i|s)
+        . "${config}/sankakucomplex.zsh"
     ;;
     (k|y)
         . "${config}/moebooru.zsh"

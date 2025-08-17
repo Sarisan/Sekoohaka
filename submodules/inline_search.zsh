@@ -75,11 +75,6 @@ case "${ib_mode}" in
         ib_preview_urls=("${(@f)$(jq -r ".${ib_iarray}[].${ib_ipreview}" "${ib_file}")}")
         ib_widths=("${(@f)$(jq -r ".${ib_iarray}[].${ib_iwidth}" "${ib_file}")}")
         ib_heights=("${(@f)$(jq -r ".${ib_iarray}[].${ib_iheight}" "${ib_file}")}")
-
-        if [[ "${ib_config}" == "idolcomplex" ]]
-        then
-            ib_md5s=("${(@f)$(jq -r ".${ib_iarray}[].${ib_imd5}" "${ib_file}")}")
-        fi
     ;;
     (t)
         ib_tags=("${(@f)$(jq -r ".${ib_iarray}[].${ib_itag}" "${ib_file}")}")

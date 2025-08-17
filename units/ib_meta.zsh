@@ -6,17 +6,9 @@ if [[ -n "${ib_file_url}" && "${ib_file_url}" != "null" ]]
 then
     ib_type="$(eval ${ib_ifilename} <<< "${ib_file_url}" | cut -d '.' -f 2)"
 
-    if [[ "${ib_config}" == "idolcomplex" ]]
-    then
-        ib_file_url="https:${ib_file_url}"
-    fi
-
     if [[ -z "${ib_sample_url}" || "${ib_sample_url}" == "null" ]]
     then
         ib_sample_url=${ib_file_url}
-    elif [[ "${ib_config}" == "idolcomplex" ]]
-    then
-        ib_sample_url="https:${ib_sample_url}"
     fi
 
     if [[ -z "${ib_preview_url}" || "${ib_preview_url}" == "null" ]]
