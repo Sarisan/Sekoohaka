@@ -38,8 +38,6 @@ source_table=(
 )
 
 minimum_similarity="$(jq -r ".header.minimum_similarity" "${sn_file}")"
-highest_similarity=0
-highest_index=0
 
 for ((idx = 0; idx >= 0; idx++))
 do
@@ -72,9 +70,6 @@ link_preview_options="$(
 
 output_text="$(printf "<b>SauceNAO</b>\n<b>Similarity:</b> %.2f%%" "${highest_similarity}")"
 
-reply_markup="{}"
-keyboard_offset=0
-
 while [[ ${#source_table} -ge 3 ]]
 do
     ib_id="$(jq -r ".results.[${highest_index}].data.${source_table[3]}" "${sn_file}")"
@@ -102,7 +97,7 @@ do
             --arg text1 "${keyboard_text1}" \
             --arg query1 "${keyboard_query1}" \
             '.inline_keyboard[$offset] += [{"text": $text1, "switch_inline_query_current_chat": $query1}]' \
-        <<< "${reply_markup}"
+        <<< "${reply_markup:-"{}"}"
     )"
 
     keyboard_offset=$((keyboard_offset + 0.5))

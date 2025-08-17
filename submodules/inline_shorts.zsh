@@ -44,8 +44,6 @@ then
     return 0
 fi
 
-array_count=0
-
 for ((idx = 1; idx <= ${inline_limit} && idx <= ${#shorts}; idx++))
 do
     short_query="$(< "${shorts_config}/${shorts[idx]}")"

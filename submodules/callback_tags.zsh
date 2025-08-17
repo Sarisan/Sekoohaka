@@ -19,7 +19,6 @@ ib_height="$(jq -r ".${ib_iarray}[0].${ib_iheight}" "${ib_file}")"
 ib_tags=($(jq -r ".${ib_iarray}[0].${ib_itags}" "${ib_file}" | htmlescape))
 ib_groups_offset=${1:-0}
 ib_tags_offset=${1:-0}
-ib_tags_count=0
 
 . "${units}/ib_size.zsh"
 . "${units}/ib_meta.zsh"

@@ -77,7 +77,6 @@ then
         . "${units}/ib_sample.zsh"
     fi
 
-    unit_offset=0
     size_offset=1.0
 
     for unit in B KiB MiB GiB TiB PiB
