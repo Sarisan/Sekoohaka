@@ -17,6 +17,9 @@ then
     return 0
 fi
 
+ib_children_ids=($(jq -r ".${ib_iarray}[].${ib_iid}" "${ib_file}"))
+output_text="<b>Children posts:</b> ${#ib_children_ids}"
+
 keyboard_text1="Open inline"
 keyboard_query1="posts ${ib_board} parent:${ib_post_id}"
 
@@ -26,11 +29,3 @@ reply_markup="$(
         --arg query1 "${keyboard_query1}" \
         '.inline_keyboard[0] += [{"text": $text1, "switch_inline_query_current_chat": $query1}]'
 )"
-
-output_text="$(printf "<b>Children IDs:</b>")"
-ib_children_ids=($(jq -r ".${ib_iarray}[].${ib_iid}" "${ib_file}"))
-
-for children_id in ${ib_children_ids[@]}
-do
-    output_text="$(printf "%s <code>%s</code>" "${output_text}" "${children_id}")"
-done
