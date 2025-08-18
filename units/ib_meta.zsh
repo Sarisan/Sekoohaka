@@ -14,7 +14,7 @@ then
     if [[ -z "${ib_preview_url}" || "${ib_preview_url}" == "null" ]]
     then
         ib_preview_url=${ib_error_url}
-    elif [[ "${ib_config}" == "idolcomplex" || "${ib_config}" == "sankakuchannel" ]]
+    elif [[ "${ib_cname}" == "sankakucomplex" ]]
     then
         ib_preview_url="${ib_sample_url}"
     fi

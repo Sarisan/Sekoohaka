@@ -2,6 +2,8 @@
 # Copyright (C) 2024-2025 Danil Lisin
 # SPDX-License-Identifier: Apache-2.0
 
+ib_cname="moebooru"
+
 case "${ib_board}" in
     (k)
         ib_name="Konachan.com"

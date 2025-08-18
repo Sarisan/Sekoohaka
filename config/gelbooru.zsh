@@ -2,6 +2,8 @@
 # Copyright (C) 2024-2025 Danil Lisin
 # SPDX-License-Identifier: Apache-2.0
 
+ib_cname="gelbooru"
+
 ib_name="Gelbooru"
 ib_config="gelbooru"
 ib_api="https://gelbooru.com"
