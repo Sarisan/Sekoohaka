@@ -58,7 +58,6 @@ reqs=(
     curl
     jq
     recode
-    xq
 )
 
 busybox=(
