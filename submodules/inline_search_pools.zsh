@@ -52,7 +52,7 @@ result="$(
 if [[ -n "${ib_quick}" ]]
 then
     keyboard_text1="Search posts"
-    keyboard_query1="p ${ib_board} pool:${ib_id}"
+    keyboard_query1="posts ${ib_board} pool:${ib_id}"
 
     if [[ -n "${ib_iorder}" ]]
     then

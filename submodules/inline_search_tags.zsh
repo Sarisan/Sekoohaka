@@ -42,7 +42,7 @@ result="$(
 if [[ -n "${ib_quick}" ]]
 then
     keyboard_text1="Search posts"
-    keyboard_query1="p ${ib_board} ${ib_tag}"
+    keyboard_query1="posts ${ib_board} ${ib_tag}"
 
     result="$(
         jq --compact-output \
