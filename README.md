@@ -163,9 +163,9 @@ Cache modes:
 * `a` - [Safebooru](https://safebooru.donmai.us/)
 * `d` - [Danbooru](https://danbooru.donmai.us/)
 * `g` - [Gelbooru](https://gelbooru.com/)
-* `i` - [Idol Complex](https://idol.sankakucomplex.com/)
+* `i` - [Idol Complex](https://www.idolcomplex.com/)
 * `k` - [Konachan.com](https://konachan.com/)
-* `s` - [Sankaku Channel](https://chan.sankakucomplex.com/)
+* `s` - [Sankaku Channel](https://www.sankakucomplex.com/)
 * `y` - [yande.re](https://yande.re/)
 
 ## Donation
