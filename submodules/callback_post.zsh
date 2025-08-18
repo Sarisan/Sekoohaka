@@ -19,7 +19,7 @@ link_preview_options="$(
 )"
 
 keyboard_text1="Post link"
-keyboard_url1="${ib_url}$(urlencode <<< "${ib_post_id}")"
+keyboard_url1="${ib_url}$(urlencode <<< "${ib_id}")"
 
 reply_markup="$(
     jq --null-input --compact-output \

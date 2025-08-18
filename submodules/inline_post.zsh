@@ -25,7 +25,7 @@ output_title="Information of post ${ib_post_id}"
 output_description="Click to send the post information"
 
 keyboard_text1="Post link"
-keyboard_url1="${ib_url}$(urlencode <<< "${ib_post_id}")"
+keyboard_url1="${ib_url}$(urlencode <<< "${ib_id}")"
 
 results="$(
     jq --null-input --compact-output \
