@@ -20,10 +20,6 @@ then
     fi
 
     shift
-elif [[ -n "${ib_parent}" ]]
-then
-    output_text="You must specify the Image Board and the parent post ID"
-    return 0
 else
     output_title="Invalid arguments"
     output_text="You must specify the Image Board and the post ID or the MD5 hash"
@@ -49,7 +45,7 @@ fi
 
 if [[ -n "${ib_parent}" ]]
 then
-    ib_query="parent:${ib_post_id} -id:${ib_post_id}"
+    ib_query="parent:${ib_post_id}"
 elif [[ ${#ib_post_id} -eq 32 ]]
 then
     ib_query="md5:${ib_post_id}"

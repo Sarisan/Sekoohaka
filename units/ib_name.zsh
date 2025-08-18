@@ -16,7 +16,13 @@ fi
 
 if [[ "${reply_text}" == "null" ]]
 then
-    output_text="You must specify the Image Board and the post ID or the MD5 hash, or use this command in reply to a message"
+    if [[ -n "${ib_parent}" ]]
+    then
+        output_text="You must specify the Image Board and the parent post ID, or use this command in reply to a message"
+    else
+        output_text="You must specify the Image Board and the post ID or the MD5 hash, or use this command in reply to a message"
+    fi
+
     return 0
 fi
 
