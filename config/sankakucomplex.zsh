@@ -8,12 +8,35 @@ case "${ib_board}" in
         ib_config="idolcomplex"
         ib_api="https://i.sankakuapi.com"
         ib_url="https://www.idolcomplex.com"
+
+        ib_groups=(
+            "tags[]|select(.type==1)|.tagName" Idol
+            "tags[]|select(.type==2)|.tagName" Studio
+            "tags[]|select(.type==3)|.tagName" Copyright
+            "tags[]|select(.type==4)|.tagName" Character
+            "tags[]|select(.type==6)|.tagName" Genre
+            "tags[]|select(.type==5)|.tagName" Set
+            "tags[]|select(.type==0)|.tagName" General
+            "tags[]|select(.type==8)|.tagName" Medium
+            "tags[]|select(.type==9)|.tagName" Meta
+        )
     ;;
     (s)
         ib_name="Sankaku Channel"
         ib_config="sankakuchannel"
         ib_api="https://sankakuapi.com"
         ib_url="https://www.sankakucomplex.com"
+
+        ib_groups=(
+            "tags[]|select(.type==1)|.tagName" Artist
+            "tags[]|select(.type==2)|.tagName" Studio
+            "tags[]|select(.type==3)|.tagName" Copyright
+            "tags[]|select(.type==4)|.tagName" Character
+            "tags[]|select(.type==5)|.tagName" Genre
+            "tags[]|select(.type==0)|.tagName" General
+            "tags[]|select(.type==8)|.tagName" Medium
+            "tags[]|select(.type==9)|.tagName" Meta
+        )
     ;;
 esac
 
@@ -21,17 +44,6 @@ ib_ratings=(
     s safe
     q questionable
     e explicit
-)
-
-ib_groups=(
-    "tags[]|select(.type==1)|.tagName" Artist
-    "tags[]|select(.type==2)|.tagName" Studio
-    "tags[]|select(.type==3)|.tagName" Copyright
-    "tags[]|select(.type==4)|.tagName" Character
-    "tags[]|select(.type==5)|.tagName" Genre
-    "tags[]|select(.type==0)|.tagName" General
-    "tags[]|select(.type==8)|.tagName" Medium
-    "tags[]|select(.type==9)|.tagName" Meta
 )
 
 case "${ib_mode}" in
