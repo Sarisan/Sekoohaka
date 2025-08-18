@@ -9,16 +9,20 @@ url_table=(
     "danbooru.donmai.us/posts/.*" d / 3
     "https://gelbooru.com/index.php?page=post&s=view&id=.*" g = 4
     "gelbooru.com/index.php?page=post&s=view&id=.*" g = 4
-    "https://idol.sankakucomplex.com/.*/posts/.*" i / 6
-    "idol.sankakucomplex.com/.*/posts/.*" i / 4
-    "https://idol.sankakucomplex.com/posts/.*" i / 5
-    "idol.sankakucomplex.com/posts/.*" i / 3
+    "https://www.idolcomplex.com/.*/posts/.*" i / 6
+    "www.idolcomplex.com/.*/posts/.*" i / 4
+    "idolcomplex.com/.*/posts/.*" i / 4
+    "https://www.idolcomplex.com/posts/.*" i / 5
+    "www.idolcomplex.com/posts/.*" i / 3
+    "idolcomplex.com/posts/.*" i / 3
     "https://konachan.com/post/show/.*" k / 6
     "konachan.com/post/show/.*" k / 4
-    "https://chan.sankakucomplex.com/.*/posts/.*" s / 6
-    "chan.sankakucomplex.com/.*/posts/.*" s / 4
-    "https://chan.sankakucomplex.com/posts/.*" s / 5
-    "chan.sankakucomplex.com/posts/.*" s / 3
+    "https://www.sankakucomplex.com/.*/posts/.*" s / 6
+    "www.sankakucomplex.com/.*/posts/.*" s / 4
+    "sankakucomplex.com/.*/posts/.*" i / 4
+    "https://www.sankakucomplex.com/posts/.*" s / 5
+    "www.sankakucomplex.com/posts/.*" s / 3
+    "sankakucomplex.com/posts/.*" i / 3
     "https://yande.re/post/show/.*" y / 6
     "yande.re/post/show/.*" y / 4
 )
