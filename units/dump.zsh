@@ -11,7 +11,7 @@ mkdir -p "${dumps}/${update_id}"
 
 for dump_file in ${dump[@]}
 do
-    if [[ -f "${cache}/${cache_dump}" ]]
+    if [[ -f "${cache}/${dump_file}" ]]
     then
         mv "${cache}/${dump_file}" "${dumps}/${update_id}"
     fi
