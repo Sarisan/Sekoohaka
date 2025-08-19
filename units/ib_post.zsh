@@ -79,7 +79,7 @@ then
         ib_source="https://www.pixiv.net/artworks/$(cut -d '_' -f 1 <<< "${ib_source##*/}")"
     fi
 
-    if [[ ${#ib_source} -le 2048 ]]
+    if [[ ${#ib_source} -le 1024 ]]
     then
         output_text="$(printf "%s\n<b>Source:</b> %s" "${output_text}" "${ib_source}")"
     fi
