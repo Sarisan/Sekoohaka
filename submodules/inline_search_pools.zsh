@@ -14,6 +14,11 @@ then
     ib_pool="$(tr "${ib_ispace}" ' ' <<< "${ib_pool}")"
 fi
 
+if [[ ${#ib_pool} -gt 1024 ]]
+then
+    ib_pool="$(cut -c 1-1024 <<< "${ib_pool}")..."
+fi
+
 output_title="${ib_pool:- }"
 output_text="$(printf "<b>%s</b>\n<b>ID:</b> <code>%s</code>" "${ib_name}" "${ib_id}")"
 

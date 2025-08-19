@@ -10,6 +10,11 @@ then
     ib_tag="${ib_tag_recode}"
 fi
 
+if [[ ${#ib_tag} -gt 1024 ]]
+then
+    ib_tag="$(cut -c 1-1024 <<< "${ib_tag}")..."
+fi
+
 output_title="${ib_tag:- }"
 output_text="$(printf "<b>%s</b>\n<b>ID:</b> <code>%s</code>" "${ib_name}" "${ib_id}")"
 output_text="$(printf "%s\n<b>Name:</b> <code>%s</code>" "${output_text}" "$(htmlescape <<< "${ib_tag}")")"
