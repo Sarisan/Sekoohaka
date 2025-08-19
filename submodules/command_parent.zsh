@@ -20,7 +20,7 @@ fi
 ib_children_ids=($(jq -r ".${ib_iarray}[].${ib_iid}" "${ib_file}"))
 output_text="<b>Children posts:</b> ${#ib_children_ids}"
 
-keyboard_text1="Open inline"
+keyboard_text1="Search posts"
 keyboard_query1="posts ${ib_board} parent:${ib_post_id}"
 
 reply_markup="$(
