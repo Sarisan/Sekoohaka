@@ -79,7 +79,8 @@ Options:
   -d <secs>     Head request connetion timeout, max: 5, default: 2 secs
   -f <secs>     Connrefused timeout, max: 2, default: none
   -n <addr>     Proxy server for Telegram Bot API
-  -x <addr>     Proxy server for Image Boards API/SauceNAO
+  -x <addr>     Proxy server for Image Boards/SauceNAO API
+  -k <key>      SauceNAO API Key for public use
 
 Cache modes:
   none          No cache reuse

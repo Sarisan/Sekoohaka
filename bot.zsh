@@ -76,7 +76,7 @@ busybox=(
 
 if [[ -n "${1}" ]]
 then
-    while getopts ha:olg:r:m:t:s:cjqui:e:d:f:n:x: opts
+    while getopts ha:olg:r:m:t:s:cjqui:e:d:f:n:x:k: opts
     do
         case "${opts}" in
             (h)
@@ -136,6 +136,9 @@ then
             (x)
                 external_proxy="${OPTARG}"
             ;;
+            (k)
+                sn_key="${OPTARG}"
+            ;;
             (*)
                 echo "Unrecognized options" \
                     "\nSee '${0} -h'"
@@ -172,7 +175,8 @@ then
         "\n  -d <secs>\tHead request connetion timeout, max: 5, default: 2 secs" \
         "\n  -f <secs>\tConnrefused timeout, max: 2, default: none" \
         "\n  -n <addr>\tProxy server for Telegram Bot API" \
-        "\n  -x <addr>\tProxy server for Image Boards API/SauceNAO" \
+        "\n  -x <addr>\tProxy server for Image Boards/SauceNAO API" \
+        "\n  -k <key>\tSauceNAO API Key for public use" \
         "\n\nCache modes:" \
         "\n  none\t\tNo cache reuse" \
         "\n  normal\tReuse inline results and posts cache" \
@@ -594,8 +598,8 @@ else
     if [[ -z "${profilephoto}" || "${profilephoto}" == "null" ]]
     then
         log_text="Error: Bot must have profile photo to run source command check"
-
         . "${units}/log.zsh"
+
         exit 1
     fi
 
@@ -621,8 +625,8 @@ else
     if ! jq -e '.' "${cache}/getFile.json" > /dev/null
     then
         log_text="getFile: An unknown error occurred"
-
         . "${units}/log.zsh"
+
         exit 1
     fi
 
@@ -685,6 +689,62 @@ else
             . "${units}/log.zsh"
         fi
     fi
+fi
+
+if [[ -n "${sn_key}" ]]
+then
+    if ! curl --connect-timeout ${connrefused_timeout} \
+        --data-urlencode "output_type=2" \
+        --data-urlencode "api_key=${sn_key}" \
+        --get \
+        --max-time ${external_timeout} \
+        --output "${cache}/search.json" \
+        --proxy "${external_proxy}" \
+        --retry 1 \
+        --retry-connrefused \
+        --retry-max-time $((external_timeout - connrefused_timeout)) \
+        --silent \
+        --user-agent "${useragent}" \
+        "https://saucenao.com/search.php"
+    then
+        log_text="sn_search: Failed to access SauceNAO API"
+        . "${units}/log.zsh"
+
+        exit 1
+    fi
+
+    if ! jq -e '.' "${cache}/search.json" > /dev/null
+    then
+        log_text="sn_search: An unknown error occurred"
+        . "${units}/log.zsh"
+
+        exit 1
+    fi
+
+    sn_status="$(jq -r '.header.status' "${cache}/search.json")"
+
+    case "${sn_status}" in
+        (-3)
+        ;;
+        (-2)
+            log_text="sn_search: Rate limit exceeded, try again later"
+            . "${units}/log.zsh"
+
+            exit 1
+        ;;
+        (-1)
+            log_text="sn_search: Invalid API Key"
+            . "${units}/log.zsh"
+
+            exit 1
+        ;;
+        (*)
+            log_text="sn_search: An unknown error occurred"
+            . "${units}/log.zsh"
+
+            exit 1
+        ;;
+    esac
 fi
 
 log_text="Loading lists..."
@@ -776,8 +836,8 @@ do
     if ! jq -c '.result.[0]' "${cache}/getUpdates.json" > "${update}"
     then
         log_text="Failed to write update file ${update_id}.json"
-
         . "${units}/log.zsh"
+
         continue
     fi
 
