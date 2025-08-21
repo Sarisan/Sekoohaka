@@ -404,10 +404,11 @@ then
     exit 1
 fi
 
-until [[ -n "${api_token}" ]]
-do
-    read -p "Telegram Bot API Token: " -r api_token
-done
+if [[ -z "${api_token}" ]]
+then
+    echo "No Telegram Bot API Token specified"
+    exit 1
+fi
 
 alias htmlescape="sed -e 's/</\&#60;/g' -e 's/>/\&#62;/g'"
 alias urlencode="jq -Rr @uri"
