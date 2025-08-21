@@ -31,10 +31,4 @@ fi
 if ! jq -e '.' "${ib_auth_file}" > /dev/null
 then
     output_text="Invalid username or API key"
-    log_text="ib_auth (${update_id}): ${output_text}"
-
-    . "${units}/log.zsh"
-    . "${units}/dump.zsh"
-
-    return 0
 fi
