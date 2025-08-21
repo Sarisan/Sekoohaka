@@ -51,16 +51,20 @@ then
     return 0
 fi
 
-if [[ "$(jq -r '.header.user_id' "${sn_file}")" == "null" ]]
-then
-    output_text="Invalid API Key"
-    log_text="sn_auth (${update_id}): ${output_text}"
+sn_status="$(jq -r '.header.status' "${sn_file}")"
 
-    . "${units}/log.zsh"
-    . "${units}/dump.zsh"
-
-    return 0
-fi
-
-output_text="Authorized successfully"
-printf "%s\n" "${sn_key}" > "${user_config}/saucenao"
+case "${sn_status}" in
+    (-3)
+        output_text="Authorized successfully"
+        printf "%s\n" "${sn_key}" > "${user_config}/saucenao"
+    ;;
+    (-2)
+        output_text="Rate limit exceeded, try again later"
+    ;;
+    (-1)
+        output_text="Invalid API Key"
+    ;;
+    (*)
+        output_text="An unknown error occurred"
+    ;;
+esac

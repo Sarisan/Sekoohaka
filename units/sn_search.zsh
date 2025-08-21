@@ -47,11 +47,18 @@ then
     return 0
 fi
 
-if [[ "$(jq -r '.header.status' "${sn_file}")" != "0" ]]
-then
-    output_text="Error: <code>$(jq -r '.header.message' "${sn_file}" | htmlescape)</code>"
-    log_text="sn_search (${update_id}): $(jq -r '.header.message' "${sn_file}")"
+sn_status="$(jq -r '.header.status' "${sn_file}")"
 
-    . "${units}/log.zsh"
-    . "${units}/dump.zsh"
-fi
+case "${sn_status}" in
+    (-2)
+        output_text="Rate limit exceeded, try again later"
+    ;;
+    (-1)
+        output_text="Invalid API Key"
+    ;;
+    (0)
+    ;;
+    (*)
+        output_text="An unknown error occurred"
+    ;;
+esac
