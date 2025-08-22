@@ -23,16 +23,6 @@ done
 
 . "${units}/export.zsh"
 
-if [[ -n "${output_text}" ]]
-then
-    for lock in ${user_locks[@]}
-    do
-        rmdir "${user_config}_${lock}.lock"
-    done
-
-    return 0
-fi
-
 for lock in ${user_locks[@]}
 do
     rmdir "${user_config}_${lock}.lock"
@@ -40,4 +30,7 @@ done
 
 rmdir "${user_config}_data.lock"
 
-exit 0
+if [[ -z "${output_text}" ]]
+then
+    exit 0
+fi
