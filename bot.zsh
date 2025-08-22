@@ -39,6 +39,18 @@ offset=-1
 
 board_table=(a d g i k s y)
 
+data_table=(
+    "Safebooru" safebooru
+    "Danbooru" danbooru
+    "Gelbooru" gelbooru
+    "Idol Complex" idolcomplex
+    "Konachan.com" konachan
+    "Sankaku Channel" sankakuchannel
+    "yande.re" yandere
+    "SauceNAO" saucenao
+    "Shortcuts" shorts
+)
+
 user_locks=(
     auth
     export

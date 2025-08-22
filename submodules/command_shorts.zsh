@@ -33,7 +33,7 @@ then
     if [[ "${chat_id}" == "${target_user}" ]]
     then
         keyboard_text1="Remove all"
-        keyboard_data1="reset"
+        keyboard_data1="stop shorts"
 
         reply_markup="$(
             jq --compact-output \
