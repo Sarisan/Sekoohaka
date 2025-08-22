@@ -21,48 +21,55 @@ then
     user_data=($(ls -1 "${user_config}"))
 fi
 
-if [[ ${#user_data} -gt 0 ]]
+if [[ ${#user_data} -eq 0 ]]
 then
-    output_text="Remove all your data or specific one"
+    output_text="You have no data to remove"
 
-    while [[ ${#data_table} -ge 2 ]]
+    for lock in ${user_locks[@]}
     do
-        if ! [[ -a "${user_config}/${data_table[2]}" ]]
-        then
-            shift 2 data_table
-            continue
-        fi
-
-        keyboard_text1="${data_table[1]}"
-        keyboard_data1="stop ${data_table[2]}"
-
-        reply_markup="$(
-            jq --compact-output \
-                --argjson offset "$(printf "%u" "${keyboard_offset}")" \
-                --arg text1 "${keyboard_text1}" \
-                --arg data1 "${keyboard_data1}" \
-                '.inline_keyboard[$offset] += [{"text": $text1, "callback_data": $data1}]' \
-            <<< "${reply_markup:-"{}"}"
-        )"
-
-        keyboard_offset=$((keyboard_offset + 0.5))
-        shift 2 data_table
+        rmdir "${user_config}_${lock}.lock"
     done
 
-    keyboard_text1="Remove all my data"
-    keyboard_data1="stop"
+    return 0
+fi
+
+output_text="Remove all your data or specific one"
+
+while [[ ${#data_table} -ge 2 ]]
+do
+    if ! [[ -a "${user_config}/${data_table[2]}" ]]
+    then
+        shift 2 data_table
+        continue
+    fi
+
+    keyboard_text1="${data_table[1]}"
+    keyboard_data1="stop ${data_table[2]}"
 
     reply_markup="$(
         jq --compact-output \
-            --argjson offset "$(printf "%u" "$((keyboard_offset + 0.5))")" \
+            --argjson offset "$(printf "%u" "${keyboard_offset}")" \
             --arg text1 "${keyboard_text1}" \
             --arg data1 "${keyboard_data1}" \
             '.inline_keyboard[$offset] += [{"text": $text1, "callback_data": $data1}]' \
-        <<< "${reply_markup}"
+        <<< "${reply_markup:-"{}"}"
     )"
-else
-    output_text="You have no data to remove"
-fi
+
+    keyboard_offset=$((keyboard_offset + 0.5))
+    shift 2 data_table
+done
+
+keyboard_text1="Remove all my data"
+keyboard_data1="stop"
+
+reply_markup="$(
+    jq --compact-output \
+        --argjson offset "$(printf "%u" "$((keyboard_offset + 0.5))")" \
+        --arg text1 "${keyboard_text1}" \
+        --arg data1 "${keyboard_data1}" \
+        '.inline_keyboard[$offset] += [{"text": $text1, "callback_data": $data1}]' \
+    <<< "${reply_markup}"
+)"
 
 for lock in ${user_locks[@]}
 do
