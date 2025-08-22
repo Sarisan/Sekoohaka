@@ -44,4 +44,11 @@ else
     notification_text="Too many shortcuts"
 fi
 
+shorts=($(ls -1 "${shorts_config}"))
+
+if [[ ${#shorts} -eq 0 ]]
+then
+    rmdir "${shorts_config}"
+fi
+
 rmdir "${user_config}_shorts.lock"

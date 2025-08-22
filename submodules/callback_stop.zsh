@@ -51,6 +51,13 @@ else
     notification_text="Something went wrong, try again later"
 fi
 
+user_data=($(ls -1 "${user_config}"))
+
+if [[ ${#user_data} -eq 0 ]]
+then
+    rmdir "${user_config}"
+fi
+
 for lock in ${user_locks[@]}
 do
     rmdir "${user_config}_${lock}.lock"
