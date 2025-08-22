@@ -36,26 +36,19 @@ do
     done
 done
 
-if [[ -n "${data_name}" ]]
+if [[ -n "${data_name}" ]] && rm -fr "${user_config}/${data_table[2]}"
 then
-    if rm -fr "${user_config}/${data_table[2]}"
+    if [[ "${data_table[2]}" == "shorts" ]]
     then
-        if [[ "${data_table[2]}" == "shorts" ]]
-        then
-            notification_text="Successfully removed all your shortcuts"
-        else
-            notification_text="Successfully removed ${data_table[1]} data"
-        fi
+        notification_text="Successfully removed all your shortcuts"
     else
-        notification_text="Something went wrong, try again later"
+        notification_text="Successfully removed ${data_table[1]} data"
     fi
+elif [[ -z "${data_name}" ]] && rm -fr "${user_config}"
+then
+    notification_text="Successfully removed all your data"
 else
-    if rm -fr "${user_config}"
-    then
-        notification_text="Successfully removed all your data"
-    else
-        notification_text="Something went wrong, try again later"
-    fi
+    notification_text="Something went wrong, try again later"
 fi
 
 for lock in ${user_locks[@]}
