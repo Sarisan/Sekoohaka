@@ -5,21 +5,22 @@
 if [[ -n "${1}" ]]
 then
     data_name="${1}"
+    check_table=(${data_table[@]})
     shift
 fi
 
-while [[ -n "${data_name}" && ${#data_table} -ge 2 ]]
+while [[ -n "${data_name}" && ${#check_table} -ge 2 ]]
 do
-    if [[ "${data_name}" == "${data_table[2]}" ]]
+    if [[ "${data_name}" == "${check_table[2]}" ]]
     then
         break
-    elif [[ "${data_table[2]}" == "${data_table[-1]}" ]]
+    elif [[ "${check_table[2]}" == "${check_table[-1]}" ]]
     then
         notification_text="Could not find requested data"
         return 0
     fi
 
-    shift 2 data_table
+    shift 2 check_table
 done
 
 if mkdir "${user_config}_stop.lock"
@@ -36,19 +37,17 @@ do
     done
 done
 
-if [[ -n "${data_name}" ]] && rm -fr "${user_config}/${data_table[2]}"
+if [[ -n "${data_name}" ]]
 then
-    if [[ "${data_table[2]}" == "shorts" ]]
+    if ! rm -fr "${user_config}/${check_table[2]}"
     then
-        notification_text="Successfully removed all your shortcuts"
-    else
-        notification_text="Successfully removed ${data_table[1]} data"
+        notification_text="Something went wrong, try again later"
     fi
-elif [[ -z "${data_name}" ]] && rm -fr "${user_config}"
-then
-    notification_text="Successfully removed all your data"
 else
-    notification_text="Something went wrong, try again later"
+    if ! rm -fr "${user_config}"
+    then
+        notification_text="Something went wrong, try again later"
+    fi
 fi
 
 user_data=($(ls -1 "${user_config}"))
@@ -57,6 +56,8 @@ if [[ ${#user_data} -eq 0 ]]
 then
     rmdir "${user_config}"
 fi
+
+. "${units}/stop.zsh"
 
 for lock in ${user_locks[@]}
 do
