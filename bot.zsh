@@ -54,7 +54,6 @@ data_table=(
 user_locks=(
     data
     auth
-    export
     source
     shorts
 )
