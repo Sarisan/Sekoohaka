@@ -37,15 +37,15 @@ units="${dir}/units"
 users="${dir}/users"
 offset=-1
 
-board_table=(a d g i k s y)
+board_table=(a d g i s k y)
 
 data_table=(
     "Safebooru" safebooru
     "Danbooru" danbooru
     "Gelbooru" gelbooru
     "Idol Complex" idolcomplex
-    "Konachan.com" konachan
     "Sankaku Channel" sankakuchannel
+    "Konachan.com" konachan
     "yande.re" yandere
     "SauceNAO" saucenao
     "Shortcuts" shorts
@@ -198,8 +198,8 @@ then
         "\n  Danbooru\t\t(https://danbooru.donmai.us/)" \
         "\n  Gelbooru\t\t(https://gelbooru.com/)" \
         "\n  Idol Complex\t\t(https://www.idolcomplex.com/)" \
-        "\n  Konachan.com\t\t(https://konachan.com/)" \
         "\n  Sankaku Channel\t(https://www.sankakucomplex.com/)" \
+        "\n  Konachan.com\t\t(https://konachan.com/)" \
         "\n  yande.re\t\t(https://yande.re/)"
     exit 0
 fi
