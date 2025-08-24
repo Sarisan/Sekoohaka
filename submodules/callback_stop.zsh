@@ -16,7 +16,7 @@ do
         break
     elif [[ "${check_table[1]}" == "${check_table[-2]}" ]]
     then
-        notification_text="Could not find requested data"
+        notification_text="No requested data found"
         return 0
     fi
 
