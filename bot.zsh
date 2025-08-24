@@ -38,25 +38,25 @@ users="${dir}/users"
 offset=-1
 
 board_table=(
-    "Safebooru" a
-    "Danbooru" d
-    "Gelbooru" g
-    "Idol Complex" i
-    "Sankaku Channel" s
-    "Konachan.com" k
-    "yande.re" y
+    a "Safebooru"
+    d "Danbooru"
+    g "Gelbooru"
+    i "Idol Complex"
+    s "Sankaku Channel"
+    k "Konachan.com"
+    y "yande.re"
 )
 
 data_table=(
-    "Safebooru" safebooru
-    "Danbooru" danbooru
-    "Gelbooru" gelbooru
-    "Idol Complex" idolcomplex
-    "Sankaku Channel" sankakuchannel
-    "Konachan.com" konachan
-    "yande.re" yandere
-    "SauceNAO" saucenao
-    "Shortcuts" shorts
+    safebooru "Safebooru"
+    danbooru "Danbooru"
+    gelbooru "Gelbooru"
+    idolcomplex "Idol Complex"
+    sankakuchannel "Sankaku Channel"
+    konachan "Konachan.com"
+    yandere "yande.re"
+    saucenao "SauceNAO"
+    shorts "Shortcuts"
 )
 
 user_locks=(

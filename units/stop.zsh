@@ -17,14 +17,14 @@ output_text="Remove all your data or specific one"
 
 while [[ ${#data_table} -ge 2 ]]
 do
-    if ! [[ -a "${user_config}/${data_table[2]}" ]]
+    if ! [[ -a "${user_config}/${data_table[1]}" ]]
     then
         shift 2 data_table
         continue
     fi
 
-    keyboard_text1="${data_table[1]}"
-    keyboard_data1="stop ${data_table[2]}"
+    keyboard_text1="${data_table[2]}"
+    keyboard_data1="stop ${data_table[1]}"
 
     reply_markup="$(
         jq --compact-output \

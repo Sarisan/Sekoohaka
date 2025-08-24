@@ -29,12 +29,12 @@ then
 fi
 
 source_table=(
-    "Danbooru" d danbooru_id
-    "Gelbooru" g gelbooru_id
-    "Idol Complex" i idol_id
-    "Konachan.com" k konachan_id
-    "Sankaku Channel" s sankaku_id
-    "yande.re" y yandere_id
+    danbooru_id d "Danbooru"
+    gelbooru_id g "Gelbooru"
+    idol_id i "Idol Complex"
+    sankaku_id s "Sankaku Channel"
+    konachan_id k "Konachan.com"
+    yandere_id y "yande.re"
 )
 
 minimum_similarity="$(jq -r ".header.minimum_similarity" "${sn_file}")"
@@ -72,7 +72,7 @@ output_text="$(printf "<b>SauceNAO</b>\n<b>Similarity:</b> %.2f%%" "${highest_si
 
 while [[ ${#source_table} -ge 3 ]]
 do
-    ib_id="$(jq -r ".results.[${highest_index}].data.${source_table[3]}" "${sn_file}")"
+    ib_id="$(jq -r ".results.[${highest_index}].data.${source_table[1]}" "${sn_file}")"
 
     if [[ "${ib_id}" == "null" ]]
     then
@@ -80,15 +80,15 @@ do
         continue
     fi
 
-    output_text="$(printf "%s\n<b>%s ID:</b> <code>%s</code>" "${output_text}" "${source_table[1]}" "${ib_id}")"
+    output_text="$(printf "%s\n<b>%s ID:</b> <code>%s</code>" "${output_text}" "${source_table[3]}" "${ib_id}")"
 
-    if [[ "${source_table[3]}" == "idol_id" ]]
+    if [[ "${source_table[1]}" == "idol_id" ]]
     then
         ib_id="$(jq -r ".results.[${highest_index}].header.index_name" "${sn_file}" | cut -d ' ' -f 6 | cut -d '_' -f 1)"
-        output_text="$(printf "%s\n<b>%s MD5:</b> <code>%s</code>" "${output_text}" "${source_table[1]}" "${ib_id}")"
+        output_text="$(printf "%s\n<b>%s MD5:</b> <code>%s</code>" "${output_text}" "${source_table[3]}" "${ib_id}")"
     fi
 
-    keyboard_text1="${source_table[1]}"
+    keyboard_text1="${source_table[3]}"
     keyboard_query1="post ${source_table[2]} ${ib_id}"
 
     reply_markup="$(

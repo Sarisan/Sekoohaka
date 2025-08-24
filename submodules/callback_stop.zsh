@@ -11,10 +11,10 @@ fi
 
 while [[ -n "${data_name}" && ${#check_table} -ge 2 ]]
 do
-    if [[ "${data_name}" == "${check_table[2]}" ]]
+    if [[ "${data_name}" == "${check_table[1]}" ]]
     then
         break
-    elif [[ "${check_table[2]}" == "${check_table[-1]}" ]]
+    elif [[ "${check_table[1]}" == "${check_table[-2]}" ]]
     then
         notification_text="Could not find requested data"
         return 0

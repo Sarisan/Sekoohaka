@@ -30,11 +30,11 @@ ib_reply_name="$(sed '1!d' <<< "${reply_text}")"
 
 while [[ ${#board_table} -ge 2 ]]
 do
-    if [[ "${ib_reply_name}" == "${board_table[1]}" ]]
+    if [[ "${ib_reply_name}" == "${board_table[2]}" ]]
     then
-        ib_board="${board_table[2]}"
+        ib_board="${board_table[1]}"
         break
-    elif [[ "${board_table[2]}" == "${board_table[-1]}" ]]
+    elif [[ "${board_table[1]}" == "${board_table[-2]}" ]]
     then
         output_text="Could not find Image Board in replied message"
         return 0

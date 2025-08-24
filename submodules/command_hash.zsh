@@ -26,7 +26,7 @@ done
 
 while [[ ${#board_table} -ge 2 ]]
 do
-    ib_board="${board_table[2]}"
+    ib_board="${board_table[1]}"
     . "${units}/ib_hash.zsh" &
 
     if [[ -z "${threaded_hash}" ]]
