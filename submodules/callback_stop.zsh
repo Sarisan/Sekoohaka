@@ -39,7 +39,7 @@ done
 
 if [[ -n "${data_name}" ]]
 then
-    if ! rm -fr "${user_config}/${check_table[2]}"
+    if ! rm -fr "${user_config}/${check_table[1]}"
     then
         notification_text="Something went wrong, try again later"
     fi
