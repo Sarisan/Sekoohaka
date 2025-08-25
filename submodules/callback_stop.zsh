@@ -9,7 +9,7 @@ then
     shift
 fi
 
-while [[ -n "${data_name}" && ${#check_table} -ge 2 ]]
+while [[ ${#check_table} -ge 2 ]]
 do
     if [[ "${data_name}" == "${check_table[1]}" ]]
     then
