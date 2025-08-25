@@ -8,7 +8,7 @@ then
     then
         ib_login="$(< "${login_file}")"
     else
-        output_text="You must specify the ${ib_login_word} and the ${ib_key_word}"
+        output_text="You must specify ${ib_login_word} and ${ib_key_word}"
         return 0
     fi
 fi
@@ -19,7 +19,7 @@ then
     then
         ib_key="$(< "${key_file}")"
     else
-        output_text="You must specify the ${ib_key_word}"
+        output_text="You must specify ${ib_key_word}"
         return 0
     fi
 fi

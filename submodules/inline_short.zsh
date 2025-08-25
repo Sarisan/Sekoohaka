@@ -8,7 +8,7 @@ then
     shift ${#}
 else
     output_title="Invalid arguments"
-    output_text="You must specify the query"
+    output_text="You must specify query"
 
     results="$(
         jq --null-input --compact-output \

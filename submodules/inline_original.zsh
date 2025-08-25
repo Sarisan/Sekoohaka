@@ -35,7 +35,7 @@ then
     )"
 else
     output_title="Original file of post ${ib_post_id}"
-    output_description="Click to send the original file"
+    output_description="Click to send original file"
 
     results="$(
         jq --null-input --compact-output \

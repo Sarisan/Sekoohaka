@@ -223,7 +223,7 @@ done
 if [[ -n "${failed}" ]]
 then
     echo "Failed to load Z Shell modules:${failed}" \
-        "\nUpdate your Z Shell or get a version with all the required modules"
+        "\nUpdate your Z Shell or get a version with all required modules"
     exit 1
 fi
 
@@ -255,7 +255,7 @@ done
 if [[ -n "${missing}" ]]
 then
     echo "Missing BusyBox functions:${missing}" \
-        "\nUpdate your BusyBox or get a version with all the required functions"
+        "\nUpdate your BusyBox or get a version with all required functions"
     exit 1
 fi
 

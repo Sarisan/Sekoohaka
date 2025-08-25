@@ -36,7 +36,7 @@ if ! curl --connect-timeout ${connrefused_timeout} \
     --user-agent "${useragent}" \
     "${api_address}/bot${api_token}/getFile"
 then
-    output_text="Failed to get the image file"
+    output_text="Failed to get image file"
     log_text="getFile (${update_id}): Failed to access Telegram Bot API"
 
     . "${units}/log.zsh"
@@ -58,7 +58,7 @@ fi
 
 if [[ "$(jq -r '.ok' "${output_file}")" != "true" ]]
 then
-    output_text="Failed to get the image file"
+    output_text="Failed to get image file"
     error_description="$(jq -r '.description' "${output_file}")"
 
     if [[ "${error_description}" != "null" ]]
@@ -92,7 +92,7 @@ then
         --user-agent "${useragent}" \
         "${api_address}/file/bot${api_token}/${file_path}"
     then
-        output_text="Failed to download the image file"
+        output_text="Failed to download image file"
         log_text="getFile (${update_id}): Failed to access Telegram Bot API"
 
         . "${units}/log.zsh"
@@ -103,7 +103,7 @@ then
 
     if [[ "$(jq -r '.ok' "${output_file}")" == "false" ]]
     then
-        output_text="Failed to download the image file"
+        output_text="Failed to download image file"
         error_description="$(jq -r '.description' "${output_file}")"
 
         if [[ "${error_description}" != "null" ]]

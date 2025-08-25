@@ -7,7 +7,7 @@ then
     short_query="${@}"
     shift ${#}
 else
-    output_text="You must specify the query"
+    output_text="You must specify query"
     return 0
 fi
 

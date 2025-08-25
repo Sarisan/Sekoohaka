@@ -12,7 +12,7 @@ then
     short_query="${@}"
     shift ${#}
 else
-    notification_text="You must specify the query"
+    notification_text="You must specify query"
 
     rmdir "${user_config}_shorts.lock"
     return 0

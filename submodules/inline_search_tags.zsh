@@ -19,7 +19,7 @@ output_title="${ib_tag:- }"
 output_text="$(printf "<b>%s</b>\n<b>ID:</b> <code>%s</code>" "${ib_name}" "${ib_id}")"
 output_text="$(printf "%s\n<b>Name:</b> <code>%s</code>" "${output_text}" "$(htmlescape <<< "${ib_tag}")")"
 output_text="$(printf "%s\n<b>Post count:</b> %s" "${output_text}" "${ib_count}")"
-output_description="Click to send the tag information"
+output_description="Click to send tag information"
 
 keyboard_text1="Wiki link"
 keyboard_url1="${ib_url}$(urlencode <<< "${ib_tag}")"

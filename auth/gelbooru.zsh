@@ -2,4 +2,4 @@
 # Copyright (C) 2024-2025 Danil Lisin
 # SPDX-License-Identifier: Apache-2.0
 
-output_text="Authorization cannot be verified, make sure you provided the correct credentials"
+output_text="Authorization cannot be verified, make sure you provided correct credentials"

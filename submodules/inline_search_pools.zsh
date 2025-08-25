@@ -29,7 +29,7 @@ fi
 
 output_text="$(printf "%s\n<b>Name:</b> %s" "${output_text}" "$(htmlescape <<< "${ib_pool}")")"
 output_text="$(printf "%s\n<b>Post count:</b> %s" "${output_text}" "${ib_count}")"
-output_description="Click to send the pool information"
+output_description="Click to send pool information"
 
 keyboard_text1="Pool link"
 keyboard_url1="${ib_url}$(urlencode <<< "${ib_id}")"

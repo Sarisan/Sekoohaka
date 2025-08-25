@@ -64,7 +64,7 @@ done
 if [[ -n "${failed}" ]]
 then
     echo "Failed to load Z Shell modules:${failed}" \
-        "\nUpdate your Z Shell or get a version with all the required modules"
+        "\nUpdate your Z Shell or get a version with all required modules"
     exit 1
 fi
 
@@ -96,7 +96,7 @@ done
 if [[ -n "${missing}" ]]
 then
     echo "Missing BusyBox functions:${missing}" \
-        "\nUpdate your BusyBox or get a version with all the required functions"
+        "\nUpdate your BusyBox or get a version with all required functions"
     exit 1
 fi
 
@@ -114,7 +114,7 @@ case "${action}" in
 
             shift
         else
-            echo "You must specify the target user ID" \
+            echo "You must specify target user ID" \
                 "\nSee '${0} help'"
             exit 1
         fi
@@ -142,7 +142,7 @@ case "${action}" in
             alias_id="${1}"
             shift
         else
-            echo "You must specify the alias name" \
+            echo "You must specify alias name" \
                 "\nSee '${0} help'"
             exit 1
         fi

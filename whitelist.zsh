@@ -47,8 +47,8 @@ then
         "\n\nActions:" \
         "\n  help\t\tShow help information" \
         "\n  list\t\tList whitelist entries" \
-        "\n  add\t\tAdd user ID to the whitelist" \
-        "\n  del\t\tRemove user ID from the whitelist" \
+        "\n  add\t\tAdd user ID to whitelist" \
+        "\n  del\t\tRemove user ID from whitelist" \
         "\n  reset\t\tRemove all whitelist entries"
     exit 0
 fi
@@ -64,7 +64,7 @@ done
 if [[ -n "${failed}" ]]
 then
     echo "Failed to load Z Shell modules:${failed}" \
-        "\nUpdate your Z Shell or get a version with all the required modules"
+        "\nUpdate your Z Shell or get a version with all required modules"
     exit 1
 fi
 
@@ -96,7 +96,7 @@ done
 if [[ -n "${missing}" ]]
 then
     echo "Missing BusyBox functions:${missing}" \
-        "\nUpdate your BusyBox or get a version with all the required functions"
+        "\nUpdate your BusyBox or get a version with all required functions"
     exit 1
 fi
 
@@ -114,7 +114,7 @@ case "${action}" in
 
             shift
         else
-            echo "You must specify the user ID" \
+            echo "You must specify user ID" \
                 "\nSee '${0} help'"
             exit 1
         fi
@@ -131,7 +131,7 @@ case "${action}" in
     (add)
         if [[ -s "${list}" ]] && grep -qxe "${user_id}" "${list}"
         then
-            echo "User ID ${user_id} is already in the whitelist"
+            echo "User ID ${user_id} is already in whitelist"
             exit 1
         fi
 

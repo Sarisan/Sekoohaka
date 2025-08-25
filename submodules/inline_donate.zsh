@@ -10,7 +10,7 @@ fi
 
 output_title="Donate"
 output_text="$(< "${files}/donate.txt")"
-output_description="Click to send the details"
+output_description="Click to send details"
 
 results="$(
     jq --null-input --compact-output \

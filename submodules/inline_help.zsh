@@ -5,7 +5,7 @@
 . "${units}/help.zsh"
 
 output_title="Sekoohaka Bot"
-output_description="Click to send the help message"
+output_description="Click to send help message"
 
 results="$(
     jq --null-input --compact-output \

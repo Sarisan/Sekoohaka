@@ -80,7 +80,7 @@ if ! curl --connect-timeout ${connrefused_timeout} \
     --user-agent "${useragent}" \
     "${api_address}/bot${api_token}/sendDocument"
 then
-    output_text="Failed to send the user data"
+    output_text="Failed to send user data"
     log_text="sendDocument (${update_id}): Failed to access Telegram Bot API"
 
     . "${units}/log.zsh"
@@ -102,7 +102,7 @@ fi
 
 if [[ "$(jq -r '.ok' "${output_file}")" != "true" ]]
 then
-    output_text="Failed to send the user data"
+    output_text="Failed to send user data"
     error_description="$(jq -r '.description' "${output_file}")"
 
     if [[ "${error_description}" != "null" ]]

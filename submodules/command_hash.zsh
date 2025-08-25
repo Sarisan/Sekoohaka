@@ -7,7 +7,7 @@ then
     ib_post_md5="${1}"
     shift
 else
-    output_text="You must specify the MD5 hash"
+    output_text="You must specify MD5 hash"
     return 0
 fi
 

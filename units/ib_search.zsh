@@ -20,7 +20,7 @@ then
     shift
 else
     output_title="Invalid arguments"
-    output_text="You must specify the Image Board"
+    output_text="You must specify Image Board"
 
     return 0
 fi

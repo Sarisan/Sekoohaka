@@ -22,7 +22,7 @@ then
     shift
 else
     output_title="Invalid arguments"
-    output_text="You must specify the Image Board and the post ID or the MD5 hash"
+    output_text="You must specify Image Board and post ID or MD5 hash"
     notification_text="${output_text}"
 
     return 0
@@ -34,10 +34,10 @@ then
     shift
 elif [[ -n "${ib_parent}" ]]
 then
-    output_text="You must specify the parent post ID"
+    output_text="You must specify parent post ID"
 else
     output_title="Invalid arguments"
-    output_text="You must specify the post ID or the MD5 hash"
+    output_text="You must specify post ID or MD5 hash"
     notification_text="${output_text}"
 
     return 0
