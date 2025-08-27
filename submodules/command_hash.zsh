@@ -24,17 +24,14 @@ do
     sleep 1
 done
 
-while [[ ${#board_table} -ge 2 ]]
+for ib_board in {a..z}
 do
-    ib_board="${board_table[1]}"
     . "${units}/ib_hash.zsh" &
 
     if [[ -z "${threaded_hash}" ]]
     then
         wait
     fi
-
-    shift 2 board_table
 done
 
 if [[ -n "${threaded_hash}" ]]

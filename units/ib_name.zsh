@@ -28,20 +28,21 @@ fi
 
 ib_reply_name="$(sed '1!d' <<< "${reply_text}")"
 
-while [[ ${#board_table} -ge 2 ]]
+for ib_board in {a..z} 0
 do
-    if [[ "${ib_reply_name}" == "${board_table[2]}" ]]
-    then
-        ib_board="${board_table[1]}"
-        break
-    elif [[ "${board_table[1]}" == "${board_table[-2]}" ]]
-    then
-        output_text="Could not find Image Board in replied message"
-        return 0
-    fi
+    . "${units}/ib_config.zsh"
 
-    shift 2 board_table
+    if [[ "${ib_reply_name}" == "${ib_name}" ]]
+    then
+        break
+    fi
 done
+
+if [[ "${ib_board}" == "0" ]]
+then
+    output_text="Could not find Image Board in replied message"
+    return 0
+fi
 
 ib_post_id="$(sed '2!d' <<< "${reply_text}" | cut -d ' ' -f 2)"
 

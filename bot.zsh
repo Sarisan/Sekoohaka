@@ -37,16 +37,6 @@ units="${dir}/units"
 users="${dir}/users"
 offset=-1
 
-board_table=(
-    a "Safebooru"
-    d "Danbooru"
-    g "Gelbooru"
-    i "Idol Complex"
-    s "Sankaku Channel"
-    k "Konachan.com"
-    y "yande.re"
-)
-
 data_table=(
     safebooru "Safebooru"
     danbooru "Danbooru"
