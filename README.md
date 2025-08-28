@@ -71,7 +71,6 @@ Options:
   -t <secs>     Cache expiration time, max: 1000, default: 300 secs
   -s <secs>     Sleep duration time, max: 100, default: 10 secs
   -c            Clear cache automatically
-  -j            Use threaded MD5 hash lookup
   -q            Do not print logs
   -u            Collect debug dumps
   -i <secs>     Telegram Bot API connetion timeout, max: 5, default: 5 secs

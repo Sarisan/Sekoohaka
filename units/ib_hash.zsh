@@ -20,5 +20,5 @@ ib_hash="$(sha1sum <<< "${user_id}${ib_board}${ib_query}" | cut -d ' ' -f 1)"
 if [[ -z "${output_text}" ]]
 then
     ib_id="$(jq -r ".${ib_iarray}[0].${ib_iid}" "${ib_file}")"
-    printf "<b>%s ID:</b> <code>%s</code>\n" "${ib_name}" "${ib_id}" >> "${ib_posts}"
+    printf "%s\n" "${ib_id}" > "${ib_post_id}"
 fi

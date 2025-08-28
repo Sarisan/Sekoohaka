@@ -86,7 +86,7 @@ busybox=(
 
 if [[ -n "${1}" ]]
 then
-    while getopts ha:olg:r:m:t:s:cjqui:e:d:f:n:x:k: opts
+    while getopts ha:olg:r:m:t:s:cqui:e:d:f:n:x:k: opts
     do
         case "${opts}" in
             (h)
@@ -118,9 +118,6 @@ then
             ;;
             (c)
                 clear_cache=0
-            ;;
-            (j)
-                threaded_hash=0
             ;;
             (q)
                 no_logs=0
@@ -177,7 +174,6 @@ then
         "\n  -t <secs>\tCache expiration time, max: 1000, default: 300 secs" \
         "\n  -s <secs>\tSleep duration time, max: 100, default: 10 secs" \
         "\n  -c\t\tClear cache automatically" \
-        "\n  -j\t\tUse threaded MD5 hash lookup" \
         "\n  -q\t\tDo not print logs" \
         "\n  -u\t\tCollect debug dumps" \
         "\n  -i <secs>\tTelegram Bot API connetion timeout, max: 5, default: 5 secs" \
