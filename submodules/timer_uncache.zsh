@@ -9,10 +9,10 @@ fi
 
 for file in $(find "${cache}" -follow -type f)
 do
-    until mkdir "${file%.*}.lock"
-    do
-        sleep 1
-    done
+    if ! mkdir "${file%.*}.lock"
+    then
+        continue
+    fi
 
     file_ctime=$(strftime %s)
     file_mtime=$(stat +mtime "${file}")
