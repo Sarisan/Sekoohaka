@@ -7,20 +7,20 @@ then
     return 0
 fi
 
-for file in $(ls -1 "${cache}")
+for file in $(find "${cache}" -follow -type f)
 do
-    until mkdir "${cache}/${file%.*}.lock"
+    until mkdir "${file%.*}.lock"
     do
         sleep 1
     done
 
     file_ctime=$(strftime %s)
-    file_mtime=$(stat +mtime "${cache}/${file}")
+    file_mtime=$(stat +mtime "${file}")
 
     if [[ $((file_ctime - file_mtime)) -gt $((cache_time + 20)) ]]
     then
-        rm -f "${cache}/${file}"
+        rm -f "${file}"
     fi
 
-    rmdir "${cache}/${file%.*}.lock"
+    rmdir "${file%.*}.lock"
 done
