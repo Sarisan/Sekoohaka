@@ -32,8 +32,8 @@ source_table=(
     danbooru_id d "Danbooru"
     gelbooru_id g "Gelbooru"
     idol_id i "Idol Complex"
-    sankaku_id s "Sankaku Channel"
     konachan_id k "Konachan.com"
+    sankaku_id s "Sankaku Channel"
     yandere_id y "yande.re"
 )
 

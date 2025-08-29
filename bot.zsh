@@ -42,8 +42,8 @@ data_table=(
     danbooru "Danbooru"
     gelbooru "Gelbooru"
     idolcomplex "Idol Complex"
-    sankakuchannel "Sankaku Channel"
     konachan "Konachan.com"
+    sankakuchannel "Sankaku Channel"
     yandere "yande.re"
     saucenao "SauceNAO"
     shorts "Shortcuts"
@@ -192,8 +192,8 @@ then
         "\n  Danbooru\t\t(https://danbooru.donmai.us/)" \
         "\n  Gelbooru\t\t(https://gelbooru.com/)" \
         "\n  Idol Complex\t\t(https://www.idolcomplex.com/)" \
-        "\n  Sankaku Channel\t(https://www.sankakucomplex.com/)" \
         "\n  Konachan.com\t\t(https://konachan.com/)" \
+        "\n  Sankaku Channel\t(https://www.sankakucomplex.com/)" \
         "\n  yande.re\t\t(https://yande.re/)"
     exit 0
 fi
