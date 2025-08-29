@@ -82,7 +82,7 @@ do
 
     output_text="$(printf "%s\n<b>%s ID:</b> <code>%s</code>" "${output_text}" "${source_table[3]}" "${ib_id}")"
 
-    if [[ "${source_table[1]}" == "idol_id" ]]
+    if [[ "${source_table[1]}" == "idol_id" || "${source_table[1]}" == "sankaku_id" ]]
     then
         ib_id="$(jq -r ".results.[${highest_index}].header.index_name" "${sn_file}" | cut -d ' ' -f 6 | cut -d '_' -f 1)"
         output_text="$(printf "%s\n<b>%s MD5:</b> <code>%s</code>" "${output_text}" "${source_table[3]}" "${ib_id}")"
