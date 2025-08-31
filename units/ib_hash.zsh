@@ -20,5 +20,18 @@ ib_hash="$(sha1sum <<< "${user_id}${ib_board}${ib_query}" | cut -d ' ' -f 1)"
 if [[ -z "${output_text}" ]]
 then
     ib_id="$(jq -r ".${ib_iarray}[0].${ib_iid}" "${ib_file}")"
+
+    if ! [[ -f "${ib_sample}" ]]
+    then
+        ib_file_size="$(jq -r ".${ib_iarray}[0].${ib_isize}" "${ib_file}")"
+        ib_file_url="$(jq -r ".${ib_iarray}[0].${ib_ifile}" "${ib_file}")"
+        ib_sample_url="$(jq -r ".${ib_iarray}[0].${ib_isample}" "${ib_file}")"
+        ib_preview_url="$(jq -r ".${ib_iarray}[0].${ib_ipreview}" "${ib_file}")"
+
+        . "${units}/ib_meta.zsh"
+
+        printf "%s\n" "${ib_sample_url}" > "${ib_sample}"
+    fi
+
     printf "%s\n" "${ib_id}" > "${ib_post_id}"
 fi

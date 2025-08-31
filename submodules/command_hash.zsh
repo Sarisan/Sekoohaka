@@ -17,7 +17,8 @@ then
     return 0
 fi
 
-ib_post_id="${cache}/${update_id}_${ib_post_md5}.txt"
+ib_post_id="${cache}/${update_id}_${ib_post_md5}_id.txt"
+ib_sample="${cache}/${update_id}_${ib_post_md5}_sample.txt"
 
 for ib_board in {a..z}
 do
@@ -56,6 +57,15 @@ do
 
     keyboard_offset=$((keyboard_offset + 0.5))
 done
+
+if [[ -f "${ib_sample}" ]]
+then
+    link_preview_options="$(
+        jq --null-input --compact-output \
+            --arg url "$(< "${ib_sample}")" \
+            '{"url": $url, "prefer_small_media": true, "show_above_text": true}'
+    )"
+fi
 
 if [[ -n "${ids_text}" ]]
 then
