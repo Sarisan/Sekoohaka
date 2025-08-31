@@ -17,8 +17,16 @@ then
     return 0
 fi
 
-ib_post_id="${cache}/${update_id}_${ib_post_md5}_id.txt"
+ib_post="${cache}/${update_id}_${ib_post_md5}_id.txt"
 ib_sample="${cache}/${update_id}_${ib_post_md5}_sample.txt"
+
+for lock in "${ib_post}" "${ib_sample}"
+do
+    until mkdir "${lock%.*}.lock"
+    do
+        sleep 1
+    done
+done
 
 for ib_board in {a..z}
 do
@@ -30,17 +38,17 @@ do
         continue
     fi
 
-    rm -f "${ib_post_id}"
+    rm -f "${ib_post}"
 
     . "${units}/ib_hash.zsh" &
     wait
 
-    if ! [[ -f "${ib_post_id}" ]]
+    if ! [[ -f "${ib_post}" ]]
     then
         continue
     fi
 
-    ib_id="$(< "${ib_post_id}")"
+    ib_id="$(< "${ib_post}")"
     ids_text="$(printf "%s\n<b>%s ID:</b> <code>%s</code>" "${ids_text}" "${ib_name}" "${ib_id}")"
 
     keyboard_text1="${ib_name}"
@@ -73,3 +81,8 @@ then
 else
     output_text="No results found"
 fi
+
+for lock in "${ib_post}" "${ib_sample}"
+do
+    rmdir "${lock%.*}.lock"
+done

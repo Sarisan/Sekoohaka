@@ -33,5 +33,5 @@ then
         printf "%s\n" "${ib_sample_url}" > "${ib_sample}"
     fi
 
-    printf "%s\n" "${ib_id}" > "${ib_post_id}"
+    printf "%s\n" "${ib_id}" > "${ib_post}"
 fi
