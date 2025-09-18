@@ -436,17 +436,18 @@ mkdir -p "${users}"
 log_text="Retrieving bot information..."
 . "${units}/log.zsh"
 
-if ! curl --connect-timeout ${connrefused_timeout} \
-    --get \
-    --max-time 10 \
-    --output "${cache}/getMe.json" \
-    --proxy "${internal_proxy}" \
-    --retry 1 \
-    --retry-connrefused \
-    --retry-max-time $((10 - connrefused_timeout)) \
-    --silent \
-    --user-agent "${useragent}" \
-    "${api_address}/bot${api_token}/getMe"
+if ! input_data="$(
+    curl --connect-timeout ${connrefused_timeout} \
+        --get \
+        --max-time 10 \
+        --proxy "${internal_proxy}" \
+        --retry 1 \
+        --retry-connrefused \
+        --retry-max-time $((10 - connrefused_timeout)) \
+        --silent \
+        --user-agent "${useragent}" \
+        "${api_address}/bot${api_token}/getMe"
+)"
 then
     log_text="getMe: Failed to access Telegram Bot API"
     . "${units}/log.zsh"
@@ -454,7 +455,7 @@ then
     exit 1
 fi
 
-if ! jq -e '.' "${cache}/getMe.json" > /dev/null
+if ! jq -e '.' <<< "${input_data}" > /dev/null
 then
     log_text="getMe: An unknown error occurred"
     . "${units}/log.zsh"
@@ -462,9 +463,9 @@ then
     exit 1
 fi
 
-if [[ "$(jq -r '.ok' "${cache}/getMe.json")" != "true" ]]
+if [[ "$(jq -r '.ok' <<< "${input_data}")" != "true" ]]
 then
-    error_description="$(jq -r '.description' "${cache}/getMe.json")"
+    error_description="$(jq -r '.description' <<< "${input_data}")"
 
     if [[ "${error_description}" != "null" ]]
     then
@@ -477,7 +478,7 @@ then
     exit 1
 fi
 
-username="$(jq -r '.result.username' "${cache}/getMe.json")"
+username="$(jq -r '.result.username' <<< "${input_data}")"
 log_text="Bot: ${username}"
 . "${units}/log.zsh"
 
@@ -554,18 +555,19 @@ then
 
     . "${units}/log.zsh"
 else
-    if ! curl --connect-timeout ${connrefused_timeout} \
-        --data "user_id=${api_token%:*}" \
-        --get \
-        --max-time ${internal_timeout} \
-        --output "${cache}/getUserProfilePhotos.json" \
-        --proxy "${internal_proxy}" \
-        --retry 1 \
-        --retry-connrefused \
-        --retry-max-time $((internal_timeout - connrefused_timeout)) \
-        --silent \
-        --user-agent "${useragent}" \
-        "${api_address}/bot${api_token}/getUserProfilePhotos"
+    if ! input_data="$(
+        curl --connect-timeout ${connrefused_timeout} \
+            --data "user_id=${api_token%:*}" \
+            --get \
+            --max-time ${internal_timeout} \
+            --proxy "${internal_proxy}" \
+            --retry 1 \
+            --retry-connrefused \
+            --retry-max-time $((internal_timeout - connrefused_timeout)) \
+            --silent \
+            --user-agent "${useragent}" \
+            "${api_address}/bot${api_token}/getUserProfilePhotos"
+    )"
     then
         log_text="getUserProfilePhotos: Failed to access Telegram Bot API"
         . "${units}/log.zsh"
@@ -573,7 +575,7 @@ else
         exit 1
     fi
 
-    if ! jq -e '.' "${cache}/getUserProfilePhotos.json" > /dev/null
+    if ! jq -e '.' <<< "${input_data}" > /dev/null
     then
         log_text="getUserProfilePhotos: An unknown error occurred"
         . "${units}/log.zsh"
@@ -581,9 +583,9 @@ else
         exit 1
     fi
 
-    if [[ "$(jq -r '.ok' "${cache}/getUserProfilePhotos.json")" != "true" ]]
+    if [[ "$(jq -r '.ok' <<< "${input_data}")" != "true" ]]
     then
-        error_description="$(jq -r '.description' "${cache}/getUserProfilePhotos.json")"
+        error_description="$(jq -r '.description' <<< "${input_data}")"
 
         if [[ "${error_description}" != "null" ]]
         then
@@ -596,7 +598,7 @@ else
         exit 1
     fi
 
-    profilephoto="$(jq -r '.result.photos[].[0].file_id' "${cache}/getUserProfilePhotos.json")"
+    profilephoto="$(jq -r '.result.photos[].[0].file_id' <<< "${input_data}")"
 
     if [[ -z "${profilephoto}" || "${profilephoto}" == "null" ]]
     then
@@ -606,18 +608,19 @@ else
         exit 1
     fi
 
-    if ! curl --connect-timeout ${connrefused_timeout} \
-        --data-urlencode "file_id=${profilephoto}" \
-        --get \
-        --max-time ${internal_timeout} \
-        --output "${cache}/getFile.json" \
-        --proxy "${internal_proxy}" \
-        --retry 1 \
-        --retry-connrefused \
-        --retry-max-time $((internal_timeout - connrefused_timeout)) \
-        --silent \
-        --user-agent "${useragent}" \
-        "${api_address}/bot${api_token}/getFile"
+    if ! input_data="$(
+        curl --connect-timeout ${connrefused_timeout} \
+            --data-urlencode "file_id=${profilephoto}" \
+            --get \
+            --max-time ${internal_timeout} \
+            --proxy "${internal_proxy}" \
+            --retry 1 \
+            --retry-connrefused \
+            --retry-max-time $((internal_timeout - connrefused_timeout)) \
+            --silent \
+            --user-agent "${useragent}" \
+            "${api_address}/bot${api_token}/getFile"
+    )"
     then
         log_text="getFile: Failed to access Telegram Bot API"
         . "${units}/log.zsh"
@@ -625,7 +628,7 @@ else
         exit 1
     fi
 
-    if ! jq -e '.' "${cache}/getFile.json" > /dev/null
+    if ! jq -e '.' <<< "${input_data}" > /dev/null
     then
         log_text="getFile: An unknown error occurred"
         . "${units}/log.zsh"
@@ -633,9 +636,9 @@ else
         exit 1
     fi
 
-    if [[ "$(jq -r '.ok' "${cache}/getFile.json")" != "true" ]]
+    if [[ "$(jq -r '.ok' <<< "${input_data}")" != "true" ]]
     then
-        error_description="$(jq -r '.description' "${cache}/getFile.json")"
+        error_description="$(jq -r '.description' <<< "${input_data}")"
 
         if [[ "${error_description}" != "null" ]]
         then
@@ -648,7 +651,7 @@ else
         exit 1
     fi
 
-    profilephoto_path="$(jq -r '.result.file_path' "${cache}/getFile.json")"
+    profilephoto_path="$(jq -r '.result.file_path' <<< "${input_data}")"
 
     if [[ "${api_address}" == "${local_address}" ]]
     then
@@ -660,16 +663,17 @@ else
             . "${units}/log.zsh"
         fi
     else
-        if ! curl --connect-timeout ${connrefused_timeout} \
-            --max-time ${internal_timeout} \
-            --output "${cache}/file.jpg" \
-            --proxy "${internal_proxy}" \
-            --retry 1 \
-            --retry-connrefused \
-            --retry-max-time $((external_timeout - connrefused_timeout)) \
-            --silent \
-            --user-agent "${useragent}" \
-            "${api_address}/file/bot${api_token}/${profilephoto_path}"
+        if ! input_data="$(
+            curl --connect-timeout ${connrefused_timeout} \
+                --max-time ${internal_timeout} \
+                --proxy "${internal_proxy}" \
+                --retry 1 \
+                --retry-connrefused \
+                --retry-max-time $((external_timeout - connrefused_timeout)) \
+                --silent \
+                --user-agent "${useragent}" \
+                "${api_address}/file/bot${api_token}/${profilephoto_path}"
+        )"
         then
             nocommand_source=0
             log_text="Error: Failed to download file, source command is disabled"
@@ -677,10 +681,10 @@ else
             . "${units}/log.zsh"
         fi
 
-        if [[ "$(jq -r '.ok' "${cache}/file.jpg")" == "false" ]]
+        if [[ "$(jq -r '.ok' <<< "${input_data}")" == "false" ]]
         then
             nocommand_source=0
-            error_description="$(jq -r '.description' "${cache}/file.jpg")"
+            error_description="$(jq -r '.description' <<< "${input_data}")"
 
             if [[ "${error_description}" != "null" ]]
             then
@@ -694,55 +698,56 @@ else
     fi
 fi
 
-if [[ -n "${sn_key}" ]]
+if [[ -z "${nocommand_source}" && -n "${sn_key}" ]]
 then
-    if ! curl --connect-timeout ${connrefused_timeout} \
-        --data-urlencode "output_type=2" \
-        --data-urlencode "api_key=${sn_key}" \
-        --get \
-        --max-time ${external_timeout} \
-        --output "${cache}/search.json" \
-        --proxy "${external_proxy}" \
-        --retry 1 \
-        --retry-connrefused \
-        --retry-max-time $((external_timeout - connrefused_timeout)) \
-        --silent \
-        --user-agent "${useragent}" \
-        "https://saucenao.com/search.php"
+    if ! input_data="$(
+        curl --connect-timeout ${connrefused_timeout} \
+            --data-urlencode "output_type=2" \
+            --data-urlencode "api_key=${sn_key}" \
+            --get \
+            --max-time ${external_timeout} \
+            --proxy "${external_proxy}" \
+            --retry 1 \
+            --retry-connrefused \
+            --retry-max-time $((external_timeout - connrefused_timeout)) \
+            --silent \
+            --user-agent "${useragent}" \
+            "https://saucenao.com/search.php"
+    )"
     then
-        log_text="sn_search: Failed to access SauceNAO API"
+        log_text="SauceNAO: Failed to access SauceNAO API"
         . "${units}/log.zsh"
 
         exit 1
     fi
 
-    if ! jq -e '.' "${cache}/search.json" > /dev/null
+    if ! jq -e '.' <<< "${input_data}" > /dev/null
     then
-        log_text="sn_search: An unknown error occurred"
+        log_text="SauceNAO: An unknown error occurred"
         . "${units}/log.zsh"
 
         exit 1
     fi
 
-    sn_status="$(jq -r '.header.status' "${cache}/search.json")"
+    sn_status="$(jq -r '.header.status' <<< "${input_data}")"
 
     case "${sn_status}" in
         (-3)
         ;;
         (-2)
-            log_text="sn_search: Rate limit exceeded, try again later"
+            log_text="SauceNAO: Rate limit exceeded, try again later"
             . "${units}/log.zsh"
 
             exit 1
         ;;
         (-1)
-            log_text="sn_search: Invalid API Key"
+            log_text="SauceNAO: Invalid API Key"
             . "${units}/log.zsh"
 
             exit 1
         ;;
         (*)
-            log_text="sn_search: An unknown error occurred"
+            log_text="SauceNAO: An unknown error occurred"
             . "${units}/log.zsh"
 
             exit 1
