@@ -75,16 +75,16 @@ then
     )"
     then
         notification_text="Failed to update message"
-        log_text="editMessageText (${update_id}): Failed to access Telegram Bot API"
 
+        log_text="editMessageText (${update_id}): Failed to access Telegram Bot API"
         . "${units}/log.zsh"
     fi
 
     if [[ -z "${notification_text}" ]] && ! jq -e '.' <<< "${output_data}" > /dev/null
     then
         notification_text="An unknown error occurred"
-        log_text="editMessageText (${update_id}): An unknown error occurred"
 
+        log_text="editMessageText (${update_id}): An unknown error occurred"
         . "${units}/log.zsh"
     fi
 
