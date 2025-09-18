@@ -479,6 +479,7 @@ then
 fi
 
 username="$(jq -r '.result.username' <<< "${input_data}")"
+
 log_text="Bot: ${username}"
 . "${units}/log.zsh"
 
@@ -540,8 +541,8 @@ file_content="$(< "${files}/donate.txt")"
 if [[ ${#file_content} -lt 1 ]]
 then
     nocommand_donate=0
-    log_text="Warning: File donate.txt is empty, donate command is disabled"
 
+    log_text="Warning: File donate.txt is empty, donate command is disabled"
     . "${units}/log.zsh"
 fi
 
@@ -551,8 +552,8 @@ log_text="Running source command check..."
 if [[ -z "${allow_source}" && "${api_address}" != "${local_address}" && "${api_address}" != "${default_address}" ]]
 then
     nocommand_source=0
-    log_text="Warning: You are running bot with unknown Telegram Bot API instance, source command is disabled"
 
+    log_text="Warning: You are running bot with unknown Telegram Bot API instance, source command is disabled"
     . "${units}/log.zsh"
 else
     if ! input_data="$(
@@ -658,8 +659,8 @@ else
         if ! ls "${profilephoto_path}" > /dev/null
         then
             nocommand_source=0
-            log_text="Error: Cannot access Telegram Bot API working directory, source command is disabled"
 
+            log_text="Error: Cannot access Telegram Bot API working directory, source command is disabled"
             . "${units}/log.zsh"
         fi
     else
@@ -676,8 +677,8 @@ else
         )"
         then
             nocommand_source=0
-            log_text="Error: Failed to download file, source command is disabled"
 
+            log_text="Error: Failed to download file, source command is disabled"
             . "${units}/log.zsh"
         fi
 
