@@ -2,17 +2,17 @@
 # Copyright (C) 2024-2025 Danil Lisin
 # SPDX-License-Identifier: Apache-2.0
 
-inline_query=($(jq -r '.inline_query.query' "${update}"))
+inline_query=($(jq -r '.inline_query.query' <<< "${update}"))
 
 if [[ "${inline_query}" == "null" ]]
 then
     exit 0
 fi
 
-user_id="$(jq -r '.inline_query.from.id' "${update}")"
-query_id="$(jq -r '.inline_query.id' "${update}")"
-chat_type="$(jq -r '.inline_query.chat_type' "${update}")"
-offset="$(jq -r '.inline_query.offset' "${update}")"
+user_id="$(jq -r '.inline_query.from.id' <<< "${update}")"
+query_id="$(jq -r '.inline_query.id' <<< "${update}")"
+chat_type="$(jq -r '.inline_query.chat_type' <<< "${update}")"
+offset="$(jq -r '.inline_query.offset' <<< "${update}")"
 
 . "${units}/user.zsh"
 set -- ${inline_query[@]}
@@ -50,46 +50,40 @@ case "${command}" in
     ;;
 esac
 
-output_file="${cache}/${update_id}_answerInlineQuery.json"
-dump+=(${output_file##*/})
-
-if ! curl --connect-timeout ${connrefused_timeout} \
-    --data-urlencode "inline_query_id=${query_id}" \
-    --data-urlencode "results=${results}" \
-    --data-urlencode "cache_time=0" \
-    --data-urlencode "next_offset=${next_offset}" \
-    --get \
-    --max-time ${internal_timeout} \
-    --output "${output_file}" \
-    --proxy "${internal_proxy}" \
-    --retry 1 \
-    --retry-connrefused \
-    --retry-max-time $((internal_timeout - connrefused_timeout)) \
-    --silent \
-    --user-agent "${useragent}" \
-    "${api_address}/bot${api_token}/answerInlineQuery"
+if ! output_data="$(
+    curl --connect-timeout ${connrefused_timeout} \
+        --data-urlencode "inline_query_id=${query_id}" \
+        --data-urlencode "results=${results}" \
+        --data-urlencode "cache_time=0" \
+        --data-urlencode "next_offset=${next_offset}" \
+        --get \
+        --max-time ${internal_timeout} \
+        --proxy "${internal_proxy}" \
+        --retry 1 \
+        --retry-connrefused \
+        --retry-max-time $((internal_timeout - connrefused_timeout)) \
+        --silent \
+        --user-agent "${useragent}" \
+        "${api_address}/bot${api_token}/answerInlineQuery"
+)"
 then
     log_text="answerInlineQuery (${update_id}): Failed to access Telegram Bot API"
-
     . "${units}/log.zsh"
-    . "${units}/dump.zsh"
 
     exit 0
 fi
 
-if ! jq -e '.' "${output_file}" > /dev/null
+if ! jq -e '.' <<< "${output_data}" > /dev/null
 then
     log_text="answerInlineQuery (${update_id}): An unknown error occurred"
-
     . "${units}/log.zsh"
-    . "${units}/dump.zsh"
 
     exit 0
 fi
 
-if [[ "$(jq -r '.ok' "${output_file}")" != "true" ]]
+if [[ "$(jq -r '.ok' <<< "${output_data}")" != "true" ]]
 then
-    error_description="$(jq -r '.description' "${output_file}")"
+    error_description="$(jq -r '.description' <<< "${output_data}")"
 
     if [[ "${error_description}" != "null" ]]
     then
@@ -99,5 +93,4 @@ then
     fi
 
     . "${units}/log.zsh"
-    . "${units}/dump.zsh"
 fi

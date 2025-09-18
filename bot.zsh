@@ -86,7 +86,7 @@ busybox=(
 
 if [[ -n "${1}" ]]
 then
-    while getopts ha:olg:r:m:t:s:cqui:e:d:f:n:x:k: opts
+    while getopts ha:olg:r:m:t:s:cqi:e:d:f:n:x:k: opts
     do
         case "${opts}" in
             (h)
@@ -121,9 +121,6 @@ then
             ;;
             (q)
                 no_logs=0
-            ;;
-            (u)
-                collect_dumps=0
             ;;
             (i)
                 internal_timeout=${OPTARG}
@@ -783,18 +780,20 @@ while trap 'wait && exit 0' INT TERM
 do
     . "${mods}/timer.zsh" &
 
-    if ! curl --connect-timeout ${connrefused_timeout} \
-        --data "offset=${offset}" \
-        --data "limit=1" \
-        --get \
-        --output "${cache}/getUpdates.json" \
-        --proxy "${internal_proxy}" \
-        --retry 1 \
-        --retry-connrefused \
-        --retry-max-time $((internal_timeout - connrefused_timeout)) \
-        --silent \
-        --user-agent "${useragent}" \
-        "${api_address}/bot${api_token}/getUpdates"
+    if ! input_data="$(
+        curl --connect-timeout ${connrefused_timeout} \
+            --data "offset=${offset}" \
+            --data "limit=1" \
+            --get \
+            --max-time ${internal_timeout} \
+            --proxy "${internal_proxy}" \
+            --retry 1 \
+            --retry-connrefused \
+            --retry-max-time $((internal_timeout - connrefused_timeout)) \
+            --silent \
+            --user-agent "${useragent}" \
+            "${api_address}/bot${api_token}/getUpdates"
+    )"
     then
         log_text="getUpdates: Failed to access Telegram Bot API, sleeping for ${sleep_time} seconds"
         . "${units}/log.zsh"
@@ -803,7 +802,7 @@ do
         continue
     fi
 
-    if ! jq -e '.' "${cache}/getUpdates.json" > /dev/null
+    if ! jq -e '.' <<< "${input_data}" > /dev/null
     then
         log_text="getUpdates: An unknown error occurred, sleeping for ${sleep_time} seconds"
         . "${units}/log.zsh"
@@ -812,9 +811,9 @@ do
         continue
     fi
 
-    if [[ "$(jq -r '.ok' "${cache}/getUpdates.json")" != "true" ]]
+    if [[ "$(jq -r '.ok' <<< "${input_data}")" != "true" ]]
     then
-        error_description="$(jq -r '.description' "${cache}/getUpdates.json")"
+        error_description="$(jq -r '.description' <<< "${input_data}")"
 
         if [[ "${error_description}" != "null" ]]
         then
@@ -829,19 +828,16 @@ do
         continue
     fi
 
-    update_id="$(jq -r '.result.[0].update_id' "${cache}/getUpdates.json")"
+    update_id="$(jq -r '.result.[0].update_id' <<< "${input_data}")"
 
     if [[ "${update_id}" == "null" ]]
     then
         continue
     fi
 
-    update="${cache}/${update_id}.json"
-    dump=(${update##*/})
-
-    if ! jq -c '.result.[0]' "${cache}/getUpdates.json" > "${update}"
+    if ! update="$(jq -c '.result.[0]' <<< "${input_data}")"
     then
-        log_text="Failed to write update file ${update_id}.json"
+        log_text="Failed to write update data"
         . "${units}/log.zsh"
 
         continue
