@@ -17,6 +17,22 @@ then
     return 0
 fi
 
+ib_hash="$(sha1sum <<< "${user_id}${ib_board}${ib_query}" | cut -d ' ' -f 1)"
+ib_file="${cache}/${ib_hash}.json"
+
+until mkdir "${cache}/${ib_hash}.lock"
+do
+    sleep 1
+done
+
+. "${units}/ib_file.zsh"
+
+if [[ -n "${output_text}" ]]
+then
+    rmdir "${cache}/${ib_hash}.lock"
+    return 0
+fi
+
 ib_children_ids=($(jq -r ".${ib_iarray}[].${ib_iid}" "${ib_file}"))
 output_text="<b>Children posts:</b> ${#ib_children_ids}"
 
@@ -29,3 +45,5 @@ reply_markup="$(
         --arg query1 "${keyboard_query1}" \
         '.inline_keyboard[0] += [{"text": $text1, "switch_inline_query_current_chat": $query1}]'
 )"
+
+rmdir "${cache}/${ib_hash}.lock"

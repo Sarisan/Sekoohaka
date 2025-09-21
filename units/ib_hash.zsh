@@ -2,6 +2,7 @@
 # Copyright (C) 2024-2025 Danil Lisin
 # SPDX-License-Identifier: Apache-2.0
 
+rm -f "${ib_post}"
 ib_mode="p"
 
 . "${units}/ib_config.zsh"
@@ -15,7 +16,20 @@ fi
 ib_query="md5:${ib_post_md5}"
 
 ib_hash="$(sha1sum <<< "${user_id}${ib_board}${ib_query}" | cut -d ' ' -f 1)"
+ib_file="${cache}/${ib_hash}.json"
+
+until mkdir "${cache}/${ib_hash}.lock"
+do
+    sleep 1
+done
+
 . "${units}/ib_file.zsh"
+
+if [[ -n "${output_text}" ]]
+then
+    rmdir "${cache}/${ib_hash}.lock"
+    exit 0
+fi
 
 if [[ -z "${output_text}" ]]
 then
@@ -35,3 +49,5 @@ then
 
     printf "%s\n" "${ib_id}" > "${ib_post}"
 fi
+
+rmdir "${cache}/${ib_hash}.lock"

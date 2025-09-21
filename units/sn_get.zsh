@@ -4,8 +4,8 @@
 
 if [[ -z "${file_id}" ]]
 then
-    message_id="$(jq -r '.message.reply_to_message.message_id' "${update}")"
-    file_id="$(jq -r '.message.reply_to_message.photo.[1].file_id' "${update}")"
+    message_id="$(jq -r '.message.reply_to_message.message_id' <<< "${update}")"
+    file_id="$(jq -r '.message.reply_to_message.photo.[1].file_id' <<< "${update}")"
 
     if [[ "${message_id}" == "null" || "${message_id}" == "${message_thread_id}" ]]
     then
@@ -20,46 +20,42 @@ then
     fi
 fi
 
-output_file="${cache}/${update_id}_getFile.json"
-dump+=(${output_file##*/})
-
-if ! curl --connect-timeout ${connrefused_timeout} \
-    --data-urlencode "file_id=${file_id}" \
-    --get \
-    --max-time ${internal_timeout} \
-    --output "${output_file}" \
-    --proxy "${internal_proxy}" \
-    --retry 1 \
-    --retry-connrefused \
-    --retry-max-time $((external_timeout - connrefused_timeout)) \
-    --silent \
-    --user-agent "${useragent}" \
-    "${api_address}/bot${api_token}/getFile"
+if ! output_data="$(
+    curl --connect-timeout ${connrefused_timeout} \
+        --data-urlencode "file_id=${file_id}" \
+        --get \
+        --max-time ${internal_timeout} \
+        --proxy "${internal_proxy}" \
+        --retry 1 \
+        --retry-connrefused \
+        --retry-max-time $((external_timeout - connrefused_timeout)) \
+        --silent \
+        --user-agent "${useragent}" \
+        "${api_address}/bot${api_token}/getFile"
+)"
 then
     output_text="Failed to get image file"
-    log_text="getFile (${update_id}): Failed to access Telegram Bot API"
 
+    log_text="getFile (${update_id}): Failed to access Telegram Bot API"
     . "${units}/log.zsh"
-    . "${units}/dump.zsh"
 
     return 0
 fi
 
-if ! jq -e '.' "${output_file}" > /dev/null
+if ! jq -e '.' <<< "${output_data}" > /dev/null
 then
     output_text="An unknown error occurred"
-    log_text="getFile (${update_id}): An unknown error occurred"
 
+    log_text="getFile (${update_id}): An unknown error occurred"
     . "${units}/log.zsh"
-    . "${units}/dump.zsh"
 
     return 0
 fi
 
-if [[ "$(jq -r '.ok' "${output_file}")" != "true" ]]
+if [[ "$(jq -r '.ok' <<< "${output_data}")" != "true" ]]
 then
     output_text="Failed to get image file"
-    error_description="$(jq -r '.description' "${output_file}")"
+    error_description="$(jq -r '.description' <<< "${output_data}")"
 
     if [[ "${error_description}" != "null" ]]
     then
@@ -69,42 +65,37 @@ then
     fi
 
     . "${units}/log.zsh"
-    . "${units}/dump.zsh"
-
     return 0
 fi
 
-file_path="$(jq -r '.result.file_path' "${output_file}")"
+file_path="$(jq -r '.result.file_path' <<< "${output_data}")"
 
 if [[ "${api_address}" != "${local_address}" ]]
 then
-    output_file="${cache}/${update_id}_file.jpg"
-    dump+=(${output_file##*/})
-
-    if ! curl --connect-timeout ${connrefused_timeout} \
-        --max-time ${internal_timeout} \
-        --output "${output_file}" \
-        --proxy "${internal_proxy}" \
-        --retry 1 \
-        --retry-connrefused \
-        --retry-max-time $((external_timeout - connrefused_timeout)) \
-        --silent \
-        --user-agent "${useragent}" \
-        "${api_address}/file/bot${api_token}/${file_path}"
+    if ! output_data="$(
+        curl --connect-timeout ${connrefused_timeout} \
+            --max-time ${internal_timeout} \
+            --proxy "${internal_proxy}" \
+            --retry 1 \
+            --retry-connrefused \
+            --retry-max-time $((external_timeout - connrefused_timeout)) \
+            --silent \
+            --user-agent "${useragent}" \
+            "${api_address}/file/bot${api_token}/${file_path}"
+    )"
     then
         output_text="Failed to download image file"
-        log_text="getFile (${update_id}): Failed to access Telegram Bot API"
 
+        log_text="getFile (${update_id}): Failed to access Telegram Bot API"
         . "${units}/log.zsh"
-        . "${units}/dump.zsh"
 
         return 0
     fi
 
-    if [[ "$(jq -r '.ok' "${output_file}")" == "false" ]]
+    if [[ "$(jq -r '.ok' <<< "${output_data}")" == "false" ]]
     then
         output_text="Failed to download image file"
-        error_description="$(jq -r '.description' "${output_file}")"
+        error_description="$(jq -r '.description' <<< "${output_data}")"
 
         if [[ "${error_description}" != "null" ]]
         then
@@ -114,8 +105,6 @@ then
         fi
 
         . "${units}/log.zsh"
-        . "${units}/dump.zsh"
-
         return 0
     fi
 

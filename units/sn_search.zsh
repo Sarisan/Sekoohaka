@@ -2,52 +2,48 @@
 # Copyright (C) 2024-2025 Danil Lisin
 # SPDX-License-Identifier: Apache-2.0
 
-sn_file="${cache}/${update_id}_search.json"
-dump+=(${sn_file##*/})
-
-if ! curl --connect-timeout ${connrefused_timeout} \
-    --form "output_type=2" \
-    --form "api_key=${sn_key}" \
-    --form "dbs[]=9" \
-    --form "dbs[]=12" \
-    --form "dbs[]=25" \
-    --form "dbs[]=26" \
-    --form "dbs[]=27" \
-    --form "dbs[]=30" \
-    --form "dedupe=2" \
-    --form "${sn_query}" \
-    --get \
-    --max-time ${external_timeout} \
-    --output "${sn_file}" \
-    --proxy "${external_proxy}" \
-    --retry 1 \
-    --retry-connrefused \
-    --retry-max-time $((external_timeout - connrefused_timeout)) \
-    --silent \
-    --user-agent "${useragent}" \
-    "https://saucenao.com/search.php"
+if ! sn_data="$(
+    curl --connect-timeout ${connrefused_timeout} \
+        --form "output_type=2" \
+        --form "api_key=${sn_key}" \
+        --form "dbs[]=9" \
+        --form "dbs[]=12" \
+        --form "dbs[]=25" \
+        --form "dbs[]=26" \
+        --form "dbs[]=27" \
+        --form "dbs[]=30" \
+        --form "dedupe=2" \
+        --form "${sn_query}" \
+        --get \
+        --max-time ${external_timeout} \
+        --proxy "${external_proxy}" \
+        --retry 1 \
+        --retry-connrefused \
+        --retry-max-time $((external_timeout - connrefused_timeout)) \
+        --silent \
+        --user-agent "${useragent}" \
+        "https://saucenao.com/search.php"
+)"
 then
     output_text="Failed to access SauceNAO API"
-    log_text="sn_search (${update_id}): ${output_text}"
 
+    log_text="sn_search (${update_id}): ${output_text}"
     . "${units}/log.zsh"
-    . "${units}/dump.zsh"
 
     return 0
 fi
 
-if ! jq -e '.' "${sn_file}" > /dev/null
+if ! jq -e '.' <<< "${sn_data}" > /dev/null
 then
     output_text="An unknown error occurred"
-    log_text="sn_search (${update_id}): ${output_text}"
 
+    log_text="sn_search (${update_id}): ${output_text}"
     . "${units}/log.zsh"
-    . "${units}/dump.zsh"
 
     return 0
 fi
 
-sn_status="$(jq -r '.header.status' "${sn_file}")"
+sn_status="$(jq -r '.header.status' <<< "${sn_data}")"
 
 case "${sn_status}" in
     (-2)

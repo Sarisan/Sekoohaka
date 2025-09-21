@@ -69,6 +69,3 @@ if [[ -n "${ib_iwildcard}" ]]
 then
     ib_query="$(sed "s/${ib_iwildcard}/\\\\${ib_iwildcard}/g" <<< "${ib_query}" | tr '*' "${ib_iwildcard}")"
 fi
-
-ib_hash="$(sha1sum <<< "${user_id}${ib_mode}${ib_board}${ib_page}${ib_query}" | cut -d ' ' -f 1)"
-. "${units}/ib_file.zsh"

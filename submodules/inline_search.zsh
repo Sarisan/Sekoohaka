@@ -59,6 +59,41 @@ then
     return 0
 fi
 
+ib_hash="$(sha1sum <<< "${user_id}${ib_mode}${ib_board}${ib_page}${ib_query}" | cut -d ' ' -f 1)"
+ib_file="${cache}/${ib_hash}.json"
+
+until mkdir "${cache}/${ib_hash}.lock"
+do
+    sleep 1
+done
+
+. "${units}/ib_file.zsh"
+
+if [[ -n "${output_text}" ]]
+then
+    keyboard_text1="Resume"
+    keyboard_query1="${command} ${ib_board} ${inline_page}"
+
+    if [[ -n "${search_query}" ]]
+    then
+        keyboard_query1="${keyboard_query1} ${search_query}"
+    fi
+
+    results="$(
+        jq --null-input --compact-output \
+            --arg id "${query_id}" \
+            --arg title "${output_title}" \
+            --arg text "${output_text}" \
+            --arg text1 "${keyboard_text1}" \
+            --arg query1 "${keyboard_query1}" \
+            --arg description "${output_text}" \
+            '[{"type": "article", "id": $id, "title": $title, "input_message_content": {"message_text": $text}, "reply_markup": {"inline_keyboard": [[{"text": $text1, "switch_inline_query_current_chat": $query1}]]}, "description": $description}]'
+    )"
+
+    rmdir "${cache}/${ib_hash}.lock"
+    return 0
+fi
+
 ib_ids=("${(@f)$(jq -r ".${ib_iarray}[].${ib_iid}" "${ib_file}")}")
 
 case "${ib_mode}" in
@@ -112,3 +147,5 @@ if [[ -n "${ib_autopaging}" ]]
 then
     next_offset=$((inline_page + 1))
 fi
+
+rmdir "${cache}/${ib_hash}.lock"

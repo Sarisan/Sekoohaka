@@ -10,6 +10,22 @@ then
     return 0
 fi
 
+ib_hash="$(sha1sum <<< "${user_id}${ib_board}${ib_query}" | cut -d ' ' -f 1)"
+ib_file="${cache}/${ib_hash}.json"
+
+until mkdir "${cache}/${ib_hash}.lock"
+do
+    sleep 1
+done
+
+. "${units}/ib_file.zsh"
+
+if [[ -n "${notification_text}" ]]
+then
+    rmdir "${cache}/${ib_hash}.lock"
+    return 0
+fi
+
 . "${units}/ib_post.zsh"
 
 link_preview_options="$(
@@ -41,3 +57,5 @@ then
         <<< "${reply_markup}"
     )"
 fi
+
+rmdir "${cache}/${ib_hash}.lock"

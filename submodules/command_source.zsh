@@ -37,11 +37,11 @@ source_table=(
     yandere_id y "yande.re"
 )
 
-minimum_similarity="$(jq -r ".header.minimum_similarity" "${sn_file}")"
+minimum_similarity="$(jq -r ".header.minimum_similarity" <<< "${sn_data}")"
 
 for ((idx = 0; idx >= 0; idx++))
 do
-    similarity="$(jq -r ".results.[${idx}].header.similarity" "${sn_file}")"
+    similarity="$(jq -r ".results.[${idx}].header.similarity" <<< "${sn_data}")"
 
     if [[ "${similarity}" == "null" ]]
     then
@@ -61,7 +61,7 @@ then
     return 0
 fi
 
-thumbnail="$(jq -r ".results.[${highest_index}].header.thumbnail" "${sn_file}")"
+thumbnail="$(jq -r ".results.[${highest_index}].header.thumbnail" <<< "${sn_data}")"
 link_preview_options="$(
     jq --null-input --compact-output \
         --arg url "${thumbnail}" \
@@ -72,7 +72,7 @@ output_text="$(printf "<b>SauceNAO</b>\n<b>Similarity:</b> %.2f%%" "${highest_si
 
 while [[ ${#source_table} -ge 3 ]]
 do
-    ib_id="$(jq -r ".results.[${highest_index}].data.${source_table[1]}" "${sn_file}")"
+    ib_id="$(jq -r ".results.[${highest_index}].data.${source_table[1]}" <<< "${sn_data}")"
 
     if [[ "${ib_id}" == "null" ]]
     then
@@ -84,7 +84,7 @@ do
 
     if [[ "${source_table[1]}" == "idol_id" || "${source_table[1]}" == "sankaku_id" ]]
     then
-        ib_id="$(jq -r ".results.[${highest_index}].header.index_name" "${sn_file}" | cut -d ' ' -f 6 | cut -d '_' -f 1)"
+        ib_id="$(jq -r ".results.[${highest_index}].header.index_name" <<< "${sn_data}" | cut -d ' ' -f 6 | cut -d '_' -f 1)"
         output_text="$(printf "%s\n<b>%s MD5:</b> <code>%s</code>" "${output_text}" "${source_table[3]}" "${ib_id}")"
     fi
 

@@ -2,14 +2,6 @@
 # Copyright (C) 2024-2025 Danil Lisin
 # SPDX-License-Identifier: Apache-2.0
 
-until mkdir "${cache}/${ib_hash}.lock"
-do
-    sleep 1
-done
-
-ib_file="${cache}/${ib_hash}.json"
-dump+=(${ib_file##*/})
-
 if [[ -f "${ib_file}" && "${cache_mode}" != "none" ]]
 then
     ib_ctime=$(strftime %s)
@@ -17,7 +9,6 @@ then
 
     if [[ $((ib_ctime - ib_mtime)) -le ${cache_time} ]]
     then
-        rmdir "${cache}/${ib_hash}.lock"
         return 0
     fi
 fi
@@ -28,7 +19,6 @@ then
 
     if [[ -n "${output_text}" ]]
     then
-        rmdir "${cache}/${ib_hash}.lock"
         return 0
     fi
 fi
@@ -75,14 +65,13 @@ then
     output_title="An error occurred"
     output_text="Failed to access ${ib_name} API"
     notification_text="${output_text}"
+
     log_text="ib_file (${update_id}): ${output_text}"
+    . "${units}/log.zsh"
 
     next_offset=${inline_page:-0}
 
-    . "${units}/log.zsh"
-    . "${units}/dump.zsh"
-
-    rm -fr "${ib_file}" "${cache}/${ib_hash}.lock"
+    rm -f "${ib_file}"
     return 0
 fi
 
@@ -91,12 +80,11 @@ then
     output_title="An error occurred"
     output_text="An unknown error occurred"
     notification_text="${output_text}"
+
     log_text="ib_file (${update_id}): ${output_text}"
-
     . "${units}/log.zsh"
-    . "${units}/dump.zsh"
 
-    rm -fr "${ib_file}" "${cache}/${ib_hash}.lock"
+    rm -f "${ib_file}"
     return 0
 fi
 
@@ -133,5 +121,3 @@ then
 
     rm -f "${ib_file}"
 fi
-
-rmdir "${cache}/${ib_hash}.lock"

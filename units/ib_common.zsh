@@ -52,6 +52,3 @@ then
 else
     ib_query="id:${ib_post_id}"
 fi
-
-ib_hash="$(sha1sum <<< "${user_id}${ib_board}${ib_query}" | cut -d ' ' -f 1)"
-. "${units}/ib_file.zsh"

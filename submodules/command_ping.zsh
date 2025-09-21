@@ -3,53 +3,49 @@
 # SPDX-License-Identifier: Apache-2.0
 
 output_text="Measuring..."
-output_file="${cache}/${update_id}_sendMessage.json"
-dump+=(${output_file##*/})
-
 latency_init=$(strftime %s%N)
 
-if ! curl --connect-timeout ${connrefused_timeout} \
-    --data-urlencode "chat_id=${chat_id}" \
-    --data-urlencode "message_thread_id=${message_thread_id}" \
-    --data-urlencode "text=${output_text}" \
-    --data-urlencode "reply_parameters=${reply_parameters}" \
-    --get \
-    --max-time ${internal_timeout} \
-    --output "${output_file}" \
-    --proxy "${internal_proxy}" \
-    --retry 1 \
-    --retry-connrefused \
-    --retry-max-time $((internal_timeout - connrefused_timeout)) \
-    --silent \
-    --user-agent "${useragent}" \
-    "${api_address}/bot${api_token}/sendMessage"
+if ! output_data="$(
+    curl --connect-timeout ${connrefused_timeout} \
+        --data-urlencode "chat_id=${chat_id}" \
+        --data-urlencode "message_thread_id=${message_thread_id}" \
+        --data-urlencode "text=${output_text}" \
+        --data-urlencode "reply_parameters=${reply_parameters}" \
+        --get \
+        --max-time ${internal_timeout} \
+        --proxy "${internal_proxy}" \
+        --retry 1 \
+        --retry-connrefused \
+        --retry-max-time $((internal_timeout - connrefused_timeout)) \
+        --silent \
+        --user-agent "${useragent}" \
+        "${api_address}/bot${api_token}/sendMessage"
+)"
 then
     output_text="Failed to measure latency"
-    log_text="sendMessage (${update_id}): Failed to access Telegram Bot API"
 
+    log_text="sendMessage (${update_id}): Failed to access Telegram Bot API"
     . "${units}/log.zsh"
-    . "${units}/dump.zsh"
 
     return 0
 fi
 
 latency_fin=$(strftime %s%N)
 
-if ! jq -e '.' "${output_file}" > /dev/null
+if ! jq -e '.' <<< "${output_data}" > /dev/null
 then
     output_text="An unknown error occurred"
-    log_text="sendMessage (${update_id}): An unknown error occurred"
 
+    log_text="sendMessage (${update_id}): An unknown error occurred"
     . "${units}/log.zsh"
-    . "${units}/dump.zsh"
 
     return 0
 fi
 
-if [[ "$(jq -r '.ok' "${output_file}")" != "true" ]]
+if [[ "$(jq -r '.ok' <<< "${output_data}")" != "true" ]]
 then
     output_text="Failed to measure latency"
-    error_description="$(jq -r '.description' "${output_file}")"
+    error_description="$(jq -r '.description' <<< "${output_data}")"
 
     if [[ "${error_description}" != "null" ]]
     then
@@ -59,57 +55,49 @@ then
     fi
 
     . "${units}/log.zsh"
-    . "${units}/dump.zsh"
-
     return 0
 fi
 
-chat_id="$(jq -r '.result.chat.id' "${output_file}")"
-message_id="$(jq -r '.result.message_id' "${output_file}")"
+chat_id="$(jq -r '.result.chat.id' <<< "${output_data}")"
+message_id="$(jq -r '.result.message_id' <<< "${output_data}")"
 
 latency=$(((latency_fin - latency_init) / 1000000))
 output_text="$(printf "<b>Latency:</b> %ums" "${latency}")"
 
-output_file="${cache}/${update_id}_editMessageText.json"
-dump+=(${output_file##*/})
-
-if ! curl --connect-timeout ${connrefused_timeout} \
-    --data-urlencode "chat_id=${chat_id}" \
-    --data-urlencode "message_id=${message_id}" \
-    --data-urlencode "text=${output_text}" \
-    --data-urlencode "parse_mode=HTML" \
-    --get \
-    --max-time ${internal_timeout} \
-    --output "${output_file}" \
-    --proxy "${internal_proxy}" \
-    --retry 1 \
-    --retry-connrefused \
-    --retry-max-time $((internal_timeout - connrefused_timeout)) \
-    --silent \
-    --user-agent "${useragent}" \
-    "${api_address}/bot${api_token}/editMessageText"
+if ! output_data="$(
+    curl --connect-timeout ${connrefused_timeout} \
+        --data-urlencode "chat_id=${chat_id}" \
+        --data-urlencode "message_id=${message_id}" \
+        --data-urlencode "text=${output_text}" \
+        --data-urlencode "parse_mode=HTML" \
+        --get \
+        --max-time ${internal_timeout} \
+        --proxy "${internal_proxy}" \
+        --retry 1 \
+        --retry-connrefused \
+        --retry-max-time $((internal_timeout - connrefused_timeout)) \
+        --silent \
+        --user-agent "${useragent}" \
+        "${api_address}/bot${api_token}/editMessageText"
+)"
 then
     log_text="editMessageText (${update_id}): Failed to access Telegram Bot API"
-
     . "${units}/log.zsh"
-    . "${units}/dump.zsh"
 
     exit 0
 fi
 
-if ! jq -e '.' "${output_file}" > /dev/null
+if ! jq -e '.' <<< "${output_data}" > /dev/null
 then
     log_text="editMessageText (${update_id}): An unknown error occurred"
-
     . "${units}/log.zsh"
-    . "${units}/dump.zsh"
 
     exit 0
 fi
 
-if [[ "$(jq -r '.ok' "${output_file}")" != "true" ]]
+if [[ "$(jq -r '.ok' <<< "${output_data}")" != "true" ]]
 then
-    error_description="$(jq -r '.description' "${output_file}")"
+    error_description="$(jq -r '.description' <<< "${output_data}")"
 
     if [[ "${error_description}" != "null" ]]
     then
@@ -119,7 +107,6 @@ then
     fi
 
     . "${units}/log.zsh"
-    . "${units}/dump.zsh"
 fi
 
 exit 0

@@ -7,11 +7,11 @@ then
     return 0
 fi
 
-reply_text="$(jq -r '.message.reply_to_message.text' "${update}")"
+reply_text="$(jq -r '.message.reply_to_message.text' <<< "${update}")"
 
 if [[ "${reply_text}" == "null" ]]
 then
-    reply_text="$(jq -r '.message.reply_to_message.caption' "${update}")"
+    reply_text="$(jq -r '.message.reply_to_message.caption' <<< "${update}")"
 fi
 
 if [[ "${reply_text}" == "null" ]]

@@ -2,47 +2,43 @@
 # Copyright (C) 2024-2025 Danil Lisin
 # SPDX-License-Identifier: Apache-2.0
 
-chat_id="$(jq -r '.callback_query.message.chat.id' "${update}")"
-message_id="$(jq -r '.callback_query.message.message_id' "${update}")"
+chat_id="$(jq -r '.callback_query.message.chat.id' <<< "${update}")"
+message_id="$(jq -r '.callback_query.message.message_id' <<< "${update}")"
 
-output_file="${cache}/${update_id}_deleteMessage.json"
-dump+=(${output_file##*/})
-
-if ! curl --connect-timeout ${connrefused_timeout} \
-    --data-urlencode "chat_id=${chat_id}" \
-    --data-urlencode "message_id=${message_id}" \
-    --get \
-    --max-time ${internal_timeout} \
-    --output "${output_file}" \
-    --proxy "${internal_proxy}" \
-    --retry 1 \
-    --retry-connrefused \
-    --retry-max-time $((internal_timeout - connrefused_timeout)) \
-    --silent \
-    --user-agent "${useragent}" \
-    "${api_address}/bot${api_token}/deleteMessage"
+if ! output_data="$(
+    curl --connect-timeout ${connrefused_timeout} \
+        --data-urlencode "chat_id=${chat_id}" \
+        --data-urlencode "message_id=${message_id}" \
+        --get \
+        --max-time ${internal_timeout} \
+        --proxy "${internal_proxy}" \
+        --retry 1 \
+        --retry-connrefused \
+        --retry-max-time $((internal_timeout - connrefused_timeout)) \
+        --silent \
+        --user-agent "${useragent}" \
+        "${api_address}/bot${api_token}/deleteMessage"
+)"
 then
     notification_text="Failed to delete message"
-    log_text="deleteMessage (${update_id}): Failed to access Telegram Bot API"
 
+    log_text="deleteMessage (${update_id}): Failed to access Telegram Bot API"
     . "${units}/log.zsh"
-    . "${units}/dump.zsh"
 
     return 0
 fi
 
-if ! jq -e '.' "${output_file}" > /dev/null
+if ! jq -e '.' <<< "${output_data}" > /dev/null
 then
     notification_text="An unknown error occurred"
-    log_text="deleteMessage (${update_id}): An unknown error occurred"
 
+    log_text="deleteMessage (${update_id}): An unknown error occurred"
     . "${units}/log.zsh"
-    . "${units}/dump.zsh"
 
     return 0
 fi
 
-if [[ "$(jq -r '.ok' "${output_file}")" != "true" ]]
+if [[ "$(jq -r '.ok' <<< "${output_data}")" != "true" ]]
 then
     notification_text="Failed to delete message"
     error_description="$(jq -r '.description' "${output_file}")"
@@ -55,5 +51,4 @@ then
     fi
 
     . "${units}/log.zsh"
-    . "${units}/dump.zsh"
 fi

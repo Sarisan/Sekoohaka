@@ -30,16 +30,6 @@ done
 
 for ib_board in {a..z}
 do
-    unset ib_name
-    . "${units}/ib_config.zsh"
-
-    if [[ -z "${ib_name}" ]]
-    then
-        continue
-    fi
-
-    rm -f "${ib_post}"
-
     . "${units}/ib_hash.zsh" &
     wait
 
