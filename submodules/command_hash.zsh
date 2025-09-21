@@ -30,6 +30,7 @@ done
 
 for ib_board in {a..z}
 do
+    . "${units}/ib_config.zsh"
     . "${units}/ib_hash.zsh" &
     wait
 
