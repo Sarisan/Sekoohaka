@@ -9,48 +9,44 @@ ib_login_data="$(
         '{"login": $login, "password": $password}'
 )"
 
-ib_auth_file="${cache}/${update_id}_token.json"
-dump+=(${ib_auth_file##*/})
-
-if ! curl --connect-timeout ${connrefused_timeout} \
-    --data "${ib_login_data}" \
-    --header "Content-Type: application/json" \
-    --max-time ${external_timeout} \
-    --output "${ib_auth_file}" \
-    --proxy "${external_proxy}" \
-    --request POST \
-    --retry 1 \
-    --retry-connrefused \
-    --retry-max-time $((external_timeout - connrefused_timeout)) \
-    --silent \
-    --user-agent "${useragent}" \
-    "${ib_auth}/auth/token"
+if ! ib_auth_data="$(
+    curl --connect-timeout ${connrefused_timeout} \
+        --data "${ib_login_data}" \
+        --header "Content-Type: application/json" \
+        --max-time ${external_timeout} \
+        --proxy "${external_proxy}" \
+        --request POST \
+        --retry 1 \
+        --retry-connrefused \
+        --retry-max-time $((external_timeout - connrefused_timeout)) \
+        --silent \
+        --user-agent "${useragent}" \
+        "${ib_auth}/auth/token"
+)"
 then
     output_text="Failed to access ${ib_name} API"
-    log_text="ib_auth (${update_id}): ${output_text}"
 
+    log_text="ib_auth (${update_id}): ${output_text}"
     . "${units}/log.zsh"
-    . "${units}/dump.zsh"
 
     return 0
 fi
 
-if ! jq -e '.' "${ib_auth_file}" > /dev/null
+if ! jq -e '.' <<< "${ib_auth_data}" > /dev/null
 then
     output_text="An unknown error occurred"
+
     log_text="ib_auth (${update_id}): ${output_text}"
-
     . "${units}/log.zsh"
-    . "${units}/dump.zsh"
 
     return 0
 fi
 
-if [[ "$(jq -r '.success' "${ib_auth_file}")" != "true" ]]
+if [[ "$(jq -r '.success' <<< "${ib_auth_data}")" != "true" ]]
 then
-    output_text="Error: <code>$(jq -r '.error' "${ib_auth_file}" | htmlescape)</code>"
+    output_text="Error: <code>$(jq -r '.error' <<< "${ib_auth_data}" | htmlescape)</code>"
     return 0
 fi
 
-jq -r '.access_token' "${ib_auth_file}" > "${token_file}"
+jq -r '.access_token' <<< "${ib_auth_data}" > "${token_file}"
 strftime %s > "${timestamp_file}"

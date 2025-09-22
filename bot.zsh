@@ -29,7 +29,6 @@ dir="${0%/*}"
 auth="${dir}/auth"
 cache="${dir}/cache/${$}"
 config="${dir}/config"
-dumps="${dir}/dumps/${$}"
 files="${dir}/files"
 mods="${dir}/modules"
 submods="${dir}/submodules"
@@ -172,7 +171,6 @@ then
         "\n  -s <secs>\tSleep duration time, max: 100, default: 10 secs" \
         "\n  -c\t\tClear cache automatically" \
         "\n  -q\t\tDo not print logs" \
-        "\n  -u\t\tCollect debug dumps" \
         "\n  -i <secs>\tTelegram Bot API connetion timeout, max: 5, default: 5 secs" \
         "\n  -e <secs>\tImage Boards API connetion timeout, max: 5, default: 5 secs" \
         "\n  -d <secs>\tHead request connetion timeout, max: 5, default: 2 secs" \

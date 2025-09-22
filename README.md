@@ -72,7 +72,6 @@ Options:
   -s <secs>     Sleep duration time, max: 100, default: 10 secs
   -c            Clear cache automatically
   -q            Do not print logs
-  -u            Collect debug dumps
   -i <secs>     Telegram Bot API connetion timeout, max: 5, default: 5 secs
   -e <secs>     Image Boards API connetion timeout, max: 5, default: 5 secs
   -d <secs>     Head request connetion timeout, max: 5, default: 2 secs
