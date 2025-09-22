@@ -86,3 +86,5 @@ then
         <<< "${results}"
     )"
 fi
+
+rmdir "${cache}/${ib_hash}.lock"
