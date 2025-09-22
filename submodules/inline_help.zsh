@@ -2,9 +2,8 @@
 # Copyright (C) 2024-2025 Danil Lisin
 # SPDX-License-Identifier: Apache-2.0
 
-. "${units}/help.zsh"
-
 output_title="Sekoohaka Bot"
+output_text="${help_content}"
 output_description="Click to send help message"
 
 results="$(

@@ -9,7 +9,7 @@ then
 fi
 
 output_title="Donate"
-output_text="$(< "${files}/donate.txt")"
+output_text="${donate_content}"
 output_description="Click to send details"
 
 results="$(

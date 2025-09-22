@@ -7,4 +7,4 @@ then
     exit 0
 fi
 
-output_text="$(< "${files}/donate.txt")"
+output_text="${donate_content}"

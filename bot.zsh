@@ -754,8 +754,28 @@ then
     esac
 fi
 
-log_text="Loading lists..."
+log_text="Loading files..."
 . "${units}/log.zsh"
+
+log_text="files/help.txt"
+. "${units}/log.zsh"
+
+help_content="$(sed "s/{version}/${version}/" < "${files}/help.txt")"
+
+if [[ -n "${nocommand_donate}" ]]
+then
+    help_content="$(sed -e '/^<code>donate.*$/d' -e '/^\/donate.*$/d' <<< "${help_content}")"
+fi
+
+if [[ -n "${nocommand_source}" ]]
+then
+    help_content="$(sed -e '/^\[snkey\].*$/d' -e '/^\/source.*$/d' <<< "${help_content}")"
+fi
+
+log_text="files/donate.txt"
+. "${units}/log.zsh"
+
+donate_content="$(< "${files}/donate.txt")"
 
 log_text="files/aliases.txt"
 . "${units}/log.zsh"
