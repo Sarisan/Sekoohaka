@@ -70,19 +70,25 @@ fi
 
 file_path="$(jq -r '.result.file_path' <<< "${output_data}")"
 
+until mkdir "${cache}/${update_id}_file.lock"
+do
+    sleep 1
+done
+
 if [[ "${api_address}" != "${local_address}" ]]
 then
-    if ! output_data="$(
-        curl --connect-timeout ${connrefused_timeout} \
-            --max-time ${internal_timeout} \
-            --proxy "${internal_proxy}" \
-            --retry 1 \
-            --retry-connrefused \
-            --retry-max-time $((external_timeout - connrefused_timeout)) \
-            --silent \
-            --user-agent "${useragent}" \
-            "${api_address}/file/bot${api_token}/${file_path}"
-    )"
+    output_file="${cache}/${update_id}_file.jpg"
+
+    if ! curl --connect-timeout ${connrefused_timeout} \
+        --max-time ${internal_timeout} \
+        --output "${output_file}" \
+        --proxy "${internal_proxy}" \
+        --retry 1 \
+        --retry-connrefused \
+        --retry-max-time $((external_timeout - connrefused_timeout)) \
+        --silent \
+        --user-agent "${useragent}" \
+        "${api_address}/file/bot${api_token}/${file_path}"
     then
         output_text="Failed to download image file"
 
@@ -92,10 +98,10 @@ then
         return 0
     fi
 
-    if [[ "$(jq -r '.ok' <<< "${output_data}")" == "false" ]]
+    if [[ "$(jq -r '.ok' "${output_file}")" == "false" ]]
     then
         output_text="Failed to download image file"
-        error_description="$(jq -r '.description' <<< "${output_data}")"
+        error_description="$(jq -r '.description' "${output_file}")"
 
         if [[ "${error_description}" != "null" ]]
         then
@@ -113,3 +119,5 @@ fi
 
 sn_query="file=@${file_path}"
 . "${units}/sn_search.zsh"
+
+rmdir "${cache}/${update_id}_file.lock"
