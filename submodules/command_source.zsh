@@ -68,34 +68,22 @@ link_preview_options="$(
         '{"url": $url, "prefer_small_media": true, "show_above_text": true}'
 )"
 
+index_name="$(jq -r ".results.[${highest_index}].header.index_name" <<< "${sn_data}")"
+index_md5="$(cut -d '_' -f 1 <<< "${index_name##* }")"
+
 output_text="$(printf "<b>SauceNAO</b>\n<b>Similarity:</b> %.2f%%" "${highest_similarity}")"
+output_text="$(printf "%s\n<b>MD5:</b> <code>%s</code>" "${output_text}" "${index_md5}")"
 
 while [[ ${#source_table} -ge 3 ]]
 do
-    ib_id="$(jq -r ".results.[${highest_index}].data.${source_table[1]}" <<< "${sn_data}")"
-
-    if [[ "${ib_id}" == "null" ]]
+    if ! jq -e ".results.[${highest_index}].data|has(\"${source_table[1]}\")" <<< "${sn_data}" > /dev/null
     then
         shift 3 source_table
         continue
     fi
 
-    output_text="$(printf "%s\n<b>%s ID:</b> <code>%s</code>" "${output_text}" "${source_table[3]}" "${ib_id}")"
-
-    if [[ "${source_table[1]}" == "idol_id" ]]
-    then
-        ib_id="$(jq -r ".results.[${highest_index}].header.index_name" <<< "${sn_data}" | cut -d ' ' -f 6 | cut -d '_' -f 1)"
-        output_text="$(printf "%s\n<b>%s MD5:</b> <code>%s</code>" "${output_text}" "${source_table[3]}" "${ib_id}")"
-    fi
-
-    if [[ "${source_table[1]}" == "sankaku_id" ]]
-    then
-        ib_id="$(jq -r ".results.[${highest_index}].header.index_name" <<< "${sn_data}" | cut -d ' ' -f 5 | cut -d '_' -f 1)"
-        output_text="$(printf "%s\n<b>%s MD5:</b> <code>%s</code>" "${output_text}" "${source_table[3]}" "${ib_id}")"
-    fi
-
     keyboard_text1="${source_table[3]}"
-    keyboard_query1="post ${source_table[2]} ${ib_id}"
+    keyboard_query1="post ${source_table[2]} ${index_md5}"
 
     reply_markup="$(
         jq --compact-output \
