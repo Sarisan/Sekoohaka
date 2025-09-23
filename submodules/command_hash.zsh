@@ -17,8 +17,8 @@ then
     return 0
 fi
 
-ib_post="${cache}/${update_id}_${ib_post_md5}_id.txt"
-ib_sample="${cache}/${update_id}_${ib_post_md5}_sample.txt"
+ib_post="${cache}/${update_id}_id.txt"
+ib_sample="${cache}/${update_id}_sample.txt"
 
 for lock in "${ib_post}" "${ib_sample}"
 do
@@ -40,7 +40,6 @@ do
     fi
 
     ib_id="$(< "${ib_post}")"
-    ids_text="$(printf "%s\n<b>%s ID:</b> <code>%s</code>" "${ids_text}" "${ib_name}" "${ib_id}")"
 
     keyboard_text1="${ib_name}"
     keyboard_query1="post ${ib_board} ${ib_id}"
@@ -59,16 +58,13 @@ done
 
 if [[ -f "${ib_sample}" ]]
 then
+    output_text="$(printf "<b>MD5:</b> <code>%s</code>" "${ib_post_md5}")"
+
     link_preview_options="$(
         jq --null-input --compact-output \
             --arg url "$(< "${ib_sample}")" \
             '{"url": $url, "prefer_small_media": true, "show_above_text": true}'
     )"
-fi
-
-if [[ -n "${ids_text}" ]]
-then
-    output_text="${ids_text}"
 else
     output_text="No results found"
 fi
