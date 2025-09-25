@@ -76,7 +76,6 @@ busybox=(
     grep
     ls
     sed
-    sort
     sha1sum
     sleep
     tar
