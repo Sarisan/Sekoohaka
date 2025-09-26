@@ -7,14 +7,11 @@
 if [[ "${__bot_env}" != "0" ]]
 then
     trap 'wait && exit 0' INT TERM
-    env -i PATH="${PATH}" __bot_env=0 __bot_debug="${__bot_debug}" "${0}" ${@}
+    env -i PATH="${PATH}" __bot_env=0 "${0}" ${@}
     exit ${?}
 fi
 
-if [[ "${__bot_debug}" != "0" ]]
-then
-    exec 2> /dev/null
-fi
+exec 2> /dev/null
 
 set -e
 umask 77

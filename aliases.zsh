@@ -10,9 +10,10 @@ then
     exit ${?}
 fi
 
+exec 2> /dev/null
+
 set -e
 umask 77
-exec 2> /dev/null
 
 dir="${0%/*}"
 files="${dir}/files"
