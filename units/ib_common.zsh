@@ -32,9 +32,6 @@ if [[ -n "${1}" ]]
 then
     ib_post_id="${1}"
     shift
-elif [[ -n "${ib_parent}" ]]
-then
-    output_text="You must specify parent post ID"
 else
     output_title="Invalid arguments"
     output_text="You must specify post ID or MD5 hash"
@@ -43,10 +40,7 @@ else
     return 0
 fi
 
-if [[ -n "${ib_parent}" ]]
-then
-    ib_query="parent:${ib_post_id}"
-elif [[ ${#ib_post_id} -eq 32 ]]
+if [[ ${#ib_post_id} -eq 32 ]]
 then
     ib_query="md5:${ib_post_id}"
 else
