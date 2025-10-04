@@ -14,7 +14,7 @@ then
     exit 0
 fi
 
-if [[ ${whitelist_length} -gt 0 ]] && !grep -qx "${user_id}" <<< "${whitelist_list}"
+if [[ ${whitelist_length} -gt 0 ]] && ! grep -qx "${user_id}" <<< "${whitelist_list}"
 then
     exit 0
 fi
