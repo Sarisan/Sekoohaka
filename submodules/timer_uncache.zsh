@@ -2,7 +2,7 @@
 # Copyright (C) 2024-2025 Danil Lisin
 # SPDX-License-Identifier: Apache-2.0
 
-if [[ -z "${clear_cache}" ]]
+if [[ -n "${no_clear}" ]]
 then
     return 0
 fi

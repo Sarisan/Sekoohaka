@@ -112,7 +112,7 @@ then
                 sleep_time=${OPTARG}
             ;;
             (c)
-                clear_cache=0
+                no_clear=0
             ;;
             (q)
                 no_logs=0
@@ -165,7 +165,7 @@ then
         "\n  -m <mode>\tCache mode, default: normal" \
         "\n  -t <secs>\tCache expiration time, max: 1000, default: 300 secs" \
         "\n  -s <secs>\tSleep duration time, max: 100, default: 10 secs" \
-        "\n  -c\t\tClear cache automatically" \
+        "\n  -c\t\tDo not clear cache automatically" \
         "\n  -q\t\tDo not print logs" \
         "\n  -i <secs>\tTelegram Bot API connetion timeout, max: 5, default: 5 secs" \
         "\n  -e <secs>\tImage Boards API connetion timeout, max: 5, default: 5 secs" \
