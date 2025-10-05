@@ -24,7 +24,7 @@ then
     fi
 fi
 
-if ! mkdir -p "${user_config}/${ib_config}"
+if ! mkdir -p "${auth_dir}"
 then
     output_text="Failed to create user config"
     return 0
@@ -45,10 +45,15 @@ case "${ib_board}" in
     ;;
 esac
 
-if [[ -n "${output_text}" ]]
+if [[ -z "${output_text}" ]]
 then
-    return 0
+    printf "%s\n" "${ib_login}" > "${login_file}"
+    printf "%s\n" "${ib_key}" > "${key_file}"
 fi
 
-printf "%s\n" "${ib_login}" > "${login_file}"
-printf "%s\n" "${ib_key}" > "${key_file}"
+auth_data=($(ls -1 "${auth_dir}"))
+
+if [[ ${#auth_data} -eq 0 ]]
+then
+    rmdir "${auth_dir}"
+fi

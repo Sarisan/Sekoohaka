@@ -13,7 +13,7 @@ then
     fi
 fi
 
-if [[ -d "${user_config}/${ib_config}" ]]
+if [[ -d "${auth_dir}" ]]
 then
     . "${units}/ib_token.zsh"
 
