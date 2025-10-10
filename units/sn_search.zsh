@@ -50,7 +50,7 @@ case "${sn_status}" in
         output_text="Rate limit exceeded, try again later"
     ;;
     (-1)
-        output_text="Invalid API Key"
+        output_text="Invalid API key"
     ;;
     (0)
     ;;

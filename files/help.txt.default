@@ -12,7 +12,7 @@
 [md5] - MD5 hash
 [login] - Image Board login or username
 [key] - Image Board API key or password
-[snkey] - SauceNAO API Key
+[snkey] - SauceNAO API key
 
 <b>Inline search:</b>
 <code>pools</code> [b] [page] [options] [name] - Pools search

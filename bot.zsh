@@ -173,7 +173,7 @@ then
         "\n  -f <secs>\tConnrefused timeout, max: 2, default: none" \
         "\n  -n <addr>\tProxy server for Telegram Bot API" \
         "\n  -x <addr>\tProxy server for Image Boards/SauceNAO API" \
-        "\n  -k <key>\tSauceNAO API Key for public use" \
+        "\n  -k <key>\tSauceNAO API key for public use" \
         "\n\nCache modes:" \
         "\n  none\t\tNo cache reuse" \
         "\n  normal\tReuse inline results and posts cache" \
@@ -736,7 +736,7 @@ then
             exit 1
         ;;
         (-1)
-            log_text="SauceNAO: Invalid API Key"
+            log_text="SauceNAO: Invalid API key"
             . "${units}/log.zsh"
 
             exit 1

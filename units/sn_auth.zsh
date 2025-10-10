@@ -13,7 +13,7 @@ elif [[ -n "${sn_key}" ]]
 then
     return 0
 else
-    output_text="You must provide your SauceNAO API Key before you can use SauceNAO"
+    output_text="You must provide your SauceNAO API key before you can use SauceNAO"
     return 0
 fi
 
@@ -61,7 +61,7 @@ case "${sn_status}" in
         output_text="Rate limit exceeded, try again later"
     ;;
     (-1)
-        output_text="Invalid API Key"
+        output_text="Invalid API key"
     ;;
     (*)
         output_text="An unknown error occurred"
