@@ -122,6 +122,11 @@ case "${action}" in
     ;;
 esac
 
+if ! [[ -f "${list}" ]]
+then
+    < "${list}.default" > "${list}"
+fi
+
 case "${action}" in
     (list)
         if ! [[ -s "${list}" ]]
