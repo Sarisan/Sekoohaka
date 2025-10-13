@@ -129,11 +129,6 @@ fi
 
 case "${action}" in
     (list)
-        if ! [[ -s "${list}" ]]
-        then
-            exit 0
-        fi
-
         list=($(< "${list}"))
 
         while [[ ${#list} -ge 2 ]]
@@ -153,7 +148,7 @@ case "${action}" in
             exit 1
         fi
 
-        if [[ -s "${list}" ]] && alias="$(grep -xe "${user_id} .*" "${list}")"
+        if alias="$(grep -xe "${user_id} .*" "${list}")"
         then
             alias_id="$(cut -d ' ' -f 2 <<< "${alias}")"
 
@@ -164,10 +159,7 @@ case "${action}" in
         printf "%s %s\n" "${user_id}" "${alias_id}" >> "${list}"
     ;;
     (del)
-        if [[ -s "${list}" ]]
-        then
-            sed -i "/^${user_id} .*$/d" "${list}"
-        fi
+        sed -i "/^${user_id} .*$/d" "${list}"
     ;;
     (reset)
         < "${list}.default" > "${list}"

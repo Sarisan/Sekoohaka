@@ -129,13 +129,10 @@ fi
 
 case "${action}" in
     (list)
-        if [[ -s "${list}" ]]
-        then
-            < "${list}"
-        fi
+        < "${list}"
     ;;
     (add)
-        if [[ -s "${list}" ]] && grep -qxe "${user_id}" "${list}"
+        if grep -qxe "${user_id}" "${list}"
         then
             echo "User ID ${user_id} is already in whitelist"
             exit 1
@@ -144,10 +141,7 @@ case "${action}" in
         printf "%s\n" "${user_id}" >> "${list}"
     ;;
     (del)
-        if [[ -s "${list}" ]]
-        then
-            sed -i "/^${user_id}$/d" "${list}"
-        fi
+        sed -i "/^${user_id}$/d" "${list}"
     ;;
     (reset)
         < "${list}.default" > "${list}"
