@@ -132,7 +132,7 @@ case "${action}" in
         < "${list}"
     ;;
     (add)
-        if grep -qxe "${user_id}" "${list}"
+        if grep -qx "${user_id}" "${list}"
         then
             echo "User ID ${user_id} is already in whitelist"
             exit 1

@@ -148,7 +148,7 @@ case "${action}" in
             exit 1
         fi
 
-        if alias="$(grep -xe "${user_id} .*" "${list}")"
+        if alias="$(grep -x "${user_id} .*" "${list}")"
         then
             alias_id="$(cut -d ' ' -f 2 <<< "${alias}")"
 
