@@ -44,7 +44,7 @@ fi
 if [[ -n "${help}" ]]
 then
     echo "Aliases Manager" \
-        "\n\nUsage: ${0} [action] [ID] [alias]" \
+        "\n\nUsage: ${0} [action] [ID] [alias ID]" \
         "\n\nActions:" \
         "\n  help\t\tShow help information" \
         "\n  list\t\tList all aliases" \
@@ -141,9 +141,16 @@ case "${action}" in
         if [[ -n "${1}" ]]
         then
             alias_id="${1}"
+
+            if ! test ${alias_id} -gt 0
+            then
+                echo "Illegal user ID ${alias_id}"
+                exit 1
+            fi
+
             shift
         else
-            echo "You must specify alias name" \
+            echo "You must specify alias ID" \
                 "\nSee '${0} help'"
             exit 1
         fi
@@ -152,7 +159,7 @@ case "${action}" in
         then
             alias_id="$(cut -d ' ' -f 2 <<< "${alias}")"
 
-            echo "User ID ${user_id} already has an alias ${alias_id}"
+            echo "User ID ${user_id} is already aliased to ${alias_id}"
             exit 1
         fi
 
