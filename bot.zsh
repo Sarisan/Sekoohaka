@@ -517,9 +517,9 @@ done
 log_text="Running help command check..."
 . "${units}/log.zsh"
 
-file_content="$(< "${files}/help.txt")"
+help_content="$(sed "s/{version_placeholder}/${version}/" "${files}/help.txt")"
 
-if [[ ${#file_content} -lt 1 ]]
+if [[ ${#help_content} -lt 1 ]]
 then
     log_text="Error: File help.txt must be at least 1 character long"
     . "${units}/log.zsh"
@@ -530,9 +530,9 @@ fi
 log_text="Running donate command check..."
 . "${units}/log.zsh"
 
-file_content="$(< "${files}/donate.txt")"
+donate_content="$(< "${files}/donate.txt")"
 
-if [[ ${#file_content} -lt 1 ]]
+if [[ ${#donate_content} -lt 1 ]]
 then
     nocommand_donate=0
 
@@ -750,14 +750,6 @@ then
     esac
 fi
 
-log_text="Loading files..."
-. "${units}/log.zsh"
-
-log_text="files/help.txt"
-. "${units}/log.zsh"
-
-help_content="$(sed "s/{version}/${version}/" < "${files}/help.txt")"
-
 if [[ -n "${nocommand_donate}" ]]
 then
     help_content="$(sed -e '/^<code>donate.*$/d' -e '/^\/donate.*$/d' <<< "${help_content}")"
@@ -767,11 +759,6 @@ if [[ -n "${nocommand_source}" ]]
 then
     help_content="$(sed -e '/^\[snkey\].*$/d' -e '/^\/source.*$/d' <<< "${help_content}")"
 fi
-
-log_text="files/donate.txt"
-. "${units}/log.zsh"
-
-donate_content="$(< "${files}/donate.txt")"
 
 strftime %s > "${cache}.timer"
 
