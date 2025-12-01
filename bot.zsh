@@ -773,24 +773,6 @@ log_text="files/donate.txt"
 
 donate_content="$(< "${files}/donate.txt")"
 
-log_text="files/aliases.txt"
-. "${units}/log.zsh"
-
-aliases_list="$(< "${files}/aliases.txt")"
-aliases_length=${#aliases_list}
-
-log_text="files/blacklist.txt"
-. "${units}/log.zsh"
-
-blacklist_list="$(< "${files}/blacklist.txt")"
-blacklist_length=${#blacklist_list}
-
-log_text="files/whitelist.txt"
-. "${units}/log.zsh"
-
-whitelist_list="$(< "${files}/whitelist.txt")"
-whitelist_length=${#whitelist_list}
-
 strftime %s > "${cache}.timer"
 
 log_text="Startup succeeded"

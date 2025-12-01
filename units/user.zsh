@@ -2,19 +2,23 @@
 # Copyright (C) 2024-2025 Danil Lisin
 # SPDX-License-Identifier: Apache-2.0
 
+aliases_list="${files}/aliases.txt"
+blacklist_list="${files}/blacklist.txt"
+whitelist_list="${files}/whitelist.txt"
+
 target_user="${user_id}"
 
-if [[ ${aliases_length} -gt 0 ]] && alias="$(grep -x "${user_id} .*" <<< "${aliases_list}")"
+if [[ -s "${aliases_list}" ]] && alias="$(grep -x "${user_id} .*" "${aliases_list}")"
 then
     user_id="$(cut -d ' ' -f 2 <<< "${alias}")"
 fi
 
-if [[ ${blacklist_length} -gt 0 ]] && grep -qx "${user_id}" <<< "${blacklist_list}"
+if [[ -s "${blacklist_list}" ]] && grep -qx "${user_id}" "${blacklist_list}"
 then
     exit 0
 fi
 
-if [[ ${whitelist_length} -gt 0 ]] && ! grep -qx "${user_id}" <<< "${whitelist_list}"
+if [[ -s "${whitelist_list}" ]] && ! grep -qx "${user_id}" "${whitelist_list}"
 then
     exit 0
 fi
