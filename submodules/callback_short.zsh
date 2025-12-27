@@ -1,5 +1,5 @@
-# Copyright (C) 2024-2025 Maria Lisina
-# Copyright (C) 2024-2025 Danil Lisin
+# Copyright (C) 2024-2026 Maria Lisina
+# Copyright (C) 2024-2026 Danil Lisin
 # SPDX-License-Identifier: Apache-2.0
 
 until mkdir "${user_config}_shorts.lock"
