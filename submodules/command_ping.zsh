@@ -25,7 +25,7 @@ then
     output_text="Failed to measure latency"
 
     log_text="sendMessage (${update_id}): Failed to access Telegram Bot API"
-    . "${units}/log.zsh"
+    source "${units}/log.zsh"
 
     return 0
 fi
@@ -37,7 +37,7 @@ then
     output_text="An unknown error occurred"
 
     log_text="sendMessage (${update_id}): An unknown error occurred"
-    . "${units}/log.zsh"
+    source "${units}/log.zsh"
 
     return 0
 fi
@@ -54,7 +54,7 @@ then
         log_text="sendMessage (${update_id}): An unknown error occurred"
     fi
 
-    . "${units}/log.zsh"
+    source "${units}/log.zsh"
     return 0
 fi
 
@@ -82,7 +82,7 @@ if ! output_data="$(
 )"
 then
     log_text="editMessageText (${update_id}): Failed to access Telegram Bot API"
-    . "${units}/log.zsh"
+    source "${units}/log.zsh"
 
     exit 0
 fi
@@ -90,7 +90,7 @@ fi
 if ! jq -e '.' <<< "${output_data}" > /dev/null
 then
     log_text="editMessageText (${update_id}): An unknown error occurred"
-    . "${units}/log.zsh"
+    source "${units}/log.zsh"
 
     exit 0
 fi
@@ -106,7 +106,7 @@ then
         log_text="editMessageText (${update_id}): An unknown error occurred"
     fi
 
-    . "${units}/log.zsh"
+    source "${units}/log.zsh"
 fi
 
 exit 0

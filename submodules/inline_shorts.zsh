@@ -8,7 +8,7 @@ do
 done
 
 shorts_config="${user_config}/shorts"
-. "${units}/shorts_search.zsh"
+source "${units}/shorts_search.zsh"
 
 if [[ -n "${output_text}" ]]
 then

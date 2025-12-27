@@ -24,7 +24,7 @@ ib_reply_name="$(sed '1!d' <<< "${reply_text}")"
 
 for ib_board in {a..z} 0
 do
-    . "${units}/ib_config.zsh"
+    source "${units}/ib_config.zsh"
 
     if [[ "${ib_reply_name}" == "${ib_name}" ]]
     then

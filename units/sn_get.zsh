@@ -37,7 +37,7 @@ then
     output_text="Failed to get image file"
 
     log_text="getFile (${update_id}): Failed to access Telegram Bot API"
-    . "${units}/log.zsh"
+    source "${units}/log.zsh"
 
     return 0
 fi
@@ -47,7 +47,7 @@ then
     output_text="An unknown error occurred"
 
     log_text="getFile (${update_id}): An unknown error occurred"
-    . "${units}/log.zsh"
+    source "${units}/log.zsh"
 
     return 0
 fi
@@ -64,7 +64,7 @@ then
         log_text="getFile (${update_id}): An unknown error occurred"
     fi
 
-    . "${units}/log.zsh"
+    source "${units}/log.zsh"
     return 0
 fi
 
@@ -93,7 +93,7 @@ then
         output_text="Failed to download image file"
 
         log_text="getFile (${update_id}): Failed to access Telegram Bot API"
-        . "${units}/log.zsh"
+        source "${units}/log.zsh"
 
         return 0
     fi
@@ -110,7 +110,7 @@ then
             log_text="getFile (${update_id}): An unknown error occurred"
         fi
 
-        . "${units}/log.zsh"
+        source "${units}/log.zsh"
         return 0
     fi
 
@@ -118,6 +118,6 @@ then
 fi
 
 sn_query="file=@${file_path}"
-. "${units}/sn_search.zsh"
+source "${units}/sn_search.zsh"
 
 rmdir "${cache}/${update_id}_file.lock"

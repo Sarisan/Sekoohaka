@@ -34,15 +34,15 @@ then
             ib_type="photo"
         ;;
         (gif)
-            . "${units}/ib_preview.zsh"
+            source "${units}/ib_preview.zsh"
             ib_type="gif"
         ;;
         (mp4)
-            . "${units}/ib_preview.zsh"
+            source "${units}/ib_preview.zsh"
             ib_type="video"
         ;;
         (zip | webm)
-            . "${units}/ib_sample.zsh"
+            source "${units}/ib_sample.zsh"
         ;;
         (*)
             ib_sample_url="${ib_error_url}"
@@ -66,7 +66,7 @@ if [[ -n "${ib_file_size}" && "${ib_file_size}" != "null" && ${ib_file_size} -gt
 then
     if [[ ${ib_file_size} -gt 20971520 && "${ib_sample_url}" == "${ib_file_url}" ]]
     then
-        . "${units}/ib_sample.zsh"
+        source "${units}/ib_sample.zsh"
     fi
 
     size_offset=1.0

@@ -60,7 +60,7 @@ then
     fi
 fi
 
-. "${units}/stop.zsh"
+source "${units}/stop.zsh"
 
 for lock in ${user_locks[@]}
 do

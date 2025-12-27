@@ -15,7 +15,7 @@ fi
 
 if [[ -d "${auth_dir}" ]]
 then
-    . "${units}/ib_token.zsh"
+    source "${units}/ib_token.zsh"
 
     if [[ -n "${output_text}" ]]
     then
@@ -67,7 +67,7 @@ then
     notification_text="${output_text}"
 
     log_text="ib_file (${update_id}): ${output_text}"
-    . "${units}/log.zsh"
+    source "${units}/log.zsh"
 
     next_offset=${inline_page:-0}
 
@@ -82,7 +82,7 @@ then
     notification_text="${output_text}"
 
     log_text="ib_file (${update_id}): ${output_text}"
-    . "${units}/log.zsh"
+    source "${units}/log.zsh"
 
     rm -f "${ib_file}"
     return 0

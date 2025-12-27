@@ -30,8 +30,8 @@ done
 
 for ib_board in {a..z}
 do
-    . "${units}/ib_config.zsh"
-    . "${units}/ib_hash.zsh" &
+    source "${units}/ib_config.zsh"
+    source "${units}/ib_hash.zsh" &
     wait
 
     if ! [[ -f "${ib_post}" ]]

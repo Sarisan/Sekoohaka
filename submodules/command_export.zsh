@@ -16,7 +16,7 @@ do
     done
 done
 
-. "${units}/export.zsh"
+source "${units}/export.zsh"
 
 for lock in ${user_locks[@]}
 do

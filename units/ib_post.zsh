@@ -17,9 +17,9 @@ ib_md5="$(jq -r ".${ib_iarray}[0].${ib_imd5}" "${ib_file}")"
 ib_source="$(jq -r ".${ib_iarray}[0].${ib_isource}" "${ib_file}" | htmlescape)"
 ib_tags=($(jq -r ".${ib_iarray}[0].${ib_itags}" "${ib_file}"))
 
-. "${units}/ib_date.zsh"
-. "${units}/ib_size.zsh"
-. "${units}/ib_meta.zsh"
+source "${units}/ib_date.zsh"
+source "${units}/ib_size.zsh"
+source "${units}/ib_meta.zsh"
 
 output_text="$(printf "<b>%s</b>\n<b>ID:</b> <code>%s</code>" "${ib_name}" "${ib_id}")"
 

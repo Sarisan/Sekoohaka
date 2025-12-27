@@ -5,8 +5,8 @@
 if [[ -n "${1}" ]]
 then
     ib_board="${1}"
-    . "${units}/ib_config.zsh"
-    . "${units}/ib_authconfig.zsh"
+    source "${units}/ib_config.zsh"
+    source "${units}/ib_authconfig.zsh"
 
     if [[ -z "${ib_auth}" ]]
     then
@@ -32,7 +32,7 @@ then
     shift
 fi
 
-. "${units}/ib_lock.zsh"
+source "${units}/ib_lock.zsh"
 
 if [[ -z "${output_text}" ]]
 then

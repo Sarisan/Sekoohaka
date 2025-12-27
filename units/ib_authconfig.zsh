@@ -9,16 +9,16 @@ token_file="${auth_dir}/token"
 
 case "${ib_board}" in
     (a|d)
-        . "${auth}/config/donmai.zsh"
+        source "${auth}/config/donmai.zsh"
     ;;
     (g)
-        . "${auth}/config/gelbooru.zsh"
+        source "${auth}/config/gelbooru.zsh"
     ;;
     (i|s)
-        . "${auth}/config/sankakucomplex.zsh"
+        source "${auth}/config/sankakucomplex.zsh"
     ;;
     (k|y)
-        . "${auth}/config/moebooru.zsh"
+        source "${auth}/config/moebooru.zsh"
     ;;
 esac
 

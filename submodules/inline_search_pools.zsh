@@ -7,7 +7,7 @@ ib_pool="${ib_pools[idx]}"
 ib_count="${ib_counts[idx]}"
 
 unset ib_date_text
-. "${units}/ib_date.zsh"
+source "${units}/ib_date.zsh"
 
 if [[ -n "${ib_ispace}" ]]
 then

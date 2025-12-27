@@ -7,6 +7,6 @@ do
     sleep 1
 done
 
-. "${units}/ib_auth.zsh"
+source "${units}/ib_auth.zsh"
 
 rmdir "${user_config}_auth.lock"

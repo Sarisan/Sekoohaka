@@ -11,8 +11,8 @@ ib_width="${ib_widths[idx]}"
 ib_height="${ib_heights[idx]}"
 
 unset ib_date_text ib_resolution_text ib_type_text ib_size_text
-. "${units}/ib_date.zsh"
-. "${units}/ib_meta.zsh"
+source "${units}/ib_date.zsh"
+source "${units}/ib_meta.zsh"
 
 if [[ -n "${ib_preview}" ]]
 then
@@ -130,5 +130,5 @@ fi
 
 if [[ "${cache_mode}" == "advanced" ]]
 then
-    . "${units}/ib_cache.zsh" &
+    source "${units}/ib_cache.zsh" &
 fi

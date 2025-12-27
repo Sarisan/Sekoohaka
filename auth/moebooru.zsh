@@ -20,7 +20,7 @@ then
     output_text="Failed to access ${ib_name} API"
 
     log_text="ib_auth (${update_id}): ${output_text}"
-    . "${units}/log.zsh"
+    source "${units}/log.zsh"
 
     return 0
 fi

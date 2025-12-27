@@ -39,13 +39,13 @@ if ! output_data="$(
 )"
 then
     log_text="sendChatAction (${update_id}): Failed to access Telegram Bot API"
-    . "${units}/log.zsh"
+    source "${units}/log.zsh"
 fi
 
 if [[ -z "${log_text}" ]] && ! jq -e '.' <<< "${output_data}" > /dev/null
 then
     log_text="sendChatAction (${update_id}): An unknown error occurred"
-    . "${units}/log.zsh"
+    source "${units}/log.zsh"
 fi
 
 if [[ -z "${log_text}" && "$(jq -r '.ok' <<< "${output_data}")" != "true" ]]
@@ -59,7 +59,7 @@ then
         log_text="sendChatAction (${update_id}): An unknown error occurred"
     fi
 
-    . "${units}/log.zsh"
+    source "${units}/log.zsh"
 fi
 
 if ! output_data="$(
@@ -81,7 +81,7 @@ then
     output_text="Failed to send user data"
 
     log_text="sendDocument (${update_id}): Failed to access Telegram Bot API"
-    . "${units}/log.zsh"
+    source "${units}/log.zsh"
 
     rmdir "${cache}/${user_id}.lock"
     return 0
@@ -92,7 +92,7 @@ then
     output_text="An unknown error occurred"
 
     log_text="sendDocument (${update_id}): An unknown error occurred"
-    . "${units}/log.zsh"
+    source "${units}/log.zsh"
 
     rmdir "${cache}/${user_id}.lock"
     return 0
@@ -110,7 +110,7 @@ then
         log_text="sendDocument (${update_id}): An unknown error occurred"
     fi
 
-    . "${units}/log.zsh"
+    source "${units}/log.zsh"
 fi
 
 rmdir "${cache}/${user_id}.lock"

@@ -12,7 +12,7 @@ do
     sleep 1
 done
 
-. "${units}/sn_auth.zsh"
+source "${units}/sn_auth.zsh"
 
 rmdir "${user_config}_source.lock"
 
@@ -21,7 +21,7 @@ then
     return 0
 fi
 
-. "${units}/sn_get.zsh"
+source "${units}/sn_get.zsh"
 
 if [[ -n "${output_text}" ]]
 then

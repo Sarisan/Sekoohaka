@@ -14,7 +14,7 @@ query_id="$(jq -r '.inline_query.id' <<< "${update}")"
 chat_type="$(jq -r '.inline_query.chat_type' <<< "${update}")"
 offset="$(jq -r '.inline_query.offset' <<< "${update}")"
 
-. "${units}/user.zsh"
+source "${units}/user.zsh"
 set -- ${inline_query[@]}
 
 command="${1}"
@@ -23,30 +23,30 @@ if [[ -n "${command}" ]]
 then
     shift
 else
-    . "${submods}/inline_none.zsh"
+    source "${submods}/inline_none.zsh"
 fi
 
 case "${command}" in
     ("donate")
-        . "${submods}/inline_donate.zsh"
+        source "${submods}/inline_donate.zsh"
     ;;
     ("help")
-        . "${submods}/inline_help.zsh"
+        source "${submods}/inline_help.zsh"
     ;;
     ("original")
-        . "${submods}/inline_original.zsh"
+        source "${submods}/inline_original.zsh"
     ;;
     ("post")
-        . "${submods}/inline_post.zsh"
+        source "${submods}/inline_post.zsh"
     ;;
     ("short")
-        . "${submods}/inline_short.zsh"
+        source "${submods}/inline_short.zsh"
     ;;
     ("shorts" | s)
-        . "${submods}/inline_shorts.zsh"
+        source "${submods}/inline_shorts.zsh"
     ;;
     (*)
-        . "${submods}/inline_search.zsh"
+        source "${submods}/inline_search.zsh"
     ;;
 esac
 
@@ -68,7 +68,7 @@ if ! output_data="$(
 )"
 then
     log_text="answerInlineQuery (${update_id}): Failed to access Telegram Bot API"
-    . "${units}/log.zsh"
+    source "${units}/log.zsh"
 
     exit 0
 fi
@@ -76,7 +76,7 @@ fi
 if ! jq -e '.' <<< "${output_data}" > /dev/null
 then
     log_text="answerInlineQuery (${update_id}): An unknown error occurred"
-    . "${units}/log.zsh"
+    source "${units}/log.zsh"
 
     exit 0
 fi
@@ -92,5 +92,5 @@ then
         log_text="answerInlineQuery (${update_id}): An unknown error occurred"
     fi
 
-    . "${units}/log.zsh"
+    source "${units}/log.zsh"
 fi

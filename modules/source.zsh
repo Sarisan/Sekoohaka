@@ -44,8 +44,8 @@ then
     unset message_thread_id
 fi
 
-. "${units}/user.zsh"
-. "${submods}/command_source.zsh"
+source "${units}/user.zsh"
+source "${submods}/command_source.zsh"
 
 if ! output_data="$(
     curl --connect-timeout ${connrefused_timeout} \
@@ -68,7 +68,7 @@ if ! output_data="$(
 )"
 then
     log_text="sendMessage (${update_id}): Failed to access Telegram Bot API"
-    . "${units}/log.zsh"
+    source "${units}/log.zsh"
 
     exit 0
 fi
@@ -76,7 +76,7 @@ fi
 if ! jq -e '.' <<< "${output_data}" > /dev/null
 then
     log_text="sendMessage (${update_id}): An unknown error occurred"
-    . "${units}/log.zsh"
+    source "${units}/log.zsh"
 
     exit 0
 fi
@@ -92,5 +92,5 @@ then
         log_text="sendMessage (${update_id}): An unknown error occurred"
     fi
 
-    . "${units}/log.zsh"
+    source "${units}/log.zsh"
 fi

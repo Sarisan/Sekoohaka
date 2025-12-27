@@ -12,7 +12,7 @@ fi
 user_id="$(jq -r '.callback_query.from.id' <<< "${update}")"
 query_id="$(jq -r '.callback_query.id' <<< "${update}")"
 
-. "${units}/user.zsh"
+source "${units}/user.zsh"
 set -- ${callback_query[@]}
 
 command="${1}"
@@ -20,22 +20,22 @@ shift
 
 case "${command}" in
     ("delete")
-        . "${submods}/callback_delete.zsh"
+        source "${submods}/callback_delete.zsh"
     ;;
     ("post")
-        . "${submods}/callback_post.zsh"
+        source "${submods}/callback_post.zsh"
     ;;
     ("reset")
-        . "${submods}/callback_reset.zsh"
+        source "${submods}/callback_reset.zsh"
     ;;
     ("short")
-        . "${submods}/callback_short.zsh"
+        source "${submods}/callback_short.zsh"
     ;;
     ("stop")
-        . "${submods}/callback_stop.zsh"
+        source "${submods}/callback_stop.zsh"
     ;;
     ("tags")
-        . "${submods}/callback_tags.zsh"
+        source "${submods}/callback_tags.zsh"
     ;;
     (*)
         exit 0
@@ -77,7 +77,7 @@ then
         notification_text="Failed to update message"
 
         log_text="editMessageText (${update_id}): Failed to access Telegram Bot API"
-        . "${units}/log.zsh"
+        source "${units}/log.zsh"
     fi
 
     if [[ -z "${notification_text}" ]] && ! jq -e '.' <<< "${output_data}" > /dev/null
@@ -85,7 +85,7 @@ then
         notification_text="An unknown error occurred"
 
         log_text="editMessageText (${update_id}): An unknown error occurred"
-        . "${units}/log.zsh"
+        source "${units}/log.zsh"
     fi
 
     if [[ -z "${notification_text}" && "$(jq -r '.ok' <<< "${output_data}")" != "true" ]]
@@ -100,7 +100,7 @@ then
             log_text="editMessageText (${update_id}): An unknown error occurred"
         fi
 
-        . "${units}/log.zsh"
+        source "${units}/log.zsh"
     fi
 fi
 
@@ -121,7 +121,7 @@ if ! output_data="$(
 )"
 then
     log_text="answerCallbackQuery (${update_id}): Failed to access Telegram Bot API"
-    . "${units}/log.zsh"
+    source "${units}/log.zsh"
 
     exit 0
 fi
@@ -129,7 +129,7 @@ fi
 if ! jq -e '.' <<< "${output_data}" > /dev/null
 then
     log_text="answerCallbackQuery (${update_id}): An unknown error occurred"
-    . "${units}/log.zsh"
+    source "${units}/log.zsh"
 
     exit 0
 fi
@@ -145,5 +145,5 @@ then
         log_text="answerCallbackQuery (${update_id}): An unknown error occurred"
     fi
 
-    . "${units}/log.zsh"
+    source "${units}/log.zsh"
 fi

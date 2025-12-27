@@ -8,15 +8,15 @@ ib_error_height=516
 
 case "${ib_board}" in
     (a|d)
-        . "${config}/donmai.zsh"
+        source "${config}/donmai.zsh"
     ;;
     (g)
-        . "${config}/gelbooru.zsh"
+        source "${config}/gelbooru.zsh"
     ;;
     (i|s)
-        . "${config}/sankakucomplex.zsh"
+        source "${config}/sankakucomplex.zsh"
     ;;
     (k|y)
-        . "${config}/moebooru.zsh"
+        source "${config}/moebooru.zsh"
     ;;
 esac

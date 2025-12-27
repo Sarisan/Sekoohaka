@@ -415,20 +415,20 @@ alias htmlescape="sed -e 's/</\&#60;/g' -e 's/>/\&#62;/g'"
 alias urlencode="jq -Rr @uri"
 
 log_text="PID: ${$}"
-. "${units}/log.zsh"
+source "${units}/log.zsh"
 
 log_text="CWD: $(pwd)"
-. "${units}/log.zsh"
+source "${units}/log.zsh"
 
 log_text="Creating directories..."
-. "${units}/log.zsh"
+source "${units}/log.zsh"
 
 rm -fr "${cache}"
 mkdir -p "${cache}"
 mkdir -p "${users}"
 
 log_text="Retrieving bot information..."
-. "${units}/log.zsh"
+source "${units}/log.zsh"
 
 if ! input_data="$(
     curl --connect-timeout ${connrefused_timeout} \
@@ -444,7 +444,7 @@ if ! input_data="$(
 )"
 then
     log_text="getMe: Failed to access Telegram Bot API"
-    . "${units}/log.zsh"
+    source "${units}/log.zsh"
 
     exit 1
 fi
@@ -452,7 +452,7 @@ fi
 if ! jq -e '.' <<< "${input_data}" > /dev/null
 then
     log_text="getMe: An unknown error occurred"
-    . "${units}/log.zsh"
+    source "${units}/log.zsh"
 
     exit 1
 fi
@@ -468,29 +468,29 @@ then
         log_text="getMe: An unknown error occurred"
     fi
 
-    . "${units}/log.zsh"
+    source "${units}/log.zsh"
     exit 1
 fi
 
 username="$(jq -r '.result.username' <<< "${input_data}")"
 
 log_text="Bot: ${username}"
-. "${units}/log.zsh"
+source "${units}/log.zsh"
 
 log_text="Running files age check..."
-. "${units}/log.zsh"
+source "${units}/log.zsh"
 
 for file in aliases blacklist donate help whitelist
 do
     log_text="files/${file}.txt"
-    . "${units}/log.zsh"
+    source "${units}/log.zsh"
 
     if [[ -f "${files}/${file}.txt" ]]
     then
         if [[ "${files}/${file}.txt" -ot "${files}/${file}.txt.default" ]]
         then
             log_text="Warning: File ${file}.txt is older than ${file}.txt.default"
-            . "${units}/log.zsh"
+            source "${units}/log.zsh"
         fi
     else
         < "${files}/${file}.txt.default" > "${files}/${file}.txt"
@@ -498,37 +498,37 @@ do
 done
 
 log_text="Running files length check..."
-. "${units}/log.zsh"
+source "${units}/log.zsh"
 
 for file in donate help
 do
     log_text="files/${file}.txt"
-    . "${units}/log.zsh"
+    source "${units}/log.zsh"
 
     file_content="$(< "${files}/${file}.txt")"
 
     if [[ ${#file_content} -gt 4096 ]]
     then
         log_text="Error: File ${file}.txt exceeds 4096 characters limit"
-        . "${units}/log.zsh"
+        source "${units}/log.zsh"
     fi
 done
 
 log_text="Running help command check..."
-. "${units}/log.zsh"
+source "${units}/log.zsh"
 
 help_content="$(sed "s/{version_placeholder}/${version}/" "${files}/help.txt")"
 
 if [[ ${#help_content} -lt 1 ]]
 then
     log_text="Error: File help.txt must be at least 1 character long"
-    . "${units}/log.zsh"
+    source "${units}/log.zsh"
 
     exit 1
 fi
 
 log_text="Running donate command check..."
-. "${units}/log.zsh"
+source "${units}/log.zsh"
 
 donate_content="$(< "${files}/donate.txt")"
 
@@ -537,18 +537,18 @@ then
     nocommand_donate=0
 
     log_text="Warning: File donate.txt is empty, donate command is disabled"
-    . "${units}/log.zsh"
+    source "${units}/log.zsh"
 fi
 
 log_text="Running source command check..."
-. "${units}/log.zsh"
+source "${units}/log.zsh"
 
 if [[ -z "${allow_source}" && "${api_address}" != "${local_address}" && "${api_address}" != "${default_address}" ]]
 then
     nocommand_source=0
 
     log_text="Warning: You are running bot with unknown Telegram Bot API instance, source command is disabled"
-    . "${units}/log.zsh"
+    source "${units}/log.zsh"
 else
     if ! input_data="$(
         curl --connect-timeout ${connrefused_timeout} \
@@ -565,7 +565,7 @@ else
     )"
     then
         log_text="getUserProfilePhotos: Failed to access Telegram Bot API"
-        . "${units}/log.zsh"
+        source "${units}/log.zsh"
 
         exit 1
     fi
@@ -573,7 +573,7 @@ else
     if ! jq -e '.' <<< "${input_data}" > /dev/null
     then
         log_text="getUserProfilePhotos: An unknown error occurred"
-        . "${units}/log.zsh"
+        source "${units}/log.zsh"
 
         exit 1
     fi
@@ -589,7 +589,7 @@ else
             log_text="getUserProfilePhotos: An unknown error occurred"
         fi
 
-        . "${units}/log.zsh"
+        source "${units}/log.zsh"
         exit 1
     fi
 
@@ -598,7 +598,7 @@ else
     if [[ -z "${profilephoto}" || "${profilephoto}" == "null" ]]
     then
         log_text="Error: Bot must have profile photo to run source command check"
-        . "${units}/log.zsh"
+        source "${units}/log.zsh"
 
         exit 1
     fi
@@ -618,7 +618,7 @@ else
     )"
     then
         log_text="getFile: Failed to access Telegram Bot API"
-        . "${units}/log.zsh"
+        source "${units}/log.zsh"
 
         exit 1
     fi
@@ -626,7 +626,7 @@ else
     if ! jq -e '.' <<< "${input_data}" > /dev/null
     then
         log_text="getFile: An unknown error occurred"
-        . "${units}/log.zsh"
+        source "${units}/log.zsh"
 
         exit 1
     fi
@@ -642,7 +642,7 @@ else
             log_text="getFile: An unknown error occurred"
         fi
 
-        . "${units}/log.zsh"
+        source "${units}/log.zsh"
         exit 1
     fi
 
@@ -655,7 +655,7 @@ else
             nocommand_source=0
 
             log_text="Error: Cannot access Telegram Bot API working directory, source command is disabled"
-            . "${units}/log.zsh"
+            source "${units}/log.zsh"
         fi
     else
         if ! input_data="$(
@@ -673,7 +673,7 @@ else
             nocommand_source=0
 
             log_text="Error: Failed to download file, source command is disabled"
-            . "${units}/log.zsh"
+            source "${units}/log.zsh"
         fi
 
         if [[ "$(jq -r '.ok' <<< "${input_data}")" == "false" ]]
@@ -688,7 +688,7 @@ else
                 log_text="Error: An unknown error occurred, source command is disabled"
             fi
 
-            . "${units}/log.zsh"
+            source "${units}/log.zsh"
         fi
     fi
 fi
@@ -711,7 +711,7 @@ then
     )"
     then
         log_text="SauceNAO: Failed to access SauceNAO API"
-        . "${units}/log.zsh"
+        source "${units}/log.zsh"
 
         exit 1
     fi
@@ -719,7 +719,7 @@ then
     if ! jq -e '.' <<< "${input_data}" > /dev/null
     then
         log_text="SauceNAO: An unknown error occurred"
-        . "${units}/log.zsh"
+        source "${units}/log.zsh"
 
         exit 1
     fi
@@ -731,19 +731,19 @@ then
         ;;
         (-2)
             log_text="SauceNAO: Rate limit exceeded, try again later"
-            . "${units}/log.zsh"
+            source "${units}/log.zsh"
 
             exit 1
         ;;
         (-1)
             log_text="SauceNAO: Invalid API key"
-            . "${units}/log.zsh"
+            source "${units}/log.zsh"
 
             exit 1
         ;;
         (*)
             log_text="SauceNAO: An unknown error occurred"
-            . "${units}/log.zsh"
+            source "${units}/log.zsh"
 
             exit 1
         ;;
@@ -763,11 +763,11 @@ fi
 strftime %s > "${cache}.timer"
 
 log_text="Startup succeeded"
-. "${units}/log.zsh"
+source "${units}/log.zsh"
 
 while trap 'wait && exit 0' INT TERM
 do
-    . "${mods}/timer.zsh" &
+    source "${mods}/timer.zsh" &
 
     if ! input_data="$(
         curl --connect-timeout ${connrefused_timeout} \
@@ -785,7 +785,7 @@ do
     )"
     then
         log_text="getUpdates: Failed to access Telegram Bot API, sleeping for ${sleep_time} seconds"
-        . "${units}/log.zsh"
+        source "${units}/log.zsh"
 
         sleep ${sleep_time}
         continue
@@ -794,7 +794,7 @@ do
     if ! jq -e '.' <<< "${input_data}" > /dev/null
     then
         log_text="getUpdates: An unknown error occurred, sleeping for ${sleep_time} seconds"
-        . "${units}/log.zsh"
+        source "${units}/log.zsh"
 
         sleep ${sleep_time}
         continue
@@ -811,7 +811,7 @@ do
             log_text="getUpdates: An unknown error occurred, sleeping for ${sleep_time} seconds"
         fi
 
-        . "${units}/log.zsh"
+        source "${units}/log.zsh"
 
         sleep ${sleep_time}
         continue
@@ -827,14 +827,14 @@ do
     if ! update="$(jq -c '.result.[0]' <<< "${input_data}")"
     then
         log_text="Failed to write update data"
-        . "${units}/log.zsh"
+        source "${units}/log.zsh"
 
         continue
     fi
 
     for module in callback commands inline source
     do
-        . "${mods}/${module}.zsh" &
+        source "${mods}/${module}.zsh" &
     done
 
     offset=$((update_id + 1))

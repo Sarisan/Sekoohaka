@@ -28,7 +28,7 @@ then
     output_text="Failed to access SauceNAO API"
 
     log_text="sn_search (${update_id}): ${output_text}"
-    . "${units}/log.zsh"
+    source "${units}/log.zsh"
 
     return 0
 fi
@@ -38,7 +38,7 @@ then
     output_text="An unknown error occurred"
 
     log_text="sn_search (${update_id}): ${output_text}"
-    . "${units}/log.zsh"
+    source "${units}/log.zsh"
 
     return 0
 fi

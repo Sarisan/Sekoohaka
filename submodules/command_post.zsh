@@ -2,14 +2,14 @@
 # Copyright (C) 2024-2025 Danil Lisin
 # SPDX-License-Identifier: Apache-2.0
 
-. "${units}/ib_name.zsh"
+source "${units}/ib_name.zsh"
 
 if [[ -n "${output_text}" ]]
 then
     return 0
 fi
 
-. "${units}/ib_common.zsh"
+source "${units}/ib_common.zsh"
 
 if [[ -n "${output_text}" ]]
 then
@@ -24,7 +24,7 @@ do
     sleep 1
 done
 
-. "${units}/ib_file.zsh"
+source "${units}/ib_file.zsh"
 
 if [[ -n "${output_text}" ]]
 then
@@ -32,7 +32,7 @@ then
     return 0
 fi
 
-. "${units}/ib_post.zsh"
+source "${units}/ib_post.zsh"
 
 link_preview_options="$(
     jq --null-input --compact-output \

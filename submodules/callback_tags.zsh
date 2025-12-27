@@ -3,7 +3,7 @@
 # SPDX-License-Identifier: Apache-2.0
 
 ib_lock=0
-. "${units}/ib_common.zsh"
+source "${units}/ib_common.zsh"
 
 if [[ -n "${notification_text}" ]]
 then
@@ -18,7 +18,7 @@ do
     sleep 1
 done
 
-. "${units}/ib_file.zsh"
+source "${units}/ib_file.zsh"
 
 if [[ -n "${notification_text}" ]]
 then
@@ -36,8 +36,8 @@ ib_tags=($(jq -r ".${ib_iarray}[0].${ib_itags}" "${ib_file}" | htmlescape))
 ib_groups_offset=${1:-0}
 ib_tags_offset=${1:-0}
 
-. "${units}/ib_size.zsh"
-. "${units}/ib_meta.zsh"
+source "${units}/ib_size.zsh"
+source "${units}/ib_meta.zsh"
 
 if [[ -z "${ib_tags}" || "${ib_tags}" == "null" ]]
 then

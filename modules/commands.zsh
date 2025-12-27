@@ -26,7 +26,7 @@ then
     unset message_thread_id
 fi
 
-. "${units}/user.zsh"
+source "${units}/user.zsh"
 set -- ${command_query[@]}
 
 command="${1}"
@@ -34,49 +34,49 @@ shift
 
 case "${command}" in
     ("/authorize" | "/authorize@${username}")
-        . "${submods}/command_authorize.zsh"
+        source "${submods}/command_authorize.zsh"
     ;;
     ("/donate" | "/donate@${username}")
-        . "${submods}/command_donate.zsh"
+        source "${submods}/command_donate.zsh"
     ;;
     ("/export" | "/export@${username}")
-        . "${submods}/command_export.zsh"
+        source "${submods}/command_export.zsh"
     ;;
     ("/hash" | "/hash@${username}")
-        . "${submods}/command_hash.zsh"
+        source "${submods}/command_hash.zsh"
     ;;
     ("/help" | "/help@${username}")
-        . "${submods}/command_help.zsh"
+        source "${submods}/command_help.zsh"
     ;;
     ("/original" | "/original@${username}")
-        . "${submods}/command_original.zsh"
+        source "${submods}/command_original.zsh"
     ;;
     ("/ping" | "/ping@${username}")
-        . "${submods}/command_ping.zsh"
+        source "${submods}/command_ping.zsh"
     ;;
     ("/post" | "/post@${username}")
-        . "${submods}/command_post.zsh"
+        source "${submods}/command_post.zsh"
     ;;
     ("/prpr" | "/prpr@${username}")
-        . "${submods}/command_prpr.zsh"
+        source "${submods}/command_prpr.zsh"
     ;;
     ("/short" | "/short@${username}")
-        . "${submods}/command_short.zsh"
+        source "${submods}/command_short.zsh"
     ;;
     ("/shorts" | "/shorts@${username}")
-        . "${submods}/command_shorts.zsh"
+        source "${submods}/command_shorts.zsh"
     ;;
     ("/source" | "/source@${username}")
-        . "${submods}/command_source.zsh"
+        source "${submods}/command_source.zsh"
     ;;
     ("/start" | "/start@${username}")
-        . "${submods}/command_help.zsh"
+        source "${submods}/command_help.zsh"
     ;;
     ("/stop" | "/stop@${username}")
-        . "${submods}/command_stop.zsh"
+        source "${submods}/command_stop.zsh"
     ;;
     (*)
-        . "${submods}/url_parser.zsh"
+        source "${submods}/url_parser.zsh"
     ;;
 esac
 
@@ -101,7 +101,7 @@ if ! output_data="$(
 )"
 then
     log_text="sendMessage (${update_id}): Failed to access Telegram Bot API"
-    . "${units}/log.zsh"
+    source "${units}/log.zsh"
 
     exit 0
 fi
@@ -109,7 +109,7 @@ fi
 if ! jq -e '.' <<< "${output_data}" > /dev/null
 then
     log_text="sendMessage (${update_id}): An unknown error occurred"
-    . "${units}/log.zsh"
+    source "${units}/log.zsh"
 
     exit 0
 fi
@@ -125,5 +125,5 @@ then
         log_text="sendMessage (${update_id}): An unknown error occurred"
     fi
 
-    . "${units}/log.zsh"
+    source "${units}/log.zsh"
 fi

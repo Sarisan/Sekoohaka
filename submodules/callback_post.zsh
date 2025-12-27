@@ -3,7 +3,7 @@
 # SPDX-License-Identifier: Apache-2.0
 
 ib_lock=0
-. "${units}/ib_common.zsh"
+source "${units}/ib_common.zsh"
 
 if [[ -n "${notification_text}" ]]
 then
@@ -18,7 +18,7 @@ do
     sleep 1
 done
 
-. "${units}/ib_file.zsh"
+source "${units}/ib_file.zsh"
 
 if [[ -n "${notification_text}" ]]
 then
@@ -26,7 +26,7 @@ then
     return 0
 fi
 
-. "${units}/ib_post.zsh"
+source "${units}/ib_post.zsh"
 
 link_preview_options="$(
     jq --null-input --compact-output \

@@ -23,7 +23,7 @@ then
     notification_text="Failed to delete message"
 
     log_text="deleteMessage (${update_id}): Failed to access Telegram Bot API"
-    . "${units}/log.zsh"
+    source "${units}/log.zsh"
 
     return 0
 fi
@@ -33,7 +33,7 @@ then
     notification_text="An unknown error occurred"
 
     log_text="deleteMessage (${update_id}): An unknown error occurred"
-    . "${units}/log.zsh"
+    source "${units}/log.zsh"
 
     return 0
 fi
@@ -50,5 +50,5 @@ then
         log_text="deleteMessage (${update_id}): An unknown error occurred"
     fi
 
-    . "${units}/log.zsh"
+    source "${units}/log.zsh"
 fi

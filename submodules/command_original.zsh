@@ -2,14 +2,14 @@
 # Copyright (C) 2024-2025 Danil Lisin
 # SPDX-License-Identifier: Apache-2.0
 
-. "${units}/ib_name.zsh"
+source "${units}/ib_name.zsh"
 
 if [[ -n "${output_text}" ]]
 then
     return 0
 fi
 
-. "${units}/ib_common.zsh"
+source "${units}/ib_common.zsh"
 
 if [[ -n "${output_text}" ]]
 then
@@ -24,7 +24,7 @@ do
     sleep 1
 done
 
-. "${units}/ib_file.zsh"
+source "${units}/ib_file.zsh"
 
 if [[ -n "${output_text}" ]]
 then
@@ -32,7 +32,7 @@ then
     return 0
 fi
 
-. "${units}/ib_original.zsh"
+source "${units}/ib_original.zsh"
 
 if [[ -n "${ib_file_url}" && "${ib_file_url}" != "null" ]]
 then
@@ -70,13 +70,13 @@ if ! output_data="$(
 )"
 then
     log_text="sendChatAction (${update_id}): Failed to access Telegram Bot API"
-    . "${units}/log.zsh"
+    source "${units}/log.zsh"
 fi
 
 if [[ -z "${log_text}" ]] && ! jq -e '.' <<< "${output_data}" > /dev/null
 then
     log_text="sendChatAction (${update_id}): An unknown error occurred"
-    . "${units}/log.zsh"
+    source "${units}/log.zsh"
 fi
 
 if [[ -z "${log_text}" && "$(jq -r '.ok' <<< "${output_data}")" != "true" ]]
@@ -90,7 +90,7 @@ then
         log_text="sendChatAction (${update_id}): An unknown error occurred"
     fi
 
-    . "${units}/log.zsh"
+    source "${units}/log.zsh"
 fi
 
 if ! output_data="$(
@@ -115,7 +115,7 @@ then
     output_text="Failed to send original file"
 
     log_text="sendDocument (${update_id}): Failed to access Telegram Bot API"
-    . "${units}/log.zsh"
+    source "${units}/log.zsh"
 
     rmdir "${cache}/${ib_hash}.lock"
     return 0
@@ -126,7 +126,7 @@ then
     output_text="An unknown error occurred"
 
     log_text="sendDocument (${update_id}): An unknown error occurred"
-    . "${units}/log.zsh"
+    source "${units}/log.zsh"
 
     rmdir "${cache}/${ib_hash}.lock"
     return 0
@@ -144,7 +144,7 @@ then
         log_text="sendDocument (${update_id}): An unknown error occurred"
     fi
 
-    . "${units}/log.zsh"
+    source "${units}/log.zsh"
 
     rmdir "${cache}/${ib_hash}.lock"
     return 0

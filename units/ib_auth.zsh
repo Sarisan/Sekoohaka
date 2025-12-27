@@ -32,16 +32,16 @@ fi
 
 case "${ib_board}" in
     (a|d)
-        . "${auth}/donmai.zsh"
+        source "${auth}/donmai.zsh"
     ;;
     (g)
-        . "${auth}/gelbooru.zsh"
+        source "${auth}/gelbooru.zsh"
     ;;
     (i|s)
-        . "${auth}/sankakucomplex.zsh"
+        source "${auth}/sankakucomplex.zsh"
     ;;
     (k|y)
-        . "${auth}/moebooru.zsh"
+        source "${auth}/moebooru.zsh"
     ;;
 esac
 

@@ -17,14 +17,14 @@ case "${command}" in
     ;;
     (*)
         set -- ${inline_query[@]}
-        . "${submods}/inline_none.zsh"
+        source "${submods}/inline_none.zsh"
 
         case "${command}" in
             ("shorts")
-                . "${submods}/inline_shorts.zsh"
+                source "${submods}/inline_shorts.zsh"
             ;;
             ("help")
-                . "${submods}/inline_help.zsh"
+                source "${submods}/inline_help.zsh"
             ;;
         esac
 
@@ -33,7 +33,7 @@ case "${command}" in
 esac
 
 ib_lock=0
-. "${units}/ib_search.zsh"
+source "${units}/ib_search.zsh"
 
 if [[ -n "${output_text}" ]]
 then
@@ -67,7 +67,7 @@ do
     sleep 1
 done
 
-. "${units}/ib_file.zsh"
+source "${units}/ib_file.zsh"
 
 if [[ -n "${output_text}" ]]
 then
@@ -128,13 +128,13 @@ do
 
     case "${ib_mode}" in
         (l)
-            . "${submods}/inline_search_pools.zsh"
+            source "${submods}/inline_search_pools.zsh"
         ;;
         (p)
-            . "${submods}/inline_search_posts.zsh"
+            source "${submods}/inline_search_posts.zsh"
         ;;
         (t)
-            . "${submods}/inline_search_tags.zsh"
+            source "${submods}/inline_search_tags.zsh"
         ;;
     esac
 

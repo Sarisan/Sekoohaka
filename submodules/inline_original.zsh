@@ -3,7 +3,7 @@
 # SPDX-License-Identifier: Apache-2.0
 
 ib_lock=0
-. "${units}/ib_common.zsh"
+source "${units}/ib_common.zsh"
 
 if [[ -n "${output_text}" ]]
 then
@@ -27,7 +27,7 @@ do
     sleep 1
 done
 
-. "${units}/ib_file.zsh"
+source "${units}/ib_file.zsh"
 
 if [[ -n "${output_text}" ]]
 then
@@ -44,7 +44,7 @@ then
     return 0
 fi
 
-. "${units}/ib_original.zsh"
+source "${units}/ib_original.zsh"
 
 if [[ -n "${output_text}" ]]
 then

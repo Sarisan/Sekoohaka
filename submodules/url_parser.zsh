@@ -47,8 +47,8 @@ then
     exit 0
 fi
 
-. "${units}/ib_config.zsh"
-. "${units}/ib_authconfig.zsh"
+source "${units}/ib_config.zsh"
+source "${units}/ib_authconfig.zsh"
 
 if [[ ${#ib_post_id} -gt 32 ]]
 then
@@ -68,7 +68,7 @@ do
     sleep 1
 done
 
-. "${units}/ib_file.zsh"
+source "${units}/ib_file.zsh"
 
 if [[ -n "${output_text}" ]]
 then
@@ -86,7 +86,7 @@ then
     return 0
 fi
 
-. "${units}/ib_post.zsh"
+source "${units}/ib_post.zsh"
 
 link_preview_options="$(
     jq --null-input --compact-output \

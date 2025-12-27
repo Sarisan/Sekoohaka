@@ -22,13 +22,13 @@ then
     then
         if [[ -n "${ib_lock}" ]]
         then
-            . "${units}/ib_lock.zsh" &
+            source "${units}/ib_lock.zsh" &
 
             output_title="Refreshing ${ib_name} session..."
             output_text="Try again in a few seconds"
             notification_text="${output_title} ${output_text}"
         else
-            . "${units}/ib_auth.zsh"
+            source "${units}/ib_auth.zsh"
         fi
     fi
 fi

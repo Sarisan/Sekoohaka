@@ -5,8 +5,8 @@
 rm -f "${ib_post}"
 ib_mode="p"
 
-. "${units}/ib_config.zsh"
-. "${units}/ib_authconfig.zsh"
+source "${units}/ib_config.zsh"
+source "${units}/ib_authconfig.zsh"
 
 if [[ -z "${ib_data_url}" ]]
 then
@@ -23,7 +23,7 @@ do
     sleep 1
 done
 
-. "${units}/ib_file.zsh"
+source "${units}/ib_file.zsh"
 
 if [[ -n "${output_text}" ]]
 then
@@ -42,7 +42,7 @@ then
         ib_sample_url="$(jq -r ".${ib_iarray}[0].${ib_isample}" "${ib_file}")"
         ib_preview_url="$(jq -r ".${ib_iarray}[0].${ib_ipreview}" "${ib_file}")"
 
-        . "${units}/ib_meta.zsh"
+        source "${units}/ib_meta.zsh"
 
         printf "%s\n" "${ib_sample_url}" > "${ib_sample}"
     fi
