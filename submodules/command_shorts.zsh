@@ -19,7 +19,7 @@ then
     output_text="You have no saved shortcuts yet"
 
     rmdir "${user_config}_shorts.lock"
-    return 0
+    return
 fi
 
 output_text="<b>Saved shortcuts:</b> ${#shorts} / ${shorts_limit}"

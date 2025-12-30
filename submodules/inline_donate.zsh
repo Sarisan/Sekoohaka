@@ -5,7 +5,7 @@
 if [[ -n "${nocommand_donate}" ]]
 then
     source "${submods}/inline_help.zsh"
-    return 0
+    return
 fi
 
 output_title="Donate"

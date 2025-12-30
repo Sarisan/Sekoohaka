@@ -10,7 +10,7 @@ fi
 if [[ ${#user_data} -eq 0 ]]
 then
     output_text="You have no data to remove"
-    return 0
+    return
 fi
 
 output_text="Remove all your data or specific one"

@@ -16,7 +16,7 @@ then
         output_text="Unsupported Image Board"
         notification_text="${output_text}"
 
-        return 0
+        return
     fi
 
     shift
@@ -25,7 +25,7 @@ else
     output_text="You must specify Image Board and post ID or MD5 hash"
     notification_text="${output_text}"
 
-    return 0
+    return
 fi
 
 if [[ -n "${1}" ]]
@@ -37,7 +37,7 @@ else
     output_text="You must specify post ID or MD5 hash"
     notification_text="${output_text}"
 
-    return 0
+    return
 fi
 
 if [[ ${#ib_post_id} -eq 32 ]]

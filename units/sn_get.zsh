@@ -10,13 +10,13 @@ then
     if [[ "${message_id}" == "null" || "${message_id}" == "${message_thread_id}" ]]
     then
         output_text="You must use this command in reply to an image"
-        return 0
+        return
     fi
 
     if [[ "${file_id}" == "null" ]]
     then
         output_text="Could not find image in replied message"
-        return 0
+        return
     fi
 fi
 
@@ -39,7 +39,7 @@ then
     log_text="getFile (${update_id}): Failed to access Telegram Bot API"
     source "${units}/log.zsh"
 
-    return 0
+    return
 fi
 
 if ! jq -e '.' <<< "${output_data}" > /dev/null
@@ -49,7 +49,7 @@ then
     log_text="getFile (${update_id}): An unknown error occurred"
     source "${units}/log.zsh"
 
-    return 0
+    return
 fi
 
 if [[ "$(jq -r '.ok' <<< "${output_data}")" != "true" ]]
@@ -65,7 +65,7 @@ then
     fi
 
     source "${units}/log.zsh"
-    return 0
+    return
 fi
 
 file_path="$(jq -r '.result.file_path' <<< "${output_data}")"
@@ -95,7 +95,7 @@ then
         log_text="getFile (${update_id}): Failed to access Telegram Bot API"
         source "${units}/log.zsh"
 
-        return 0
+        return
     fi
 
     if [[ "$(jq -r '.ok' "${output_file}")" == "false" ]]
@@ -111,7 +111,7 @@ then
         fi
 
         source "${units}/log.zsh"
-        return 0
+        return
     fi
 
     file_path="${output_file}"

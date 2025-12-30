@@ -29,7 +29,7 @@ then
         output_title="Invalid arguments"
         output_text="Unsupported options"
 
-        return 0
+        return
     fi
 fi
 
@@ -56,7 +56,7 @@ then
     output_title="No shortcuts found"
     output_text="You have no saved shortcuts yet"
 
-    return 0
+    return
 fi
 
 if [[ -n "${shorts_query}" ]]

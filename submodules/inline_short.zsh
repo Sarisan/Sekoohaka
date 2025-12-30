@@ -19,7 +19,7 @@ else
             '[{"type": "article", "id": $id, "title": $title, "input_message_content": {"message_text": $text}, "description": $description}]'
     )"
 
-    return 0
+    return
 fi
 
 output_title="Shortcut"

@@ -14,7 +14,7 @@ then
         output_title="Invalid arguments"
         output_text="Unsupported Image Board"
 
-        return 0
+        return
     fi
 
     shift
@@ -22,7 +22,7 @@ else
     output_title="Invalid arguments"
     output_text="You must specify Image Board"
 
-    return 0
+    return
 fi
 
 if test "${1}" -gt 0
@@ -52,7 +52,7 @@ then
         output_title="Invalid arguments"
         output_text="Unsupported options"
 
-        return 0
+        return
     fi
 fi
 

@@ -9,7 +9,7 @@ then
 
     if [[ $((ib_ctime - ib_mtime)) -le ${cache_time} ]]
     then
-        return 0
+        return
     fi
 fi
 
@@ -19,7 +19,7 @@ then
 
     if [[ -n "${output_text}" ]]
     then
-        return 0
+        return
     fi
 fi
 
@@ -72,7 +72,7 @@ then
     next_offset=${inline_page:-0}
 
     rm -f "${ib_file}"
-    return 0
+    return
 fi
 
 if ! jq -e '.' "${ib_file}" > /dev/null
@@ -85,7 +85,7 @@ then
     source "${units}/log.zsh"
 
     rm -f "${ib_file}"
-    return 0
+    return
 fi
 
 if ! jq -e ".${ib_iarray}[0]|has(\"${ib_iid}\")" "${ib_file}" > /dev/null

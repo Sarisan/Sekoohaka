@@ -15,7 +15,7 @@ else
     notification_text="You must specify query"
 
     rmdir "${user_config}_shorts.lock"
-    return 0
+    return
 fi
 
 shorts_config="${user_config}/shorts"
@@ -25,7 +25,7 @@ then
     notification_text="Failed to create user config"
 
     rmdir "${user_config}_shorts.lock"
-    return 0
+    return
 fi
 
 short_hash="$(sha1sum <<< "${short_query}" | cut -d ' ' -f 1)"

@@ -5,7 +5,7 @@
 if ! [[ -d "${user_config}" ]]
 then
     output_text="No user data found"
-    return 0
+    return
 fi
 
 until mkdir "${cache}/${user_id}.lock"
@@ -20,7 +20,7 @@ then
     output_text="Something went wrong, try again later"
 
     rmdir "${cache}/${user_id}.lock"
-    return 0
+    return
 fi
 
 if ! output_data="$(
@@ -84,7 +84,7 @@ then
     source "${units}/log.zsh"
 
     rmdir "${cache}/${user_id}.lock"
-    return 0
+    return
 fi
 
 if ! jq -e '.' <<< "${output_data}" > /dev/null
@@ -95,7 +95,7 @@ then
     source "${units}/log.zsh"
 
     rmdir "${cache}/${user_id}.lock"
-    return 0
+    return
 fi
 
 if [[ "$(jq -r '.ok' <<< "${output_data}")" != "true" ]]

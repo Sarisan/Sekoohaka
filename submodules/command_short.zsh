@@ -8,13 +8,13 @@ then
     shift ${#}
 else
     output_text="You must specify query"
-    return 0
+    return
 fi
 
 if [[ ${#short_query} -gt 256 ]]
 then
     output_text="Query is too long"
-    return 0
+    return
 fi
 
 output_text="<b>Shortcut:</b> <code>$(htmlescape <<< "${short_query}")</code>"

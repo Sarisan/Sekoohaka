@@ -5,7 +5,7 @@
 if [[ "${chat_id}" != "${target_user}" ]]
 then
     output_text="For security reasons you can execute this command only in direct messages"
-    return 0
+    return
 fi
 
 for lock in ${user_locks[@]}

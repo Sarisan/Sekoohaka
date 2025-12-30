@@ -41,7 +41,7 @@ then
     fi
 
     rmdir "${user_config}_shorts.lock"
-    return 0
+    return
 fi
 
 for ((idx = 1; idx <= ${inline_limit} && idx <= ${#shorts}; idx++))

@@ -28,7 +28,7 @@ case "${command}" in
             ;;
         esac
 
-        return 0
+        return
     ;;
 esac
 
@@ -56,7 +56,7 @@ then
             '[{"type": "article", "id": $id, "title": $title, "input_message_content": {"message_text": $text}, "reply_markup": {"inline_keyboard": [[{"text": $text1, "switch_inline_query_current_chat": $query1}]]}, "description": $description}]'
     )"
 
-    return 0
+    return
 fi
 
 ib_hash="$(sha1sum <<< "${user_id}${ib_mode}${ib_board}${ib_page}${ib_query}" | cut -d ' ' -f 1)"
@@ -91,7 +91,7 @@ then
     )"
 
     rmdir "${cache}/${ib_hash}.lock"
-    return 0
+    return
 fi
 
 ib_ids=("${(@f)$(jq -r ".${ib_iarray}[].${ib_iid}" "${ib_file}")}")

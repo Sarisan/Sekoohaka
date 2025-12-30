@@ -8,13 +8,13 @@ then
     shift
 else
     output_text="You must specify MD5 hash"
-    return 0
+    return
 fi
 
 if ! [[ ${#ib_post_md5} -eq 32 ]]
 then
     output_text="Invalid MD5 hash"
-    return 0
+    return
 fi
 
 ib_post="${cache}/${update_id}_id.txt"

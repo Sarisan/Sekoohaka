@@ -25,7 +25,7 @@ then
     log_text="deleteMessage (${update_id}): Failed to access Telegram Bot API"
     source "${units}/log.zsh"
 
-    return 0
+    return
 fi
 
 if ! jq -e '.' <<< "${output_data}" > /dev/null
@@ -35,7 +35,7 @@ then
     log_text="deleteMessage (${update_id}): An unknown error occurred"
     source "${units}/log.zsh"
 
-    return 0
+    return
 fi
 
 if [[ "$(jq -r '.ok' <<< "${output_data}")" != "true" ]]

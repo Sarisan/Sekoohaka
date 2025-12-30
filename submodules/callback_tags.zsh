@@ -7,7 +7,7 @@ source "${units}/ib_common.zsh"
 
 if [[ -n "${notification_text}" ]]
 then
-    return 0
+    return
 fi
 
 ib_hash="$(sha1sum <<< "${user_id}${ib_board}${ib_query}" | cut -d ' ' -f 1)"
@@ -23,7 +23,7 @@ source "${units}/ib_file.zsh"
 if [[ -n "${notification_text}" ]]
 then
     rmdir "${cache}/${ib_hash}.lock"
-    return 0
+    return
 fi
 
 ib_file_size="$(jq -r ".${ib_iarray}[0].${ib_isize}" "${ib_file}")"
@@ -44,7 +44,7 @@ then
     notification_text="Failed to get tags"
 
     rmdir "${cache}/${ib_hash}.lock"
-    return 0
+    return
 fi
 
 while [[ ${#ib_groups} -ge 2 ]]
@@ -94,7 +94,7 @@ then
     notification_text="No tags found"
 
     rmdir "${cache}/${ib_hash}.lock"
-    return 0
+    return
 fi
 
 link_preview_options="$(

@@ -9,7 +9,7 @@ then
         ib_login="$(< "${login_file}")"
     else
         output_text="You must specify ${ib_login_word} and ${ib_key_word}"
-        return 0
+        return
     fi
 fi
 
@@ -20,14 +20,14 @@ then
         ib_key="$(< "${key_file}")"
     else
         output_text="You must specify ${ib_key_word}"
-        return 0
+        return
     fi
 fi
 
 if ! mkdir -p "${auth_dir}"
 then
     output_text="Failed to create user config"
-    return 0
+    return
 fi
 
 case "${ib_board}" in

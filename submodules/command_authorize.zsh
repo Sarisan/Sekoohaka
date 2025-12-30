@@ -11,13 +11,13 @@ then
     if [[ -z "${ib_auth}" ]]
     then
         output_text="Unsupported Image Board"
-        return 0
+        return
     fi
 
     shift
 else
     output_text="You must specify Image Board"
-    return 0
+    return
 fi
 
 if [[ -n "${1}" ]]

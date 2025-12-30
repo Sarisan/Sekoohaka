@@ -4,7 +4,7 @@
 
 if [[ -n "${1}" ]]
 then
-    return 0
+    return
 fi
 
 reply_text="$(jq -r '.message.reply_to_message.text' <<< "${update}")"
@@ -17,7 +17,7 @@ fi
 if [[ "${reply_text}" == "null" ]]
 then
     output_text="You must specify Image Board and post ID or MD5 hash, or use this command in reply to a message"
-    return 0
+    return
 fi
 
 ib_reply_name="$(sed '1!d' <<< "${reply_text}")"
@@ -35,7 +35,7 @@ done
 if [[ "${ib_board}" == "0" ]]
 then
     output_text="Could not find Image Board in replied message"
-    return 0
+    return
 fi
 
 ib_post_id="$(sed '2!d' <<< "${reply_text}" | cut -d ' ' -f 2)"
@@ -43,7 +43,7 @@ ib_post_id="$(sed '2!d' <<< "${reply_text}" | cut -d ' ' -f 2)"
 if [[ -z "${ib_post_id}" ]]
 then
     output_text="Could not find post ID in replied message"
-    return 0
+    return
 fi
 
 set -- ${ib_board} ${ib_post_id}

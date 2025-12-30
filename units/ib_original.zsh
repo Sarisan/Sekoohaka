@@ -17,7 +17,7 @@ then
     source "${units}/ib_meta.zsh"
 else
     output_text="No original file found"
-    return 0
+    return
 fi
 
 if [[ -n "${ib_file_size}" && "${ib_file_size}" != "null" && ${ib_file_size} -gt 0 ]]

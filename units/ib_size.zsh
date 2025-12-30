@@ -4,12 +4,12 @@
 
 if [[ -n "${ib_file_size}" && "${ib_file_size}" != "null" ]]
 then
-    return 0
+    return
 fi
 
 if [[ -z "${ib_file_url}" || "${ib_file_url}" == "null" ]]
 then
-    return 0
+    return
 fi
 
 ib_file_size="$(

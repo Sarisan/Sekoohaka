@@ -6,14 +6,14 @@ source "${units}/ib_name.zsh"
 
 if [[ -n "${output_text}" ]]
 then
-    return 0
+    return
 fi
 
 source "${units}/ib_common.zsh"
 
 if [[ -n "${output_text}" ]]
 then
-    return 0
+    return
 fi
 
 ib_hash="$(sha1sum <<< "${user_id}${ib_board}${ib_query}" | cut -d ' ' -f 1)"
@@ -29,7 +29,7 @@ source "${units}/ib_file.zsh"
 if [[ -n "${output_text}" ]]
 then
     rmdir "${cache}/${ib_hash}.lock"
-    return 0
+    return
 fi
 
 source "${units}/ib_post.zsh"

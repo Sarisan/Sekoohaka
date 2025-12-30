@@ -30,7 +30,7 @@ then
     log_text="sn_search (${update_id}): ${output_text}"
     source "${units}/log.zsh"
 
-    return 0
+    return
 fi
 
 if ! jq -e '.' <<< "${sn_data}" > /dev/null
@@ -40,7 +40,7 @@ then
     log_text="sn_search (${update_id}): ${output_text}"
     source "${units}/log.zsh"
 
-    return 0
+    return
 fi
 
 sn_status="$(jq -r '.header.status' <<< "${sn_data}")"

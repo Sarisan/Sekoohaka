@@ -22,7 +22,7 @@ then
     log_text="ib_auth (${update_id}): ${output_text}"
     source "${units}/log.zsh"
 
-    return 0
+    return
 fi
 
 if ! jq -e '.' <<< "${ib_auth_data}" > /dev/null

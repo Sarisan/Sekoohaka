@@ -29,7 +29,7 @@ then
     log_text="ib_auth (${update_id}): ${output_text}"
     source "${units}/log.zsh"
 
-    return 0
+    return
 fi
 
 if ! jq -e '.' <<< "${ib_auth_data}" > /dev/null
@@ -39,13 +39,13 @@ then
     log_text="ib_auth (${update_id}): ${output_text}"
     source "${units}/log.zsh"
 
-    return 0
+    return
 fi
 
 if [[ "$(jq -r '.success' <<< "${ib_auth_data}")" != "true" ]]
 then
     output_text="Error: <code>$(jq -r '.error' <<< "${ib_auth_data}" | htmlescape)</code>"
-    return 0
+    return
 fi
 
 jq -r '.access_token' <<< "${ib_auth_data}" > "${token_file}"

@@ -18,14 +18,14 @@ rmdir "${user_config}_source.lock"
 
 if [[ -n "${output_text}" ]]
 then
-    return 0
+    return
 fi
 
 source "${units}/sn_get.zsh"
 
 if [[ -n "${output_text}" ]]
 then
-    return 0
+    return
 fi
 
 source_table=(
@@ -58,7 +58,7 @@ done
 if [[ ${highest_similarity} -lt ${minimum_similarity} || ${highest_similarity} -lt 70.00 ]]
 then
     output_text="No results found"
-    return 0
+    return
 fi
 
 thumbnail="$(jq -r ".results.[${highest_index}].header.thumbnail" <<< "${sn_data}")"

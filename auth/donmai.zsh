@@ -21,7 +21,7 @@ then
     log_text="ib_auth (${update_id}): ${output_text}"
     source "${units}/log.zsh"
 
-    return 0
+    return
 fi
 
 if ! jq -e '.' <<< "${ib_auth_data}" > /dev/null
@@ -31,19 +31,19 @@ then
     log_text="ib_auth (${update_id}): ${output_text}"
     source "${units}/log.zsh"
 
-    return 0
+    return
 fi
 
 if [[ "$(jq -r '.success' <<< "${ib_auth_data}")" == "false" ]]
 then
     output_text="Error: <code>$(jq -r '.message' <<< "${ib_auth_data}" | htmlescape)</code>"
-    return 0
+    return
 fi
 
 if [[ "$(jq -r '.name' <<< "${ib_auth_data}")" != "${ib_login}" ]]
 then
     output_text="Failed to verify user authorization"
-    return 0
+    return
 fi
 
 printf "%s" "${ib_login}:${ib_key}" | base64 > "${token_file}"

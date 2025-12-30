@@ -27,7 +27,7 @@ then
     log_text="sendMessage (${update_id}): Failed to access Telegram Bot API"
     source "${units}/log.zsh"
 
-    return 0
+    return
 fi
 
 latency_fin=$(strftime %s%N)
@@ -39,7 +39,7 @@ then
     log_text="sendMessage (${update_id}): An unknown error occurred"
     source "${units}/log.zsh"
 
-    return 0
+    return
 fi
 
 if [[ "$(jq -r '.ok' <<< "${output_data}")" != "true" ]]
@@ -55,7 +55,7 @@ then
     fi
 
     source "${units}/log.zsh"
-    return 0
+    return
 fi
 
 chat_id="$(jq -r '.result.chat.id' <<< "${output_data}")"

@@ -4,7 +4,7 @@
 
 if [[ -n "${no_clear}" ]]
 then
-    return 0
+    return
 fi
 
 for file in $(find "${cache}" -follow -type f)

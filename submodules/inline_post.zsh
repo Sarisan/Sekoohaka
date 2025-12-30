@@ -16,7 +16,7 @@ then
             '[{"type": "article", "id": $id, "title": $title, "input_message_content": {"message_text": $text}, "description": $description}]'
     )"
 
-    return 0
+    return
 fi
 
 ib_hash="$(sha1sum <<< "${user_id}${ib_board}${ib_query}" | cut -d ' ' -f 1)"
@@ -41,7 +41,7 @@ then
     )"
 
     rmdir "${cache}/${ib_hash}.lock"
-    return 0
+    return
 fi
 
 source "${units}/ib_post.zsh"

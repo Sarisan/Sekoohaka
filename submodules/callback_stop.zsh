@@ -17,7 +17,7 @@ do
     elif [[ "${check_table[1]}" == "${check_table[-2]}" ]]
     then
         notification_text="No requested data found"
-        return 0
+        return
     fi
 
     shift 2 check_table
@@ -26,7 +26,7 @@ done
 if mkdir "${user_config}_stop.lock"
 then
     notification_text="Click again to confirm data removal"
-    return 0
+    return
 fi
 
 for lock in ${user_locks[@]}

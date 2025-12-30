@@ -8,13 +8,13 @@ then
 elif [[ -f "${user_config}/saucenao" ]]
 then
     sn_key="$(< "${user_config}/saucenao")"
-    return 0
+    return
 elif [[ -n "${sn_key}" ]]
 then
-    return 0
+    return
 else
     output_text="You must provide your SauceNAO API key before you can use SauceNAO"
-    return 0
+    return
 fi
 
 if ! sn_data="$(
@@ -37,7 +37,7 @@ then
     log_text="sn_auth (${update_id}): ${output_text}"
     source "${units}/log.zsh"
 
-    return 0
+    return
 fi
 
 if ! jq -e '.' <<< "${sn_data}" > /dev/null
@@ -47,7 +47,7 @@ then
     log_text="sn_auth (${update_id}): ${output_text}"
     source "${units}/log.zsh"
 
-    return 0
+    return
 fi
 
 sn_status="$(jq -r '.header.status' <<< "${sn_data}")"

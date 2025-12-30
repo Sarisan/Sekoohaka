@@ -83,7 +83,7 @@ then
     )"
 
     rmdir "${cache}/${ib_hash}.lock"
-    return 0
+    return
 fi
 
 source "${units}/ib_post.zsh"
