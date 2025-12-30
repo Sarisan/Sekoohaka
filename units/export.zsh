@@ -15,7 +15,7 @@ done
 
 rm -f "${cache}/${user_id}.tar"
 
-if ! tar c -hf "${cache}/${user_id}.tar" "${user_config}"
+if ! tar c -hf "${cache}/${user_id}.tar" -C "${users}" "${user_id}"
 then
     output_text="Something went wrong, try again later"
 
