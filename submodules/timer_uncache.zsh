@@ -17,7 +17,7 @@ do
     file_ctime=$(strftime %s)
     file_mtime=$(stat +mtime "${file}")
 
-    if [[ $((file_ctime - file_mtime)) -gt $((cache_time + 20)) ]]
+    if [[ $((file_ctime - file_mtime)) -gt ${cache_time} ]]
     then
         rm -f "${file}"
     fi
