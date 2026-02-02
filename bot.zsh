@@ -52,14 +52,14 @@ user_locks=(
     shorts
 )
 
-zmods=(
+zmodules=(
     zsh/datetime
     zsh/files
     zsh/stat
     zsh/zutil
 )
 
-reqs=(
+dependencies=(
     busybox
     curl
     jq
@@ -189,11 +189,11 @@ then
     exit 0
 fi
 
-for zmod in ${zmods[@]}
+for zmodule in ${zmodules[@]}
 do
-    if ! zmodload ${zmod}
+    if ! zmodload ${zmodule}
     then
-        failed="${failed} ${zmod}"
+        failed="${failed} ${zmodule}"
     fi
 done
 
@@ -204,11 +204,11 @@ then
     exit 1
 fi
 
-for req in ${reqs[@]}
+for dependency in ${dependencies[@]}
 do
-    if ! command -v ${req} > /dev/null
+    if ! command -v ${dependency} > /dev/null
     then
-        missing="${missing} ${req}"
+        missing="${missing} ${dependency}"
     fi
 done
 
