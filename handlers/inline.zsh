@@ -23,30 +23,30 @@ if [[ -n "${command}" ]]
 then
     shift
 else
-    source "${submods}/inline_none.zsh"
+    source "${agents}/inline_none.zsh"
 fi
 
 case "${command}" in
     ("donate")
-        source "${submods}/inline_donate.zsh"
+        source "${agents}/inline_donate.zsh"
     ;;
     ("help")
-        source "${submods}/inline_help.zsh"
+        source "${agents}/inline_help.zsh"
     ;;
     ("original")
-        source "${submods}/inline_original.zsh"
+        source "${agents}/inline_original.zsh"
     ;;
     ("post")
-        source "${submods}/inline_post.zsh"
+        source "${agents}/inline_post.zsh"
     ;;
     ("short")
-        source "${submods}/inline_short.zsh"
+        source "${agents}/inline_short.zsh"
     ;;
     ("shorts" | s)
-        source "${submods}/inline_shorts.zsh"
+        source "${agents}/inline_shorts.zsh"
     ;;
     (*)
-        source "${submods}/inline_search.zsh"
+        source "${agents}/inline_search.zsh"
     ;;
 esac
 

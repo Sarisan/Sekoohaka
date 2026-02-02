@@ -20,22 +20,22 @@ shift
 
 case "${command}" in
     ("delete")
-        source "${submods}/callback_delete.zsh"
+        source "${agents}/callback_delete.zsh"
     ;;
     ("post")
-        source "${submods}/callback_post.zsh"
+        source "${agents}/callback_post.zsh"
     ;;
     ("reset")
-        source "${submods}/callback_reset.zsh"
+        source "${agents}/callback_reset.zsh"
     ;;
     ("short")
-        source "${submods}/callback_short.zsh"
+        source "${agents}/callback_short.zsh"
     ;;
     ("stop")
-        source "${submods}/callback_stop.zsh"
+        source "${agents}/callback_stop.zsh"
     ;;
     ("tags")
-        source "${submods}/callback_tags.zsh"
+        source "${agents}/callback_tags.zsh"
     ;;
     (*)
         exit 0

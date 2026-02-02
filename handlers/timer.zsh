@@ -16,8 +16,8 @@ then
     exit 0
 fi
 
-source "${submods}/timer_unlock.zsh"
-source "${submods}/timer_uncache.zsh"
+source "${agents}/timer_unlock.zsh"
+source "${agents}/timer_uncache.zsh"
 
 strftime %s > "${cache}.timer"
 rmdir "${cache}.lock"

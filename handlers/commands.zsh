@@ -2,33 +2,15 @@
 # Copyright (C) 2024-2026 Danil Lisin
 # SPDX-License-Identifier: Apache-2.0
 
-if [[ -n "${nocommand_source}" ]]
+command_query=($(jq -r '.message.text' <<< "${update}"))
+
+if [[ "${command_query}" == "null" ]]
 then
     exit 0
 fi
 
 user_id="$(jq -r '.message.from.id' <<< "${update}")"
 chat_id="$(jq -r '.message.chat.id' <<< "${update}")"
-
-if [[ "${chat_id}" != "${user_id}" ]]
-then
-    exit 0
-fi
-
-file_id="$(jq -r '.message.photo.[1].file_id' <<< "${update}")"
-
-if [[ "${file_id}" == "null" ]]
-then
-    exit 0
-fi
-
-via_bot="$(jq -r '.message.via_bot.username' <<< "${update}")"
-
-if [[ "${via_bot}" == "${username}" ]]
-then
-    exit 0
-fi
-
 message_id="$(jq -r '.message.message_id' <<< "${update}")"
 is_topic="$(jq -r '.message.is_topic_message' <<< "${update}")"
 message_thread_id="$(jq -r '.message.message_thread_id' <<< "${update}")"
@@ -45,7 +27,58 @@ then
 fi
 
 source "${units}/user.zsh"
-source "${submods}/command_source.zsh"
+set -- ${command_query[@]}
+
+command="${1}"
+shift
+
+case "${command}" in
+    ("/authorize" | "/authorize@${username}")
+        source "${agents}/command_authorize.zsh"
+    ;;
+    ("/donate" | "/donate@${username}")
+        source "${agents}/command_donate.zsh"
+    ;;
+    ("/export" | "/export@${username}")
+        source "${agents}/command_export.zsh"
+    ;;
+    ("/hash" | "/hash@${username}")
+        source "${agents}/command_hash.zsh"
+    ;;
+    ("/help" | "/help@${username}")
+        source "${agents}/command_help.zsh"
+    ;;
+    ("/original" | "/original@${username}")
+        source "${agents}/command_original.zsh"
+    ;;
+    ("/ping" | "/ping@${username}")
+        source "${agents}/command_ping.zsh"
+    ;;
+    ("/post" | "/post@${username}")
+        source "${agents}/command_post.zsh"
+    ;;
+    ("/prpr" | "/prpr@${username}")
+        source "${agents}/command_prpr.zsh"
+    ;;
+    ("/short" | "/short@${username}")
+        source "${agents}/command_short.zsh"
+    ;;
+    ("/shorts" | "/shorts@${username}")
+        source "${agents}/command_shorts.zsh"
+    ;;
+    ("/source" | "/source@${username}")
+        source "${agents}/command_source.zsh"
+    ;;
+    ("/start" | "/start@${username}")
+        source "${agents}/command_help.zsh"
+    ;;
+    ("/stop" | "/stop@${username}")
+        source "${agents}/command_stop.zsh"
+    ;;
+    (*)
+        source "${agents}/url_parser.zsh"
+    ;;
+esac
 
 if ! output_data="$(
     curl --connect-timeout ${connrefused_timeout} \

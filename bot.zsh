@@ -27,8 +27,8 @@ auth="${dir}/auth"
 cache="${dir}/cache/${$}"
 config="${dir}/config"
 files="${dir}/files"
-mods="${dir}/modules"
-submods="${dir}/submodules"
+handlers="${dir}/handlers"
+agents="${dir}/agents"
 units="${dir}/units"
 users="${dir}/users"
 offset=-1
@@ -767,7 +767,7 @@ source "${units}/log.zsh"
 
 while trap 'wait && exit 0' INT TERM
 do
-    source "${mods}/timer.zsh" &
+    source "${handlers}/timer.zsh" &
 
     if ! input_data="$(
         curl --connect-timeout ${connrefused_timeout} \
@@ -832,9 +832,9 @@ do
         continue
     fi
 
-    for module in callback commands inline source
+    for handler in callback commands inline source
     do
-        source "${mods}/${module}.zsh" &
+        source "${handlers}/${handler}.zsh" &
     done
 
     offset=$((update_id + 1))
