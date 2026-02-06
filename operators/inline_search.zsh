@@ -17,14 +17,14 @@ case "${command}" in
     ;;
     (*)
         set -- ${inline_query[@]}
-        source "${agents}/inline_none.zsh"
+        source "${operators}/inline_none.zsh"
 
         case "${command}" in
             ("shorts")
-                source "${agents}/inline_shorts.zsh"
+                source "${operators}/inline_shorts.zsh"
             ;;
             ("help")
-                source "${agents}/inline_help.zsh"
+                source "${operators}/inline_help.zsh"
             ;;
         esac
 
@@ -128,13 +128,13 @@ do
 
     case "${ib_mode}" in
         (l)
-            source "${agents}/inline_search_pools.zsh"
+            source "${operators}/inline_search_pools.zsh"
         ;;
         (p)
-            source "${agents}/inline_search_posts.zsh"
+            source "${operators}/inline_search_posts.zsh"
         ;;
         (t)
-            source "${agents}/inline_search_tags.zsh"
+            source "${operators}/inline_search_tags.zsh"
         ;;
     esac
 

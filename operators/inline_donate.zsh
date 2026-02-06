@@ -4,7 +4,7 @@
 
 if [[ -n "${nocommand_donate}" ]]
 then
-    source "${agents}/inline_help.zsh"
+    source "${operators}/inline_help.zsh"
     return
 fi
 

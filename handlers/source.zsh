@@ -45,7 +45,7 @@ then
 fi
 
 source "${units}/user.zsh"
-source "${agents}/command_source.zsh"
+source "${operators}/command_source.zsh"
 
 if ! output_data="$(
     curl --connect-timeout ${connrefused_timeout} \

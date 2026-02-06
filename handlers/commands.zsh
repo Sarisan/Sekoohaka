@@ -34,49 +34,49 @@ shift
 
 case "${command}" in
     ("/authorize" | "/authorize@${username}")
-        source "${agents}/command_authorize.zsh"
+        source "${operators}/command_authorize.zsh"
     ;;
     ("/donate" | "/donate@${username}")
-        source "${agents}/command_donate.zsh"
+        source "${operators}/command_donate.zsh"
     ;;
     ("/export" | "/export@${username}")
-        source "${agents}/command_export.zsh"
+        source "${operators}/command_export.zsh"
     ;;
     ("/hash" | "/hash@${username}")
-        source "${agents}/command_hash.zsh"
+        source "${operators}/command_hash.zsh"
     ;;
     ("/help" | "/help@${username}")
-        source "${agents}/command_help.zsh"
+        source "${operators}/command_help.zsh"
     ;;
     ("/original" | "/original@${username}")
-        source "${agents}/command_original.zsh"
+        source "${operators}/command_original.zsh"
     ;;
     ("/ping" | "/ping@${username}")
-        source "${agents}/command_ping.zsh"
+        source "${operators}/command_ping.zsh"
     ;;
     ("/post" | "/post@${username}")
-        source "${agents}/command_post.zsh"
+        source "${operators}/command_post.zsh"
     ;;
     ("/prpr" | "/prpr@${username}")
-        source "${agents}/command_prpr.zsh"
+        source "${operators}/command_prpr.zsh"
     ;;
     ("/short" | "/short@${username}")
-        source "${agents}/command_short.zsh"
+        source "${operators}/command_short.zsh"
     ;;
     ("/shorts" | "/shorts@${username}")
-        source "${agents}/command_shorts.zsh"
+        source "${operators}/command_shorts.zsh"
     ;;
     ("/source" | "/source@${username}")
-        source "${agents}/command_source.zsh"
+        source "${operators}/command_source.zsh"
     ;;
     ("/start" | "/start@${username}")
-        source "${agents}/command_help.zsh"
+        source "${operators}/command_help.zsh"
     ;;
     ("/stop" | "/stop@${username}")
-        source "${agents}/command_stop.zsh"
+        source "${operators}/command_stop.zsh"
     ;;
     (*)
-        source "${agents}/url_parser.zsh"
+        source "${operators}/url_parser.zsh"
     ;;
 esac
 
