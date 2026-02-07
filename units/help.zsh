@@ -2,6 +2,8 @@
 # Copyright (C) 2024-2026 Danil Lisin
 # SPDX-License-Identifier: Apache-2.0
 
+keyboard_offset=0.5
+
 while [[ ${#help_table} -ge 3 ]]
 do
     keyboard_text1="${help_table[2]}"
