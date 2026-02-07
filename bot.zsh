@@ -846,7 +846,7 @@ do
     help_line_counter=$((help_line_counter + 1))
 done
 
-if [[ ${#help_general} -eq 0 ]]
+if [[ -z "${help_general}" ]]
 then
     log_text="Error: No 'general' header found in ${file}"
     source "${units}/log.zsh"
