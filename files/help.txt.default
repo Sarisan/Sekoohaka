@@ -142,7 +142,7 @@ Reverse search image
 Authorize to SauceNAO with your own API key
 <code>/source [snkey]</code>
 
-To reverse search image just use this command in reply to any image
+Use this command in reply to any image to reverse search it
 <code>/source</code>
 <<<<<<<<
 
