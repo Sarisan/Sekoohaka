@@ -36,9 +36,6 @@ case "${command}" in
     ("/authorize" | "/authorize@${username}")
         source "${operators}/command_authorize.zsh"
     ;;
-    ("/donate" | "/donate@${username}")
-        source "${operators}/command_donate.zsh"
-    ;;
     ("/export" | "/export@${username}")
         source "${operators}/command_export.zsh"
     ;;

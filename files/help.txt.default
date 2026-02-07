@@ -1,6 +1,18 @@
-<b>Sekoohaka Bot v{version_placeholder}</b>
 
-<b>Fields descriptions:</b>
+general::General
+>>>>>>>>
+<b>Sekoohaka Bot v{version_placeholder}</b>
+<b>GitHub:</b> https://github.com/Sarisan/Sekoohaka
+
+Select interesting topic to learn more
+<<<<<<<<
+
+
+fields::Fields Descriptions
+>>>>>>>>
+<b>Fields Descriptions</b>
+Used in commands and inline syntax
+
 [command] - Inline command
 [b] - Image Board
 [page] - Search page number
@@ -13,29 +25,69 @@
 [login] - Image Board login or username
 [key] - Image Board API key or password
 [snkey] - SauceNAO API key
+<<<<<<<<
 
-<b>Inline search:</b>
+
+inline_search::Inline Search
+>>>>>>>>
+<b>Inline Search</b>
+Inline search syntax
+
 <code>pools</code> [b] [page] [options] [name] - Pools search
 <code>posts</code> [b] [page] [options] [tags] - Posts search
 <code>tags</code> [b] [page] [options] [name] - Tags search
 <code>shorts</code> [page] [options] [query] - Shortcuts search
 
-<b>Search options:</b>
+<b>Inline Aliases</b>
+Shortened search commands for compact queries
+
+<code>l</code> - <code>pools</code>
+<code>p</code> - <code>posts</code>
+<code>t</code> - <code>tags</code>
+<code>s</code> - <code>shorts</code>
+
+<b>Search Options</b>
+Inline search unix-like options,
+Aliases inside brackets indicate option support
+
 <code>a</code> - Enable autopaging (lpts)
 <code>m</code> - Show more metadata (p)
 <code>p</code> - Show previews only (p)
 <code>q</code> - Add quick buttons (lpts)
 <code>r</code> - Reverse search order (s)
 <code>w</code> - Match full words only (s)
+<<<<<<<<
 
-<b>Inline commands:</b>
+
+inline_commands::Inline Commands
+>>>>>>>>
+<b>Inline Commands</b>
+Same as normal commands but used in inline for quicker access
+
 <code>help</code> - Send this message
 <code>original</code> [b] [id/md5] - Get original file of post
 <code>post</code> [b] [id/md5] - Get information of post
 <code>short</code> [query] - Create inline shortcut
-<code>donate</code> - Send donation details
+<<<<<<<<
 
-<b>Commands:</b>
+
+inline_examples::Inline Examples
+>>>>>>>>
+<b>Inline Examples</b>
+Several inline search and commands examples to let you get started
+
+<code>p d 1 -a rating:g</code>
+<code>t d *arknights*</code>
+<code>original d 4507929</code>
+<code>short p d -mq ringouulu</code>
+<<<<<<<<
+
+
+commands::Bot Commands
+>>>>>>>>
+<b>Bot Commands</b>
+In-chat bot commands
+
 /help - Send this message
 /authorize [b] [login] [key] - Authorize to Image Board
 /original [b] [id/md5] - Get original file of post
@@ -45,23 +97,16 @@
 /short [query] - Create inline shortcut
 /shorts - Manage saved shortcuts
 /ping - Measure bot latency
-/donate - Send donation details
 /export - Export all your data
 /stop - Remove all your data
+<<<<<<<<
 
-<b>Inline aliases:</b>
-<code>l</code> - <code>pools</code>
-<code>p</code> - <code>posts</code>
-<code>t</code> - <code>tags</code>
-<code>s</code> - <code>shorts</code>
 
-<b>Inline examples:</b>
-<code>p d 1 -a rating:g</code>
-<code>t d *genshin*</code>
-<code>original d 4507929</code>
-<code>short p d -mq ringouulu</code>
+sib::Supported Image Boards
+>>>>>>>>
+<b>Supported Image Boards</b>
+List of currently supported booru-like Image Boards
 
-<b>Supported Image Boards:</b>
 <code>a</code> - <a href="https://safebooru.donmai.us/">Safebooru</a>
 <code>d</code> - <a href="https://danbooru.donmai.us/">Danbooru</a>
 <code>g</code> - <a href="https://gelbooru.com/">Gelbooru</a>
@@ -69,3 +114,16 @@
 <code>k</code> - <a href="https://konachan.com/">Konachan.com</a>
 <code>s</code> - <a href="https://www.sankakucomplex.com/">Sankaku Channel</a>
 <code>y</code> - <a href="https://yande.re/">yande.re</a>
+<<<<<<<<
+
+
+donate::Donation Details
+>>>>>>>>
+<b>Donation Details</b>
+If you want to support this bot development you can donate any amount of these cryptocurrencies
+
+<b>BTC:</b> <code>bc1qqr8yryvx43y6p3kg7y2cw32w6tv748el7k38ff</code>
+<b>ETH:</b> <code>0x8993D744dF7183e112E2A4489991890f6a143104</code>
+<b>BNB:</b> <code>0x8993D744dF7183e112E2A4489991890f6a143104</code>
+<b>TON:</b> <code>UQBdoPQq3akozSLiWqt6x2Rizv0TrxHzRjczoztFN-LMCwGO</code>
+<<<<<<<<

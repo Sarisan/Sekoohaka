@@ -27,9 +27,6 @@ else
 fi
 
 case "${command}" in
-    ("donate")
-        source "${operators}/inline_donate.zsh"
-    ;;
     ("help")
         source "${operators}/inline_help.zsh"
     ;;

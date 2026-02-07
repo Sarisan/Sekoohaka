@@ -42,12 +42,15 @@ For distribution specific installation commands follow [command-not-found](https
 * cut
 * find
 * grep
+* head
 * ls
 * sed
 * sha1sum
 * sleep
+* tail
 * tar
 * tr
+* wc
 
 ## Deployment
 

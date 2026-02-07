@@ -71,12 +71,15 @@ busybox=(
     cut
     find
     grep
+    head
     ls
     sed
     sha1sum
     sleep
+    tail
     tar
     tr
+    wc
 )
 
 if [[ -n "${1}" ]]
@@ -480,7 +483,7 @@ source "${units}/log.zsh"
 log_text="Running files age check..."
 source "${units}/log.zsh"
 
-for file in aliases blacklist donate help whitelist
+for file in aliases blacklist help whitelist
 do
     log_text="files/${file}.txt"
     source "${units}/log.zsh"
@@ -496,49 +499,6 @@ do
         < "${files}/${file}.txt.default" > "${files}/${file}.txt"
     fi
 done
-
-log_text="Running files length check..."
-source "${units}/log.zsh"
-
-for file in donate help
-do
-    log_text="files/${file}.txt"
-    source "${units}/log.zsh"
-
-    file_content="$(< "${files}/${file}.txt")"
-
-    if [[ ${#file_content} -gt 4096 ]]
-    then
-        log_text="Error: File ${file}.txt exceeds 4096 characters limit"
-        source "${units}/log.zsh"
-    fi
-done
-
-log_text="Running help command check..."
-source "${units}/log.zsh"
-
-help_content="$(sed "s/{version_placeholder}/${version}/" "${files}/help.txt")"
-
-if [[ ${#help_content} -lt 1 ]]
-then
-    log_text="Error: File help.txt must be at least 1 character long"
-    source "${units}/log.zsh"
-
-    exit 1
-fi
-
-log_text="Running donate command check..."
-source "${units}/log.zsh"
-
-donate_content="$(< "${files}/donate.txt")"
-
-if [[ ${#donate_content} -lt 1 ]]
-then
-    nocommand_donate=0
-
-    log_text="Warning: File donate.txt is empty, donate command is disabled"
-    source "${units}/log.zsh"
-fi
 
 log_text="Running source command check..."
 source "${units}/log.zsh"
@@ -750,14 +710,148 @@ then
     esac
 fi
 
-if [[ -n "${nocommand_donate}" ]]
-then
-    help_content="$(sed -e '/^<code>donate.*$/d' -e '/^\/donate.*$/d' <<< "${help_content}")"
-fi
+log_text="Running help command check..."
+source "${units}/log.zsh"
+
+file="${files}/help.txt"
+file_content="$(sed "s/{version_placeholder}/${version}/" "${file}")"
 
 if [[ -n "${nocommand_source}" ]]
 then
-    help_content="$(sed -e '/^\[snkey\].*$/d' -e '/^\/source.*$/d' <<< "${help_content}")"
+    file_content="$(sed -e '/^\[snkey\].*$/d' -e '/^\/source.*$/d' <<< "${file_content}")"
+fi
+
+help_line_counter=1
+help_max_line=$(($(wc -l <<< "${file_content}" | cut -d ' ' -f 1) + 1))
+
+until [[ ${help_line_counter} -eq $((help_max_line + 1)) ]]
+do
+    help_line="$(sed "${help_line_counter}!d" <<< "${file_content}")"
+
+    if [[ -z "${help_line}" ]]
+    then
+        help_line_counter=$((help_line_counter + 1))
+        continue
+    fi
+
+    if ! help_header="$(grep -x ".*::.*" <<< "${help_line}")"
+    then
+        help_line_counter=$((help_line_counter + 1))
+        continue
+    fi
+
+    help_data="$(cut -d ':' -f 1 <<< "${help_header}")"
+
+    if [[ -z "${help_data}" ]]
+    then
+        log_text="Error: Missing header data at ${file}:${help_line_counter}"
+        source "${units}/log.zsh"
+
+        exit 1
+    fi
+
+    if grep -q ' ' <<< "${help_data}"
+    then
+        log_text="Error: Header data at ${file}:${help_line_counter} contains spaces"
+        source "${units}/log.zsh"
+
+        exit 1
+    fi
+
+    if [[ ${#help_data} -gt 64 ]]
+    then
+        log_text="Error: Header data at ${file}:${help_line_counter} exceeds 64 characters limit"
+        source "${units}/log.zsh"
+
+        exit 1
+    fi
+
+    help_name="$(cut -d ':' -f 3 <<< "${help_header}")"
+
+    if [[ -z "${help_name}" ]]
+    then
+        log_text="Error: Missing header name at ${file}:${help_line_counter}"
+        source "${units}/log.zsh"
+
+        exit 1
+    fi
+
+    if [[ ${#help_name} -gt 32 ]]
+    then
+        log_text="Error: Header name at ${file}:${help_line_counter} exceeds 32 characters limit"
+        source "${units}/log.zsh"
+
+        exit 1
+    fi
+
+    help_line_counter=$((help_line_counter + 1))
+
+    if [[ "$(sed "${help_line_counter}!d" <<< "${file_content}")" != ">>>>>>>>" ]]
+    then
+        log_text="Error: Missing '>>>>>>>>' after '${help_data}' at ${file}:${help_line_counter}"
+        source "${units}/log.zsh"
+
+        exit 1
+    fi
+
+    start_line=${help_line_counter}
+    help_line_counter=$((help_line_counter + 1))
+
+    until [[ ${help_line_counter} -eq $((help_max_line + 1)) ]]
+    do
+        help_line="$(sed "${help_line_counter}!d" <<< "${file_content}")"
+
+        if [[ "${help_line}" = "<<<<<<<<" ]]
+        then
+            end_line=${help_line_counter}
+            break
+        fi
+
+        if [[ ${help_line_counter} -eq ${help_max_line} ]]
+        then
+            log_text="Error: Missing '<<<<<<<<' after '${help_data}' at ${file}:${help_line_counter}"
+            source "${units}/log.zsh"
+
+            exit 1
+        fi
+
+        help_line_counter=$((help_line_counter + 1))
+    done
+
+    help_content="$(tail -n +$((start_line + 1)) <<< "${file_content}" | head -n $((end_line - start_line - 1)))"
+
+    if [[ -z ${help_content} ]]
+    then
+        log_text="Error: Empty content after '${help_data}' at ${file}:$((start_line + 1))"
+        source "${units}/log.zsh"
+
+        exit 1
+    fi
+
+    if [[ ${#help_content} -gt 2048 ]]
+    then
+        log_text="Error: Content exceeds 2048 characters limit after '${help_data}' at ${file}:$((start_line + 1))"
+        source "${units}/log.zsh"
+
+        exit 1
+    fi
+
+    if [[ "${help_data}" == "general" ]]
+    then
+        help_general="${help_content}"
+    else
+        help_table+=("${help_data}" "${help_name}" "${help_content}")
+    fi
+
+    help_line_counter=$((help_line_counter + 1))
+done
+
+if [[ ${#help_general} -eq 0 ]]
+then
+    log_text="Error: No 'general' header found in ${file}"
+    source "${units}/log.zsh"
+
+    exit 1
 fi
 
 strftime %s > "${cache}.timer"

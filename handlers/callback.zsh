@@ -22,6 +22,9 @@ case "${command}" in
     ("delete")
         source "${operators}/callback_delete.zsh"
     ;;
+    ("help")
+        source "${operators}/callback_help.zsh"
+    ;;
     ("post")
         source "${operators}/callback_post.zsh"
     ;;

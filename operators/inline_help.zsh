@@ -3,7 +3,7 @@
 # SPDX-License-Identifier: Apache-2.0
 
 output_title="Sekoohaka Bot"
-output_text="${help_content}"
+output_text="${help_general}"
 output_description="Click to send help message"
 
 results="$(
@@ -14,3 +14,15 @@ results="$(
         --arg description "${output_description}" \
         '[{"type": "article", "id": $id, "title": $title, "input_message_content": {"message_text": $text, "parse_mode": "HTML", "link_preview_options": {"is_disabled": true}}, "description": $description}]'
 )"
+
+. "${units}/help.zsh"
+
+if [[ -n "${reply_markup}" ]]
+then
+    results="$(
+        jq --compact-output \
+            --argjson reply_markup "${reply_markup}" \
+            '.[0] += {"reply_markup": $reply_markup}' \
+        <<< "${results}"
+    )"
+fi
