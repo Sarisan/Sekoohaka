@@ -16,7 +16,7 @@ exec 2> /dev/null
 set -e
 umask 77
 
-version="26.2"
+version="26.3-dev"
 useragent="Sekoohaka/${version} Telegram Bot"
 
 local_address="127.0.0.1:8081"
