@@ -134,6 +134,19 @@ List of currently supported booru-like Image Boards
 <<<<<<<<
 
 
+source::SauceNAO
+>>>>>>>>
+<b>SauceNAO</b>
+Reverse search image
+
+Authorize to SauceNAO with your own API key
+<code>/source [snkey]</code>
+
+To reverse search image just use this command in reply to any image
+<code>/source</code>
+<<<<<<<<
+
+
 shorts::Shortcuts
 >>>>>>>>
 <b>Shortcuts</b>

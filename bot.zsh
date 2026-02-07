@@ -718,7 +718,7 @@ file_content="$(sed "s/{version_placeholder}/${version}/" "${file}")"
 
 if [[ -n "${nocommand_source}" ]]
 then
-    file_content="$(sed -e '/^\[snkey\].*$/d' -e '/^\/source.*$/d' <<< "${file_content}")"
+    file_content="$(sed -e '/^\[snkey\].*$/d' -e '/^\/source.*$/d' -e '/^source::.*$/d' <<< "${file_content}")"
 fi
 
 help_line_counter=1
