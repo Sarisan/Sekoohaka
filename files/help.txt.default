@@ -74,12 +74,16 @@ Same as normal commands but used in inline for quicker access
 inline_examples::Inline Examples
 >>>>>>>>
 <b>Inline Examples</b>
-Several inline search and commands examples to let you get started
+Several inline search examples to let you get started
 
+Search posts with general rating on Danbooru,
+Startng with page 1 and with autopaging option
 <code>p d 1 -a rating:g</code>
+
+Search tags containing keyword <code>arknights</code> on Danbooru,
+When page and autopaging option are not specified,
+By default page is set to 1 and autopaging is turned on
 <code>t d *arknights*</code>
-<code>original d 4507929</code>
-<code>short p d -mq ringouulu</code>
 <<<<<<<<
 
 
@@ -102,6 +106,19 @@ In-chat bot commands
 <<<<<<<<
 
 
+commands_example::Commands Examples
+>>>>>>>>
+<b>Commands Examples</b>
+Several commands usage examples to let you get started
+
+Get original file of post <code>4507929</code> from Danbooru
+<code>/original d 4507929</code>
+
+Search post with <code>70fdac227d8efbf66e9bae98642341ea</code> MD5 hash on all supported Image Boards
+<code>/hash 70fdac227d8efbf66e9bae98642341ea</code>
+<<<<<<<<
+
+
 sib::Image Boards
 >>>>>>>>
 <b>Image Boards</b>
@@ -114,6 +131,26 @@ List of currently supported booru-like Image Boards
 <code>k</code> - <a href="https://konachan.com/">Konachan.com</a>
 <code>s</code> - <a href="https://www.sankakucomplex.com/">Sankaku Channel</a>
 <code>y</code> - <a href="https://yande.re/">yande.re</a>
+<<<<<<<<
+
+
+shorts::Shortcuts
+>>>>>>>>
+<b>Shortcuts</b>
+Create, save and search your saved inline shortcuts
+
+Create inline shortcut with <code>p d -mq ringouulu</code> query
+<code>/short p d -mq ringouulu</code>
+
+Once shortcut is created you can click <i>Manage</i> button to save or remove it from your shortcuts storage,
+Use this command to see how many shortcuts you have and to list them
+<code>/shorts</code>
+
+Once you saved at least one shortcut opening bot inline query will show you all your saved shortcuts,
+You can use shortcuts search without any extra inline commands, just type desired query
+<code>ringouulu</code>
+
+You may want to see <i>Inline Search</i> topic for more search options
 <<<<<<<<
 
 
