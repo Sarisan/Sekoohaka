@@ -2,7 +2,14 @@
 general::General
 >>>>>>>>
 <b>Sekoohaka Bot v{version_placeholder}</b>
-<b>GitHub:</b> https://github.com/Sarisan/Sekoohaka
+<b>GitHub:</b> github.com/Sarisan/Sekoohaka
+
+Search posts, pools and tags on various booru-like Image Boards,
+Authorize to expand limits and access private favorites,
+View post information, tags, get original file,
+Do MD5 hash lookup to find post by a hash,
+Reverse search image with SauceNAO,
+Create and save inline shortcuts
 
 Select interesting topic to learn more
 <<<<<<<<
@@ -159,9 +166,8 @@ Once shortcut is created you can click <i>Manage</i> button to save or remove it
 Use this command to see how many shortcuts you have and to list them
 <code>/shorts</code>
 
-Once you saved at least one shortcut opening bot inline query will show you all your saved shortcuts,
-You can use shortcuts search without any extra inline commands, just type desired query
-<code>ringouulu</code>
+Once you saved at least one shortcut opening inline query will show you all your saved shortcuts,
+You can use shortcuts search without any extra inline commands, just type your desired query
 
 You may want to see <i>Inline Search</i> topic for more search options
 <<<<<<<<
