@@ -1,35 +1,46 @@
 [
     {
-        "command": "help", "description": "Send help message"
+        "command": "help",
+        "description": "Send help message"
     },
     {
-        "command": "authorize", "description": "Authorize to Image Board"
+        "command": "authorize",
+        "description": "Authorize to Image Board"
     },
     {
-        "command": "original", "description": "Get original file of post"
+        "command": "original",
+        "description": "Get original file of post"
     },
     {
-        "command": "post", "description": "Get information of post"
+        "command": "post",
+        "description": "Get information of post"
     },
     {
-        "command": "hash", "description": "Get posts IDs by hash lookup"
+        "command": "hash",
+        "description": "Get posts IDs by hash lookup"
     },
     {
-        "command": "source", "description": "Reverse search image"
+        "command": "source",
+        "description": "Reverse search image"
     },
     {
-        "command": "short", "description": "Create inline shortcut"
+        "command": "short",
+        "description": "Create inline shortcut"
     },
     {
-        "command": "shorts", "description": "Manage saved shortcuts"
+        "command": "shorts",
+        "description": "Manage saved shortcuts"
     },
     {
-        "command": "status", "description": "Check bot status"
+        "command": "status",
+        "description": "Check bot status"
     },
     {
-        "command": "export", "description": "Export all your data"
+        "command": "export",
+        "description": "Export all your data"
     },
     {
-        "command": "stop", "description": "Remove all your data"
+        "command": "stop",
+        "description": "Remove all your data"
     }
 ]
