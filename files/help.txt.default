@@ -107,7 +107,7 @@ In-chat bot commands
 /source [snkey] - Reverse search image
 /short [query] - Create inline shortcut
 /shorts - Manage saved shortcuts
-/ping - Measure bot latency
+/status - Check bot status
 /export - Export all your data
 /stop - Remove all your data
 <<<<<<<<

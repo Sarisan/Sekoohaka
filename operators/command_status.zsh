@@ -2,7 +2,7 @@
 # Copyright (C) 2024-2026 Danil Lisin
 # SPDX-License-Identifier: Apache-2.0
 
-output_text="Measuring..."
+output_text="Measuring latency..."
 latency_init=$(strftime %s%N)
 
 if ! output_data="$(
@@ -58,11 +58,8 @@ then
     return
 fi
 
-chat_id="$(jq -r '.result.chat.id' <<< "${output_data}")"
 message_id="$(jq -r '.result.message_id' <<< "${output_data}")"
-
-latency=$(((latency_fin - latency_init) / 1000000))
-output_text="$(printf "<b>Latency:</b> %ums" "${latency}")"
+. "${units}/status.zsh"
 
 if ! output_data="$(
     curl --connect-timeout ${connrefused_timeout} \
@@ -70,6 +67,7 @@ if ! output_data="$(
         --data-urlencode "message_id=${message_id}" \
         --data-urlencode "text=${output_text}" \
         --data-urlencode "parse_mode=HTML" \
+        --data-urlencode "reply_markup=${reply_markup}" \
         --get \
         --max-time ${internal_timeout} \
         --proxy "${internal_proxy}" \

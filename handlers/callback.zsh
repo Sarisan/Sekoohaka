@@ -11,6 +11,15 @@ fi
 
 user_id="$(jq -r '.callback_query.from.id' <<< "${update}")"
 query_id="$(jq -r '.callback_query.id' <<< "${update}")"
+chat_id="$(jq -r '.callback_query.message.chat.id' <<< "${update}")"
+message_id="$(jq -r '.callback_query.message.message_id' <<< "${update}")"
+inline_message_id="$(jq -r '.callback_query.inline_message_id' <<< "${update}")"
+
+if [[ "${inline_message_id}" != "null" ]]
+then
+    unset chat_id
+    unset message_id
+fi
 
 source "${units}/user.zsh"
 set -- ${callback_query[@]}
@@ -34,6 +43,9 @@ case "${command}" in
     ("short")
         source "${operators}/callback_short.zsh"
     ;;
+    ("status")
+        source "${operators}/callback_status.zsh"
+    ;;
     ("stop")
         source "${operators}/callback_stop.zsh"
     ;;
@@ -47,16 +59,6 @@ esac
 
 if [[ -z "${notification_text}" && -n "${output_text}" ]]
 then
-    chat_id="$(jq -r '.callback_query.message.chat.id' <<< "${update}")"
-    message_id="$(jq -r '.callback_query.message.message_id' <<< "${update}")"
-    inline_message_id="$(jq -r '.callback_query.inline_message_id' <<< "${update}")"
-
-    if [[ "${inline_message_id}" != "null" ]]
-    then
-        unset chat_id
-        unset message_id
-    fi
-
     if ! output_data="$(
         curl --connect-timeout ${connrefused_timeout} \
             --data-urlencode "chat_id=${chat_id}" \

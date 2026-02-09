@@ -24,7 +24,7 @@
         "command": "shorts", "description": "Manage saved shortcuts"
     },
     {
-        "command": "ping", "description": "Measure bot latency"
+        "command": "status", "description": "Check bot status"
     },
     {
         "command": "export", "description": "Export all your data"
