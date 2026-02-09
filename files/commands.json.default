@@ -3,7 +3,7 @@
         "command": "help", "description": "Send help message"
     },
     {
-        "command": "authorize", "description": "Authorize to image board"
+        "command": "authorize", "description": "Authorize to Image Board"
     },
     {
         "command": "original", "description": "Get original file of post"
