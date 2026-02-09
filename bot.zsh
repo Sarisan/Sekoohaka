@@ -483,20 +483,20 @@ source "${units}/log.zsh"
 log_text="Running files age check..."
 source "${units}/log.zsh"
 
-for file in aliases blacklist help whitelist
+for file in aliases.txt blacklist.txt commands.json help.txt whitelist.txt
 do
-    log_text="files/${file}.txt"
+    log_text="files/${file}"
     source "${units}/log.zsh"
 
-    if [[ -f "${files}/${file}.txt" ]]
+    if [[ -f "${files}/${file}" ]]
     then
-        if [[ "${files}/${file}.txt" -ot "${files}/${file}.txt.default" ]]
+        if [[ "${files}/${file}" -ot "${files}/${file}xt.default" ]]
         then
-            log_text="Warning: File ${file}.txt is older than ${file}.txt.default"
+            log_text="Warning: File ${file} is older than ${file}.default"
             source "${units}/log.zsh"
         fi
     else
-        < "${files}/${file}.txt.default" > "${files}/${file}.txt"
+        < "${files}/${file}.default" > "${files}/${file}"
     fi
 done
 
@@ -851,6 +851,59 @@ then
     log_text="Error: No 'general' header found in ${file}"
     source "${units}/log.zsh"
 
+    exit 1
+fi
+
+log_text="Setting bot commands..."
+source "${units}/log.zsh"
+
+commands_list="$(< "${files}/commands.json")"
+
+if [[ -n "${nocommand_source}" ]]
+then
+    commands_list="$(jq 'del(.[]|select(.command=="source"))' <<< "${commands_list}")"
+fi
+
+if ! input_data="$(
+    curl --connect-timeout ${connrefused_timeout} \
+        --data-urlencode "commands=${commands_list}" \
+        --get \
+        --max-time ${internal_timeout} \
+        --proxy "${internal_proxy}" \
+        --retry 1 \
+        --retry-connrefused \
+        --retry-max-time $((internal_timeout - connrefused_timeout)) \
+        --silent \
+        --user-agent "${useragent}" \
+        "${api_address}/bot${api_token}/setMyCommands"
+)"
+then
+    log_text="setMyCommands: Failed to access Telegram Bot API"
+    source "${units}/log.zsh"
+
+    exit 1
+fi
+
+if ! jq -e '.' <<< "${input_data}" > /dev/null
+then
+    log_text="setMyCommands: An unknown error occurred"
+    source "${units}/log.zsh"
+
+    exit 1
+fi
+
+if [[ "$(jq -r '.ok' <<< "${input_data}")" != "true" ]]
+then
+    error_description="$(jq -r '.description' <<< "${input_data}")"
+
+    if [[ "${error_description}" != "null" ]]
+    then
+        log_text="setMyCommands: ${error_description}"
+    else
+        log_text="setMyCommands: An unknown error occurred"
+    fi
+
+    source "${units}/log.zsh"
     exit 1
 fi
 

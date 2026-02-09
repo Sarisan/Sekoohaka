@@ -1,0 +1,35 @@
+[
+    {
+        "command": "help", "description": "Send help message"
+    },
+    {
+        "command": "authorize", "description": "Authorize to image board"
+    },
+    {
+        "command": "original", "description": "Get original file of post"
+    },
+    {
+        "command": "post", "description": "Get information of post"
+    },
+    {
+        "command": "hash", "description": "Get posts IDs by hash lookup"
+    },
+    {
+        "command": "source", "description": "Reverse search image"
+    },
+    {
+        "command": "short", "description": "Create inline shortcut"
+    },
+    {
+        "command": "shorts", "description": "Manage saved shortcuts"
+    },
+    {
+        "command": "ping", "description": "Measure bot latency"
+    },
+    {
+        "command": "export", "description": "Export all your data"
+    },
+    {
+        "command": "stop", "description": "Remove all your data"
+    }
+]
