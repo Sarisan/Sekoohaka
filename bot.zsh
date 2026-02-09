@@ -908,8 +908,8 @@ then
 fi
 
 strftime %s > "${cache}.timer"
-
 startup_time=$(strftime %s)
+
 log_text="Startup succeeded"
 source "${units}/log.zsh"
 
