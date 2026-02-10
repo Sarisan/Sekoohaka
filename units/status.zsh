@@ -3,6 +3,7 @@
 # SPDX-License-Identifier: Apache-2.0
 
 uptime_table=(
+    604800 w
     86400 d
     3600 h
     60 m
