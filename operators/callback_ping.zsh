@@ -57,4 +57,4 @@ then
     return
 fi
 
-. "${units}/status.zsh"
+. "${units}/ping.zsh"

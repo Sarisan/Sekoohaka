@@ -32,8 +32,8 @@
         "description": "Manage saved shortcuts"
     },
     {
-        "command": "status",
-        "description": "Check bot status"
+        "command": "ping",
+        "description": "Measure bot latency"
     },
     {
         "command": "export",

@@ -34,6 +34,9 @@ case "${command}" in
     ("help")
         source "${operators}/callback_help.zsh"
     ;;
+    ("ping")
+        source "${operators}/callback_ping.zsh"
+    ;;
     ("post")
         source "${operators}/callback_post.zsh"
     ;;
@@ -42,9 +45,6 @@ case "${command}" in
     ;;
     ("short")
         source "${operators}/callback_short.zsh"
-    ;;
-    ("status")
-        source "${operators}/callback_status.zsh"
     ;;
     ("stop")
         source "${operators}/callback_stop.zsh"

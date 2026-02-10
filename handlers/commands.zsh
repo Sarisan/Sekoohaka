@@ -48,6 +48,9 @@ case "${command}" in
     ("/original" | "/original@${username}")
         source "${operators}/command_original.zsh"
     ;;
+    ("/ping" | "/ping@${username}")
+        source "${operators}/command_ping.zsh"
+    ;;
     ("/post" | "/post@${username}")
         source "${operators}/command_post.zsh"
     ;;
@@ -65,9 +68,6 @@ case "${command}" in
     ;;
     ("/start" | "/start@${username}")
         source "${operators}/command_help.zsh"
-    ;;
-    ("/status" | "/status@${username}")
-        source "${operators}/command_status.zsh"
     ;;
     ("/stop" | "/stop@${username}")
         source "${operators}/command_stop.zsh"

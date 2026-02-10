@@ -30,11 +30,11 @@ done
 
 latency_text=$(((latency_fin - latency_init) / 1000000))
 
-output_text="$(printf "<b>Bot Status</b>\n<b>Uptime:</b>%s" "${uptime_text}")"
+output_text="$(printf "<b>Uptime:</b>%s" "${uptime_text}")"
 output_text="$(printf "%s\n<b>Latency:</b> %ums" "${output_text}" "${latency_text}")"
 
-keyboard_text1="Update"
-keyboard_data1="status"
+keyboard_text1="Refresh"
+keyboard_data1="ping"
 
 reply_markup="$(
     jq --null-input --compact-output \
