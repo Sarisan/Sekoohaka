@@ -9,7 +9,7 @@ uptime_table=(
     1 s
 )
 
-uptime_time=$(($(strftime %s) - startup_time))
+uptime_time=$(($(strftime %s) - startup_time + 1))
 
 while [[ ${uptime_time} -gt 0 && ${#uptime_table} -ge 2 ]]
 do
@@ -29,7 +29,7 @@ done
 
 latency_text=$(((latency_fin - latency_init) / 1000000))
 
-output_text="$(printf "<b>Bot Status</b>\n<b>Uptime:</b>%s" "${uptime_text:- 0s}")"
+output_text="$(printf "<b>Bot Status</b>\n<b>Uptime:</b>%s" "${uptime_text}")"
 output_text="$(printf "%s\n<b>Latency:</b> %ums" "${output_text}" "${latency_text}")"
 
 keyboard_text1="Update"
