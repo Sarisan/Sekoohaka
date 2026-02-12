@@ -54,7 +54,8 @@ Shortened search commands for compact queries
 <code>s</code> - <code>shorts</code>
 
 <b>Search Options</b>
-Inline search unix-like options,
+Inline search unix-like options
+
 Aliases inside brackets indicate option support
 
 <code>a</code> - Enable autopaging (lpts)
@@ -83,14 +84,14 @@ inline_examples::Inline Examples
 <b>Inline Examples</b>
 Several inline search examples to let you get started
 
-Search posts with general rating on Danbooru,
-Startng with page 1 and with autopaging option
+Search posts with general rating on Danbooru
 <code>p d 1 -a rating:g</code>
 
-Search tags containing keyword <code>arknights</code> on Danbooru,
-When page and autopaging option are not specified,
-By default page is set to 1 and autopaging is turned on
+Search tags matching <code>*arknights*</code> on Danbooru
 <code>t d *arknights*</code>
+
+When page and autopaging option are not specified,
+Page is set to 1 and autopaging is enabled by default
 <<<<<<<<
 
 
@@ -162,7 +163,8 @@ Create, save and search your saved inline shortcuts
 Create inline shortcut with <code>p d -mq ringouulu</code> query
 <code>/short p d -mq ringouulu</code>
 
-Once shortcut is created you can click <i>Manage</i> button to save or remove it from your shortcuts storage,
+Once shortcut is created you can click <i>Manage</i> button to save or remove it from your shortcuts storage
+
 Use this command to see how many shortcuts you have and to list them
 <code>/shorts</code>
 
