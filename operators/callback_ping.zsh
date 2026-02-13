@@ -3,7 +3,8 @@
 # SPDX-License-Identifier: Apache-2.0
 
 output_text="Measuring latency..."
-latency_init=$(strftime %s%N)
+latency_sysf=$(strftime %s%N)
+latency_net=$(strftime %s%N)
 
 if ! output_data="$(
     curl --connect-timeout ${connrefused_timeout} \
@@ -29,7 +30,7 @@ then
     return
 fi
 
-latency_fin=$(strftime %s%N)
+latency_netf=$(strftime %s%N)
 
 if ! jq -e '.' <<< "${output_data}" > /dev/null
 then

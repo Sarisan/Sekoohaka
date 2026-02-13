@@ -9,6 +9,10 @@ uptime_table=(
     1 s
 )
 
+latency_sys=$(((latency_sysf - latency_sys) / 1000000))
+latency_net=$(((latency_netf - latency_net) / 1000000))
+latency_all=$((latency_sys + latency_net))
+
 uptime_time=$(($(strftime %s) - startup_time + 1))
 
 while [[ ${uptime_time} -gt 0 && ${#uptime_table} -ge 2 ]]
@@ -27,10 +31,11 @@ do
     shift 2 uptime_table
 done
 
-latency_text=$(((latency_fin - latency_init) / 1000000))
-
-output_text="$(printf "<b>Uptime:</b>%s" "${uptime_text}")"
-output_text="$(printf "%s\n<b>Latency:</b> %ums" "${output_text}" "${latency_text}")"
+output_text="<b>Latency</b>"
+output_text="$(printf "%s\n<b>System:</b> %ums" "${output_text}" "${latency_sys}")"
+output_text="$(printf "%s\n<b>Network:</b> %ums" "${output_text}" "${latency_net}")"
+output_text="$(printf "%s\n<b>Overall:</b> %ums" "${output_text}" "${latency_all}")"
+output_text="$(printf "%s\n\n<b>Uptime:</b>%s" "${output_text}" "${uptime_text}")"
 
 keyboard_text1="Refresh"
 keyboard_data1="ping"

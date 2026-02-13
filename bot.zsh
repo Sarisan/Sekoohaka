@@ -939,6 +939,8 @@ do
         continue
     fi
 
+    latency_sys=$(strftime %s%N)
+
     if ! jq -e '.' <<< "${input_data}" > /dev/null
     then
         log_text="getUpdates: An unknown error occurred, sleeping for ${sleep_time} seconds"
