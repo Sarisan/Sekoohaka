@@ -485,9 +485,6 @@ source "${units}/log.zsh"
 
 for file in aliases.txt blacklist.txt commands.json help.txt whitelist.txt
 do
-    log_text="files/${file}"
-    source "${units}/log.zsh"
-
     if [[ -f "${files}/${file}" ]]
     then
         if [[ "${files}/${file}" -ot "${files}/${file}xt.default" ]]
