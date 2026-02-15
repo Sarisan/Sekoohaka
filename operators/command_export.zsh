@@ -25,5 +25,5 @@ done
 
 if [[ -z "${output_text}" ]]
 then
-    exit 0
+    exit
 fi

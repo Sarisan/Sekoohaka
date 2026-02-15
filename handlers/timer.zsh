@@ -4,7 +4,7 @@
 
 if ! mkdir "${cache}.lock"
 then
-    exit 0
+    exit
 fi
 
 timer_ctime=$(strftime %s)
@@ -13,7 +13,7 @@ timer_mtime=$(< "${cache}.timer")
 if [[ $((timer_ctime - timer_mtime)) -lt 5 ]]
 then
     rmdir "${cache}.lock"
-    exit 0
+    exit
 fi
 
 source "${operators}/timer_unlock.zsh"

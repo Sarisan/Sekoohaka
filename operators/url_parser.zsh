@@ -44,7 +44,7 @@ done
 
 if [[ -z "${ib_post_id}" ]]
 then
-    exit 0
+    exit
 fi
 
 source "${units}/ib_config.zsh"
@@ -52,7 +52,7 @@ source "${units}/ib_authconfig.zsh"
 
 if [[ ${#ib_post_id} -gt 32 ]]
 then
-    exit 0
+    exit
 elif [[ ${#ib_post_id} -eq 32 ]]
 then
     ib_query="md5:${ib_post_id}"

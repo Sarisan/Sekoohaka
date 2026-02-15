@@ -83,7 +83,7 @@ then
     log_text="editMessageText (${update_id}): Failed to access Telegram Bot API"
     source "${units}/log.zsh"
 
-    exit 0
+    exit
 fi
 
 if ! jq -e '.' <<< "${output_data}" > /dev/null
@@ -91,7 +91,7 @@ then
     log_text="editMessageText (${update_id}): An unknown error occurred"
     source "${units}/log.zsh"
 
-    exit 0
+    exit
 fi
 
 if [[ "$(jq -r '.ok' <<< "${output_data}")" != "true" ]]
@@ -108,4 +108,4 @@ then
     source "${units}/log.zsh"
 fi
 
-exit 0
+exit

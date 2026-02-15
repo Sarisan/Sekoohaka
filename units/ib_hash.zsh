@@ -10,7 +10,7 @@ source "${units}/ib_authconfig.zsh"
 
 if [[ -z "${ib_data_url}" ]]
 then
-    exit 0
+    exit
 fi
 
 ib_query="md5:${ib_post_md5}"
@@ -28,7 +28,7 @@ source "${units}/ib_file.zsh"
 if [[ -n "${output_text}" ]]
 then
     rmdir "${cache}/${ib_hash}.lock"
-    exit 0
+    exit
 fi
 
 if [[ -z "${output_text}" ]]

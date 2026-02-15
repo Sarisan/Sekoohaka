@@ -151,4 +151,4 @@ then
 fi
 
 rmdir "${cache}/${ib_hash}.lock"
-exit 0
+exit

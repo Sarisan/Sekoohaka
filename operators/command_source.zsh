@@ -4,7 +4,7 @@
 
 if [[ -n "${nocommand_source}" ]]
 then
-    exit 0
+    exit
 fi
 
 until mkdir "${user_config}_source.lock"

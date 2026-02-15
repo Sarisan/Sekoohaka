@@ -4,7 +4,7 @@
 
 if [[ -n "${nocommand_source}" ]]
 then
-    exit 0
+    exit
 fi
 
 user_id="$(jq -r '.message.from.id' <<< "${update}")"
@@ -12,21 +12,21 @@ chat_id="$(jq -r '.message.chat.id' <<< "${update}")"
 
 if [[ "${chat_id}" != "${user_id}" ]]
 then
-    exit 0
+    exit
 fi
 
 file_id="$(jq -r '.message.photo.[1].file_id' <<< "${update}")"
 
 if [[ "${file_id}" == "null" ]]
 then
-    exit 0
+    exit
 fi
 
 via_bot="$(jq -r '.message.via_bot.username' <<< "${update}")"
 
 if [[ "${via_bot}" == "${username}" ]]
 then
-    exit 0
+    exit
 fi
 
 message_id="$(jq -r '.message.message_id' <<< "${update}")"
@@ -70,7 +70,7 @@ then
     log_text="sendMessage (${update_id}): Failed to access Telegram Bot API"
     source "${units}/log.zsh"
 
-    exit 0
+    exit
 fi
 
 if ! jq -e '.' <<< "${output_data}" > /dev/null
@@ -78,7 +78,7 @@ then
     log_text="sendMessage (${update_id}): An unknown error occurred"
     source "${units}/log.zsh"
 
-    exit 0
+    exit
 fi
 
 if [[ "$(jq -r '.ok' <<< "${output_data}")" != "true" ]]

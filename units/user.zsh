@@ -15,12 +15,12 @@ fi
 
 if [[ -s "${blacklist_list}" ]] && grep -qx "${user_id}" "${blacklist_list}"
 then
-    exit 0
+    exit
 fi
 
 if [[ -s "${whitelist_list}" ]] && ! grep -qx "${user_id}" "${whitelist_list}"
 then
-    exit 0
+    exit
 fi
 
 user_config="${users}/${user_id}"

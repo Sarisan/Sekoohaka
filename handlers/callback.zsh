@@ -6,7 +6,7 @@ callback_query=($(jq -r '.callback_query.data' <<< "${update}"))
 
 if [[ "${callback_query}" == "null" ]]
 then
-    exit 0
+    exit
 fi
 
 user_id="$(jq -r '.callback_query.from.id' <<< "${update}")"
@@ -53,7 +53,7 @@ case "${command}" in
         source "${operators}/callback_tags.zsh"
     ;;
     (*)
-        exit 0
+        exit
     ;;
 esac
 
@@ -128,7 +128,7 @@ then
     log_text="answerCallbackQuery (${update_id}): Failed to access Telegram Bot API"
     source "${units}/log.zsh"
 
-    exit 0
+    exit
 fi
 
 if ! jq -e '.' <<< "${output_data}" > /dev/null
@@ -136,7 +136,7 @@ then
     log_text="answerCallbackQuery (${update_id}): An unknown error occurred"
     source "${units}/log.zsh"
 
-    exit 0
+    exit
 fi
 
 if [[ "$(jq -r '.ok' <<< "${output_data}")" != "true" ]]
