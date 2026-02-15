@@ -3,27 +3,18 @@
 # SPDX-License-Identifier: Apache-2.0
 
 url_table=(
-    a / 5 "https://safebooru.donmai.us/posts/.*"
     a / 3 "safebooru.donmai.us/posts/.*"
-    d / 5 "https://danbooru.donmai.us/posts/.*"
     d / 3 "danbooru.donmai.us/posts/.*"
-    g = 4 "https://gelbooru.com/index.php?page=post&s=view&id=.*"
     g = 4 "gelbooru.com/index.php?page=post&s=view&id=.*"
-    i / 6 "https://www.idolcomplex.com/.*/posts/.*"
     i / 4 "www.idolcomplex.com/.*/posts/.*"
     i / 4 "idolcomplex.com/.*/posts/.*"
-    i / 5 "https://www.idolcomplex.com/posts/.*"
     i / 3 "www.idolcomplex.com/posts/.*"
     i / 3 "idolcomplex.com/posts/.*"
-    k / 6 "https://konachan.com/post/show/.*"
     k / 4 "konachan.com/post/show/.*"
-    s / 6 "https://www.sankakucomplex.com/.*/posts/.*"
     s / 4 "www.sankakucomplex.com/.*/posts/.*"
     i / 4 "sankakucomplex.com/.*/posts/.*"
-    s / 5 "https://www.sankakucomplex.com/posts/.*"
     s / 3 "www.sankakucomplex.com/posts/.*"
     i / 3 "sankakucomplex.com/posts/.*"
-    y / 6 "https://yande.re/post/show/.*"
     y / 4 "yande.re/post/show/.*"
 )
 
@@ -31,10 +22,12 @@ ib_mode="p"
 
 while [[ ${#url_table} -ge 4 ]]
 do
-    if grep -qx "${url_table[4]}" <<< ${command}
+    if url_line="$(grep -o "https://\?${url_table[4]}" <<< "${command} ${@}")"
     then
+        url_line="$(sed -e 's/https:\/\///g' -e 's/ .*//g' <<< "${url_line}")"
+
         ib_board="${url_table[1]}"
-        ib_post_id="$(cut -d ${url_table[2]} -f ${url_table[3]} <<< ${command} | cut -d '?' -f 1)"
+        ib_post_id="$(cut -d ${url_table[2]} -f ${url_table[3]} <<< "${url_line}" | cut -d '?' -f 1)"
 
         break
     fi
