@@ -24,7 +24,7 @@ while [[ ${#url_table} -ge 4 ]]
 do
     if url_line="$(grep -o "https://\?${url_table[4]}.*" <<< "${command} ${@}")"
     then
-        url_line="$(sed -e 's/https:\/\///g' -e 's/ .*//g' <<< "${url_line}")"
+        url_line="$(sed -e 's/https:\/\///' -e 's/ .*//' <<< "${url_line}")"
 
         ib_board="${url_table[1]}"
         ib_post_id="$(cut -d ${url_table[2]} -f ${url_table[3]} <<< "${url_line}" | cut -d '?' -f 1)"
