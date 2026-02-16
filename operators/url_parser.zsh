@@ -3,26 +3,26 @@
 # SPDX-License-Identifier: Apache-2.0
 
 url_table=(
-    a / 3 "safebooru.donmai.us/posts/.*"
-    d / 3 "danbooru.donmai.us/posts/.*"
-    g = 4 "gelbooru.com/index.php?page=post&s=view&id=.*"
-    i / 4 "www.idolcomplex.com/.*/posts/.*"
-    i / 4 "idolcomplex.com/.*/posts/.*"
-    i / 3 "www.idolcomplex.com/posts/.*"
-    i / 3 "idolcomplex.com/posts/.*"
-    k / 4 "konachan.com/post/show/.*"
-    s / 4 "www.sankakucomplex.com/.*/posts/.*"
-    i / 4 "sankakucomplex.com/.*/posts/.*"
-    s / 3 "www.sankakucomplex.com/posts/.*"
-    i / 3 "sankakucomplex.com/posts/.*"
-    y / 4 "yande.re/post/show/.*"
+    a / 3 "safebooru.donmai.us/posts/"
+    d / 3 "danbooru.donmai.us/posts/"
+    g = 4 "gelbooru.com/index.php?page=post&s=view&id="
+    i / 4 "www.idolcomplex.com/.*/posts/"
+    i / 4 "idolcomplex.com/.*/posts/"
+    i / 3 "www.idolcomplex.com/posts/"
+    i / 3 "idolcomplex.com/posts/"
+    k / 4 "konachan.com/post/show/"
+    s / 4 "www.sankakucomplex.com/.*/posts/"
+    i / 4 "sankakucomplex.com/.*/posts/"
+    s / 3 "www.sankakucomplex.com/posts/"
+    i / 3 "sankakucomplex.com/posts/"
+    y / 4 "yande.re/post/show/"
 )
 
 ib_mode="p"
 
 while [[ ${#url_table} -ge 4 ]]
 do
-    if url_line="$(grep -o "https://\?${url_table[4]}" <<< "${command} ${@}")"
+    if url_line="$(grep -o "https://\?${url_table[4]}.*" <<< "${command} ${@}")"
     then
         url_line="$(sed -e 's/https:\/\///g' -e 's/ .*//g' <<< "${url_line}")"
 
