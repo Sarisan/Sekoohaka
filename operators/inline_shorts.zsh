@@ -2,7 +2,7 @@
 # Copyright (C) 2024-2026 Danil Lisin
 # SPDX-License-Identifier: Apache-2.0
 
-until mkdir "${user_config}_shorts.lock"
+until mkdir "${user_config}.lock"
 do
     sleep 1
 done
@@ -40,7 +40,7 @@ then
         )"
     fi
 
-    rmdir "${user_config}_shorts.lock"
+    rmdir "${user_config}.lock"
     return
 fi
 
@@ -109,4 +109,4 @@ then
     next_offset=$((inline_page + 1))
 fi
 
-rmdir "${user_config}_shorts.lock"
+rmdir "${user_config}.lock"

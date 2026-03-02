@@ -45,13 +45,6 @@ data_table=(
     shorts "Shortcuts"
 )
 
-user_locks=(
-    data
-    auth
-    source
-    shorts
-)
-
 zmodules=(
     zsh/datetime
     zsh/files

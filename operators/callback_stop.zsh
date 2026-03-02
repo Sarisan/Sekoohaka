@@ -29,12 +29,9 @@ then
     return
 fi
 
-for lock in ${user_locks[@]}
+until mkdir "${user_config}.lock"
 do
-    until mkdir "${user_config}_${lock}.lock"
-    do
-        sleep 1
-    done
+    sleep 1
 done
 
 if [[ -n "${data_name}" ]]
@@ -62,9 +59,5 @@ fi
 
 source "${units}/stop.zsh"
 
-for lock in ${user_locks[@]}
-do
-    rmdir "${user_config}_${lock}.lock"
-done
-
+rmdir "${user_config}.lock"
 rmdir "${user_config}_stop.lock"

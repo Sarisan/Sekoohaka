@@ -8,17 +8,11 @@ then
     return
 fi
 
-for lock in ${user_locks[@]}
+until mkdir "${user_config}.lock"
 do
-    until mkdir "${user_config}_${lock}.lock"
-    do
-        sleep 1
-    done
+    sleep 1
 done
 
 source "${units}/stop.zsh"
 
-for lock in ${user_locks[@]}
-do
-    rmdir "${user_config}_${lock}.lock"
-done
+rmdir "${user_config}.lock"

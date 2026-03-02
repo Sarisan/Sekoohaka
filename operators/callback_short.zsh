@@ -2,7 +2,7 @@
 # Copyright (C) 2024-2026 Danil Lisin
 # SPDX-License-Identifier: Apache-2.0
 
-until mkdir "${user_config}_shorts.lock"
+until mkdir "${user_config}.lock"
 do
     sleep 1
 done
@@ -14,7 +14,7 @@ then
 else
     notification_text="You must specify query"
 
-    rmdir "${user_config}_shorts.lock"
+    rmdir "${user_config}.lock"
     return
 fi
 
@@ -27,7 +27,7 @@ then
     log_text="callback_short (${update_id}): ${notification_text}"
     source "${units}/log.zsh"
 
-    rmdir "${user_config}_shorts.lock"
+    rmdir "${user_config}.lock"
     return
 fi
 
@@ -54,4 +54,4 @@ then
     rmdir "${shorts_config}"
 fi
 
-rmdir "${user_config}_shorts.lock"
+rmdir "${user_config}.lock"

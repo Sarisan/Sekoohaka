@@ -2,7 +2,7 @@
 # Copyright (C) 2024-2026 Danil Lisin
 # SPDX-License-Identifier: Apache-2.0
 
-until mkdir "${user_config}_shorts.lock"
+until mkdir "${user_config}.lock"
 do
     sleep 1
 done
@@ -18,7 +18,7 @@ if [[ ${#shorts} -eq 0 ]]
 then
     output_text="You have no saved shortcuts yet"
 
-    rmdir "${user_config}_shorts.lock"
+    rmdir "${user_config}.lock"
     return
 fi
 
@@ -50,4 +50,4 @@ then
     )"
 fi
 
-rmdir "${user_config}_shorts.lock"
+rmdir "${user_config}.lock"

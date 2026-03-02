@@ -7,7 +7,7 @@ then
     exit
 fi
 
-until mkdir "${user_config}_source.lock"
+until mkdir "${user_config}.lock"
 do
     sleep 1
 done
@@ -21,7 +21,7 @@ then
     rmdir "${user_config}"
 fi
 
-rmdir "${user_config}_source.lock"
+rmdir "${user_config}.lock"
 
 if [[ -n "${output_text}" ]]
 then

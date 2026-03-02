@@ -8,22 +8,130 @@ then
     return
 fi
 
-for lock in ${user_locks[@]}
+until mkdir "${user_config}.lock"
 do
-    until mkdir "${user_config}_${lock}.lock"
-    do
-        sleep 1
-    done
+    sleep 1
 done
 
-source "${units}/export.zsh"
-
-for lock in ${user_locks[@]}
-do
-    rmdir "${user_config}_${lock}.lock"
-done
-
-if [[ -z "${output_text}" ]]
+if ! [[ -d "${user_config}" ]]
 then
-    exit
+    output_text="No user data found"
+
+    rmdir "${user_config}.lock"
+    return
 fi
+
+until mkdir "${cache}/${user_id}.lock"
+do
+    sleep 1
+done
+
+rm -f "${cache}/${user_id}.tar"
+
+if ! tar c -hf "${cache}/${user_id}.tar" -C "${users}" "${user_id}"
+then
+    output_text="Something went wrong, try again later"
+
+    rmdir "${cache}/${user_id}.lock"
+    return
+fi
+
+if ! output_data="$(
+    curl --connect-timeout ${connrefused_timeout} \
+        --data-urlencode "chat_id=${chat_id}" \
+        --data-urlencode "action=upload_document" \
+        --get \
+        --max-time ${internal_timeout} \
+        --proxy "${internal_proxy}" \
+        --retry 1 \
+        --retry-connrefused \
+        --retry-max-time $((internal_timeout - connrefused_timeout)) \
+        --silent \
+        --user-agent "${useragent}" \
+        "${api_address}/bot${api_token}/sendChatAction"
+)"
+then
+    log_text="sendChatAction (${update_id}): Failed to access Telegram Bot API"
+    source "${units}/log.zsh"
+fi
+
+if [[ -z "${log_text}" ]] && ! jq -e '.' <<< "${output_data}" > /dev/null
+then
+    log_text="sendChatAction (${update_id}): An unknown error occurred"
+    source "${units}/log.zsh"
+fi
+
+if [[ -z "${log_text}" && "$(jq -r '.ok' <<< "${output_data}")" != "true" ]]
+then
+    error_description="$(jq -r '.description' <<< "${output_data}")"
+
+    if [[ "${error_description}" != "null" ]]
+    then
+        log_text="sendChatAction (${update_id}): ${error_description}"
+    else
+        log_text="sendChatAction (${update_id}): An unknown error occurred"
+    fi
+
+    source "${units}/log.zsh"
+fi
+
+if ! output_data="$(
+    curl --connect-timeout ${connrefused_timeout} \
+        --form "chat_id=${chat_id}" \
+        --form "document=@${cache}/${user_id}.tar" \
+        --form "reply_parameters=${reply_parameters}" \
+        --get \
+        --max-time ${internal_timeout} \
+        --proxy "${internal_proxy}" \
+        --retry 1 \
+        --retry-connrefused \
+        --retry-max-time $((internal_timeout - connrefused_timeout)) \
+        --silent \
+        --user-agent "${useragent}" \
+        "${api_address}/bot${api_token}/sendDocument"
+)"
+then
+    output_text="Failed to send user data"
+
+    log_text="sendDocument (${update_id}): Failed to access Telegram Bot API"
+    source "${units}/log.zsh"
+
+    rmdir "${cache}/${user_id}.lock"
+    rmdir "${user_config}.lock"
+    return
+fi
+
+if ! jq -e '.' <<< "${output_data}" > /dev/null
+then
+    output_text="An unknown error occurred"
+
+    log_text="sendDocument (${update_id}): An unknown error occurred"
+    source "${units}/log.zsh"
+
+    rmdir "${cache}/${user_id}.lock"
+    rmdir "${user_config}.lock"
+    return
+fi
+
+if [[ "$(jq -r '.ok' <<< "${output_data}")" != "true" ]]
+then
+    output_text="Failed to send user data"
+    error_description="$(jq -r '.description' <<< "${output_data}")"
+
+    if [[ "${error_description}" != "null" ]]
+    then
+        log_text="sendDocument (${update_id}): ${error_description}"
+    else
+        log_text="sendDocument (${update_id}): An unknown error occurred"
+    fi
+
+    source "${units}/log.zsh"
+
+    rmdir "${cache}/${user_id}.lock"
+    rmdir "${user_config}.lock"
+    return
+fi
+
+rmdir "${cache}/${user_id}.lock"
+rmdir "${user_config}.lock"
+exit
