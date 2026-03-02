@@ -847,11 +847,11 @@ fi
 log_text="Setting bot commands..."
 source "${units}/log.zsh"
 
-commands_list="$(< "${files}/commands.json")"
+commands_list="$(jq -c '.' "${files}/commands.json")"
 
 if [[ -n "${nocommand_source}" ]]
 then
-    commands_list="$(jq 'del(.[]|select(.command=="source"))' <<< "${commands_list}")"
+    commands_list="$(jq -c 'del(.[]|select(.command=="source"))' <<< "${commands_list}")"
 fi
 
 if ! input_data="$(
