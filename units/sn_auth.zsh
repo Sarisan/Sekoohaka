@@ -17,6 +17,12 @@ else
     return
 fi
 
+if ! mkdir -p "${user_config}"
+then
+    output_text="Failed to create user config"
+    return
+fi
+
 if ! sn_data="$(
     curl --connect-timeout ${connrefused_timeout} \
         --data-urlencode "output_type=2" \
