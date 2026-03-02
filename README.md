@@ -2,6 +2,13 @@
 
 Telegram Image Board Bot written in Z Shell (zsh)
 
+Search posts, pools and tags on various booru-like Image Boards,  
+Authorize to expand limits and access private favorites,  
+View post information, tags, get original file,  
+Do MD5 hash lookup to find post by a hash,  
+Reverse search image with SauceNAO,  
+Create and save inline shortcuts
+
 ## Requirements
 
 ### Commands
