@@ -20,6 +20,10 @@ fi
 if ! mkdir -p "${user_config}"
 then
     output_text="Failed to create user config"
+
+    log_text="sn_auth (${update_id}): ${output_text}"
+    source "${units}/log.zsh"
+
     return
 fi
 

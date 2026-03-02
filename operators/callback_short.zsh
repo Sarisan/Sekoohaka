@@ -24,6 +24,9 @@ if ! mkdir -p "${shorts_config}"
 then
     notification_text="Failed to create user config"
 
+    log_text="callback_short (${update_id}): ${notification_text}"
+    source "${units}/log.zsh"
+
     rmdir "${user_config}_shorts.lock"
     return
 fi

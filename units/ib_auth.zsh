@@ -27,6 +27,10 @@ fi
 if ! mkdir -p "${auth_dir}"
 then
     output_text="Failed to create user config"
+
+    log_text="ib_auth (${update_id}): ${output_text}"
+    source "${units}/log.zsh"
+
     return
 fi
 
