@@ -14,6 +14,13 @@ done
 
 source "${units}/sn_auth.zsh"
 
+user_data=($(ls -1 "${user_config}"))
+
+if [[ ${#user_data} -eq 0 ]]
+then
+    rmdir "${user_config}"
+fi
+
 rmdir "${user_config}_source.lock"
 
 if [[ -n "${output_text}" ]]
