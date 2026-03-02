@@ -7,13 +7,11 @@ ib_cname="donmai"
 case "${ib_board}" in
     (a)
         ib_name="Safebooru"
-        ib_config="safebooru"
         ib_api="https://safebooru.donmai.us"
         ib_url="https://safebooru.donmai.us"
     ;;
     (d)
         ib_name="Danbooru"
-        ib_config="danbooru"
         ib_api="https://danbooru.donmai.us"
         ib_url="https://danbooru.donmai.us"
     ;;

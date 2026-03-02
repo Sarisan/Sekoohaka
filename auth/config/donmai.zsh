@@ -5,9 +5,11 @@
 case "${ib_board}" in
     (a)
         ib_auth="https://safebooru.donmai.us"
+        ib_config="safebooru"
     ;;
     (d)
         ib_auth="https://danbooru.donmai.us"
+        ib_config="danbooru"
     ;;
 esac
 

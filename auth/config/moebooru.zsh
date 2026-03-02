@@ -5,9 +5,11 @@
 case "${ib_board}" in
     (k)
         ib_auth="https://konachan.com"
+        ib_config="konachan"
     ;;
     (y)
         ib_auth="https://yande.re"
+        ib_config="yandere"
     ;;
 esac
 

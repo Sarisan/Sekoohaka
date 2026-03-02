@@ -4,6 +4,7 @@
 
 ib_auth=0
 ib_raw=0
+ib_config="gelbooru"
 ib_login_file="user_id"
 ib_key_file="api_key"
 ib_login_word="user ID"

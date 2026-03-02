@@ -7,7 +7,6 @@ ib_cname="sankakucomplex"
 case "${ib_board}" in
     (i)
         ib_name="Idol Complex"
-        ib_config="idolcomplex"
         ib_api="https://i.sankakuapi.com"
         ib_url="https://www.idolcomplex.com"
 
@@ -25,7 +24,6 @@ case "${ib_board}" in
     ;;
     (s)
         ib_name="Sankaku Channel"
-        ib_config="sankakuchannel"
         ib_api="https://sankakuapi.com"
         ib_url="https://www.sankakucomplex.com"
 

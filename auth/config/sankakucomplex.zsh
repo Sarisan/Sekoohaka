@@ -5,9 +5,11 @@
 case "${ib_board}" in
     (i)
         ib_auth="https://i.sankakuapi.com"
+        ib_config="idolcomplex"
     ;;
     (s)
         ib_auth="https://sankakuapi.com"
+        ib_config="sankakuchannel"
     ;;
 esac
 

@@ -5,7 +5,6 @@
 ib_cname="gelbooru"
 
 ib_name="Gelbooru"
-ib_config="gelbooru"
 ib_api="https://gelbooru.com"
 ib_url="https://gelbooru.com"
 

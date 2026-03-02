@@ -7,13 +7,11 @@ ib_cname="moebooru"
 case "${ib_board}" in
     (k)
         ib_name="Konachan.com"
-        ib_config="konachan"
         ib_api="https://konachan.com"
         ib_url="https://konachan.com"
     ;;
     (y)
         ib_name="yande.re"
-        ib_config="yandere"
         ib_api="https://yande.re"
         ib_url="https://yande.re"
     ;;
