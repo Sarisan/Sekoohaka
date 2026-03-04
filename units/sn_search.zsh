@@ -6,12 +6,14 @@ if ! sn_data="$(
     curl --connect-timeout ${connrefused_timeout} \
         --form "output_type=2" \
         --form "api_key=${sn_key}" \
+        --form "dbs[]=5" \
         --form "dbs[]=9" \
         --form "dbs[]=12" \
         --form "dbs[]=25" \
         --form "dbs[]=26" \
         --form "dbs[]=27" \
         --form "dbs[]=30" \
+        --form "dbs[]=41" \
         --form "dedupe=2" \
         --form "${sn_query}" \
         --get \
