@@ -123,6 +123,8 @@ Get original file of post <code>4507929</code> from Danbooru
 
 Search post with <code>70fdac227d8efbf66e9bae98642341ea</code> MD5 hash on all supported Image Boards
 <code>/hash 70fdac227d8efbf66e9bae98642341ea</code>
+
+You can use <code>/original</code> and <code>/post</code> in reply to inline message for quicker access
 <<<<<<<<
 
 
