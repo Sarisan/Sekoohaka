@@ -53,14 +53,14 @@ if [[ -z "${output_text}" ]]
 then
     printf "%s\n" "${ib_login}" > "${login_file}"
     printf "%s\n" "${ib_key}" > "${key_file}"
-else
-    for user_data_dir in "${auth_dir}" "${user_config}"
-    do
-        user_data=($(ls -1 "${user_data_dir}"))
-
-        if [[ ${#user_data} -eq 0 ]]
-        then
-            rmdir "${user_data_dir}"
-        fi
-    done
 fi
+
+for user_data_dir in "${auth_dir}" "${user_config}"
+do
+    user_data=($(ls -1 "${user_data_dir}"))
+
+    if [[ ${#user_data} -eq 0 ]]
+    then
+        rmdir "${user_data_dir}"
+    fi
+done
