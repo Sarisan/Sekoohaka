@@ -10,9 +10,6 @@ case "${ib_board}" in
     (a|d)
         source "${config}/donmai.zsh"
     ;;
-    (g)
-        source "${config}/gelbooru.zsh"
-    ;;
     (i|s)
         source "${config}/sankakucomplex.zsh"
     ;;

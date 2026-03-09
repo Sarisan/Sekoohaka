@@ -33,14 +33,14 @@ fi
 
 if [[ -z "${output_text}" ]]
 then
-    ib_id="$(jq -r ".${ib_iarray}[0].${ib_iid}" "${ib_file}")"
+    ib_id="$(jq -r ".[0].${ib_iid}" "${ib_file}")"
 
     if ! [[ -f "${ib_sample}" ]]
     then
-        ib_file_size="$(jq -r ".${ib_iarray}[0].${ib_isize}" "${ib_file}")"
-        ib_file_url="$(jq -r ".${ib_iarray}[0].${ib_ifile}" "${ib_file}")"
-        ib_sample_url="$(jq -r ".${ib_iarray}[0].${ib_isample}" "${ib_file}")"
-        ib_preview_url="$(jq -r ".${ib_iarray}[0].${ib_ipreview}" "${ib_file}")"
+        ib_file_size="$(jq -r ".[0].${ib_isize}" "${ib_file}")"
+        ib_file_url="$(jq -r ".[0].${ib_ifile}" "${ib_file}")"
+        ib_sample_url="$(jq -r ".[0].${ib_isample}" "${ib_file}")"
+        ib_preview_url="$(jq -r ".[0].${ib_ipreview}" "${ib_file}")"
 
         source "${units}/ib_meta.zsh"
 

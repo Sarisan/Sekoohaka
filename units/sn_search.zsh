@@ -9,7 +9,6 @@ if ! sn_data="$(
         --form "dbs[]=5" \
         --form "dbs[]=9" \
         --form "dbs[]=12" \
-        --form "dbs[]=25" \
         --form "dbs[]=26" \
         --form "dbs[]=27" \
         --form "dbs[]=30" \

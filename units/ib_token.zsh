@@ -9,8 +9,8 @@ done
 
 if [[ -n "${ib_raw}" ]]
 then
-    ib_dfield5="${ib_login_file}=$(< "${login_file}")"
-    ib_dfield6="${ib_key_file}=$(< "${key_file}")"
+    ib_dfield1="${ib_login_file}=$(< "${login_file}")"
+    ib_dfield2="${ib_key_file}=$(< "${key_file}")"
 fi
 
 if [[ -f "${timestamp_file}" ]]

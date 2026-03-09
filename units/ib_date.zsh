@@ -4,11 +4,6 @@
 
 if [[ -n "${ib_created_at}" && "${ib_created_at}" != "null" ]]
 then
-    if [[ -n "${ib_itzfield}" ]]
-    then
-        ib_created_at="$(cut -d ' ' -f ${ib_itzfield} <<< "${ib_created_at}")"
-    fi
-
     if [[ -n "${ib_idate}" ]]
     then
         ib_created_at="$(strftime -r "${ib_idate}" "${ib_created_at}")"

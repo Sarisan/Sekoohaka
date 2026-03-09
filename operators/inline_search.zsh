@@ -94,26 +94,26 @@ then
     return
 fi
 
-ib_ids=("${(@f)$(jq -r ".${ib_iarray}[].${ib_iid}" "${ib_file}")}")
+ib_ids=("${(@f)$(jq -r ".[].${ib_iid}" "${ib_file}")}")
 
 case "${ib_mode}" in
     (l)
-        ib_created_ats=("${(@f)$(jq -r ".${ib_iarray}[].${ib_icreated}" "${ib_file}")}")
-        ib_pools=("${(@f)$(jq -r ".${ib_iarray}[].${ib_ipool}" "${ib_file}")}")
-        ib_counts=("${(@f)$(jq -r ".${ib_iarray}[].${ib_icount}" "${ib_file}")}")
+        ib_created_ats=("${(@f)$(jq -r ".[].${ib_icreated}" "${ib_file}")}")
+        ib_pools=("${(@f)$(jq -r ".[].${ib_ipool}" "${ib_file}")}")
+        ib_counts=("${(@f)$(jq -r ".[].${ib_icount}" "${ib_file}")}")
     ;;
     (p)
-        ib_created_ats=("${(@f)$(jq -r ".${ib_iarray}[].${ib_icreated}" "${ib_file}")}")
-        ib_file_sizes=("${(@f)$(jq -r ".${ib_iarray}[].${ib_isize}" "${ib_file}")}")
-        ib_file_urls=("${(@f)$(jq -r ".${ib_iarray}[].${ib_ifile}" "${ib_file}")}")
-        ib_sample_urls=("${(@f)$(jq -r ".${ib_iarray}[].${ib_isample}" "${ib_file}")}")
-        ib_preview_urls=("${(@f)$(jq -r ".${ib_iarray}[].${ib_ipreview}" "${ib_file}")}")
-        ib_widths=("${(@f)$(jq -r ".${ib_iarray}[].${ib_iwidth}" "${ib_file}")}")
-        ib_heights=("${(@f)$(jq -r ".${ib_iarray}[].${ib_iheight}" "${ib_file}")}")
+        ib_created_ats=("${(@f)$(jq -r ".[].${ib_icreated}" "${ib_file}")}")
+        ib_file_sizes=("${(@f)$(jq -r ".[].${ib_isize}" "${ib_file}")}")
+        ib_file_urls=("${(@f)$(jq -r ".[].${ib_ifile}" "${ib_file}")}")
+        ib_sample_urls=("${(@f)$(jq -r ".[].${ib_isample}" "${ib_file}")}")
+        ib_preview_urls=("${(@f)$(jq -r ".[].${ib_ipreview}" "${ib_file}")}")
+        ib_widths=("${(@f)$(jq -r ".[].${ib_iwidth}" "${ib_file}")}")
+        ib_heights=("${(@f)$(jq -r ".[].${ib_iheight}" "${ib_file}")}")
     ;;
     (t)
-        ib_tags=("${(@f)$(jq -r ".${ib_iarray}[].${ib_itag}" "${ib_file}")}")
-        ib_counts=("${(@f)$(jq -r ".${ib_iarray}[].${ib_icount}" "${ib_file}")}")
+        ib_tags=("${(@f)$(jq -r ".[].${ib_itag}" "${ib_file}")}")
+        ib_counts=("${(@f)$(jq -r ".[].${ib_icount}" "${ib_file}")}")
     ;;
 esac
 

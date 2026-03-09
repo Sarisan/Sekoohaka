@@ -2,23 +2,22 @@
 # Copyright (C) 2024-2026 Danil Lisin
 # SPDX-License-Identifier: Apache-2.0
 
-ib_id="$(jq -r ".${ib_iarray}[0].${ib_iid}" "${ib_file}")"
-ib_created_at="$(jq -r ".${ib_iarray}[${array_count}].${ib_icreated}" "${ib_file}")"
-ib_file_size="$(jq -r ".${ib_iarray}[0].${ib_isize}" "${ib_file}")"
-ib_file_url="$(jq -r ".${ib_iarray}[0].${ib_ifile}" "${ib_file}")"
-ib_sample_url="$(jq -r ".${ib_iarray}[0].${ib_isample}" "${ib_file}")"
-ib_preview_url="$(jq -r ".${ib_iarray}[0].${ib_ipreview}" "${ib_file}")"
-ib_width="$(jq -r ".${ib_iarray}[0].${ib_iwidth}" "${ib_file}")"
-ib_height="$(jq -r ".${ib_iarray}[0].${ib_iheight}" "${ib_file}")"
-ib_rating="$(jq -r ".${ib_iarray}[0].${ib_irating}" "${ib_file}")"
-ib_parent_id="$(jq -r ".${ib_iarray}[0].${ib_iparent}" "${ib_file}")"
-ib_has_children="$(jq -r ".${ib_iarray}[0].${ib_ichildren}" "${ib_file}")"
-ib_md5="$(jq -r ".${ib_iarray}[0].${ib_imd5}" "${ib_file}")"
-ib_source="$(jq -r ".${ib_iarray}[0].${ib_isource}" "${ib_file}" | htmlescape)"
-ib_tags=($(jq -r ".${ib_iarray}[0].${ib_itags}" "${ib_file}"))
+ib_id="$(jq -r ".[0].${ib_iid}" "${ib_file}")"
+ib_created_at="$(jq -r ".[${array_count}].${ib_icreated}" "${ib_file}")"
+ib_file_size="$(jq -r ".[0].${ib_isize}" "${ib_file}")"
+ib_file_url="$(jq -r ".[0].${ib_ifile}" "${ib_file}")"
+ib_sample_url="$(jq -r ".[0].${ib_isample}" "${ib_file}")"
+ib_preview_url="$(jq -r ".[0].${ib_ipreview}" "${ib_file}")"
+ib_width="$(jq -r ".[0].${ib_iwidth}" "${ib_file}")"
+ib_height="$(jq -r ".[0].${ib_iheight}" "${ib_file}")"
+ib_rating="$(jq -r ".[0].${ib_irating}" "${ib_file}")"
+ib_parent_id="$(jq -r ".[0].${ib_iparent}" "${ib_file}")"
+ib_has_children="$(jq -r ".[0].${ib_ichildren}" "${ib_file}")"
+ib_md5="$(jq -r ".[0].${ib_imd5}" "${ib_file}")"
+ib_source="$(jq -r ".[0].${ib_isource}" "${ib_file}" | htmlescape)"
+ib_tags=($(jq -r ".[0].${ib_itags}" "${ib_file}"))
 
 source "${units}/ib_date.zsh"
-source "${units}/ib_size.zsh"
 source "${units}/ib_meta.zsh"
 
 output_text="$(printf "<b>%s</b>\n<b>ID:</b> <code>%s</code>" "${ib_name}" "${ib_id}")"

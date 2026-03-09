@@ -40,7 +40,6 @@ fi
 
 booru_table=(
     danbooru_id d "Danbooru"
-    gelbooru_id g "Gelbooru"
     idol_id i "Idol Complex"
     konachan_id k "Konachan.com"
     sankaku_id s "Sankaku Channel"

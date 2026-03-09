@@ -30,7 +30,7 @@ fi
 
 if [[ -n "${ib_page}" ]]
 then
-    ib_page="${ib_dpage}=$((ib_page + ib_ioffset))"
+    ib_page="${ib_dpage}=${ib_page}"
 fi
 
 if [[ -n "${ib_query}" ]]
@@ -43,10 +43,6 @@ rm -f "${ib_file}"
 if ! curl --connect-timeout ${connrefused_timeout} \
     --data-urlencode "${ib_dfield1}" \
     --data-urlencode "${ib_dfield2}" \
-    --data-urlencode "${ib_dfield3}" \
-    --data-urlencode "${ib_dfield4}" \
-    --data-urlencode "${ib_dfield5}" \
-    --data-urlencode "${ib_dfield6}" \
     --data-urlencode "${ib_limit}" \
     --data-urlencode "${ib_page}" \
     --data-urlencode "${ib_query}" \
@@ -88,7 +84,7 @@ then
     return
 fi
 
-if ! jq -e ".${ib_iarray}[0]|has(\"${ib_iid}\")" "${ib_file}" > /dev/null
+if ! jq -e ".[0]|has(\"${ib_iid}\")" "${ib_file}" > /dev/null
 then
     if [[ -n "${inline_options}" && -n "${offset}" ]]
     then

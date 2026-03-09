@@ -38,9 +38,6 @@ case "${ib_board}" in
     (a|d)
         source "${auth}/donmai.zsh"
     ;;
-    (g)
-        source "${auth}/gelbooru.zsh"
-    ;;
     (i|s)
         source "${auth}/sankakucomplex.zsh"
     ;;

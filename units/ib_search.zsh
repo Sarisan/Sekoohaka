@@ -64,8 +64,3 @@ fi
 
 ib_limit=${inline_limit}
 ib_page=${inline_page}
-
-if [[ -n "${ib_iwildcard}" ]]
-then
-    ib_query="$(sed "s/${ib_iwildcard}/\\\\${ib_iwildcard}/g" <<< "${ib_query}" | tr '*' "${ib_iwildcard}")"
-fi

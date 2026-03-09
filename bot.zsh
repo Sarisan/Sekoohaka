@@ -36,7 +36,6 @@ offset=-1
 data_table=(
     safebooru "Safebooru"
     danbooru "Danbooru"
-    gelbooru "Gelbooru"
     idolcomplex "Idol Complex"
     konachan "Konachan.com"
     sankakuchannel "Sankaku Channel"
@@ -177,7 +176,6 @@ then
         "\n\nSupported Image Boards:" \
         "\n  Safebooru\t\t(https://safebooru.donmai.us/)" \
         "\n  Danbooru\t\t(https://danbooru.donmai.us/)" \
-        "\n  Gelbooru\t\t(https://gelbooru.com/)" \
         "\n  Idol Complex\t\t(https://www.idolcomplex.com/)" \
         "\n  Konachan.com\t\t(https://konachan.com/)" \
         "\n  Sankaku Channel\t(https://www.sankakucomplex.com/)" \
