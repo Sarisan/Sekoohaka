@@ -72,7 +72,6 @@ busybox=(
     sleep
     tail
     tar
-    tr
     wc
 )
 
