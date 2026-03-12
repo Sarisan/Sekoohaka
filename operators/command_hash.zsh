@@ -28,7 +28,7 @@ do
     done
 done
 
-for ib_board in {a..z}
+for ib_board in ${board_table[@]}
 do
     source "${units}/ib_config.zsh"
     source "${units}/ib_hash.zsh" &

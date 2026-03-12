@@ -8,11 +8,6 @@ ib_mode="p"
 source "${units}/ib_config.zsh"
 source "${units}/ib_authconfig.zsh"
 
-if [[ -z "${ib_data_url}" ]]
-then
-    exit
-fi
-
 ib_query="md5:${ib_post_md5}"
 
 ib_hash="$(sha1sum <<< "${user_id}${ib_board}${ib_query}" | cut -d ' ' -f 1)"

@@ -33,6 +33,8 @@ units="${dir}/units"
 users="${dir}/users"
 offset=-1
 
+board_table=(a d i s k y)
+
 data_table=(
     safebooru "Safebooru"
     danbooru "Danbooru"
