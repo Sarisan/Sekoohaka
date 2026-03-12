@@ -411,7 +411,7 @@ alias urlencode="jq -Rr @uri"
 log_text="PID: ${$}"
 source "${units}/log.zsh"
 
-log_text="CWD: $(pwd)"
+log_text="CWD: ${dir}"
 source "${units}/log.zsh"
 
 log_text="Creating directories..."
