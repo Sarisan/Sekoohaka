@@ -72,7 +72,6 @@ busybox=(
     sleep
     tail
     tar
-    wc
 )
 
 if [[ -n "${1}" ]]
@@ -711,7 +710,7 @@ then
 fi
 
 help_line_counter=1
-help_max_line=$(($(wc -l <<< "${file_content}" | cut -d ' ' -f 1) + 1))
+help_max_line=$(($(grep -c '' <<< "${file_content}" | cut -d ' ' -f 1) + 1))
 
 until [[ ${help_line_counter} -eq $((help_max_line + 1)) ]]
 do

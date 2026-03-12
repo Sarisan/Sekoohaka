@@ -36,7 +36,6 @@ For distribution specific installation commands follow [command-not-found](https
 * sleep
 * tail
 * tar
-* wc
 
 ## Deployment
 
