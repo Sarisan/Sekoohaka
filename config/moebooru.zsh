@@ -6,12 +6,12 @@ ib_cname="moebooru"
 
 case "${ib_board}" in
     (k)
-        ib_name="Konachan.com"
+        ib_name="Konachan"
         ib_api="https://konachan.com"
         ib_url="https://konachan.com"
     ;;
     (y)
-        ib_name="yande.re"
+        ib_name="Yandere"
         ib_api="https://yande.re"
         ib_url="https://yande.re"
     ;;

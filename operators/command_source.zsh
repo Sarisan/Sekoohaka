@@ -41,9 +41,9 @@ fi
 booru_table=(
     danbooru_id d "Danbooru"
     idol_id i "Idol Complex"
-    konachan_id k "Konachan.com"
     sankaku_id s "Sankaku Channel"
-    yandere_id y "yande.re"
+    konachan_id k "Konachan"
+    yandere_id y "Yandere"
 )
 
 external_table=(

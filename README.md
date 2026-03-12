@@ -79,9 +79,9 @@ Cache modes:
 * [Safebooru](https://safebooru.donmai.us/)
 * [Danbooru](https://danbooru.donmai.us/)
 * [Idol Complex](https://www.idolcomplex.com/)
-* [Konachan.com](https://konachan.com/)
 * [Sankaku Channel](https://www.sankakucomplex.com/)
-* [yande.re](https://yande.re/)
+* [Konachan](https://konachan.com/)
+* [Yandere](https://yande.re/)
 
 ## Donation
 

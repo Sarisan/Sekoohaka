@@ -37,9 +37,9 @@ data_table=(
     safebooru "Safebooru"
     danbooru "Danbooru"
     idolcomplex "Idol Complex"
-    konachan "Konachan.com"
     sankakuchannel "Sankaku Channel"
-    yandere "yande.re"
+    konachan "Konachan"
+    yandere "Yandere"
     saucenao "SauceNAO"
     shorts "Shortcuts"
 )
