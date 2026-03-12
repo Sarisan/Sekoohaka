@@ -60,7 +60,6 @@ case "${ib_mode}" in
         ib_imd5="md5"
         ib_isource="source"
         ib_itags="tags"
-        ib_ifilename="sed 's/\/${ib_name}.*\./\./' | cut -d '/' -f 5"
         ib_url="${ib_url}/post/show/"
     ;;
     (t)

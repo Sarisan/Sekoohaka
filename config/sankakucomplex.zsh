@@ -78,7 +78,6 @@ case "${ib_mode}" in
         ib_imd5="md5"
         ib_isource="deprecated"
         ib_itags="tags[].tagName"
-        ib_ifilename="cut -d '?' -f 1 | cut -d '/' -f 7"
         ib_url="${ib_url}/posts/"
     ;;
     (t)

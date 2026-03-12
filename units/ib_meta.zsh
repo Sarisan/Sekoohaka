@@ -4,7 +4,7 @@
 
 if [[ -n "${ib_file_url}" && "${ib_file_url}" != "null" ]]
 then
-    ib_type="$(eval ${ib_ifilename} <<< "${ib_file_url}" | cut -d '.' -f 2)"
+    ib_type="$(cut -d '?' -f 1 <<< "${ib_file_url##*.}")"
 
     if [[ -z "${ib_sample_url}" || "${ib_sample_url}" == "null" ]]
     then
@@ -26,7 +26,7 @@ then
 
     if [[ -n "${ib_type}" ]]
     then
-        ib_type_text="$(tr '[:lower:]' '[:upper:]' <<< "${ib_type}")"
+        ib_type_text="${(U)ib_type}"
     fi
 
     case "${ib_type}" in

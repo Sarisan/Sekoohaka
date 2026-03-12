@@ -11,7 +11,7 @@ source "${units}/ib_date.zsh"
 
 if [[ -n "${ib_ispace}" ]]
 then
-    ib_pool="$(tr "${ib_ispace}" ' ' <<< "${ib_pool}")"
+    ib_pool="${ib_pool//${ib_ispace}/ }"
 fi
 
 if [[ ${#ib_pool} -gt 1024 ]]

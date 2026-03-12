@@ -67,7 +67,6 @@ case "${ib_mode}" in
         ib_isource="source"
         ib_itags="tag_string"
         ib_idate="%Y-%m-%dT%X"
-        ib_ifilename="cut -d '/' -f 7"
         ib_url="${ib_url}/posts/"
     ;;
     (t)
