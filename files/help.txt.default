@@ -167,7 +167,7 @@ Create inline shortcut with <code>p d -mq ringouulu</code> query
 
 Once shortcut is created you can click <i>Manage</i> button to save or remove it from your shortcuts storage
 
-Use this command to see how many shortcuts you have and to list them
+Use this command to list and manage your shortcuts
 <code>/shorts</code>
 
 Once you saved at least one shortcut opening inline query will show you all your saved shortcuts,
