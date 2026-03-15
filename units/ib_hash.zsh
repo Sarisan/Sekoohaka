@@ -30,7 +30,7 @@ if [[ -z "${output_text}" ]]
 then
     ib_id="$(jq -r ".[0].${ib_iid}" "${ib_file}")"
 
-    if ! [[ -f "${ib_sample}" ]]
+    if ! [[ -f "${ib_sample}" && "$(< "${ib_sample}")" != "${ib_error_url}" ]]
     then
         ib_file_size="$(jq -r ".[0].${ib_isize}" "${ib_file}")"
         ib_file_url="$(jq -r ".[0].${ib_ifile}" "${ib_file}")"
