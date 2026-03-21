@@ -10,7 +10,7 @@ source "${units}/ib_authconfig.zsh"
 
 ib_query="md5:${ib_post_md5}"
 
-ib_hash="$(sha1sum <<< "${user_id}${ib_board}${ib_query}" | cut -d ' ' -f 1)"
+ib_hash="$(sha1sum <<< "${user_id}${ib_board}${ib_query}" | cut -F 1)"
 ib_file="${cache}/${ib_hash}.json"
 
 until mkdir "${cache}/${ib_hash}.lock"

@@ -31,7 +31,7 @@ then
     return
 fi
 
-short_hash="$(sha1sum <<< "${short_query}" | cut -d ' ' -f 1)"
+short_hash="$(sha1sum <<< "${short_query}" | cut -F 1)"
 short="${shorts_config}/${short_hash}"
 shorts=($(ls -1 "${shorts_config}"))
 

@@ -5,7 +5,7 @@
 ib_post="$(jq -c ".[$((idx - 1))]" "${ib_file}")"
 ib_query="id:${ib_id}"
 
-ib_hash="$(sha1sum <<< "${user_id}${ib_board}${ib_query}" | cut -d ' ' -f 1)"
+ib_hash="$(sha1sum <<< "${user_id}${ib_board}${ib_query}" | cut -F 1)"
 ib_file="${cache}/${ib_hash}.json"
 
 until mkdir "${cache}/${ib_hash}.lock"

@@ -10,7 +10,7 @@ target_user="${user_id}"
 
 if [[ -s "${aliases_list}" ]] && alias="$(grep -x "${user_id} .*" "${aliases_list}")"
 then
-    user_id="$(cut -d ' ' -f 2 <<< "${alias}")"
+    user_id="$(cut -F 2 <<< "${alias}")"
 fi
 
 if [[ -s "${blacklist_list}" ]] && grep -qx "${user_id}" "${blacklist_list}"

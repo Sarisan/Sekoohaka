@@ -59,7 +59,7 @@ then
     return
 fi
 
-ib_hash="$(sha1sum <<< "${user_id}${ib_mode}${ib_board}${ib_page}${ib_query}" | cut -d ' ' -f 1)"
+ib_hash="$(sha1sum <<< "${user_id}${ib_mode}${ib_board}${ib_page}${ib_query}" | cut -F 1)"
 ib_file="${cache}/${ib_hash}.json"
 
 until mkdir "${cache}/${ib_hash}.lock"

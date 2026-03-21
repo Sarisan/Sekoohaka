@@ -157,7 +157,7 @@ case "${action}" in
 
         if alias="$(grep -x "${user_id} .*" "${list}")"
         then
-            alias_id="$(cut -d ' ' -f 2 <<< "${alias}")"
+            alias_id="$(cut -F 2 <<< "${alias}")"
 
             echo "User ID ${user_id} is already aliased to ${alias_id}"
             exit 1

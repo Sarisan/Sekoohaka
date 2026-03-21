@@ -36,7 +36,7 @@ do
     fi
 done
 
-ib_post_id="$(sed '2!d' <<< "${reply_text}" | cut -d ' ' -f 2)"
+ib_post_id="$(sed '2!d' <<< "${reply_text}" | cut -F 2)"
 
 if [[ -z "${ib_post_id}" ]]
 then
