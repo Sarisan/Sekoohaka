@@ -84,7 +84,7 @@ then
     exit 1
 fi
 
-for function in grep sed
+for function in cut grep sed
 do
     if busybox ${function} --help > /dev/null
     then
