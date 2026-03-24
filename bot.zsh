@@ -6,7 +6,7 @@
 
 if [[ "${__bot_env}" != "0" ]]
 then
-    trap 'wait && exit 0' INT TERM
+    trap wait INT TERM
     env -i PATH="${PATH}" __bot_env=0 "${0}" ${@}
     exit ${?}
 fi
