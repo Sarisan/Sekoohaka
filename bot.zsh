@@ -173,9 +173,9 @@ then
         "\n  Safebooru\t\t(https://safebooru.donmai.us/)" \
         "\n  Danbooru\t\t(https://danbooru.donmai.us/)" \
         "\n  Idol Complex\t\t(https://www.idolcomplex.com/)" \
-        "\n  Konachan.com\t\t(https://konachan.com/)" \
         "\n  Sankaku Channel\t(https://www.sankakucomplex.com/)" \
-        "\n  yande.re\t\t(https://yande.re/)"
+        "\n  Konachan\t\t(https://konachan.com/)" \
+        "\n  Yandere\t\t(https://yande.re/)"
     exit 0
 fi
 
