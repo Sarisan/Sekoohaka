@@ -60,7 +60,6 @@ Options:
   -q            Do not print logs
   -i <secs>     Telegram Bot API connetion timeout, max: 5, default: 5 secs
   -e <secs>     Image Boards API connetion timeout, max: 5, default: 5 secs
-  -d <secs>     Head request connetion timeout, max: 5, default: 2 secs
   -f <secs>     Connrefused timeout, max: 2, default: none
   -n <addr>     Proxy server for Telegram Bot API
   -x <addr>     Proxy server for Image Boards/SauceNAO API

@@ -76,7 +76,7 @@ busybox=(
 
 if [[ -n "${1}" ]]
 then
-    while getopts ha:olg:r:m:t:s:cqi:e:d:f:n:x:k: opts
+    while getopts ha:olg:r:m:t:s:cqi:e:f:n:x:k: opts
     do
         case "${opts}" in
             (h)
@@ -117,9 +117,6 @@ then
             ;;
             (e)
                 external_timeout=${OPTARG}
-            ;;
-            (d)
-                head_timeout=${OPTARG}
             ;;
             (f)
                 connrefused_timeout=${OPTARG}
@@ -164,7 +161,6 @@ then
         "\n  -q\t\tDo not print logs" \
         "\n  -i <secs>\tTelegram Bot API connetion timeout, max: 5, default: 5 secs" \
         "\n  -e <secs>\tImage Boards API connetion timeout, max: 5, default: 5 secs" \
-        "\n  -d <secs>\tHead request connetion timeout, max: 5, default: 2 secs" \
         "\n  -f <secs>\tConnrefused timeout, max: 2, default: none" \
         "\n  -n <addr>\tProxy server for Telegram Bot API" \
         "\n  -x <addr>\tProxy server for Image Boards/SauceNAO API" \
@@ -350,23 +346,6 @@ then
     fi
 else
     external_timeout=5
-fi
-
-if [[ -n "${head_timeout}" ]]
-then
-    if ! test ${head_timeout} -gt 0
-    then
-        echo "Illegal head request timeout" \
-            "\nSee '${0} -h'"
-        exit 1
-    fi
-
-    if [[ ${head_timeout} -gt 5 ]]
-    then
-        head_timeout=5
-    fi
-else
-    head_timeout=2
 fi
 
 if [[ -n "${connrefused_timeout}" ]]
