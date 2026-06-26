@@ -16,6 +16,12 @@ esac
 
 auth_dir="${user_config}/${ib_config}"
 
+if ! [[ -d "${auth_dir}" || -n "${command_authorize}" ]]
+then
+    user_config="${default_user_config}"
+    auth_dir="${user_config}/${ib_config}"
+fi
+
 timestamp_file="${auth_dir}/timestamp"
 token_file="${auth_dir}/token"
 login_file="${auth_dir}/${ib_login_file}"

@@ -63,13 +63,31 @@ Options:
   -f <secs>     Connrefused timeout, max: 2, default: none
   -n <addr>     Proxy server for Telegram Bot API
   -x <addr>     Proxy server for Image Boards/SauceNAO API
-  -k <key>      SauceNAO API key for public use
 
 Cache modes:
   none          No cache reuse
   normal        Reuse inline results and posts cache
   advanced      Extract posts cache from inline results
 ```
+
+### Default user
+
+You can configure default user to let users without an account on certain Image Board or SauceNAO still have access to it with extended limits
+
+Make sure to turn bot off before any data manipulation
+
+Simply copy desired data from your user directory to `users/0`
+
+| Data | Name |
+| :--- | :--- |
+| `safebooru` | Safebooru |
+| `danbooru` | Danbooru |
+| `idolcomplex` | Idol Complex |
+| `sankakuchannel` | Sankaku Channel |
+| `konachan` | Konachan |
+| `yandere` | Yandere |
+| `saucenao` | SauceNAO |
+
 
 ## Supported Image Boards
 

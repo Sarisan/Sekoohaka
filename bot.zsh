@@ -76,7 +76,7 @@ busybox=(
 
 if [[ -n "${1}" ]]
 then
-    while getopts ha:olg:r:m:t:s:cqi:e:f:n:x:k: opts
+    while getopts ha:olg:r:m:t:s:cqi:e:f:n:x: opts
     do
         case "${opts}" in
             (h)
@@ -126,9 +126,6 @@ then
             ;;
             (x)
                 external_proxy="${OPTARG}"
-            ;;
-            (k)
-                sn_key="${OPTARG}"
             ;;
             (*)
                 echo "Unrecognized options" \
@@ -618,63 +615,6 @@ else
             source "${units}/log.zsh"
         fi
     fi
-fi
-
-if [[ -z "${nocommand_source}" && -n "${sn_key}" ]]
-then
-    if ! input_data="$(
-        curl --connect-timeout ${connrefused_timeout} \
-            --data-urlencode "output_type=2" \
-            --data-urlencode "api_key=${sn_key}" \
-            --get \
-            --max-time ${external_timeout} \
-            --proxy "${external_proxy}" \
-            --retry 1 \
-            --retry-connrefused \
-            --retry-max-time $((external_timeout - connrefused_timeout)) \
-            --silent \
-            --user-agent "${useragent}" \
-            "https://saucenao.com/search.php"
-    )"
-    then
-        log_text="SauceNAO: Failed to access SauceNAO API"
-        source "${units}/log.zsh"
-
-        exit 1
-    fi
-
-    if ! jq -e '.' <<< "${input_data}" > /dev/null
-    then
-        log_text="SauceNAO: An unknown error occurred"
-        source "${units}/log.zsh"
-
-        exit 1
-    fi
-
-    sn_status="$(jq -r '.header.status' <<< "${input_data}")"
-
-    case "${sn_status}" in
-        (-3)
-        ;;
-        (-2)
-            log_text="SauceNAO: Rate limit exceeded, try again later"
-            source "${units}/log.zsh"
-
-            exit 1
-        ;;
-        (-1)
-            log_text="SauceNAO: Invalid API key"
-            source "${units}/log.zsh"
-
-            exit 1
-        ;;
-        (*)
-            log_text="SauceNAO: An unknown error occurred"
-            source "${units}/log.zsh"
-
-            exit 1
-        ;;
-    esac
 fi
 
 log_text="Running help command check..."

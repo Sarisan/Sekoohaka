@@ -9,8 +9,9 @@ elif [[ -f "${user_config}/saucenao" ]]
 then
     sn_key="$(< "${user_config}/saucenao")"
     return
-elif [[ -n "${sn_key}" ]]
+elif [[ -f "${default_user_config}/saucenao" ]]
 then
+    sn_key="$(< "${default_user_config}/saucenao")"
     return
 else
     output_text="You must provide your SauceNAO API key before you can use SauceNAO"
