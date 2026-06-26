@@ -16,7 +16,7 @@ esac
 
 auth_dir="${user_config}/${ib_config}"
 
-if ! [[ -d "${auth_dir}" || -n "${command_authorize}" ]]
+if ! [[ -d "${auth_dir}" || -z "${ib_mode}" ]]
 then
     user_config="${default_user_config}"
     auth_dir="${user_config}/${ib_config}"

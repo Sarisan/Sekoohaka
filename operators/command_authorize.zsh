@@ -2,8 +2,6 @@
 # Copyright (C) 2024-2026 Danil Lisin
 # SPDX-License-Identifier: Apache-2.0
 
-command_authorize=0
-
 if [[ -n "${1}" ]]
 then
     ib_board="${1}"
