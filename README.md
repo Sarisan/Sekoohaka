@@ -21,7 +21,7 @@ BusyBox is a hard-coded dependency and cannot be replaced with alternatives!
 * jq
 * recode
 
-For distribution specific installation commands follow [command-not-found](https://command-not-found.com/).
+For distribution specific installation commands follow [command-not-found](https://command-not-found.com/)
 
 ### BusyBox functions
 
@@ -41,7 +41,7 @@ For distribution specific installation commands follow [command-not-found](https
 
 Usage: `./bot.zsh [options] [token]`
 
-For better performance, it is recommended to use a locally deployed [Telegram Bot API](https://github.com/tdlib/telegram-bot-api) server.
+For better performance, it is recommended to use a locally deployed [Telegram Bot API](https://github.com/tdlib/telegram-bot-api) server
 
 ### Available options
 
@@ -70,7 +70,7 @@ Cache modes:
   advanced      Extract posts cache from inline results
 ```
 
-### Default user
+## Default user
 
 You can configure default user to let users without an account on certain Image Board or SauceNAO still have access to it with extended limits
 
@@ -88,13 +88,13 @@ Simply copy desired data from your user directory to `users/0`
 | `yandere` | Yandere |
 | `saucenao` | SauceNAO |
 
-### Users access management
+## Users access management
 
 You can configure whitelist, blacklist and aliases to let only specific users have access to bot, block specific users from accessing bot or let specific users have full access to other user data respectively
 
 It is recommended to manage them only after you ran bot at least once
 
-#### Blacklist and Whitelist
+### Blacklist and Whitelist
 
 One-column list
 
@@ -105,7 +105,7 @@ One-column list
 
 Simply place user IDs following this example
 
-#### Aliases
+### Aliases
 
 Two-columns list
 
