@@ -88,6 +88,34 @@ Simply copy desired data from your user directory to `users/0`
 | `yandere` | Yandere |
 | `saucenao` | SauceNAO |
 
+### Users access management
+
+You can configure whitelist, blacklist and aliases to let only specific users have access to bot, block specific users from accessing bot or let specific users have full access to other user data respectively
+
+It is recommended to manage them only after you ran bot at least once
+
+#### Blacklist and Whitelist
+
+One-column list
+
+```
+777000
+1087968824
+```
+
+Simply place user IDs following this example
+
+#### Aliases
+
+Two-columns list
+
+```
+777000 1087968824
+```
+
+In this example `777000` is aliased to `1087968824`, instead of own user directory `777000` uses `1087968824` directory with full access
+
+This is useful when you have multiple accounts and want to share same data across them
 
 ## Supported Image Boards
 
