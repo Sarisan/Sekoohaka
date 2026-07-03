@@ -24,4 +24,3 @@ then
 fi
 
 user_config="${users}/${user_id}"
-default_user_config="${users}/0"

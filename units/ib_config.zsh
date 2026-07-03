@@ -22,7 +22,8 @@ auth_dir="${user_config}/${ib_config}"
 
 if ! [[ -d "${auth_dir}" || -z "${ib_mode}" ]]
 then
-    user_config="${default_user_config}"
+    user_id=0
+    user_config="${users}/${user_id}"
     auth_dir="${user_config}/${ib_config}"
 fi
 
