@@ -70,24 +70,6 @@ Cache modes:
   advanced      Extract posts cache from inline results
 ```
 
-## Default user
-
-You can configure default user to let users without an account on certain Image Board or SauceNAO still have access to it with extended limits
-
-Make sure to turn bot off before any data manipulation
-
-Simply copy desired data from your user directory to `users/0`
-
-| Data | Name |
-| :--- | :--- |
-| `safebooru` | Safebooru |
-| `danbooru` | Danbooru |
-| `idolcomplex` | Idol Complex |
-| `sankakuchannel` | Sankaku Channel |
-| `konachan` | Konachan |
-| `yandere` | Yandere |
-| `saucenao` | SauceNAO |
-
 ## Users access management
 
 You can configure whitelist, blacklist and aliases to let only specific users have access to bot, block specific users from accessing bot or let specific users have full access to other user data respectively
@@ -116,6 +98,26 @@ Two-columns list
 In this example `777000` is aliased to `1087968824`, instead of own user directory `777000` uses `1087968824` directory with full access
 
 This is useful when you have multiple accounts and want to share same data across them
+
+## Default user
+
+You can configure default user to let users without an account on certain Image Board or SauceNAO still have access to it with extended limits
+
+Make sure to turn bot off before any data manipulation
+
+Simply copy desired data from your user directory to `users/0`
+
+| Data | Name |
+| :--- | :--- |
+| `safebooru` | Safebooru |
+| `danbooru` | Danbooru |
+| `idolcomplex` | Idol Complex |
+| `sankakuchannel` | Sankaku Channel |
+| `konachan` | Konachan |
+| `yandere` | Yandere |
+| `saucenao` | SauceNAO |
+
+Alternatively you can alias your user ID to `0`
 
 ## Supported Image Boards
 
