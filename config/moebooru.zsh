@@ -4,15 +4,25 @@
 
 ib_cname="moebooru"
 
+ib_raw=0
+ib_login_file="username"
+ib_key_file="api_key"
+ib_login_word="username"
+ib_key_word="API key"
+
 case "${ib_board}" in
     (k)
         ib_name="Konachan"
+        ib_config="konachan"
         ib_api="https://konachan.com"
+        ib_auth="https://konachan.com"
         ib_url="https://konachan.com"
     ;;
     (y)
         ib_name="Yandere"
+        ib_config="yandere"
         ib_api="https://yande.re"
+        ib_auth="https://yande.re"
         ib_url="https://yande.re"
     ;;
 esac

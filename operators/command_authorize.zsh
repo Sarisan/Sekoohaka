@@ -6,7 +6,6 @@ if [[ -n "${1}" ]]
 then
     ib_board="${1}"
     source "${units}/ib_config.zsh"
-    source "${units}/ib_authconfig.zsh"
 
     if [[ -z "${ib_auth}" ]]
     then

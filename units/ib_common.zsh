@@ -8,7 +8,6 @@ then
     ib_mode="p"
 
     source "${units}/ib_config.zsh"
-    source "${units}/ib_authconfig.zsh"
 
     if [[ -z "${ib_data_url}" ]]
     then

@@ -4,10 +4,19 @@
 
 ib_cname="sankakucomplex"
 
+ib_header="Authorization: Bearer"
+ib_expire=86400
+ib_login_file="login"
+ib_key_file="password"
+ib_login_word="login"
+ib_key_word="password"
+
 case "${ib_board}" in
     (i)
         ib_name="Idol Complex"
+        ib_config="idolcomplex"
         ib_api="https://i.sankakuapi.com"
+        ib_auth="https://i.sankakuapi.com"
         ib_url="https://www.idolcomplex.com"
 
         ib_groups=(
@@ -24,7 +33,9 @@ case "${ib_board}" in
     ;;
     (s)
         ib_name="Sankaku Channel"
+        ib_config="sankakuchannel"
         ib_api="https://sankakuapi.com"
+        ib_auth="https://sankakuapi.com"
         ib_url="https://www.sankakucomplex.com"
 
         ib_groups=(
