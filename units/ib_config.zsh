@@ -20,12 +20,19 @@ esac
 
 auth_dir="${user_config}/${ib_config}"
 
+until mkdir "${user_config}.lock"
+do
+    sleep 1
+done
+
 if ! [[ -d "${auth_dir}" || -z "${ib_mode}" ]]
 then
     user_id=0
     user_config="${users}/${user_id}"
     auth_dir="${user_config}/${ib_config}"
 fi
+
+rmdir "${user_config}.lock"
 
 timestamp_file="${auth_dir}/timestamp"
 token_file="${auth_dir}/token"

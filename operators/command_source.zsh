@@ -12,6 +12,19 @@ do
     sleep 1
 done
 
+if ! [[ -f "${user_config}/saucenao" ]]
+then
+    user_id=0
+    user_config="${users}/${user_id}"
+fi
+
+rmdir "${user_config}.lock"
+
+until mkdir "${user_config}.lock"
+do
+    sleep 1
+done
+
 source "${units}/sn_auth.zsh"
 
 if [[ -d "${user_config}" ]]
