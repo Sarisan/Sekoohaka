@@ -3,6 +3,8 @@
 # SPDX-License-Identifier: Apache-2.0
 
 rm -f "${ib_post}"
+
+ib_board="${board_table[1]}"
 ib_mode="p"
 
 source "${units}/ib_config.zsh"

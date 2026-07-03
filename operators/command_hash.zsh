@@ -28,21 +28,21 @@ do
     done
 done
 
-for ib_board in ${board_table[@]}
+while [[ ${#board_table} -ge 2 ]]
 do
-    source "${units}/ib_config.zsh"
     source "${units}/ib_hash.zsh" &
     wait
 
     if ! [[ -f "${ib_post}" ]]
     then
+        shift 2 board_table
         continue
     fi
 
     ib_id="$(< "${ib_post}")"
 
-    keyboard_text1="${ib_name}"
-    keyboard_query1="post ${ib_board} ${ib_id}"
+    keyboard_text1="${board_table[2]}"
+    keyboard_query1="post ${board_table[1]} ${ib_id}"
 
     reply_markup="$(
         jq --compact-output \
@@ -54,6 +54,7 @@ do
     )"
 
     keyboard_offset=$((keyboard_offset + 0.5))
+    shift 2 board_table
 done
 
 if [[ -f "${ib_sample}" ]]
