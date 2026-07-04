@@ -12,37 +12,51 @@ do
     sleep 1
 done
 
-if ! [[ -f "${user_config}/saucenao" ]]
+if [[ -n "${1}" ]]
 then
-    user_id=0
-    user_config="${users}/${user_id}"
+    sn_key="${1}"
+    source "${units}/sn_auth.zsh"
+
+    if [[ -d "${user_config}" ]]
+    then
+        user_data=($(ls -1 "${user_config}"))
+
+        if [[ ${#user_data} -eq 0 ]]
+        then
+            rmdir "${user_config}"
+        fi
+    fi
+
+    rmdir "${user_config}.lock"
+    return
 fi
 
-rmdir "${user_config}.lock"
+if ! [[ -f "${user_config}/saucenao" ]]
+then
+    rmdir "${user_config}.lock"
+
+    user_id=0
+    user_config="${users}/${user_id}"
+else
+    rmdir "${user_config}.lock"
+fi
 
 until mkdir "${user_config}.lock"
 do
     sleep 1
 done
 
-source "${units}/sn_auth.zsh"
-
-if [[ -d "${user_config}" ]]
+if ! [[ -f "${user_config}/saucenao" ]]
 then
-    user_data=($(ls -1 "${user_config}"))
+    output_text="You must provide your SauceNAO API key before you can use SauceNAO"
 
-    if [[ ${#user_data} -eq 0 ]]
-    then
-        rmdir "${user_config}"
-    fi
-fi
-
-rmdir "${user_config}.lock"
-
-if [[ -n "${output_text}" ]]
-then
+    rmdir "${user_config}.lock"
     return
 fi
+
+sn_key="$(< "${user_config}/saucenao")"
+
+rmdir "${user_config}.lock"
 
 source "${units}/sn_get.zsh"
 

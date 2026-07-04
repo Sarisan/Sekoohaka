@@ -2,18 +2,6 @@
 # Copyright (C) 2024-2026 Danil Lisin
 # SPDX-License-Identifier: Apache-2.0
 
-if [[ -n "${1}" ]]
-then
-    sn_key="${1}"
-elif [[ -f "${user_config}/saucenao" ]]
-then
-    sn_key="$(< "${user_config}/saucenao")"
-    return
-else
-    output_text="You must provide your SauceNAO API key before you can use SauceNAO"
-    return
-fi
-
 if ! mkdir -p "${user_config}"
 then
     output_text="Failed to create user config"
