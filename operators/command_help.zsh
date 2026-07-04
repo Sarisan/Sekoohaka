@@ -3,7 +3,7 @@
 # SPDX-License-Identifier: Apache-2.0
 
 output_text="${help_general}"
-. "${units}/help.zsh"
+source "${units}/help.zsh"
 
 link_preview_options="$(
     jq --null-input --compact-output \

@@ -58,4 +58,4 @@ then
     return
 fi
 
-. "${units}/ping.zsh"
+source "${units}/ping.zsh"

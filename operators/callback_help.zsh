@@ -43,5 +43,5 @@ then
     )"
 else
     output_text="${help_general}"
-    . "${units}/help.zsh"
+    source "${units}/help.zsh"
 fi

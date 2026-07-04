@@ -60,7 +60,7 @@ then
 fi
 
 message_id="$(jq -r '.result.message_id' <<< "${output_data}")"
-. "${units}/ping.zsh"
+source "${units}/ping.zsh"
 
 if ! output_data="$(
     curl --connect-timeout ${connrefused_timeout} \

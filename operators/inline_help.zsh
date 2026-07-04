@@ -15,7 +15,7 @@ results="$(
         '[{"type": "article", "id": $id, "title": $title, "input_message_content": {"message_text": $text, "parse_mode": "HTML", "link_preview_options": {"is_disabled": true}}, "description": $description}]'
 )"
 
-. "${units}/help.zsh"
+source "${units}/help.zsh"
 
 if [[ -n "${reply_markup}" ]]
 then
