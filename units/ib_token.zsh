@@ -2,11 +2,6 @@
 # Copyright (C) 2024-2026 Danil Lisin
 # SPDX-License-Identifier: Apache-2.0
 
-until mkdir "${user_config}.lock"
-do
-    sleep 1
-done
-
 if [[ -n "${ib_raw}" ]]
 then
     ib_dfield1="${ib_login_file}=$(< "${login_file}")"
@@ -37,5 +32,3 @@ if [[ -f "${token_file}" ]]
 then
     ib_headers="${ib_header} $(< "${token_file}")"
 fi
-
-rmdir "${user_config}.lock"

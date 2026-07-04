@@ -13,15 +13,23 @@ then
     fi
 fi
 
+until mkdir "${user_config}.lock"
+do
+    sleep 1
+done
+
 if [[ -d "${auth_dir}" ]]
 then
     source "${units}/ib_token.zsh"
 
     if [[ -n "${output_text}" ]]
     then
+        rmdir "${user_config}.lock"
         return
     fi
 fi
+
+rmdir "${user_config}.lock"
 
 if [[ -n "${ib_limit}" ]]
 then
