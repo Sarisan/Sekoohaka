@@ -27,12 +27,14 @@ done
 
 if ! [[ -d "${auth_dir}" || -z "${ib_mode}" ]]
 then
+    rmdir "${user_config}.lock"
+
     user_id=0
     user_config="${users}/${user_id}"
     auth_dir="${user_config}/${ib_config}"
+else
+    rmdir "${user_config}.lock"
 fi
-
-rmdir "${user_config}.lock"
 
 timestamp_file="${auth_dir}/timestamp"
 token_file="${auth_dir}/token"
