@@ -3,7 +3,7 @@
 # SPDX-License-Identifier: Apache-2.0
 
 ib_id="$(jq -r ".[0].${ib_iid}" "${ib_file}")"
-ib_created_at="$(jq -r ".[${array_count}].${ib_icreated}" "${ib_file}")"
+ib_created_at="$(jq -r ".[0].${ib_icreated}" "${ib_file}")"
 ib_file_size="$(jq -r ".[0].${ib_isize}" "${ib_file}")"
 ib_file_url="$(jq -r ".[0].${ib_ifile}" "${ib_file}")"
 ib_sample_url="$(jq -r ".[0].${ib_isample}" "${ib_file}")"
