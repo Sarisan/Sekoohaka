@@ -4,11 +4,9 @@
 # Copyright (C) 2024-2026 Danil Lisin
 # SPDX-License-Identifier: Apache-2.0
 
-if [[ "${__bot_env}" != "0" ]]
+if (( __bot_env != 1 ))
 then
-    trap wait INT TERM
-    env -i PATH="${PATH}" __bot_env=0 "${0}" ${@}
-    exit ${?}
+    exec /usr/bin/env -i PATH="${PATH}" __bot_env=1 "${0}" ${@}
 fi
 
 exec 2> /dev/null
