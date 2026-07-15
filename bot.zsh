@@ -6,10 +6,8 @@
 
 if (( __bot_env != 1 ))
 then
-    exec /usr/bin/env -i PATH="${PATH}" __bot_env=1 "${0}" ${@}
+    exec /usr/bin/env -i PATH="${PATH}" __bot_env=1 "${0}" ${@} 2> /dev/null
 fi
-
-exec 2> /dev/null
 
 set -e
 umask 77
