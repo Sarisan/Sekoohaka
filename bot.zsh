@@ -13,7 +13,7 @@ set -e
 umask 77
 
 version="26.7"
-useragent="Sekoohaka/${version} Telegram Bot"
+useragent="Sekoohaka/${version} Telegram Bot (user #910888)"
 
 local_address="127.0.0.1:8081"
 default_address="https://api.telegram.org"
