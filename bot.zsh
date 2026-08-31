@@ -12,7 +12,7 @@ fi
 set -e
 umask 77
 
-version="26.7"
+version="26.8"
 useragent="Sekoohaka/${version} Telegram Bot (user #910888)"
 
 local_address="127.0.0.1:8081"
